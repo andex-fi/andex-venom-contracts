@@ -4,7 +4,7 @@ pragma AbiHeader time;
 pragma AbiHeader expire;
 pragma AbiHeader pubkey;
 
-contract Pair {
+contract SwapPair {
     // cant be deployed directly
     constructor() public { revert(); }
 }

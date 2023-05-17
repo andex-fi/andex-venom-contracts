@@ -6,7 +6,7 @@ pragma AbiHeader pubkey;
 
 import "./libraries/Errors.sol";
 
-contract DexPlatform {
+contract SwapPlatform {
 
     address public static root;
     uint8 public static type_id;

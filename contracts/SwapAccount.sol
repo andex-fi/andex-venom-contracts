@@ -9,7 +9,7 @@ import "./libraries/Constants.sol";
 import "./interfaces/IUpgradableByRequest.sol";
 import "./interfaces/ISwapRoot.sol";
 
-contract Account is IUpgradableByRequest {
+contract SwapAccount is IUpgradableByRequest {
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////
     // Data
