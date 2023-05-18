@@ -9,68 +9,6 @@ IFREF {
 }
 GETGLOB 6
 THROWIF 51
-ENDS
-.loc ../contracts/SwapPlatform.sol, 53
-GETGLOB 9
-GETGLOB 10
-SDEQ
-THROWIFNOT 101
-.loc ../contracts/SwapPlatform.sol, 19
-ACCEPT
-.loc ../contracts/SwapPlatform.sol, 0
-CALLREF {
-	CALL $c7_to_c4$
-}
-THROW 0
-
-.macro setPlatformCode
-DROP
-GETGLOB 6
-THROWIFNOT 76
-GETGLOB 2
-ISNULL
-IFREF {
-	CALL $c4_to_c7$
-}
-.loc ../contracts/SwapPlatform.sol, 22
-LDREF
-ENDS
-.loc ../contracts/SwapPlatform.sol, 0
-CALLREF {
-	CALL $setPlatformCode_f319a1e6_internal_macro$
-}
-DROP
-CALLREF {
-	CALL $c7_to_c4$
-}
-THROW 0
-
-.macro setPlatformCode_f319a1e6_internal_macro
-.loc ../contracts/SwapPlatform.sol, 53
-GETGLOB 9
-GETGLOB 10
-SDEQ
-THROWIFNOT 101
-.loc ../contracts/SwapPlatform.sol, 23
-GETGLOB 14
-THROWIF 108
-.loc ../contracts/SwapPlatform.sol, 24
-SETGLOB 13
-.loc ../contracts/SwapPlatform.sol, 25
-TRUE
-SETGLOB 14
-.loc ../contracts/SwapPlatform.sol, 0
-
-.macro initialize
-DROP
-GETGLOB 6
-THROWIFNOT 76
-GETGLOB 2
-ISNULL
-IFREF {
-	CALL $c4_to_c7$
-}
-.loc ../contracts/SwapPlatform.sol, 28
 OVER
 PUSHCONT {
 	LDREF
@@ -90,51 +28,70 @@ ENDS
 CTOS
 LDMSGADDR
 ENDS
-.loc ../contracts/SwapPlatform.sol, 0
-CALLREF {
-	CALL $initialize_c37b696f_internal_macro$
+.loc ../contracts/SwapPlatform.sol, 17
+GETGLOB 9
+GETGLOB 10
+SDEQ
+PUSHCONT {
+	.loc ../contracts/SwapPlatform.sol, 18
+	BLKPUSH 4, 3
+	CALLREF {
+		CALL $_initialize_7ad5427c_internal_macro$
+	}
 }
-DROP
+PUSHCONT {
+	.loc ../contracts/SwapPlatform.sol, 20
+	DUP
+	NEWC
+	STSLICECONST x42_
+	STSLICE
+	PUSHINT 111
+	STZEROES
+	ENDC
+	PUSHPOW2 7
+	ADDCONST 32
+	UFITS 8
+	SENDRAWMSG
+}
+IFELSE
+.loc ../contracts/SwapPlatform.sol, 0
+BLKDROP 4
 CALLREF {
 	CALL $c7_to_c4$
 }
 THROW 0
 
-.macro initialize_c37b696f_internal_macro
-.loc ../contracts/SwapPlatform.sol, 53
-GETGLOB 9
-GETGLOB 10
-SDEQ
-THROWIFNOT 101
-.loc ../contracts/SwapPlatform.sol, 29
-GETGLOB 14
-THROWIFNOT 107
-.loc ../contracts/SwapPlatform.sol, 33
+.globl	_initialize_7ad5427c_internal
+.type	_initialize_7ad5427c_internal, @function
+CALL $_initialize_7ad5427c_internal_macro$
+
+.macro _initialize_7ad5427c_internal_macro
+.loc ../contracts/SwapPlatform.sol, 31
 GETGLOB 10
 NEWC
 STSLICE
+.loc ../contracts/SwapPlatform.sol, 32
+XCHG S1, S2
+STSLICE
+.loc ../contracts/SwapPlatform.sol, 33
+STSLICECONST x00000000
 .loc ../contracts/SwapPlatform.sol, 34
 XCHG S1, S2
-STSLICE
-.loc ../contracts/SwapPlatform.sol, 35
-STSLICECONST x00000000
-.loc ../contracts/SwapPlatform.sol, 36
-XCHG S1, S2
 STU 32
-.loc ../contracts/SwapPlatform.sol, 37
+.loc ../contracts/SwapPlatform.sol, 35
 STSLICE
-.loc ../contracts/SwapPlatform.sol, 39
-GETGLOB 13
+.loc ../contracts/SwapPlatform.sol, 37
+MYCODE
 SWAP
 STREF
-.loc ../contracts/SwapPlatform.sol, 40
+.loc ../contracts/SwapPlatform.sol, 38
 GETGLOB 12
 SWAP
 STREF
-.loc ../contracts/SwapPlatform.sol, 43
+.loc ../contracts/SwapPlatform.sol, 41
 OVER
 SETCODE
-.loc ../contracts/SwapPlatform.sol, 46
+.loc ../contracts/SwapPlatform.sol, 44
 SWAP
 CTOS
 DUP
@@ -149,7 +106,7 @@ PLDREF
 CTOS
 BLESS
 POP C3
-.loc ../contracts/SwapPlatform.sol, 47
+.loc ../contracts/SwapPlatform.sol, 45
 ENDC
 CALLREF {
 	CALL $:onCodeUpgrade$
@@ -176,11 +133,7 @@ NIP
 LDMSGADDR
 LDU 8
 LDREF
-LDREF
-LDI 1
 ENDS
-SETGLOB 14
-SETGLOB 13
 SETGLOB 12
 SETGLOB 11
 SETGLOB 10
@@ -225,11 +178,6 @@ PUSHCONT {
 		}
 	}
 	IFNOT
-	PUSHREF {
-	}
-	PUSHINT 0
-	SETGLOB 14
-	SETGLOB 13
 	SETGLOB 12
 	SETGLOB 11
 	SETGLOB 10
@@ -246,8 +194,6 @@ IFREFELSE {
 }
 
 .macro c7_to_c4
-GETGLOB 14
-GETGLOB 13
 GETGLOB 12
 GETGLOB 11
 GETGLOB 10
@@ -260,8 +206,6 @@ STONE
 STSLICE
 STU 8
 STREF
-STREF
-STI 1
 ENDC
 POPROOT
 
@@ -374,111 +318,11 @@ CALLREF {
 }
 THROW 60
 
-.macro root
-DROP
-ENDS
-CALLREF {
-	CALL $c4_to_c7$
-}
-GETGLOB 10
-OVER
-PUSHCONT {
-	PUSHSLICE xc0000000000000000000000000b7295e20
-	NEWC
-	STSLICE
-	STSLICE
-	ENDC
-	PUSHINT 0
-	SENDRAWMSG
-}
-IF
-THROW 0
-
-.macro type_id
-DROP
-ENDS
-CALLREF {
-	CALL $c4_to_c7$
-}
-GETGLOB 11
-OVER
-PUSHCONT {
-	PUSHSLICE xc000000000000000000000000096c38030
-	NEWC
-	STSLICE
-	STU 8
-	ENDC
-	PUSHINT 0
-	SENDRAWMSG
-}
-IF
-THROW 0
-
-.macro params
-DROP
-ENDS
-CALLREF {
-	CALL $c4_to_c7$
-}
-GETGLOB 12
-OVER
-PUSHCONT {
-	PUSHSLICE xc0000000000000000000000000b0887a21
-	NEWC
-	STSLICE
-	STREF
-	ENDC
-	PUSHINT 0
-	SENDRAWMSG
-}
-IF
-THROW 0
-
 .macro public_function_selector
 DUP
-PUSHINT 1667719843
-LEQ
+PUSHINT 362821883
+EQUAL
 IFJMPREF {
-	DUP
-	PUSHINT 381911088
-	EQUAL
-	IFJMPREF {
-		CALL $type_id$
-	}
-	DUP
-	PUSHINT 814250529
-	EQUAL
-	IFJMPREF {
-		CALL $params$
-	}
-	DUP
-	PUSHINT 925457952
-	EQUAL
-	IFJMPREF {
-		CALL $root$
-	}
-	DUP
-	PUSHINT 1667719843
-	EQUAL
-	IFJMPREF {
-		CALL $initialize$
-	}
-}
-DUP
-PUSHINT 1814366192
-LEQ
-IFJMPREF {
-	DUP
-	PUSHINT 1756716863
-	EQUAL
-	IFJMPREF {
-		CALL $constructor$
-	}
-	DUP
-	PUSHINT 1814366192
-	EQUAL
-	IFJMPREF {
-		CALL $setPlatformCode$
-	}
+	CALL $constructor$
 }
 
