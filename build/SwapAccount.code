@@ -10,25 +10,23 @@ IFREF {
 GETGLOB 6
 THROWIF 51
 ENDS
-.loc ../contracts/SwapAccount.sol, 30
+.loc ../contracts/SwapAccount.sol, 42
 THROW 100
 .loc ../contracts/SwapAccount.sol, 0
 
 .macro receive_macro
 GETGLOB 6
 THROWIFNOT 76
-.loc ../contracts/SwapAccount.sol, 33
+.loc ../contracts/SwapAccount.sol, 45
 THROW 100
 .loc ../contracts/SwapAccount.sol, 0
 
 .macro fallback_macro
 GETGLOB 6
 THROWIFNOT 76
+.loc ../contracts/SwapAccount.sol, 48
+THROW 100
 .loc ../contracts/SwapAccount.sol, 0
-DUP
-IFREF {
-	CALL $upd_only_time_in_c4$
-}
 
 .macro resetGas
 DROP
@@ -39,7 +37,7 @@ ISNULL
 IFREF {
 	CALL $c4_to_c7$
 }
-.loc ../contracts/SwapAccount.sol, 39
+.loc ../contracts/SwapAccount.sol, 51
 OVER
 PUSHCONT {
 	LDREF
@@ -59,16 +57,16 @@ IFREF {
 THROW 0
 
 .macro resetGas_0cada961_internal_macro
-.loc ../contracts/SwapAccount.sol, 128
+.loc ../contracts/SwapAccount.sol, 102
 GETGLOB 9
-GETGLOB 12
+GETGLOB 14
 SDEQ
 THROWIFNOT 100
-.loc ../contracts/SwapAccount.sol, 40
+.loc ../contracts/SwapAccount.sol, 52
 PUSHINT 100000000
 PUSHINT 2
 RAWRESERVE
-.loc ../contracts/SwapAccount.sol, 41
+.loc ../contracts/SwapAccount.sol, 53
 NEWC
 STSLICECONST x62_
 STSLICE
@@ -88,7 +86,7 @@ ISNULL
 IFREF {
 	CALL $c4_to_c7$
 }
-.loc ../contracts/SwapAccount.sol, 47
+.loc ../contracts/SwapAccount.sol, 59
 LDU 32
 GETGLOB 4
 ROT
@@ -158,7 +156,7 @@ IFREF {
 THROW 0
 
 .macro getRoot_5ca1e165_internal_macro
-.loc ../contracts/SwapAccount.sol, 48
+.loc ../contracts/SwapAccount.sol, 60
 GETGLOB 4
 PUSHINT 0
 SETINDEXQ 2
@@ -179,7 +177,7 @@ ISNULL
 IFREF {
 	CALL $c4_to_c7$
 }
-.loc ../contracts/SwapAccount.sol, 51
+.loc ../contracts/SwapAccount.sol, 63
 LDU 32
 GETGLOB 4
 ROT
@@ -249,7 +247,7 @@ IFREF {
 THROW 0
 
 .macro getOwner_893d20e8_internal_macro
-.loc ../contracts/SwapAccount.sol, 52
+.loc ../contracts/SwapAccount.sol, 64
 GETGLOB 4
 PUSHINT 0
 SETINDEXQ 2
@@ -258,7 +256,7 @@ SETINDEXQ 1
 PUSHINT 64
 SETINDEXQ 4
 SETGLOB 4
-GETGLOB 12
+GETGLOB 14
 .loc ../contracts/SwapAccount.sol, 0
 
 .macro getVersion
@@ -270,7 +268,7 @@ ISNULL
 IFREF {
 	CALL $c4_to_c7$
 }
-.loc ../contracts/SwapAccount.sol, 55
+.loc ../contracts/SwapAccount.sol, 67
 LDU 32
 GETGLOB 4
 ROT
@@ -333,7 +331,98 @@ IFREF {
 THROW 0
 
 .macro getVersion_0d8e6e2c_internal_macro
-.loc ../contracts/SwapAccount.sol, 56
+.loc ../contracts/SwapAccount.sol, 68
+GETGLOB 4
+PUSHINT 0
+SETINDEXQ 2
+FALSE
+SETINDEXQ 1
+PUSHINT 64
+SETINDEXQ 4
+SETGLOB 4
+GETGLOB 12
+.loc ../contracts/SwapAccount.sol, 0
+
+.macro getVault
+DROP
+GETGLOB 6
+THROWIFNOT 76
+GETGLOB 2
+ISNULL
+IFREF {
+	CALL $c4_to_c7$
+}
+.loc ../contracts/SwapAccount.sol, 71
+LDU 32
+GETGLOB 4
+ROT
+SETINDEXQ 5
+SETGLOB 4
+ENDS
+.loc ../contracts/SwapAccount.sol, 0
+CALLREF {
+	CALL $getVault_8d928af8_internal_macro$
+}
+OVER
+PUSHCONT {
+	PUSH S3
+	CTOS
+	LDU 2
+	LDMSGADDR
+	DROP
+	NIP
+	NEWC
+	STSLICECONST xc
+	STSLICE
+	PUSHINT 1
+	STUR 98
+	SWAP
+	NEWC
+	STSLICECONST xbd1bd325
+	STSLICE
+	STBREFR
+	ENDC
+	PUSHINT 0
+}
+PUSHCONT {
+	GETGLOB 4
+	DUP
+	INDEX 3
+	OVER
+	THIRD
+	GETGLOB 9
+	ROLL 3
+	SECOND
+	NEWC
+	STSLICECONST x2_
+	STI 1
+	STSLICECONST x1_
+	STSLICE
+	SWAP
+	STGRAMS
+	STDICT
+	PUSHINT 1
+	STUR 106
+	SWAP
+	NEWC
+	GETGLOB 4
+	INDEX 5
+	STUR 32
+	STSLICE
+	STBREFR
+	ENDC
+	GETGLOB 4
+	INDEX 4
+}
+IFELSE
+SENDRAWMSG
+IFREF {
+	CALL $upd_only_time_in_c4$
+}
+THROW 0
+
+.macro getVault_8d928af8_internal_macro
+.loc ../contracts/SwapAccount.sol, 72
 GETGLOB 4
 PUSHINT 0
 SETINDEXQ 2
@@ -354,7 +443,7 @@ ISNULL
 IFREF {
 	CALL $c4_to_c7$
 }
-.loc ../contracts/SwapAccount.sol, 60
+.loc ../contracts/SwapAccount.sol, 76
 LDU 32
 GETGLOB 4
 ROT
@@ -434,9 +523,9 @@ IFREF {
 THROW 0
 
 .macro getWalletData_857923c4_internal_macro
-.loc ../contracts/SwapAccount.sol, 61
+.loc ../contracts/SwapAccount.sol, 77
 DUP
-GETGLOB 13
+GETGLOB 15
 PUSHINT 267
 DICTGET
 NULLSWAPIFNOT
@@ -445,7 +534,7 @@ DUP
 PUSHCONT {
 	DROP
 	DUP
-	GETGLOB 14
+	GETGLOB 16
 	PUSHINT 267
 	DICTGET
 	NULLSWAPIFNOT
@@ -453,7 +542,7 @@ PUSHCONT {
 }
 IF
 PUSHCONT {
-	.loc ../contracts/SwapAccount.sol, 62
+	.loc ../contracts/SwapAccount.sol, 78
 	GETGLOB 4
 	PUSHINT 0
 	SETINDEXQ 2
@@ -463,12 +552,12 @@ PUSHCONT {
 	SETINDEXQ 4
 	SETGLOB 4
 	DUP
-	GETGLOB 13
+	GETGLOB 15
 	PUSHINT 267
 	DICTGET
 	THROWIFNOT 50
 	SWAP
-	GETGLOB 14
+	GETGLOB 16
 	PUSHINT 267
 	DICTGET
 	THROWIFNOT 50
@@ -476,7 +565,7 @@ PUSHCONT {
 	.loc ../contracts/SwapAccount.sol, 0
 }
 PUSHCONT {
-	.loc ../contracts/SwapAccount.sol, 64
+	.loc ../contracts/SwapAccount.sol, 80
 	GETGLOB 4
 	PUSHINT 0
 	SETINDEXQ 2
@@ -504,7 +593,7 @@ ISNULL
 IFREF {
 	CALL $c4_to_c7$
 }
-.loc ../contracts/SwapAccount.sol, 75
+.loc ../contracts/SwapAccount.sol, 163
 OVER
 PUSHCONT {
 	LDREF
@@ -524,18 +613,31 @@ IFREF {
 THROW 0
 
 .macro requestUpgrade_6b9f97ef_internal_macro
-.loc ../contracts/SwapAccount.sol, 128
+.loc ../contracts/SwapAccount.sol, 102
 GETGLOB 9
-GETGLOB 12
+GETGLOB 14
 SDEQ
 THROWIFNOT 100
-.loc ../contracts/SwapAccount.sol, 76
+.loc ../contracts/SwapAccount.sol, 164
+DEPTH
+ADDCONST -2
+PICK
+PUSHINT 5000
+MYADDR
+PARSEMSGADDR
+THIRD
+CALLREF {
+	CALL $__gasToTon_macro$
+}
+GEQ
+THROWIFNOT 103
+.loc ../contracts/SwapAccount.sol, 165
 PUSHINT 100000000
 PUSHINT 2
 RAWRESERVE
-.loc ../contracts/SwapAccount.sol, 77
+.loc ../contracts/SwapAccount.sol, 166
+GETGLOB 14
 GETGLOB 12
-GETGLOB 11
 GETGLOB 10
 NEWC
 STSLICECONST x62_
@@ -566,7 +668,7 @@ ISNULL
 IFREF {
 	CALL $c4_to_c7$
 }
-.loc ../contracts/SwapAccount.sol, 80
+.loc ../contracts/SwapAccount.sol, 169
 OVER
 PUSHCONT {
 	LDREF
@@ -593,125 +695,156 @@ CALLREF {
 THROW 0
 
 .macro upgrade_fb9d1513_internal_macro
-.loc ../contracts/SwapAccount.sol, 132
+.loc ../contracts/SwapAccount.sol, 106
 GETGLOB 9
 GETGLOB 10
 SDEQ
 THROWIFNOT 101
-.loc ../contracts/SwapAccount.sol, 83
-GETGLOB 10
-NEWC
-STSLICE
-.loc ../contracts/SwapAccount.sol, 84
-GETGLOB 11
-STUR 32
-.loc ../contracts/SwapAccount.sol, 85
-XCHG S1, S2
-STU 32
-.loc ../contracts/SwapAccount.sol, 86
-STSLICE
-.loc ../contracts/SwapAccount.sol, 88
-GETGLOB 15
-SWAP
-STREF
-.loc ../contracts/SwapAccount.sol, 91
+.loc ../contracts/SwapAccount.sol, 170
 GETGLOB 12
-NEWC
-STSLICE
-.loc ../contracts/SwapAccount.sol, 92
-GETGLOB 13
-SWAP
-STDICT
-.loc ../contracts/SwapAccount.sol, 93
-GETGLOB 14
-SWAP
-STDICT
-.loc ../contracts/SwapAccount.sol, 94
-STBREFR
-.loc ../contracts/SwapAccount.sol, 97
-OVER
-SETCODE
-.loc ../contracts/SwapAccount.sol, 100
-SWAP
-CTOS
-DUP
-PUSHSLICE x8adb35
-SDEQ
+PUSH S2
+EQUAL
 PUSHCONT {
-	PLDREFIDX 1
+	.loc ../contracts/SwapAccount.sol, 171
+	DUP
+	NEWC
+	STSLICECONST x62_
+	STSLICE
+	PUSHINT 111
+	STZEROES
+	ENDC
+	PUSHPOW2 7
+	SENDRAWMSG
+}
+PUSHCONT {
+	.loc ../contracts/SwapAccount.sol, 175
+	GETGLOB 10
+	NEWC
+	STSLICE
+	.loc ../contracts/SwapAccount.sol, 176
+	GETGLOB 11
+	STSLICER
+	.loc ../contracts/SwapAccount.sol, 177
+	GETGLOB 12
+	STUR 32
+	.loc ../contracts/SwapAccount.sol, 178
+	PUSH S2
+	STUR 32
+	.loc ../contracts/SwapAccount.sol, 179
+	OVER
+	STSLICER
+	.loc ../contracts/SwapAccount.sol, 181
+	GETGLOB 13
+	SWAP
+	STREF
+	.loc ../contracts/SwapAccount.sol, 184
+	GETGLOB 14
+	NEWC
+	STSLICE
+	.loc ../contracts/SwapAccount.sol, 185
+	GETGLOB 15
+	SWAP
+	STDICT
+	.loc ../contracts/SwapAccount.sol, 186
+	GETGLOB 16
+	SWAP
+	STDICT
+	.loc ../contracts/SwapAccount.sol, 187
+	STBREFR
+	.loc ../contracts/SwapAccount.sol, 190
+	PUSH S3
+	SETCODE
+	.loc ../contracts/SwapAccount.sol, 193
+	PUSH S3
 	CTOS
+	DUP
+	PUSHSLICE x8adb35
+	SDEQ
+	PUSHCONT {
+		PLDREFIDX 1
+		CTOS
+	}
+	IF
+	PLDREF
+	CTOS
+	BLESS
+	POP C3
+	.loc ../contracts/SwapAccount.sol, 194
+	ENDC
+	CALLREF {
+		CALL $:onCodeUpgrade$
+	}
 }
-IF
-PLDREF
-CTOS
-BLESS
-POP C3
-.loc ../contracts/SwapAccount.sol, 101
-ENDC
-CALLREF {
-	CALL $:onCodeUpgrade$
-}
+IFELSE
 .loc ../contracts/SwapAccount.sol, 0
+BLKDROP 3
 
 .internal-alias :onCodeUpgrade, 2
 .internal :onCodeUpgrade
-.loc ../contracts/SwapAccount.sol, 105
+.loc ../contracts/SwapAccount.sol, 199
 CTOS
-.loc ../contracts/SwapAccount.sol, 106
+.loc ../contracts/SwapAccount.sol, 200
 DUP
 LDMSGADDR
+LDMSGADDR
 LDU 32
 LDU 32
 LDMSGADDR
-POP S5
-.loc ../contracts/SwapAccount.sol, 109
+POP S6
+.loc ../contracts/SwapAccount.sol, 203
 ROT
 PUSHCONT {
-	.loc ../contracts/SwapAccount.sol, 110
+	.loc ../contracts/SwapAccount.sol, 204
 	PUSHREFSLICE {
 		.blob x8000000000000000000000000000000000000000000000000000000000000000001_
 	}
 	SETGLOB 10
-	PUSHINT 0
-	SETGLOB 11
 	PUSHREFSLICE {
 		.blob x8000000000000000000000000000000000000000000000000000000000000000001_
 	}
+	SETGLOB 11
+	PUSHINT 0
 	SETGLOB 12
-	NEWDICT
-	SETGLOB 13
-	NEWDICT
-	SETGLOB 14
 	PUSHREF {
 	}
+	SETGLOB 13
+	PUSHREFSLICE {
+		.blob x8000000000000000000000000000000000000000000000000000000000000000001_
+	}
+	SETGLOB 14
+	NEWDICT
 	SETGLOB 15
+	NEWDICT
+	SETGLOB 16
 	.loc ../contracts/SwapAccount.sol, 0
 }
 IFNOT
-.loc ../contracts/SwapAccount.sol, 113
-ROT
+.loc ../contracts/SwapAccount.sol, 207
+ROLL 3
 SETGLOB 10
-.loc ../contracts/SwapAccount.sol, 114
+.loc ../contracts/SwapAccount.sol, 208
+BLKDROP2 1, 2
+.loc ../contracts/SwapAccount.sol, 209
 SWAP
-SETGLOB 11
-.loc ../contracts/SwapAccount.sol, 116
+SETGLOB 12
+.loc ../contracts/SwapAccount.sol, 211
 OVER
 LDREF
 POP S3
-SETGLOB 15
-.loc ../contracts/SwapAccount.sol, 117
+SETGLOB 13
+.loc ../contracts/SwapAccount.sol, 212
 SWAP
 LDREFRTOS
 NIP
-.loc ../contracts/SwapAccount.sol, 119
+.loc ../contracts/SwapAccount.sol, 214
 LDMSGADDR
 DROP
-SETGLOB 12
-.loc ../contracts/SwapAccount.sol, 121
+SETGLOB 14
+.loc ../contracts/SwapAccount.sol, 216
 PUSHINT 100000000
 PUSHINT 2
 RAWRESERVE
-.loc ../contracts/SwapAccount.sol, 122
+.loc ../contracts/SwapAccount.sol, 217
 NEWC
 STSLICECONST x62_
 STSLICE
@@ -735,15 +868,20 @@ LDU 64 ; pubkey timestamp c4
 LDU 1 ; ctor flag
 NIP
 LDMSGADDR
+LDREF
+ENDS
+CTOS
+LDMSGADDR
 LDU 32
+LDREF
 LDREF
 ENDS
 CTOS
 LDMSGADDR
 LDDICT
 LDDICT
-LDREF
 ENDS
+SETGLOB 16
 SETGLOB 15
 SETGLOB 14
 SETGLOB 13
@@ -766,14 +904,16 @@ PUSHCONT {
 	PUSHREFSLICE {
 		.blob x8000000000000000000000000000000000000000000000000000000000000000001_
 	}
+	DUP
 	PUSHINT 0
+	PUSHREF {
+	}
 	PUSHREFSLICE {
 		.blob x8000000000000000000000000000000000000000000000000000000000000000001_
 	}
 	NEWDICT
 	DUP
-	PUSHREF {
-	}
+	SETGLOB 16
 	SETGLOB 15
 	SETGLOB 14
 	SETGLOB 13
@@ -793,6 +933,7 @@ IFREFELSE {
 }
 
 .macro c7_to_c4
+GETGLOB 16
 GETGLOB 15
 GETGLOB 14
 GETGLOB 13
@@ -806,13 +947,17 @@ STU 256
 STU 64
 STONE
 STSLICE
+ROLLREV 6
+NEWC
+STSLICE
 STU 32
-ROLLREV 4
+STREF
+ROLLREV 3
 NEWC
 STSLICE
 STDICT
 STDICT
-STREF
+STBREFR
 STBREFR
 ENDC
 POPROOT
@@ -957,7 +1102,7 @@ CALLREF {
 
 .macro public_function_selector
 DUP
-PUSHINT 1656985116
+PUSHINT 1491672510
 LEQ
 IFJMPREF {
 	DUP
@@ -973,22 +1118,28 @@ IFJMPREF {
 		CALL $getVersion$
 	}
 	DUP
+	PUSHINT 1025233701
+	EQUAL
+	IFJMPREF {
+		CALL $getVault$
+	}
+	DUP
 	PUSHINT 1491672510
 	EQUAL
 	IFJMPREF {
 		CALL $getWalletData$
 	}
+}
+DUP
+PUSHINT 1950458398
+LEQ
+IFJMPREF {
 	DUP
 	PUSHINT 1656985116
 	EQUAL
 	IFJMPREF {
 		CALL $getOwner$
 	}
-}
-DUP
-PUSHINT 2067098323
-LEQ
-IFJMPREF {
 	DUP
 	PUSHINT 1688565960
 	EQUAL
@@ -1007,11 +1158,11 @@ IFJMPREF {
 	IFJMPREF {
 		CALL $getRoot$
 	}
-	DUP
-	PUSHINT 2067098323
-	EQUAL
-	IFJMPREF {
-		CALL $requestUpgrade$
-	}
+}
+DUP
+PUSHINT 2067098323
+EQUAL
+IFJMPREF {
+	CALL $requestUpgrade$
 }
 

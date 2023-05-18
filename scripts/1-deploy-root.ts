@@ -1,27 +1,21 @@
-import { getRandomNonce, zeroAddress } from "locklift";
-
+import { Address } from "locklift";
 
 async function main() {
-  // const SwapRoot = await locklift.factory.getContractArtifacts("SwapRoot");
-  // const keyPair = await locklift.keys.getKeyPairs();
-
-  const signer = (await locklift.keystore.getSigner("0"))!
-  
-  const { contract: swapRoot } = await locklift.factory.deployContract({
+  const owner = new Address ("0:52a5e239cc2575ca0a4ee8aa947351cb439d7508728506c04e2ad24e0d025e15");
+  const signer = (await locklift.keystore.getSigner("0"))!;
+  const { contract: swapRoot, tx } = await locklift.factory.deployContract({
     contract: "SwapRoot",
     publicKey: signer.publicKey,
     initParams: {
-      deployer_: zeroAddress, // this field should be zero address if deploying with public key (see source code)
-      randomNonce_: getRandomNonce(),
-      // rootOwner_: rootOwner,
-      // walletCode_: TokenWallet.code,
-    }
-    initParams: {
-      _nonce: getRandomNonce(),
+      _nonce: locklift.utils.getRandomNonce(),
     },
-    keyPair,
+    constructorParams: {
+      initial_owner: owner,
+    },
+    value: locklift.utils.toNano(1),
   });
 
+  console.log(`Sample deployed at: ${swapRoot.address.toString()}`);
 }
 
 main()

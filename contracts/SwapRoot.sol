@@ -11,9 +11,11 @@ import "./libraries/Constants.sol";
 import "./SwapPlatform.sol";
 import "./interfaces/IUpgradable.sol";
 import "./interfaces/IUpgradableByRequest.sol";
+import "./interfaces/IAfterInitialize.sol";
 import "./interfaces/ISwapRoot.sol";
+import "./interfaces/IResetGas.sol";
 
-contract SwapRoot is ISwapRoot, IUpgradable {
+contract SwapRoot is ISwapRoot, IResetGas, IUpgradable {
 
     uint32 static _nonce;
 
@@ -24,22 +26,25 @@ contract SwapRoot is ISwapRoot, IUpgradable {
     TvmCell pair_code;
     uint32 pair_version;
 
+    bool active;
+
     address owner;
+    address vault;
     address pending_owner;
 
-    constructor(address initial_owner) public {
+    constructor(address initial_owner, address initial_vault) public {
         tvm.accept();
         owner = initial_owner;
+        vault = initial_vault;
     }
 
-    /* Install / upgrade code */
+    // Install
 
     function installPlatformOnce(TvmCell code) external onlyOwner {
         // can be installed only once
         require(!has_platform_code, Errors.PLATFORM_CODE_NON_EMPTY);
         tvm.rawReserve(Constants.ROOT_INITIAL_BALANCE, 2);
         platform_code = code;
-        has_platform_code = true;
         owner.transfer({ value: 0, flag: 128 });
     }
 
@@ -65,12 +70,58 @@ contract SwapRoot is ISwapRoot, IUpgradable {
         return{ value: 0, bounce: false, flag: 64 } pair_version;
     }
 
+    // Vault
+
+    function setVault(address new_vault) external onlyOwner {
+        tvm.rawReserve(Constants.ROOT_INITIAL_BALANCE, 2);
+        vault = new_vault;
+        owner.transfer({ value: 0, flag: 128 });
+    }
+
+    function getVault() external view responsible returns (address) {
+        return{ value: 0, bounce: false, flag: 64 } vault;
+    }
+
+    modifier onlyVault() {
+        require(msg.sender == vault, Errors.NOT_VAULT);
+        _;
+    }
+
+    // Active
+
+    function setActive(bool new_active) external onlyOwner {
+        tvm.rawReserve(Constants.ROOT_INITIAL_BALANCE, 2);
+        if (new_active && has_platform_code && vault.value != 0 && account_version > 0 && pair_version > 0) {
+            active = true;
+        } else {
+            active = false;
+        }
+        owner.transfer({ value: 0, flag: 128 });
+    }
+
+    function isActive() external view responsible returns (bool) {
+        return{ value: 0, bounce: false, flag: 64 } active;
+    }
+
+    modifier onlyActive() {
+        require(active, Errors.NOT_ACTIVE);
+        _;
+    }
+
     // Upgrade the root contract itself (IUpgradable)
 
     function upgrade(TvmCell code) override external onlyOwner {
+
+        require(msg.value > gasToValue(Constants.UPGRADE_ACCOUNT_MIN_VALUE, address(this).wid), Errors.VALUE_TOO_LOW);
+
+        tvm.rawReserve(Constants.ROOT_INITIAL_BALANCE, 2);
+
+        active = false;
+
         TvmBuilder builder;
 
         builder.store(owner);
+        builder.store(vault);
 
         builder.store(platform_code);
         builder.store(account_code);
@@ -84,22 +135,57 @@ contract SwapRoot is ISwapRoot, IUpgradable {
 
     function onCodeUpgrade(TvmCell data) private {}
 
-    function requestUpgradeAccount(uint32 current_version, address account_owner, address send_gas_to) override external onlyAccount(account_owner) {
+    function requestUpgradeAccount(
+        uint32 current_version,
+        address send_gas_to,
+        address account_owner
+    ) override external onlyAccount(account_owner) {
         tvm.rawReserve(math.max(Constants.ROOT_INITIAL_BALANCE, address(this).balance - msg.value), 2);
-        if (current_version == account_version) {
+        if (current_version == account_version || !active) {
             send_gas_to.transfer({ value: 0, flag: 128 });
         } else {
             IUpgradableByRequest(msg.sender).upgrade{ value: 0, flag: 128 }(account_code, account_version, send_gas_to);
         }
     }
 
-    /* Reset balance to ROOT_INITIAL_BALANCE */
-    function resetGas(address receiver) external view onlyOwner {
+    function forceUpgradeAccount(
+        address account_owner,
+        address send_gas_to
+    ) external view onlyOwner {
+        require(msg.value >= gasToValue(Constants.UPGRADE_ACCOUNT_MIN_VALUE, address(this).wid), Errors.VALUE_TOO_LOW);
+        tvm.rawReserve(math.max(Constants.ROOT_INITIAL_BALANCE, address(this).balance - msg.value), 2);
+        IUpgradableByRequest(address(tvm.hash(_buildInitData(
+            Types.Account,
+            _buildAccountParams(account_owner)
+        )))).upgrade{ value: 0, flag: 128 }(account_code, account_version, send_gas_to);
+    }
+
+    function upgradePair(
+        address left_root,
+        address right_root,
+        address send_gas_to
+    ) external view onlyOwner {
+        require(msg.value >= gasToValue(Constants.UPGRADE_PAIR_MIN_VALUE, address(this).wid), Errors.VALUE_TOO_LOW);
+        tvm.rawReserve(math.max(Constants.ROOT_INITIAL_BALANCE, address(this).balance - msg.value), 2);
+        IUpgradableByRequest(address(tvm.hash(_buildInitData(
+            Types.Pair,
+            _buildPairParams(left_root, right_root)
+        ))))
+        .upgrade{ value: 0, flag: 128 }(pair_code, pair_version, send_gas_to);
+    }
+
+    // Reset balance to ROOT_INITIAL_BALANCE
+    function resetGas(address receiver) override external view onlyOwner {
         tvm.rawReserve(Constants.ROOT_INITIAL_BALANCE, 2);
         receiver.transfer({ value: 0, flag: 128 });
     }
 
-    /* Owner */
+    function resetTargetGas(address target, address receiver) external view onlyOwner {
+        tvm.rawReserve(math.max(Constants.ROOT_INITIAL_BALANCE, address(this).balance - msg.value), 2);
+        IResetGas(target).resetGas{ value: 0, flag: 128 }(receiver);
+    }
+
+    // Owner
 
     modifier onlyOwner() {
         require(msg.sender == owner, Errors.NOT_MY_OWNER);
@@ -116,7 +202,7 @@ contract SwapRoot is ISwapRoot, IUpgradable {
         pending_owner = address.makeAddrStd(0, 0);
     }
 
-    /* Expected address functions */
+    // Expected address functions
 
     modifier onlyPlatform(uint8 type_id, TvmCell params) {
         address expected = address(tvm.hash(_buildInitData(type_id, params)));
@@ -187,39 +273,47 @@ contract SwapRoot is ISwapRoot, IUpgradable {
         });
     }
 
-    /* Create account */
+    // Deploy child contracts
 
-    function deployAccount(address account_owner, address send_gas_to) external view {
-        require(account_version != 0, Errors.ACCOUNT_CODE_EMPTY);
-        require(has_platform_code, Errors.PLATFORM_CODE_EMPTY);
+    function deployAccount(address account_owner, address send_gas_to) external view onlyActive {
+        require(msg.value >= gasToValue(Constants.DEPLOY_ACCOUNT_MIN_VALUE, address(this).wid), Errors.VALUE_TOO_LOW);
         require(account_owner.value != 0, Errors.INVALID_ADDRESS);
-        require(msg.value < Constants.DEPLOY_ACCOUNT_MIN_VALUE, Errors.VALUE_TOO_LOW);
 
         tvm.rawReserve(math.max(Constants.ROOT_INITIAL_BALANCE, address(this).balance - msg.value), 2);
 
         SwapPlatform platform = new SwapPlatform{
             stateInit: _buildInitData(Types.Account, _buildAccountParams(account_owner)),
-            value: 0.1 ton,
+            value: gasToValue(Constants.PLATFORM_DEPLOY_VALUE, address(this).wid),
             flag: 1
         }();
-        platform.setPlatformCode{value: 0.1 ton, flag: 1}(platform_code);
-        platform.initialize{value: 0, flag: 128}(account_code, account_version, send_gas_to);
+        platform.setPlatformCode{value: gasToValue(Constants.SET_PLATFORM_CODE_VALUE, address(this).wid), flag: 1}(platform_code);
+        platform.initialize{value: gasToValue(Constants.ACCOUNT_INITIALIZE_VALUE, address(this).wid), flag: 1 }(
+            account_code,
+            account_version,
+            vault,
+            send_gas_to
+        );
+        send_gas_to.transfer({ value: 0, flag: 128 });
     }
 
-    function deployPair(address left_root, address right_root, address send_gas_to) external view {
-        require(account_version > 0, Errors.PAIR_CODE_EMPTY);
-        require(has_platform_code, Errors.PLATFORM_CODE_EMPTY);
-        require(msg.value < Constants.DEPLOY_PAIR_MIN_VALUE, Errors.VALUE_TOO_LOW);
+    function deployPair(address left_root, address right_root, address send_gas_to) external view onlyActive {
+        require(msg.value >= gasToValue(Constants.DEPLOY_PAIR_MIN_VALUE, address(this).wid), Errors.VALUE_TOO_LOW);
 
         tvm.rawReserve(math.max(Constants.ROOT_INITIAL_BALANCE, address(this).balance - msg.value), 2);
 
-        SwapPlatform platform = new SwapPlatform{
+        address platform = new SwapPlatform{
             stateInit: _buildInitData(Types.Pair, _buildPairParams(left_root, right_root)),
-            value: 0.1 ton,
+            value: gasToValue(Constants.PLATFORM_DEPLOY_VALUE, address(this).wid),
             flag: 1
         }();
-        platform.setPlatformCode{value: 0.1 ton, flag: 1}(platform_code);
-        platform.initialize{value: 0, flag: 128}(pair_code, pair_version, send_gas_to);
+        SwapPlatform(platform).setPlatformCode{value: gasToValue(Constants.SET_PLATFORM_CODE_VALUE, address(this).wid), flag: 1}(platform_code);
+        SwapPlatform(platform).initialize{value: gasToValue(Constants.PAIR_INITIALIZE_VALUE, address(this).wid), flag: 1 }(
+            pair_code,
+            pair_version,
+            vault,
+            send_gas_to
+        );
+        IAfterInitialize(platform).afterInitialize{ value: 0, flag: 128 }(send_gas_to);
     }
 
 }

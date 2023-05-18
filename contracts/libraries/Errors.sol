@@ -13,5 +13,8 @@ library Errors {
     uint8 constant ACCOUNT_CODE_EMPTY           = 109;
     uint8 constant PAIR_CODE_EMPTY              = 110;
     uint8 constant INVALID_ADDRESS              = 111;
-
+    uint8 constant NOT_TOKEN_ROOT               = 112;
+    uint8 constant NOT_LP_TOKEN_ROOT            = 113;
+    uint8 constant NOT_ACTIVE                   = 114;
+    uint8 constant NOT_VAULT                    = 115;
 }

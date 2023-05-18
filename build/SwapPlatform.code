@@ -10,7 +10,7 @@ IFREF {
 GETGLOB 6
 THROWIF 51
 ENDS
-.loc ../contracts/SwapPlatform.sol, 52
+.loc ../contracts/SwapPlatform.sol, 53
 GETGLOB 9
 GETGLOB 10
 SDEQ
@@ -46,7 +46,7 @@ CALLREF {
 THROW 0
 
 .macro setPlatformCode_f319a1e6_internal_macro
-.loc ../contracts/SwapPlatform.sol, 52
+.loc ../contracts/SwapPlatform.sol, 53
 GETGLOB 9
 GETGLOB 10
 SDEQ
@@ -85,10 +85,14 @@ PUSHCONT {
 }
 IFELSE
 LDMSGADDR
+LDREF
+ENDS
+CTOS
+LDMSGADDR
 ENDS
 .loc ../contracts/SwapPlatform.sol, 0
 CALLREF {
-	CALL $initialize_041df5ea_internal_macro$
+	CALL $initialize_c37b696f_internal_macro$
 }
 DROP
 CALLREF {
@@ -96,8 +100,8 @@ CALLREF {
 }
 THROW 0
 
-.macro initialize_041df5ea_internal_macro
-.loc ../contracts/SwapPlatform.sol, 52
+.macro initialize_c37b696f_internal_macro
+.loc ../contracts/SwapPlatform.sol, 53
 GETGLOB 9
 GETGLOB 10
 SDEQ
@@ -110,24 +114,27 @@ GETGLOB 10
 NEWC
 STSLICE
 .loc ../contracts/SwapPlatform.sol, 34
-STSLICECONST x00000000
+XCHG S1, S2
+STSLICE
 .loc ../contracts/SwapPlatform.sol, 35
+STSLICECONST x00000000
+.loc ../contracts/SwapPlatform.sol, 36
 XCHG S1, S2
 STU 32
-.loc ../contracts/SwapPlatform.sol, 36
+.loc ../contracts/SwapPlatform.sol, 37
 STSLICE
-.loc ../contracts/SwapPlatform.sol, 38
+.loc ../contracts/SwapPlatform.sol, 39
 GETGLOB 13
 SWAP
 STREF
-.loc ../contracts/SwapPlatform.sol, 39
+.loc ../contracts/SwapPlatform.sol, 40
 GETGLOB 12
 SWAP
 STREF
-.loc ../contracts/SwapPlatform.sol, 42
+.loc ../contracts/SwapPlatform.sol, 43
 OVER
 SETCODE
-.loc ../contracts/SwapPlatform.sol, 45
+.loc ../contracts/SwapPlatform.sol, 46
 SWAP
 CTOS
 DUP
@@ -142,7 +149,7 @@ PLDREF
 CTOS
 BLESS
 POP C3
-.loc ../contracts/SwapPlatform.sol, 46
+.loc ../contracts/SwapPlatform.sol, 47
 ENDC
 CALLREF {
 	CALL $:onCodeUpgrade$
@@ -429,7 +436,7 @@ THROW 0
 
 .macro public_function_selector
 DUP
-PUSHINT 925457952
+PUSHINT 1667719843
 LEQ
 IFJMPREF {
 	DUP
@@ -437,12 +444,6 @@ IFJMPREF {
 	EQUAL
 	IFJMPREF {
 		CALL $type_id$
-	}
-	DUP
-	PUSHINT 529233063
-	EQUAL
-	IFJMPREF {
-		CALL $initialize$
 	}
 	DUP
 	PUSHINT 814250529
@@ -455,6 +456,12 @@ IFJMPREF {
 	EQUAL
 	IFJMPREF {
 		CALL $root$
+	}
+	DUP
+	PUSHINT 1667719843
+	EQUAL
+	IFJMPREF {
+		CALL $initialize$
 	}
 }
 DUP
