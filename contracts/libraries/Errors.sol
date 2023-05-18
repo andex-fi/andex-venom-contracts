@@ -13,4 +13,5 @@ library Errors {
     uint8 constant ACCOUNT_CODE_EMPTY           = 109;
     uint8 constant PAIR_CODE_EMPTY              = 110;
     uint8 constant INVALID_ADDRESS              = 111;
+
 }
