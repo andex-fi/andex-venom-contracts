@@ -21,12 +21,12 @@ THROW 0
 CALL $setOwnership_a7016023_internal_macro$
 
 .macro setOwnership_a7016023_internal_macro
-.loc ../contracts/external/InternalOwner.sol, 26
+.loc ../contracts/.external/InternalOwner.sol, 26
 GETGLOB 10
-.loc ../contracts/external/InternalOwner.sol, 28
+.loc ../contracts/.external/InternalOwner.sol, 28
 OVER
 SETGLOB 10
-.loc ../contracts/external/InternalOwner.sol, 30
+.loc ../contracts/.external/InternalOwner.sol, 30
 PUSHSLICE xc0000000000000000000000001
 NEWC
 STSLICE
@@ -42,7 +42,7 @@ STBREFR
 ENDC
 PUSHINT 0
 SENDRAWMSG
-.loc ../contracts/external/InternalOwner.sol, 0
+.loc ../contracts/.external/InternalOwner.sol, 0
 
 .macro transferOwnership
 DROP
@@ -53,7 +53,7 @@ ISNULL
 IFREF {
 	CALL $c4_to_c7$
 }
-.loc ../contracts/external/InternalOwner.sol, 36
+.loc ../contracts/.external/InternalOwner.sol, 36
 OVER
 PUSHCONT {
 	LDREF
@@ -63,7 +63,7 @@ PUSHCONT {
 IF
 LDMSGADDR
 ENDS
-.loc ../contracts/external/InternalOwner.sol, 0
+.loc ../contracts/.external/InternalOwner.sol, 0
 CALLREF {
 	CALL $transferOwnership_f2fde38b_internal_macro$
 }
@@ -74,7 +74,7 @@ CALLREF {
 THROW 0
 
 .macro transferOwnership_f2fde38b_internal_macro
-.loc ../contracts/external/InternalOwner.sol, 14
+.loc ../contracts/.external/InternalOwner.sol, 14
 GETGLOB 9
 GETGLOB 10
 SDEQ
@@ -89,18 +89,18 @@ PUSHCONT {
 }
 IF
 THROWIFNOT 1000
-.loc ../contracts/external/InternalOwner.sol, 37
+.loc ../contracts/.external/InternalOwner.sol, 37
 DUP
 PUSHREFSLICE {
 	.blob x8000000000000000000000000000000000000000000000000000000000000000001_
 }
 SDEQ
 THROWIF 1001
-.loc ../contracts/external/InternalOwner.sol, 42
+.loc ../contracts/.external/InternalOwner.sol, 42
 CALLREF {
 	CALL $setOwnership_a7016023_internal_macro$
 }
-.loc ../contracts/external/InternalOwner.sol, 0
+.loc ../contracts/.external/InternalOwner.sol, 0
 
 .macro renounceOwnership
 DROP
@@ -111,9 +111,9 @@ ISNULL
 IFREF {
 	CALL $c4_to_c7$
 }
-.loc ../contracts/external/InternalOwner.sol, 48
+.loc ../contracts/.external/InternalOwner.sol, 48
 ENDS
-.loc ../contracts/external/InternalOwner.sol, 0
+.loc ../contracts/.external/InternalOwner.sol, 0
 CALLREF {
 	CALL $renounceOwnership_715018a6_internal_macro$
 }
@@ -124,7 +124,7 @@ CALLREF {
 THROW 0
 
 .macro renounceOwnership_715018a6_internal_macro
-.loc ../contracts/external/InternalOwner.sol, 14
+.loc ../contracts/.external/InternalOwner.sol, 14
 GETGLOB 9
 GETGLOB 10
 SDEQ
@@ -139,15 +139,15 @@ PUSHCONT {
 }
 IF
 THROWIFNOT 1000
-.loc ../contracts/external/InternalOwner.sol, 49
+.loc ../contracts/.external/InternalOwner.sol, 49
 PUSHREFSLICE {
 	.blob x8000000000000000000000000000000000000000000000000000000000000000001_
 }
-.loc ../contracts/external/InternalOwner.sol, 51
+.loc ../contracts/.external/InternalOwner.sol, 51
 CALLREF {
 	CALL $setOwnership_a7016023_internal_macro$
 }
-.loc ../contracts/external/InternalOwner.sol, 0
+.loc ../contracts/.external/InternalOwner.sol, 0
 
 .macro c4_to_c7
 PUSHROOT

@@ -1,6 +1,6 @@
 pragma ever-solidity >= 0.62.0;
 
-import '@broxus/contracts/contracts/wallets/Account.sol';
+import '@broxus/contracts/contracts/wallets/Account.tsol';
 import '../interfaces/IDexPairOperationCallback.sol';
 import "../interfaces/ITokenRootDeployedCallback.sol";
 import "../interfaces/IReferralProgramCallbacks.sol";

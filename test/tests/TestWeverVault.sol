@@ -3,7 +3,7 @@ pragma ever-solidity >= 0.62.0;
 pragma AbiHeader expire;
 pragma AbiHeader pubkey;
 
-import "ton-wton/everscale/contracts/Vault.sol";
+import "../external/Vault.sol";
 
 
 contract TestWeverVault is Vault {

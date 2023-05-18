@@ -100,7 +100,7 @@ PUSHCONT {
 }
 WHILE
 BLKDROP 3
-.loc ../contracts/tests/TestWeverTunnel.sol, 0
+.loc ../contracts/.tests/TestWeverTunnel.sol, 0
 CALLREF {
 	CALL $c7_to_c4$
 }
