@@ -6,7 +6,7 @@ pragma AbiHeader pubkey;
 
 import "./libraries/MsgFlag.sol";
 
-import "tip3/contracts/interfaces/ITokenWallet.sol";
+import "tip3/contracts/interfaces/ITokenWallet.tsol";
 
 import "./abstract/DexContractBase.sol";
 

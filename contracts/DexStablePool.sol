@@ -4,11 +4,11 @@ pragma AbiHeader time;
 pragma AbiHeader expire;
 pragma AbiHeader pubkey;
 
-import "tip3/contracts/interfaces/ITokenRoot.sol";
-import "tip3/contracts/interfaces/ITokenWallet.sol";
-import "tip3/contracts/interfaces/IBurnableByRootTokenRoot.sol";
-import "tip3/contracts/interfaces/IBurnableTokenWallet.sol";
-import "tip3/contracts/interfaces/IAcceptTokensTransferCallback.sol";
+import "tip3/contracts/interfaces/ITokenRoot.tsol";
+import "tip3/contracts/interfaces/ITokenWallet.tsol";
+import "tip3/contracts/interfaces/IBurnableByRootTokenRoot.tsol";
+import "tip3/contracts/interfaces/IBurnableTokenWallet.tsol";
+import "tip3/contracts/interfaces/IAcceptTokensTransferCallback.tsol";
 
 import "./libraries/DexPlatformTypes.sol";
 import "./libraries/DexPoolTypes.sol";
