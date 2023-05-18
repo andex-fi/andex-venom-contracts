@@ -1,6 +1,6 @@
 pragma ever-solidity >= 0.62.0;
 
-library DexOperationTypes {
+library OperationTypes {
     uint8 constant EXCHANGE = 1;
     uint8 constant DEPOSIT_LIQUIDITY = 2;
     uint8 constant WITHDRAW_LIQUIDITY = 3;

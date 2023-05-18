@@ -67,7 +67,7 @@ abstract contract Vault is
     function setUpTokenWallet() internal view {
         // Deploy vault's token wallet
         ITokenRoot(configuration.root).deployWallet{
-            value: 1 ton,
+            value: 1 ever,
             callback: Vault.receiveTokenWalletAddress
         }(
             address(this),
@@ -143,7 +143,7 @@ abstract contract Vault is
     function grant(
         uint128 amount
     ) external {
-        require(amount <= msg.value + 1 ton, ErrorCodes.MSG_VALUE_TOO_LOW);
+        require(amount <= msg.value + 1 ever, ErrorCodes.MSG_VALUE_TOO_LOW);
 
         updateTotalWrapped(amount);
 

@@ -8,7 +8,7 @@ import "../libraries/MsgFlag.sol";
 
 import "../libraries/Errors.sol";
 import "../libraries/Constants.sol";
-import "../libraries/DexPoolTypes.sol";
+import "../libraries/PoolTypes.sol";
 
 import "../interfaces/IDexPair.sol";
 
@@ -81,7 +81,7 @@ contract TestNewDexStablePair is
     }
 
     function getPoolType() external pure responsible returns (uint8) {
-        return { value: 0, bounce: false, flag: MsgFlag.REMAINING_GAS } DexPoolTypes.STABLESWAP;
+        return { value: 0, bounce: false, flag: MsgFlag.REMAINING_GAS } PoolTypes.STABLESWAP;
     }
 
     function getAccumulatedFees() external view responsible returns (uint128[] accumulatedFees) {

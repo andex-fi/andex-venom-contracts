@@ -4,7 +4,7 @@ pragma AbiHeader time;
 pragma AbiHeader expire;
 pragma AbiHeader pubkey;
 
-import "../libraries/DexPlatformTypes.sol";
+import "../libraries/PlatformTypes.sol";
 
 import "../DexPlatform.sol";
 import "../DexVaultLpTokenPendingV2.sol";
@@ -80,7 +80,7 @@ abstract contract ContractBase  {
         return address(
             tvm.hash(
                 _buildInitData(
-                    DexPlatformTypes.Account,
+                    PlatformTypes.Account,
                     _buildAccountParams(_accountOwner)
                 )
             )
@@ -91,7 +91,7 @@ abstract contract ContractBase  {
         return address(
             tvm.hash(
                 _buildInitData(
-                    DexPlatformTypes.Pool,
+                    PlatformTypes.Pool,
                     _buildPairParams(_roots)
                 )
             )
@@ -102,7 +102,7 @@ abstract contract ContractBase  {
         return address(
             tvm.hash(
                 _buildInitData(
-                    DexPlatformTypes.Vault,
+                    PlatformTypes.Vault,
                     _buildTokenVaultParams(_tokenRoot)
                 )
             )

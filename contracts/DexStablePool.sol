@@ -10,14 +10,14 @@ import "tip3/contracts/interfaces/IBurnableByRootTokenRoot.tsol";
 import "tip3/contracts/interfaces/IBurnableTokenWallet.tsol";
 import "tip3/contracts/interfaces/IAcceptTokensTransferCallback.tsol";
 
-import "./libraries/DexPlatformTypes.sol";
-import "./libraries/DexPoolTypes.sol";
+import "./libraries/PlatformTypes.sol";
+import "./libraries/PoolTypes.sol";
 import "./libraries/Errors.sol";
 import "./libraries/Constants.sol";
-import "./libraries/DexAddressType.sol";
-import "./libraries/DexReserveType.sol";
+import "./libraries/AddressType.sol";
+import "./libraries/ReserveType.sol";
 import "./libraries/MsgFlag.sol";
-import "./libraries/DexOperationTypes.sol";
+import "./libraries/OperationTypes.sol";
 import "./libraries/PairPayload.sol";
 import "./libraries/DirectOperationErrors.sol";
 
@@ -133,7 +133,7 @@ contract DexStablePool is
     }
 
     function getPoolType() override external view responsible returns (uint8) {
-        return { value: 0, bounce: false, flag: MsgFlag.REMAINING_GAS } DexPoolTypes.STABLE_POOL;
+        return { value: 0, bounce: false, flag: MsgFlag.REMAINING_GAS } PoolTypes.STABLE_POOL;
     }
 
     function getAccumulatedFees() override external view responsible returns (uint128[] accumulatedFees) {
@@ -399,7 +399,7 @@ contract DexStablePool is
         uint16 errorCode = _checkOperationData(msg.sender, msg.value, is_payload_valid, deploy_wallet_grams, op, token_root, outcoming, referrer_value);
 
         if (errorCode == 0) {
-            if (op == DexOperationTypes.WITHDRAW_LIQUIDITY_V2) {
+            if (op == OperationTypes.WITHDRAW_LIQUIDITY_V2) {
 
                 optional(WithdrawResultV2) result_opt = _expectedWithdrawLiquidity(tokens_amount);
 
@@ -444,7 +444,7 @@ contract DexStablePool is
                         empty
                     );
                 }
-            } else if (op == DexOperationTypes.WITHDRAW_LIQUIDITY_ONE_COIN) {
+            } else if (op == OperationTypes.WITHDRAW_LIQUIDITY_ONE_COIN) {
 
                 uint8 i = tokenIndex[outcoming];
                 (optional(WithdrawResultV2) result_opt, uint128[] referrer_fees) = _expectedWithdrawLiquidityOneCoin(tokens_amount, i, _reserves(), lp_supply, referrer);
@@ -485,7 +485,7 @@ contract DexStablePool is
                         address.makeAddrStd(0, 0),
                         empty);
                 }
-            } else if (op == DexOperationTypes.EXCHANGE_V2) {
+            } else if (op == OperationTypes.EXCHANGE_V2) {
 
                 (optional(ExpectedExchangeResult) dy_result_opt, uint128 referrer_fee) = _get_dy(tokenIndex[token_root], tokenIndex[outcoming], tokens_amount, referrer);
 
@@ -588,7 +588,7 @@ contract DexStablePool is
                         original_gas_to
                     );
                 }
-            } else if (op == DexOperationTypes.CROSS_PAIR_EXCHANGE_V2) {
+            } else if (op == OperationTypes.CROSS_PAIR_EXCHANGE_V2) {
 
                 if (next_steps.length == 0) errorCode = DirectOperationErrors.INVALID_NEXT_STEPS;
 
@@ -645,7 +645,7 @@ contract DexStablePool is
                             TvmCell exchange_data = abi.encode(
                                 id,
                                 current_version,
-                                DexPoolTypes.STABLE_POOL,
+                                PoolTypes.STABLE_POOL,
                                 _tokenRoots(),
                                 sender_address,
                                 recipient,
@@ -789,7 +789,7 @@ contract DexStablePool is
                                 id,
 
                                 current_version,
-                                DexPoolTypes.STABLE_POOL,
+                                PoolTypes.STABLE_POOL,
 
                                 _tokenRoots(),
 
@@ -813,7 +813,7 @@ contract DexStablePool is
                         }
                     }
                 }
-            } else if (op == DexOperationTypes.DEPOSIT_LIQUIDITY_V2) {
+            } else if (op == OperationTypes.DEPOSIT_LIQUIDITY_V2) {
 
                 (optional(DepositLiquidityResultV2) resultOpt, uint128[] referrer_fees) = _expectedOneCoinDepositLiquidity(tokens_amount, tokenIndex[token_root], _reserves(), lp_supply, referrer);
 
@@ -910,16 +910,16 @@ contract DexStablePool is
             if (msg_sender.value == 0 || msg_sender != tokenData[tokenIndex.at(token_root)].wallet) return DirectOperationErrors.NOT_TOKEN_WALLET;
         }
 
-        if (!(msg_sender == lp_wallet && (op == DexOperationTypes.WITHDRAW_LIQUIDITY_V2 || op == DexOperationTypes.WITHDRAW_LIQUIDITY_ONE_COIN)
-            || msg_sender != lp_wallet && (op == DexOperationTypes.DEPOSIT_LIQUIDITY_V2 || op == DexOperationTypes.EXCHANGE_V2)
-            || op == DexOperationTypes.CROSS_PAIR_EXCHANGE_V2)) return DirectOperationErrors.WRONG_OPERATION_TYPE;
+        if (!(msg_sender == lp_wallet && (op == OperationTypes.WITHDRAW_LIQUIDITY_V2 || op == OperationTypes.WITHDRAW_LIQUIDITY_ONE_COIN)
+            || msg_sender != lp_wallet && (op == OperationTypes.DEPOSIT_LIQUIDITY_V2 || op == OperationTypes.EXCHANGE_V2)
+            || op == OperationTypes.CROSS_PAIR_EXCHANGE_V2)) return DirectOperationErrors.WRONG_OPERATION_TYPE;
 
-        if (op == DexOperationTypes.WITHDRAW_LIQUIDITY_V2 && msg_value < Constants.DIRECT_PAIR_OP_MIN_VALUE_V2 + N_COINS * deploy_wallet_grams + referrer_value) {
+        if (op == OperationTypes.WITHDRAW_LIQUIDITY_V2 && msg_value < Constants.DIRECT_PAIR_OP_MIN_VALUE_V2 + N_COINS * deploy_wallet_grams + referrer_value) {
             return DirectOperationErrors.VALUE_TOO_LOW;
         }
 
-        if (!tokenIndex.exists(outcoming) && (op == DexOperationTypes.WITHDRAW_LIQUIDITY_ONE_COIN || op == DexOperationTypes.EXCHANGE_V2)
-            || (!tokenIndex.exists(outcoming) && outcoming != lp_root && op == DexOperationTypes.CROSS_PAIR_EXCHANGE_V2)) {
+        if (!tokenIndex.exists(outcoming) && (op == OperationTypes.WITHDRAW_LIQUIDITY_ONE_COIN || op == OperationTypes.EXCHANGE_V2)
+            || (!tokenIndex.exists(outcoming) && outcoming != lp_root && op == OperationTypes.CROSS_PAIR_EXCHANGE_V2)) {
 
             return DirectOperationErrors.NOT_TOKEN_ROOT;
         }
@@ -1410,7 +1410,7 @@ contract DexStablePool is
                     TvmCell exchange_data = abi.encode(
                         id,
                         current_version,
-                        DexPoolTypes.STABLE_POOL,
+                        PoolTypes.STABLE_POOL,
                         _tokenRoots(),
                         sender_address,
                         recipient,
@@ -1572,7 +1572,7 @@ contract DexStablePool is
                                 id,
 
                                 current_version,
-                                DexPoolTypes.STABLE_POOL,
+                                PoolTypes.STABLE_POOL,
 
                                 _tokenRoots(),
 
@@ -1721,7 +1721,7 @@ contract DexStablePool is
     // Code upgrade
 
     function upgrade(TvmCell code, uint32 new_version, uint8 new_type, address send_gas_to) override external onlyRoot {
-        if (current_version == new_version && new_type == DexPoolTypes.STABLE_POOL) {
+        if (current_version == new_version && new_type == PoolTypes.STABLE_POOL) {
             tvm.rawReserve(Constants.PAIR_INITIAL_BALANCE, 0);
             send_gas_to.transfer({ value: 0, flag: MsgFlag.ALL_NOT_RESERVED + MsgFlag.IGNORE_ERRORS, bounce: false });
         } else {
@@ -1737,7 +1737,7 @@ contract DexStablePool is
             builder.store(current_version);
             builder.store(new_version);
             builder.store(send_gas_to);
-            builder.store(DexPoolTypes.STABLE_POOL);
+            builder.store(PoolTypes.STABLE_POOL);
 
             builder.store(platform_code);  // ref1 = platform_code
 
@@ -1785,7 +1785,7 @@ contract DexStablePool is
         platform_code = s.loadRef(); // ref 1
 
         address[] roots;
-        if (old_pool_type != DexPoolTypes.CONSTANT_PRODUCT) {
+        if (old_pool_type != PoolTypes.CONSTANT_PRODUCT) {
             TvmCell tokens_data_cell = s.loadRef(); // ref 2
 
             TvmSlice tokens_data_slice = tokens_data_cell.toSlice();
@@ -1819,7 +1819,7 @@ contract DexStablePool is
                     roots,
                     send_gas_to
                 );
-        } else if (old_pool_type == DexPoolTypes.CONSTANT_PRODUCT) {
+        } else if (old_pool_type == PoolTypes.CONSTANT_PRODUCT) {
             active = false;
             A = AmplificationCoefficient(200, 1);
 
@@ -1840,29 +1840,29 @@ contract DexStablePool is
                 mapping(uint8 => address[])
             ));
 
-            lp_root = type_to_root_addresses[DexAddressType.LP][0];
-            lp_wallet = type_to_wallet_addresses[DexAddressType.LP][0];
-            lp_supply = type_to_reserves[DexReserveType.LP][0];
+            lp_root = type_to_root_addresses[AddressType.LP][0];
+            lp_wallet = type_to_wallet_addresses[AddressType.LP][0];
+            lp_supply = type_to_reserves[ReserveType.LP][0];
 
-            tokenIndex[type_to_root_addresses[DexAddressType.RESERVE][0]] = 0;
-            tokenIndex[type_to_root_addresses[DexAddressType.RESERVE][1]] = 1;
+            tokenIndex[type_to_root_addresses[AddressType.RESERVE][0]] = 0;
+            tokenIndex[type_to_root_addresses[AddressType.RESERVE][1]] = 1;
             N_COINS = 2;
 
             tokenData = new PoolTokenData[](N_COINS);
-            tokenData[0] = PoolTokenData(type_to_root_addresses[DexAddressType.RESERVE][0], type_to_wallet_addresses[DexAddressType.RESERVE][0], type_to_reserves[DexReserveType.POOL][0], 0, type_to_reserves[DexReserveType.FEE][0], 0, 0, false, false);
-            tokenData[1] = PoolTokenData(type_to_root_addresses[DexAddressType.RESERVE][1], type_to_wallet_addresses[DexAddressType.RESERVE][1], type_to_reserves[DexReserveType.POOL][1], 0, type_to_reserves[DexReserveType.FEE][1], 0, 0, false, false);
+            tokenData[0] = PoolTokenData(type_to_root_addresses[AddressType.RESERVE][0], type_to_wallet_addresses[AddressType.RESERVE][0], type_to_reserves[ReserveType.POOL][0], 0, type_to_reserves[ReserveType.FEE][0], 0, 0, false, false);
+            tokenData[1] = PoolTokenData(type_to_root_addresses[AddressType.RESERVE][1], type_to_wallet_addresses[AddressType.RESERVE][1], type_to_reserves[ReserveType.POOL][1], 0, type_to_reserves[ReserveType.FEE][1], 0, 0, false, false);
 
-            ITokenRoot(type_to_root_addresses[DexAddressType.RESERVE][0]).decimals{
+            ITokenRoot(type_to_root_addresses[AddressType.RESERVE][0]).decimals{
                 value: Constants.GET_TOKEN_DECIMALS_VALUE,
                 flag: MsgFlag.SENDER_PAYS_FEES,
                 callback: DexStablePool.onTokenDecimals
             }();
-                ITokenRoot(type_to_root_addresses[DexAddressType.RESERVE][1]).decimals{
+                ITokenRoot(type_to_root_addresses[AddressType.RESERVE][1]).decimals{
                 value: Constants.GET_TOKEN_DECIMALS_VALUE,
                 flag: MsgFlag.SENDER_PAYS_FEES,
                 callback: DexStablePool.onTokenDecimals
             }();
-        } else if (old_pool_type == DexPoolTypes.STABLESWAP) {
+        } else if (old_pool_type == PoolTypes.STABLESWAP) {
             active = false;
             TvmCell otherData = s.loadRef(); // ref 3
 
@@ -1886,7 +1886,7 @@ contract DexStablePool is
             MAX_DECIMALS = maxDecimals;
 
             _tryToActivate();
-        } else if (old_pool_type == DexPoolTypes.STABLE_POOL) {
+        } else if (old_pool_type == PoolTypes.STABLE_POOL) {
             active = false;
             TvmCell other_data = s.loadRef(); // ref 3
 
@@ -2019,7 +2019,7 @@ contract DexStablePool is
             r.push(t.root);
         }
 
-        IDexRoot(root).onPoolCreated{ value: 0, flag: MsgFlag.ALL_NOT_RESERVED }(r, DexPoolTypes.STABLE_POOL, send_gas_to);
+        IDexRoot(root).onPoolCreated{ value: 0, flag: MsgFlag.ALL_NOT_RESERVED }(r, PoolTypes.STABLE_POOL, send_gas_to);
     }
 
     function liquidityTokenRootNotDeployed(address /*lp_root_*/, address send_gas_to) override external onlyRoot {

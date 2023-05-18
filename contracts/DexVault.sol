@@ -16,7 +16,7 @@ import "./interfaces/IReferralProgramCallbacks.sol";
 
 import "./libraries/Errors.sol";
 import "./libraries/Constants.sol";
-import "./libraries/DexOperationTypes.sol";
+import "./libraries/OperationTypes.sol";
 
 contract DexVault is ContractBase, IDexVault {
     uint32 private static _nonce;
@@ -372,7 +372,7 @@ contract DexVault is ContractBase, IDexVault {
 
         if (
             op.hasValue() &&
-            op.get() == DexOperationTypes.REFERRAL_FEE &&
+            op.get() == OperationTypes.REFERRAL_FEE &&
             _sender == _expectedTokenVaultAddress(_tokenRoot) &&
             payloadSlice.refs() >= 1
         ) {

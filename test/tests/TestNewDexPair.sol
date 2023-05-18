@@ -9,9 +9,9 @@ import "../libraries/MsgFlag.sol";
 import "../libraries/Errors.sol";
 import "../libraries/Constants.sol";
 import "../libraries/FixedPoint128.sol";
-import "../libraries/DexAddressType.sol";
-import "../libraries/DexReserveType.sol";
-import "../libraries/DexPoolTypes.sol";
+import "../libraries/AddressType.sol";
+import "../libraries/ReserveType.sol";
+import "../libraries/PoolTypes.sol";
 
 import "../interfaces/IDexPair.sol";
 
@@ -89,7 +89,7 @@ contract TestNewDexPair is
     }
 
     function getPoolType() external pure responsible returns (uint8) {
-        return { value: 0, bounce: false, flag: MsgFlag.REMAINING_GAS } DexPoolTypes.CONSTANT_PRODUCT;
+        return { value: 0, bounce: false, flag: MsgFlag.REMAINING_GAS } PoolTypes.CONSTANT_PRODUCT;
     }
 
     function getFeeParams() external view responsible returns (FeeParams) {
@@ -191,18 +191,18 @@ contract TestNewDexPair is
             mapping(uint8 => address[])
         ));
 
-        lp_root = type_to_root_addresses[DexAddressType.LP][0];
-        lp_wallet = type_to_wallet_addresses[DexAddressType.LP][0];
-        lp_supply = type_to_reserves[DexReserveType.LP][0];
+        lp_root = type_to_root_addresses[AddressType.LP][0];
+        lp_wallet = type_to_wallet_addresses[AddressType.LP][0];
+        lp_supply = type_to_reserves[ReserveType.LP][0];
 
-        left_root = type_to_root_addresses[DexAddressType.RESERVE][0];
-        right_root = type_to_root_addresses[DexAddressType.RESERVE][1];
+        left_root = type_to_root_addresses[AddressType.RESERVE][0];
+        right_root = type_to_root_addresses[AddressType.RESERVE][1];
 
-        left_wallet = type_to_wallet_addresses[DexAddressType.RESERVE][0];
-        right_wallet = type_to_wallet_addresses[DexAddressType.RESERVE][1];
+        left_wallet = type_to_wallet_addresses[AddressType.RESERVE][0];
+        right_wallet = type_to_wallet_addresses[AddressType.RESERVE][1];
 
-        left_balance = type_to_reserves[DexReserveType.POOL][0];
-        right_balance = type_to_reserves[DexReserveType.POOL][1];
+        left_balance = type_to_reserves[ReserveType.POOL][0];
+        right_balance = type_to_reserves[ReserveType.POOL][1];
 
         TvmSlice oracleDataSlice = s.loadRefAsSlice();  // ref 4
 

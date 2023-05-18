@@ -17,9 +17,9 @@ import "./interfaces/IResetGas.sol";
 import "./interfaces/ILiquidityTokenRootDeployedCallback.sol";
 import "./interfaces/ILiquidityTokenRootNotDeployedCallback.sol";
 
-import "./libraries/DexPlatformTypes.sol";
+import "./libraries/PlatformTypes.sol";
 import "./libraries/Errors.sol";
-import "./libraries/DexPoolTypes.sol";
+import "./libraries/PoolTypes.sol";
 import "./libraries/Constants.sol";
 import "./libraries/MsgFlag.sol";
 
@@ -698,7 +698,7 @@ contract DexRoot is ContractBase, IDexRoot {
         address _remainingGasTo
     ) private view {
         TvmCell data = _buildInitData(
-            DexPlatformTypes.Vault,
+            PlatformTypes.Vault,
             _buildTokenVaultParams(_tokenRoot)
         );
 
@@ -882,7 +882,7 @@ contract DexRoot is ContractBase, IDexRoot {
 
         new DexPlatform{
             stateInit: _buildInitData(
-                DexPlatformTypes.Account,
+                PlatformTypes.Account,
                 _buildAccountParams(account_owner)
             ),
             value: 0,
@@ -1199,14 +1199,14 @@ contract DexRoot is ContractBase, IDexRoot {
 
         new DexPlatform{
             stateInit: _buildInitData(
-                DexPlatformTypes.Pool,
+                PlatformTypes.Pool,
                 _buildPairParams([left_root, right_root])
             ),
             value: 0,
             flag: MsgFlag.ALL_NOT_RESERVED
         }(
-            _pairCodes[DexPoolTypes.CONSTANT_PRODUCT],
-            _pairVersions[DexPoolTypes.CONSTANT_PRODUCT],
+            _pairCodes[PoolTypes.CONSTANT_PRODUCT],
+            _pairVersions[PoolTypes.CONSTANT_PRODUCT],
             _vault,
             send_gas_to
         );
@@ -1229,7 +1229,7 @@ contract DexRoot is ContractBase, IDexRoot {
             ),
             Errors.VALUE_TOO_LOW
         );
-        require(_poolCodes.exists(DexPoolTypes.STABLE_POOL), Errors.PAIR_CODE_EMPTY);
+        require(_poolCodes.exists(PoolTypes.STABLE_POOL), Errors.PAIR_CODE_EMPTY);
 
         mapping(address => bool) _roots;
         for (uint i = 0; i < rootsCount; i++) {
@@ -1245,14 +1245,14 @@ contract DexRoot is ContractBase, IDexRoot {
 
         new DexPlatform{
             stateInit: _buildInitData(
-                DexPlatformTypes.Pool,
+                PlatformTypes.Pool,
                 _buildPairParams(roots)
             ),
             value: 0,
             flag: MsgFlag.ALL_NOT_RESERVED
         }(
-            _poolCodes[DexPoolTypes.STABLE_POOL],
-            _poolVersions[DexPoolTypes.STABLE_POOL],
+            _poolCodes[PoolTypes.STABLE_POOL],
+            _poolVersions[PoolTypes.STABLE_POOL],
             _vault,
             send_gas_to
         );

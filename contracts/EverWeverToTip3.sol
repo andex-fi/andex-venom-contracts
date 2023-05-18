@@ -4,9 +4,9 @@ pragma AbiHeader time;
 pragma AbiHeader expire;
 pragma AbiHeader pubkey;
 
-import "./libraries/EverToTip3Gas.sol";
-import "./libraries/EverToTip3Errors.sol";
-import "./libraries/EverToTip3Payloads.sol";
+import "./libraries/VenomToTip3Gas.sol";
+import "./libraries/VenomToTip3Errors.sol";
+import "./libraries/VenomToTip3Payloads.sol";
 
 import "./interfaces/IEverVault.sol";
 import "./structures/INextExchangeData.sol";
@@ -30,15 +30,15 @@ contract EverWeverToTip3 is IAcceptTokensTransferCallback, IAcceptTokensBurnCall
     constructor() public {
         tvm.accept();
 
-        tvm.rawReserve(EverToTip3Gas.TARGET_BALANCE, 0);
+        tvm.rawReserve(VenomToTip3Gas.TARGET_BALANCE, 0);
 
         ITokenRoot(weverRoot).deployWallet{
-            value: EverToTip3Gas.DEPLOY_EMPTY_WALLET_VALUE,
+            value: VenomToTip3Gas.DEPLOY_EMPTY_WALLET_VALUE,
             flag: MsgFlag.SENDER_PAYS_FEES,
             callback: EverWeverToTip3.onWeverWallet
         }(
             address(this),
-            EverToTip3Gas.DEPLOY_EMPTY_WALLET_GRAMS
+            VenomToTip3Gas.DEPLOY_EMPTY_WALLET_GRAMS
         );
 
         msg.sender.transfer(0, false, MsgFlag.ALL_NOT_RESERVED + MsgFlag.IGNORE_ERRORS);
@@ -46,7 +46,7 @@ contract EverWeverToTip3 is IAcceptTokensTransferCallback, IAcceptTokensBurnCall
 
     // Callback deploy WEVER wallet for contract
     function onWeverWallet(address _weverWallet) external {
-        require(msg.sender.value != 0 && msg.sender == weverRoot, EverToTip3Errors.NOT_WEVER_ROOT);
+        require(msg.sender.value != 0 && msg.sender == weverRoot, VenomToTip3Errors.NOT_WEVER_ROOT);
         weverWallet = _weverWallet;
         weverWallet.transfer(0, false, MsgFlag.REMAINING_GAS + MsgFlag.IGNORE_ERRORS);
     }
@@ -61,7 +61,7 @@ contract EverWeverToTip3 is IAcceptTokensTransferCallback, IAcceptTokensBurnCall
         address referrer,
         optional(address) outcoming
     ) external pure returns (TvmCell) {
-        return EverToTip3Payloads.buildExchangePayload(
+        return VenomToTip3Payloads.buildExchangePayload(
             pair,
             id,
             deployWalletValue,
@@ -80,11 +80,11 @@ contract EverWeverToTip3 is IAcceptTokensTransferCallback, IAcceptTokensBurnCall
         uint128 expectedAmount,
         address outcoming,
         uint32[] nextStepIndices,
-        EverToTip3Payloads.EverToTip3ExchangeStep[] steps,
+        VenomToTip3Payloads.EverToTip3ExchangeStep[] steps,
         uint128 amount,
         address referrer
     ) external pure returns (TvmCell) {
-        return EverToTip3Payloads.buildCrossPairExchangePayload(
+        return VenomToTip3Payloads.buildCrossPairExchangePayload(
             pool,
             id,
             deployWalletValue,
@@ -113,10 +113,10 @@ contract EverWeverToTip3 is IAcceptTokensTransferCallback, IAcceptTokensBurnCall
 
         bool needCancel = false;
         TvmSlice payloadSlice = payload.toSlice();
-        tvm.rawReserve(EverToTip3Gas.TARGET_BALANCE, 0);
+        tvm.rawReserve(VenomToTip3Gas.TARGET_BALANCE, 0);
         if (payloadSlice.bits() == 395 && msg.sender == weverWallet) {
             (, uint128 amount_) = payloadSlice.decode(address, uint128);
-            if ((amount + msg.value - EverToTip3Gas.SWAP_EVER_TO_TIP3_MIN_VALUE) >= amount_) {
+            if ((amount + msg.value - VenomToTip3Gas.SWAP_EVER_TO_TIP3_MIN_VALUE) >= amount_) {
                 ITokenWallet(msg.sender).transfer{ value: 0, flag: MsgFlag.ALL_NOT_RESERVED, bounce: false }(
                     amount,
                     weverVault,
@@ -156,8 +156,8 @@ contract EverWeverToTip3 is IAcceptTokensTransferCallback, IAcceptTokensBurnCall
         override
         external
     {
-        require(msg.sender.value != 0 && msg.sender == weverRoot, EverToTip3Errors.NOT_WEVER_ROOT);
-        tvm.rawReserve(EverToTip3Gas.TARGET_BALANCE, 0);
+        require(msg.sender.value != 0 && msg.sender == weverRoot, VenomToTip3Errors.NOT_WEVER_ROOT);
+        tvm.rawReserve(VenomToTip3Gas.TARGET_BALANCE, 0);
 
         TvmSlice payloadSlice =  payload.toSlice();
         (, uint128 amount_) = payloadSlice.decode(address, uint128);

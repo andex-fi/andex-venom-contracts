@@ -18,7 +18,7 @@ import "./interfaces/ISuccessCallback.sol";
 import "./interfaces/IDexPairOperationCallback.sol";
 import "./interfaces/IDexTokenVault.sol";
 
-import "./libraries/DexPlatformTypes.sol";
+import "./libraries/PlatformTypes.sol";
 import "./libraries/Errors.sol";
 import "./libraries/Math.sol";
 import "./libraries/PairPayload.sol";
@@ -196,9 +196,9 @@ contract DexPair is PairBase, INextExchangeData {
             left_amount,
             right_amount,
             auto_change,
-            _typeToReserves[DexReserveType.POOL][0],
-            _typeToReserves[DexReserveType.POOL][1],
-            _typeToReserves[DexReserveType.LP][0],
+            _typeToReserves[ReserveType.POOL][0],
+            _typeToReserves[ReserveType.POOL][1],
+            _typeToReserves[ReserveType.LP][0],
             _fee,
             address(0),
             _tokenRoots()[0],
@@ -261,24 +261,24 @@ contract DexPair is PairBase, INextExchangeData {
 
         if (_lpReserve() == 0) {
             for (uint i = 0; i < operations.length; i++) {
-                _typeToReserves[DexReserveType.POOL][i] = operations[i].amount;
+                _typeToReserves[ReserveType.POOL][i] = operations[i].amount;
             }
         } else {
             if (_autoChange) {
                 for (uint i = 0; i < operations.length; i++) {
-                    _typeToReserves[DexReserveType.POOL][i] += operations[i].amount;
+                    _typeToReserves[ReserveType.POOL][i] += operations[i].amount;
                 }
 
                 if (result.step_2_right_to_left) {
-                    require(result.step_2_received <= _typeToReserves[DexReserveType.POOL][0] + result.step_1_left_deposit, Errors.NOT_ENOUGH_FUNDS);
+                    require(result.step_2_received <= _typeToReserves[ReserveType.POOL][0] + result.step_1_left_deposit, Errors.NOT_ENOUGH_FUNDS);
 
-                    _typeToReserves[DexReserveType.POOL][1] -= step2BeneficiaryFee + step2ReferrerFee;
-                    _typeToReserves[DexReserveType.FEE][1] += step2BeneficiaryFee;
+                    _typeToReserves[ReserveType.POOL][1] -= step2BeneficiaryFee + step2ReferrerFee;
+                    _typeToReserves[ReserveType.FEE][1] += step2BeneficiaryFee;
                 } else if (result.step_2_left_to_right) {
-                    require(result.step_2_received <= _typeToReserves[DexReserveType.POOL][1] + result.step_1_right_deposit, Errors.NOT_ENOUGH_FUNDS);
+                    require(result.step_2_received <= _typeToReserves[ReserveType.POOL][1] + result.step_1_right_deposit, Errors.NOT_ENOUGH_FUNDS);
 
-                    _typeToReserves[DexReserveType.POOL][0] -= step2BeneficiaryFee + step2ReferrerFee;
-                    _typeToReserves[DexReserveType.FEE][0] += step2BeneficiaryFee;
+                    _typeToReserves[ReserveType.POOL][0] -= step2BeneficiaryFee + step2ReferrerFee;
+                    _typeToReserves[ReserveType.FEE][0] += step2BeneficiaryFee;
                 }
 
                 _exchangeBase(
@@ -299,8 +299,8 @@ contract DexPair is PairBase, INextExchangeData {
                     referrerValue
                 );
             } else {
-                _typeToReserves[DexReserveType.POOL][0] += result.step_1_left_deposit;
-                _typeToReserves[DexReserveType.POOL][1] += result.step_1_right_deposit;
+                _typeToReserves[ReserveType.POOL][0] += result.step_1_left_deposit;
+                _typeToReserves[ReserveType.POOL][1] += result.step_1_right_deposit;
 
                 if (result.step_1_left_deposit < operations[0].amount) {
                     IDexAccount(msg.sender)
@@ -308,7 +308,7 @@ contract DexPair is PairBase, INextExchangeData {
                         (
                             operations[0].amount - result.step_1_left_deposit,
                             tokenRoots[0],
-                            _typeToRootAddresses[DexAddressType.RESERVE],
+                            _typeToRootAddresses[AddressType.RESERVE],
                             _remainingGasTo
                         );
                 }
@@ -319,7 +319,7 @@ contract DexPair is PairBase, INextExchangeData {
                         (
                             operations[1].amount - result.step_1_right_deposit,
                             tokenRoots[1],
-                            _typeToRootAddresses[DexAddressType.RESERVE],
+                            _typeToRootAddresses[AddressType.RESERVE],
                             _remainingGasTo
                         );
                 }
@@ -370,7 +370,7 @@ contract DexPair is PairBase, INextExchangeData {
     ) private {
         uint128[] oldReserves = _reserves();
 
-        _typeToReserves[DexReserveType.LP][0] += _result.step_1_lp_reward + _result.step_3_lp_reward;
+        _typeToReserves[ReserveType.LP][0] += _result.step_1_lp_reward + _result.step_3_lp_reward;
 
         _write(
             oldReserves[0],
@@ -473,9 +473,9 @@ contract DexPair is PairBase, INextExchangeData {
         );
 
         // Update reserves
-        _typeToReserves[DexReserveType.POOL][0] -= leftBackAmount;
-        _typeToReserves[DexReserveType.POOL][1] -= rightBackAmount;
-        _typeToReserves[DexReserveType.LP][0] -= _lpAmount;
+        _typeToReserves[ReserveType.POOL][0] -= leftBackAmount;
+        _typeToReserves[ReserveType.POOL][1] -= rightBackAmount;
+        _typeToReserves[ReserveType.LP][0] -= _lpAmount;
 
         // Save operations
         TokenOperation[] operations = new TokenOperation[](0);
@@ -664,7 +664,7 @@ contract DexPair is PairBase, INextExchangeData {
                             _deployWalletGrams,
                             _notifySuccess,
                             _successPayload,
-                            _typeToRootAddresses[DexAddressType.RESERVE],
+                            _typeToRootAddresses[AddressType.RESERVE],
                             _currentVersion,
                             _remainingGasTo
                         );
@@ -848,13 +848,13 @@ contract DexPair is PairBase, INextExchangeData {
         uint128[] oldReserves = _reserves();
 
         // Update reserves
-        _typeToReserves[DexReserveType.POOL][spentTokenIndex] += _isNominal ? 0 : _spentAmount - _beneficiaryFee - _referrerFee;
-        _typeToReserves[DexReserveType.POOL][receiveTokenIndex] -= _isNominal ? 0 : _amount;
+        _typeToReserves[ReserveType.POOL][spentTokenIndex] += _isNominal ? 0 : _spentAmount - _beneficiaryFee - _referrerFee;
+        _typeToReserves[ReserveType.POOL][receiveTokenIndex] -= _isNominal ? 0 : _amount;
 
         if (!_isViaAccount || !_isNominal) {
             // Update accumulated fees
             if (_beneficiaryFee > 0) {
-                _typeToReserves[DexReserveType.FEE][spentTokenIndex] += _beneficiaryFee;
+                _typeToReserves[ReserveType.FEE][spentTokenIndex] += _beneficiaryFee;
 
                 _processBeneficiaryFees(false, _remainingGasTo);
             }
@@ -969,7 +969,7 @@ contract DexPair is PairBase, INextExchangeData {
         uint8 spentTokenIndex = _spentTokenRoot == _tokenRoots()[0] ? 0 : 1;
         uint8 receiveTokenIndex = _spentTokenRoot == _tokenRoots()[0] ? 1 : 0;
 
-        if (_op == DexOperationTypes.CROSS_PAIR_EXCHANGE && nextSteps.length > 0) {
+        if (_op == OperationTypes.CROSS_PAIR_EXCHANGE && nextSteps.length > 0) {
             // actually poolRoot is a tokenRoot here, so
             nextSteps[0].poolRoot = _expectedPoolAddress([_tokenRoots()[receiveTokenIndex], nextSteps[0].poolRoot]);
         }
@@ -1074,7 +1074,7 @@ contract DexPair is PairBase, INextExchangeData {
                             }(
                                 _id,
                                 _currentVersion,
-                                DexPoolTypes.CONSTANT_PRODUCT,
+                                PoolTypes.CONSTANT_PRODUCT,
                                 _tokenRoots(),
                                 _op,
                                 _tokenRoots()[receiveTokenIndex],
@@ -1224,10 +1224,10 @@ contract DexPair is PairBase, INextExchangeData {
 
         if (errorCode == 0) {
             if (_tokenRoot == _tokenRoots()[0] || _tokenRoot == _tokenRoots()[1]) {
-                uint8 spentTokenIndex = _tokenRoot == _typeToRootAddresses[DexAddressType.RESERVE][0] ? 0 : 1;
-                uint8 receiveTokenIndex = _tokenRoot == _typeToRootAddresses[DexAddressType.RESERVE][0] ? 1 : 0;
+                uint8 spentTokenIndex = _tokenRoot == _typeToRootAddresses[AddressType.RESERVE][0] ? 0 : 1;
+                uint8 receiveTokenIndex = _tokenRoot == _typeToRootAddresses[AddressType.RESERVE][0] ? 1 : 0;
 
-                if (op == DexOperationTypes.EXCHANGE || op == DexOperationTypes.EXCHANGE_V2) {
+                if (op == OperationTypes.EXCHANGE || op == OperationTypes.EXCHANGE_V2) {
                     // Calculate exchange result
                     (
                         uint128 amount,
@@ -1298,7 +1298,7 @@ contract DexPair is PairBase, INextExchangeData {
                                 _remainingGasTo
                             );
                     }
-                } else if (op == DexOperationTypes.DEPOSIT_LIQUIDITY || op == DexOperationTypes.DEPOSIT_LIQUIDITY_V2) {
+                } else if (op == OperationTypes.DEPOSIT_LIQUIDITY || op == OperationTypes.DEPOSIT_LIQUIDITY_V2) {
                     // Calculate deposit result
                     (
                         DepositLiquidityResult r,
@@ -1330,7 +1330,7 @@ contract DexPair is PairBase, INextExchangeData {
                     } else if (r.step_3_lp_reward < expectedAmount) {
                         errorCode = DirectOperationErrors.RECEIVED_AMOUNT_IS_LESS_THAN_EXPECTED;
                     } else {
-                        _typeToReserves[DexReserveType.POOL][spentTokenIndex] += _tokensAmount - step2BeneficiaryFee - step2ReferrerFee;
+                        _typeToReserves[ReserveType.POOL][spentTokenIndex] += _tokensAmount - step2BeneficiaryFee - step2ReferrerFee;
 
                         _exchangeBase(
                             id,
@@ -1380,11 +1380,11 @@ contract DexPair is PairBase, INextExchangeData {
                                 PairPayload.buildSuccessPayload(op, successPayload, _senderAddress)
                             );
                     }
-                } else if (op == DexOperationTypes.CROSS_PAIR_EXCHANGE || op == DexOperationTypes.CROSS_PAIR_EXCHANGE_V2) {
+                } else if (op == OperationTypes.CROSS_PAIR_EXCHANGE || op == OperationTypes.CROSS_PAIR_EXCHANGE_V2) {
 
                     if (nextSteps.length == 0) errorCode = DirectOperationErrors.INVALID_NEXT_STEPS;
 
-                    if (errorCode == 0 && op == DexOperationTypes.CROSS_PAIR_EXCHANGE) {
+                    if (errorCode == 0 && op == OperationTypes.CROSS_PAIR_EXCHANGE) {
                         // actually poolRoot is a tokenRoot here, so
                         nextSteps[0].poolRoot = _expectedPoolAddress([_tokenRoots()[receiveTokenIndex], nextSteps[0].poolRoot]);
                     }
@@ -1487,7 +1487,7 @@ contract DexPair is PairBase, INextExchangeData {
                             }(
                                 id,
                                 _currentVersion,
-                                DexPoolTypes.CONSTANT_PRODUCT,
+                                PoolTypes.CONSTANT_PRODUCT,
                                 _tokenRoots(),
                                 op,
                                 _tokenRoots()[receiveTokenIndex],
@@ -1508,7 +1508,7 @@ contract DexPair is PairBase, INextExchangeData {
                 } else {
                     errorCode = DirectOperationErrors.WRONG_OPERATION_TYPE;
                 }
-            } else if (op == DexOperationTypes.WITHDRAW_LIQUIDITY || op == DexOperationTypes.WITHDRAW_LIQUIDITY_V2) {
+            } else if (op == OperationTypes.WITHDRAW_LIQUIDITY || op == OperationTypes.WITHDRAW_LIQUIDITY_V2) {
                 // Calculate withdrawal result
                 uint128 leftBackAmount =  math.muldiv(_reserves()[0], _tokensAmount, _lpReserve());
                 uint128 rightBackAmount = math.muldiv(_reserves()[1], _tokensAmount, _lpReserve());
@@ -1595,23 +1595,23 @@ contract DexPair is PairBase, INextExchangeData {
         if (_lpReserve() == 0) return DirectOperationErrors.NON_POSITIVE_LP_SUPPLY;
         if (_msgValue < Constants.DIRECT_PAIR_OP_MIN_VALUE_V2 + _deployWalletGrams + _referrerValue) return DirectOperationErrors.VALUE_TOO_LOW;
 
-        if (_tokenRoot == _lpRoot() && _msgSender != _typeToWalletAddresses[DexAddressType.LP][0]) return DirectOperationErrors.NOT_LP_TOKEN_WALLET;
+        if (_tokenRoot == _lpRoot() && _msgSender != _typeToWalletAddresses[AddressType.LP][0]) return DirectOperationErrors.NOT_LP_TOKEN_WALLET;
         if (_tokenRoot != _lpRoot()) {
             address[] roots = _tokenRoots();
-            address[] wallets = _typeToWalletAddresses[DexAddressType.RESERVE];
+            address[] wallets = _typeToWalletAddresses[AddressType.RESERVE];
             if (_tokenRoot != roots[0] && _tokenRoot != roots[1]) return DirectOperationErrors.NOT_TOKEN_ROOT;
             if (_tokenRoot == roots[0] && _msgSender != wallets[0] || _tokenRoot == roots[1] && _msgSender != wallets[1]) return DirectOperationErrors.NOT_TOKEN_WALLET;
         }
 
-        if (!(_msgSender == _typeToWalletAddresses[DexAddressType.LP][0] && (op == DexOperationTypes.WITHDRAW_LIQUIDITY || op == DexOperationTypes.WITHDRAW_LIQUIDITY_V2) ||
-            _msgSender != _typeToWalletAddresses[DexAddressType.LP][0] && (
-                op == DexOperationTypes.DEPOSIT_LIQUIDITY || op == DexOperationTypes.DEPOSIT_LIQUIDITY_V2 ||
-                op == DexOperationTypes.EXCHANGE || op == DexOperationTypes.EXCHANGE_V2 ||
-                op == DexOperationTypes.CROSS_PAIR_EXCHANGE || op == DexOperationTypes.CROSS_PAIR_EXCHANGE_V2
+        if (!(_msgSender == _typeToWalletAddresses[AddressType.LP][0] && (op == OperationTypes.WITHDRAW_LIQUIDITY || op == OperationTypes.WITHDRAW_LIQUIDITY_V2) ||
+            _msgSender != _typeToWalletAddresses[AddressType.LP][0] && (
+                op == OperationTypes.DEPOSIT_LIQUIDITY || op == OperationTypes.DEPOSIT_LIQUIDITY_V2 ||
+                op == OperationTypes.EXCHANGE || op == OperationTypes.EXCHANGE_V2 ||
+                op == OperationTypes.CROSS_PAIR_EXCHANGE || op == OperationTypes.CROSS_PAIR_EXCHANGE_V2
             )
         )) return DirectOperationErrors.WRONG_OPERATION_TYPE;
 
-        if ((op == DexOperationTypes.WITHDRAW_LIQUIDITY || op == DexOperationTypes.WITHDRAW_LIQUIDITY_V2) && _msgValue < Constants.DIRECT_PAIR_OP_MIN_VALUE_V2 + 2 * _deployWalletGrams + _referrerValue) {
+        if ((op == OperationTypes.WITHDRAW_LIQUIDITY || op == OperationTypes.WITHDRAW_LIQUIDITY_V2) && _msgValue < Constants.DIRECT_PAIR_OP_MIN_VALUE_V2 + 2 * _deployWalletGrams + _referrerValue) {
             return DirectOperationErrors.VALUE_TOO_LOW;
         }
 

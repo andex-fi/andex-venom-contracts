@@ -1,12 +1,12 @@
 pragma ever-solidity >= 0.62.0;
 
-import "../libraries/EverToTip3OperationStatus.sol";
-import "../libraries/DexOperationTypes.sol";
+import "../libraries/VenomToTip3OperationStatus.sol";
+import "../libraries/OperationTypes.sol";
 import "../libraries/PairPayload.sol";
 
 import "../structures/IExchangeStepStructure.sol";
 
-library EverToTip3Payloads {
+library VenomToTip3Payloads {
 
     // Payload constructor swap Ever -> Tip-3
     function buildExchangePayload(
@@ -21,12 +21,12 @@ library EverToTip3Payloads {
         TvmBuilder builder;
 
         TvmBuilder successPayload;
-        successPayload.store(EverToTip3OperationStatus.SUCCESS);
+        successPayload.store(VenomToTip3OperationStatus.SUCCESS);
         successPayload.store(id);
         successPayload.store(deployWalletValue);
 
         TvmBuilder cancelPayload;
-        cancelPayload.store(EverToTip3OperationStatus.CANCEL);
+        cancelPayload.store(VenomToTip3OperationStatus.CANCEL);
         cancelPayload.store(id);
         cancelPayload.store(deployWalletValue);
 
@@ -74,12 +74,12 @@ library EverToTip3Payloads {
         TvmBuilder builder;
 
         TvmBuilder successPayload;
-        successPayload.store(EverToTip3OperationStatus.SUCCESS);
+        successPayload.store(VenomToTip3OperationStatus.SUCCESS);
         successPayload.store(id);
         successPayload.store(deployWalletValue);
 
         TvmBuilder cancelPayload;
-        cancelPayload.store(EverToTip3OperationStatus.CANCEL);
+        cancelPayload.store(VenomToTip3OperationStatus.CANCEL);
         cancelPayload.store(id);
         cancelPayload.store(deployWalletValue);
 

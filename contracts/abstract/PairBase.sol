@@ -7,10 +7,10 @@ import "../interfaces/IDexAccount.sol";
 import "../interfaces/IDexRoot.sol";
 import "../interfaces/IDexTokenVault.sol";
 
-import "../libraries/DexPoolTypes.sol";
+import "../libraries/PoolTypes.sol";
 import "../libraries/Constants.sol";
-import "../libraries/DexAddressType.sol";
-import "../libraries/DexReserveType.sol";
+import "../libraries/AddressType.sol";
+import "../libraries/ReserveType.sol";
 
 import "../structures/IPoolTokenData.sol";
 import "../structures/IAmplificationCoefficient.sol";
@@ -77,8 +77,8 @@ abstract contract PairBase is
     /// @dev Only pair's LP TokenRoot can call a function with this modifier
     modifier onlyLiquidityTokenRoot() {
         require(
-            _typeToRootAddresses[DexAddressType.LP][0].value != 0 &&
-            msg.sender == _typeToRootAddresses[DexAddressType.LP][0],
+            _typeToRootAddresses[AddressType.LP][0].value != 0 &&
+            msg.sender == _typeToRootAddresses[AddressType.LP][0],
             Errors.NOT_LP_TOKEN_ROOT
         );
         _;
@@ -87,9 +87,9 @@ abstract contract PairBase is
     /// @dev Only TIP-3 TokenRoot can call a function with this modifier
     modifier onlyTokenRoot() {
         require(
-            (_typeToRootAddresses[DexAddressType.RESERVE][0].value != 0 && msg.sender == _typeToRootAddresses[DexAddressType.RESERVE][0]) ||
-            (_typeToRootAddresses[DexAddressType.RESERVE][1].value != 0 && msg.sender == _typeToRootAddresses[DexAddressType.RESERVE][1]) ||
-            (_typeToRootAddresses[DexAddressType.LP][0].value != 0 && msg.sender == _typeToRootAddresses[DexAddressType.LP][0]),
+            (_typeToRootAddresses[AddressType.RESERVE][0].value != 0 && msg.sender == _typeToRootAddresses[AddressType.RESERVE][0]) ||
+            (_typeToRootAddresses[AddressType.RESERVE][1].value != 0 && msg.sender == _typeToRootAddresses[AddressType.RESERVE][1]) ||
+            (_typeToRootAddresses[AddressType.LP][0].value != 0 && msg.sender == _typeToRootAddresses[AddressType.LP][0]),
             Errors.NOT_TOKEN_ROOT
         );
         _;
@@ -140,9 +140,9 @@ abstract contract PairBase is
             bounce: false,
             flag: MsgFlag.REMAINING_GAS
         } (
-            _typeToRootAddresses[DexAddressType.RESERVE][0],
-            _typeToRootAddresses[DexAddressType.RESERVE][1],
-            _typeToRootAddresses[DexAddressType.LP][0]
+            _typeToRootAddresses[AddressType.RESERVE][0],
+            _typeToRootAddresses[AddressType.RESERVE][1],
+            _typeToRootAddresses[AddressType.LP][0]
         );
     }
 
@@ -157,9 +157,9 @@ abstract contract PairBase is
             bounce: false,
             flag: MsgFlag.REMAINING_GAS
         } (
-            _typeToWalletAddresses[DexAddressType.RESERVE][0],
-            _typeToWalletAddresses[DexAddressType.RESERVE][1],
-            _typeToWalletAddresses[DexAddressType.LP][0]
+            _typeToWalletAddresses[AddressType.RESERVE][0],
+            _typeToWalletAddresses[AddressType.RESERVE][1],
+            _typeToWalletAddresses[AddressType.LP][0]
         );
     }
 
@@ -187,7 +187,7 @@ abstract contract PairBase is
             value: 0,
             bounce: false,
             flag: MsgFlag.REMAINING_GAS
-        } DexPoolTypes.CONSTANT_PRODUCT;
+        } PoolTypes.CONSTANT_PRODUCT;
     }
 
     // Return fee options
@@ -205,7 +205,7 @@ abstract contract PairBase is
             value: 0,
             bounce: false,
             flag: MsgFlag.REMAINING_GAS
-        } _typeToReserves[DexReserveType.FEE];
+        } _typeToReserves[ReserveType.FEE];
     }
 
     // is pair active
@@ -224,9 +224,9 @@ abstract contract PairBase is
             bounce: false,
             flag: MsgFlag.REMAINING_GAS
         } DexPairBalances(
-            _typeToReserves[DexReserveType.LP][0],
-            _typeToReserves[DexReserveType.POOL][0],
-            _typeToReserves[DexReserveType.POOL][1]
+            _typeToReserves[ReserveType.LP][0],
+            _typeToReserves[ReserveType.POOL][0],
+            _typeToReserves[ReserveType.POOL][1]
         );
     }
 
@@ -290,8 +290,8 @@ abstract contract PairBase is
         IDexAccount(msg.sender)
             .checkPoolCallback{ value: 0, flag: MsgFlag.ALL_NOT_RESERVED }
             (
-                _typeToRootAddresses[DexAddressType.RESERVE],
-                _typeToRootAddresses[DexAddressType.LP][0]
+                _typeToRootAddresses[AddressType.RESERVE],
+                _typeToRootAddresses[AddressType.LP][0]
             );
     }
 
@@ -303,7 +303,7 @@ abstract contract PairBase is
     ) override external onlyRoot {
         if (
             _currentVersion == _newVersion &&
-            _newType == DexPoolTypes.CONSTANT_PRODUCT
+            _newType == PoolTypes.CONSTANT_PRODUCT
         ) {
             tvm.rawReserve(Constants.PAIR_INITIAL_BALANCE, 0);
 
@@ -326,7 +326,7 @@ abstract contract PairBase is
             builder.store(_currentVersion);
             builder.store(_newVersion);
             builder.store(_remainingGasTo);
-            builder.store(DexPoolTypes.CONSTANT_PRODUCT);
+            builder.store(PoolTypes.CONSTANT_PRODUCT);
             builder.store(platform_code);  // ref1 = platform_code
 
             TvmCell otherData = abi.encode(
@@ -356,19 +356,19 @@ abstract contract PairBase is
     ) override external onlyRoot {
         tvm.rawReserve(Constants.PAIR_INITIAL_BALANCE, 0);
 
-        _typeToRootAddresses[DexAddressType.LP].push(_lpRootAddress);
+        _typeToRootAddresses[AddressType.LP].push(_lpRootAddress);
 
         // Deploy wallets for pair
-        _configureTokenRootWallets(_typeToRootAddresses[DexAddressType.LP][0]);
-        _configureTokenRootWallets(_typeToRootAddresses[DexAddressType.RESERVE][0]);
-        _configureTokenRootWallets(_typeToRootAddresses[DexAddressType.RESERVE][1]);
+        _configureTokenRootWallets(_typeToRootAddresses[AddressType.LP][0]);
+        _configureTokenRootWallets(_typeToRootAddresses[AddressType.RESERVE][0]);
+        _configureTokenRootWallets(_typeToRootAddresses[AddressType.RESERVE][1]);
 
         // Notify root that pair was created
         IDexRoot(_root)
             .onPoolCreated{ value: 0, flag: MsgFlag.ALL_NOT_RESERVED }
             (
                 _tokenRoots(),
-                DexPoolTypes.CONSTANT_PRODUCT,
+                PoolTypes.CONSTANT_PRODUCT,
                 _remainingGasTo
             );
     }
@@ -400,49 +400,49 @@ abstract contract PairBase is
     function onTokenWallet(address _wallet) external onlyTokenRoot {
         // Set wallets addresses and values
         if (
-            msg.sender == _typeToRootAddresses[DexAddressType.LP][0] &&
-            _typeToWalletAddresses[DexAddressType.LP].length == 0
+            msg.sender == _typeToRootAddresses[AddressType.LP][0] &&
+            _typeToWalletAddresses[AddressType.LP].length == 0
         ) {
-            _typeToWalletAddresses[DexAddressType.LP].push(_wallet);
-            _typeToReserves[DexReserveType.LP].push(0);
+            _typeToWalletAddresses[AddressType.LP].push(_wallet);
+            _typeToReserves[ReserveType.LP].push(0);
         } else if (
-            msg.sender == _typeToRootAddresses[DexAddressType.RESERVE][0]
+            msg.sender == _typeToRootAddresses[AddressType.RESERVE][0]
         ) {
             if (
-                _typeToWalletAddresses[DexAddressType.RESERVE].length == 0
+                _typeToWalletAddresses[AddressType.RESERVE].length == 0
             ) {
-                _typeToWalletAddresses[DexAddressType.RESERVE].push(_wallet);
+                _typeToWalletAddresses[AddressType.RESERVE].push(_wallet);
 
-                _typeToReserves[DexReserveType.POOL].push(0);
-                _typeToReserves[DexReserveType.FEE].push(0);
+                _typeToReserves[ReserveType.POOL].push(0);
+                _typeToReserves[ReserveType.FEE].push(0);
             } else if (
-                _typeToWalletAddresses[DexAddressType.RESERVE].length == 2 &&
-                _typeToWalletAddresses[DexAddressType.RESERVE][0].value == 0
+                _typeToWalletAddresses[AddressType.RESERVE].length == 2 &&
+                _typeToWalletAddresses[AddressType.RESERVE][0].value == 0
             ) {
-                _typeToWalletAddresses[DexAddressType.RESERVE][0] = _wallet;
+                _typeToWalletAddresses[AddressType.RESERVE][0] = _wallet;
 
-                _typeToReserves[DexReserveType.POOL].push(0);
-                _typeToReserves[DexReserveType.FEE].push(0);
+                _typeToReserves[ReserveType.POOL].push(0);
+                _typeToReserves[ReserveType.FEE].push(0);
             }
         } else if (
-            msg.sender == _typeToRootAddresses[DexAddressType.RESERVE][1]
+            msg.sender == _typeToRootAddresses[AddressType.RESERVE][1]
         ) {
             if (
-                _typeToWalletAddresses[DexAddressType.RESERVE].length == 1 &&
-                _typeToWalletAddresses[DexAddressType.RESERVE][0] != _wallet
+                _typeToWalletAddresses[AddressType.RESERVE].length == 1 &&
+                _typeToWalletAddresses[AddressType.RESERVE][0] != _wallet
             ) {
-                _typeToWalletAddresses[DexAddressType.RESERVE].push(_wallet);
+                _typeToWalletAddresses[AddressType.RESERVE].push(_wallet);
 
-                _typeToReserves[DexReserveType.POOL].push(0);
-                _typeToReserves[DexReserveType.FEE].push(0);
+                _typeToReserves[ReserveType.POOL].push(0);
+                _typeToReserves[ReserveType.FEE].push(0);
             } else if (
-                _typeToWalletAddresses[DexAddressType.RESERVE].length == 0
+                _typeToWalletAddresses[AddressType.RESERVE].length == 0
             ) {
-                _typeToWalletAddresses[DexAddressType.RESERVE].push(address(0));
-                _typeToWalletAddresses[DexAddressType.RESERVE].push(_wallet);
+                _typeToWalletAddresses[AddressType.RESERVE].push(address(0));
+                _typeToWalletAddresses[AddressType.RESERVE].push(_wallet);
 
-                _typeToReserves[DexReserveType.POOL].push(0);
-                _typeToReserves[DexReserveType.FEE].push(0);
+                _typeToReserves[ReserveType.POOL].push(0);
+                _typeToReserves[ReserveType.FEE].push(0);
             }
         }
 
@@ -468,22 +468,22 @@ abstract contract PairBase is
         bool _isForce,
         address _remainingGasTo
     ) internal {
-        for (uint i = 0; i < _typeToReserves[DexReserveType.FEE].length; i++) {
+        for (uint i = 0; i < _typeToReserves[ReserveType.FEE].length; i++) {
             if (
-                (_typeToReserves[DexReserveType.FEE][i] > 0 && _isForce) ||
-                !_fee.threshold.exists(_typeToRootAddresses[DexAddressType.RESERVE][i]) ||
-                _typeToReserves[DexReserveType.FEE][i] >= _fee.threshold.at(_typeToRootAddresses[DexAddressType.RESERVE][i])
+                (_typeToReserves[ReserveType.FEE][i] > 0 && _isForce) ||
+                !_fee.threshold.exists(_typeToRootAddresses[AddressType.RESERVE][i]) ||
+                _typeToReserves[ReserveType.FEE][i] >= _fee.threshold.at(_typeToRootAddresses[AddressType.RESERVE][i])
             ) {
                 IDexAccount(_expectedAccountAddress(_fee.beneficiary))
                     .internalPoolTransfer{ value: Constants.INTERNAL_PAIR_TRANSFER_VALUE, flag: MsgFlag.SENDER_PAYS_FEES }
                     (
-                        _typeToReserves[DexReserveType.FEE][i],
-                        _typeToRootAddresses[DexAddressType.RESERVE][i],
-                        _typeToRootAddresses[DexAddressType.RESERVE],
+                        _typeToReserves[ReserveType.FEE][i],
+                        _typeToRootAddresses[AddressType.RESERVE][i],
+                        _typeToRootAddresses[AddressType.RESERVE],
                         _remainingGasTo
                     );
 
-                    _typeToReserves[DexReserveType.FEE][i] = 0;
+                    _typeToReserves[ReserveType.FEE][i] = 0;
             }
         }
     }
@@ -491,26 +491,26 @@ abstract contract PairBase is
     /// @dev Pack left and right reserves and return them
     /// @return uint128[] Reserves' values sorted by reserves roots
     function _reserves() internal view override returns (uint128[]) {
-        return _typeToReserves[DexReserveType.POOL];
+        return _typeToReserves[ReserveType.POOL];
     }
 
     /// @dev Emits sync event with pair's balances
     function _sync() internal view {
-        emit Sync(_reserves(), _typeToReserves[DexReserveType.LP][0]);
+        emit Sync(_reserves(), _typeToReserves[ReserveType.LP][0]);
     }
 
     /// @dev Pack left and right TIP-3 token roots and return them
     /// @return address[] Sorted TokenRoot addresses of the reserves
     function _tokenRoots() internal view override returns (address[]) {
-        return _typeToRootAddresses[DexAddressType.RESERVE];
+        return _typeToRootAddresses[AddressType.RESERVE];
     }
 
     function _lpRoot() internal view returns (address) {
-        return _typeToRootAddresses[DexAddressType.LP][0];
+        return _typeToRootAddresses[AddressType.LP][0];
     }
 
     function _lpReserve() internal view returns (uint128) {
-        return _typeToReserves[DexReserveType.LP][0];
+        return _typeToReserves[ReserveType.LP][0];
     }
 
     /// @dev Deploys wallet by TIP-3 token root and wait for callback
@@ -553,8 +553,8 @@ abstract contract PairBase is
     /// @dev Will activate pair if all wallets' addresses are set
     function _tryToActivate() private {
         if (
-            _typeToWalletAddresses[DexAddressType.LP].length == 1 &&
-            _typeToWalletAddresses[DexAddressType.RESERVE].length == 2
+            _typeToWalletAddresses[AddressType.LP].length == 1 &&
+            _typeToWalletAddresses[AddressType.RESERVE].length == 2
         ) {
             _active = true;
         }
@@ -570,7 +570,7 @@ abstract contract PairBase is
 
         address remainingGasTo;
         uint32 oldVersion;
-        uint8 oldPoolType = DexPoolTypes.CONSTANT_PRODUCT;
+        uint8 oldPoolType = PoolTypes.CONSTANT_PRODUCT;
 
         // Unpack base data
         (
@@ -602,8 +602,8 @@ abstract contract PairBase is
             (leftRoot, rightRoot) = tokensDataSlice.decode(address, address);
 
             // Set token roots
-            _typeToRootAddresses[DexAddressType.RESERVE].push(leftRoot);
-            _typeToRootAddresses[DexAddressType.RESERVE].push(rightRoot);
+            _typeToRootAddresses[AddressType.RESERVE].push(leftRoot);
+            _typeToRootAddresses[AddressType.RESERVE].push(rightRoot);
 
             // Set initial params for fees
             _fee = FeeParams(1000000, 3000, 0, 0, address(0), emptyMap, emptyMap);
@@ -615,12 +615,12 @@ abstract contract PairBase is
                     flag: MsgFlag.ALL_NOT_RESERVED,
                     bounce: false
                 }(
-                    _typeToRootAddresses[DexAddressType.RESERVE],
+                    _typeToRootAddresses[AddressType.RESERVE],
                     remainingGasTo
                 );
 
             _initializeTWAPOracle(now);
-        } else if (oldPoolType == DexPoolTypes.CONSTANT_PRODUCT) {
+        } else if (oldPoolType == PoolTypes.CONSTANT_PRODUCT) {
             _active = true;
             TvmCell otherData = dataSlice.loadRef(); // ref 2
 
@@ -650,13 +650,13 @@ abstract contract PairBase is
                     uint16
                 );
             }
-        } else if (oldPoolType == DexPoolTypes.STABLESWAP) {
+        } else if (oldPoolType == PoolTypes.STABLESWAP) {
             TvmSlice tokensDataSlice = dataSlice.loadRefAsSlice(); // ref 2
             (leftRoot, rightRoot) = tokensDataSlice.decode(address, address);
 
             // Set token roots
-            _typeToRootAddresses[DexAddressType.RESERVE].push(leftRoot);
-            _typeToRootAddresses[DexAddressType.RESERVE].push(rightRoot);
+            _typeToRootAddresses[AddressType.RESERVE].push(leftRoot);
+            _typeToRootAddresses[AddressType.RESERVE].push(rightRoot);
 
             TvmCell otherData = dataSlice.loadRef(); // ref 3
             IPoolTokenData.PoolTokenData[] tokensData = new IPoolTokenData.PoolTokenData[](2);
@@ -681,26 +681,26 @@ abstract contract PairBase is
             ));
 
             // Set lp reserve
-            _typeToRootAddresses[DexAddressType.LP].push(lpRoot);
-            _typeToWalletAddresses[DexAddressType.LP].push(lpWallet);
-            _typeToReserves[DexReserveType.LP].push(lpSupply);
+            _typeToRootAddresses[AddressType.LP].push(lpRoot);
+            _typeToWalletAddresses[AddressType.LP].push(lpWallet);
+            _typeToReserves[ReserveType.LP].push(lpSupply);
 
             // Set left reserve and wallet
-            _typeToWalletAddresses[DexAddressType.RESERVE].push(tokensData[0].wallet);
-            _typeToReserves[DexReserveType.POOL].push(tokensData[0].balance);
+            _typeToWalletAddresses[AddressType.RESERVE].push(tokensData[0].wallet);
+            _typeToReserves[ReserveType.POOL].push(tokensData[0].balance);
 
             // Set right reserve and wallet
-            _typeToWalletAddresses[DexAddressType.RESERVE].push(tokensData[1].wallet);
-            _typeToReserves[DexReserveType.POOL].push(tokensData[1].balance);
+            _typeToWalletAddresses[AddressType.RESERVE].push(tokensData[1].wallet);
+            _typeToReserves[ReserveType.POOL].push(tokensData[1].balance);
 
             // Set fee reserves
-            _typeToReserves[DexReserveType.FEE].push(tokensData[0].accumulatedFee);
-            _typeToReserves[DexReserveType.FEE].push(tokensData[1].accumulatedFee);
+            _typeToReserves[ReserveType.FEE].push(tokensData[0].accumulatedFee);
+            _typeToReserves[ReserveType.FEE].push(tokensData[1].accumulatedFee);
 
             _initializeTWAPOracle(now);
-        } else if (oldPoolType == DexPoolTypes.STABLE_POOL) {
+        } else if (oldPoolType == PoolTypes.STABLE_POOL) {
             TvmCell tokenDataCell = dataSlice.loadRef(); // ref 2
-            _typeToRootAddresses[DexAddressType.RESERVE] = abi.decode(tokenDataCell, address[]);
+            _typeToRootAddresses[AddressType.RESERVE] = abi.decode(tokenDataCell, address[]);
 
             TvmCell otherData = dataSlice.loadRef(); // ref 3
             IPoolTokenData.PoolTokenData[] tokensData = new IPoolTokenData.PoolTokenData[](2);
@@ -725,21 +725,21 @@ abstract contract PairBase is
             ));
 
             // Set lp reserve
-            _typeToRootAddresses[DexAddressType.LP].push(lpRoot);
-            _typeToWalletAddresses[DexAddressType.LP].push(lpWallet);
-            _typeToReserves[DexReserveType.LP].push(lpSupply);
+            _typeToRootAddresses[AddressType.LP].push(lpRoot);
+            _typeToWalletAddresses[AddressType.LP].push(lpWallet);
+            _typeToReserves[ReserveType.LP].push(lpSupply);
 
             // Set left reserve and wallet
-            _typeToWalletAddresses[DexAddressType.RESERVE].push(tokensData[0].wallet);
-            _typeToReserves[DexReserveType.POOL].push(tokensData[0].balance);
+            _typeToWalletAddresses[AddressType.RESERVE].push(tokensData[0].wallet);
+            _typeToReserves[ReserveType.POOL].push(tokensData[0].balance);
 
             // Set right reserve and wallet
-            _typeToWalletAddresses[DexAddressType.RESERVE].push(tokensData[1].wallet);
-            _typeToReserves[DexReserveType.POOL].push(tokensData[1].balance);
+            _typeToWalletAddresses[AddressType.RESERVE].push(tokensData[1].wallet);
+            _typeToReserves[ReserveType.POOL].push(tokensData[1].balance);
 
             // Set fee reserves
-            _typeToReserves[DexReserveType.FEE].push(tokensData[0].accumulatedFee);
-            _typeToReserves[DexReserveType.FEE].push(tokensData[1].accumulatedFee);
+            _typeToReserves[ReserveType.FEE].push(tokensData[0].accumulatedFee);
+            _typeToReserves[ReserveType.FEE].push(tokensData[1].accumulatedFee);
 
             _initializeTWAPOracle(now);
         }

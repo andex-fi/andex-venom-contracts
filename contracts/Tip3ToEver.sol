@@ -4,11 +4,11 @@ pragma AbiHeader time;
 pragma AbiHeader expire;
 pragma AbiHeader pubkey;
 
-import "./libraries/EverToTip3Gas.sol";
-import "./libraries/EverToTip3Errors.sol";
-import "./libraries/DexOperationTypes.sol";
-import "./libraries/EverToTip3OperationStatus.sol";
-import "./libraries/DexOperationStatusV2.sol";
+import "./libraries/VenomToTip3Gas.sol";
+import "./libraries/VenomToTip3Errors.sol";
+import "./libraries/OperationTypes.sol";
+import "./libraries/VenomToTip3OperationStatus.sol";
+import "./libraries/OperationStatus.sol";
 import "./libraries/PairPayload.sol";
 
 import "./interfaces/IEverTip3SwapEvents.sol";
@@ -34,15 +34,15 @@ contract Tip3ToEver is IAcceptTokensTransferCallback, IAcceptTokensBurnCallback,
     constructor() public {
         tvm.accept();
 
-        tvm.rawReserve(EverToTip3Gas.TARGET_BALANCE, 0);
+        tvm.rawReserve(VenomToTip3Gas.TARGET_BALANCE, 0);
 
         ITokenRoot(weverRoot).deployWallet{
-            value: EverToTip3Gas.DEPLOY_EMPTY_WALLET_VALUE,
+            value: VenomToTip3Gas.DEPLOY_EMPTY_WALLET_VALUE,
             flag: MsgFlag.SENDER_PAYS_FEES,
             callback: Tip3ToEver.onWeverWallet
         }(
             address(this),
-            EverToTip3Gas.DEPLOY_EMPTY_WALLET_GRAMS
+            VenomToTip3Gas.DEPLOY_EMPTY_WALLET_GRAMS
         );
 
         msg.sender.transfer(0, false, MsgFlag.ALL_NOT_RESERVED + MsgFlag.IGNORE_ERRORS);
@@ -50,7 +50,7 @@ contract Tip3ToEver is IAcceptTokensTransferCallback, IAcceptTokensBurnCallback,
 
     // Сallback deploy WEVER wallet for contract
     function onWeverWallet(address _weverWallet) external {
-        require(msg.sender.value != 0 && msg.sender == weverRoot, EverToTip3Errors.NOT_WEVER_ROOT);
+        require(msg.sender.value != 0 && msg.sender == weverRoot, VenomToTip3Errors.NOT_WEVER_ROOT);
         weverWallet = _weverWallet;
         weverWallet.transfer(0, false, MsgFlag.REMAINING_GAS + MsgFlag.IGNORE_ERRORS);
     }
@@ -66,11 +66,11 @@ contract Tip3ToEver is IAcceptTokensTransferCallback, IAcceptTokensBurnCallback,
         TvmBuilder builder;
 
         TvmBuilder successPayload;
-        successPayload.store(EverToTip3OperationStatus.SUCCESS);
+        successPayload.store(VenomToTip3OperationStatus.SUCCESS);
         successPayload.store(id);
 
         TvmBuilder cancelPayload;
-        cancelPayload.store(EverToTip3OperationStatus.CANCEL);
+        cancelPayload.store(VenomToTip3OperationStatus.CANCEL);
         cancelPayload.store(id);
         cancelPayload.store(uint128(0));
 
@@ -85,7 +85,7 @@ contract Tip3ToEver is IAcceptTokensTransferCallback, IAcceptTokensBurnCallback,
             cancelPayload.toCell()
         );
 
-        builder.store(EverToTip3OperationStatus.SWAP);
+        builder.store(VenomToTip3OperationStatus.SWAP);
         builder.store(pair);
         builder.store(pairPayload);
         return builder.toCell();
@@ -115,11 +115,11 @@ contract Tip3ToEver is IAcceptTokensTransferCallback, IAcceptTokensBurnCallback,
         TvmBuilder builder;
 
         TvmBuilder successPayload;
-        successPayload.store(EverToTip3OperationStatus.SUCCESS);
+        successPayload.store(VenomToTip3OperationStatus.SUCCESS);
         successPayload.store(id);
 
         TvmBuilder cancelPayload;
-        cancelPayload.store(EverToTip3OperationStatus.CANCEL);
+        cancelPayload.store(VenomToTip3OperationStatus.CANCEL);
         cancelPayload.store(id);
         cancelPayload.store(deployWalletValue);
 
@@ -144,7 +144,7 @@ contract Tip3ToEver is IAcceptTokensTransferCallback, IAcceptTokensBurnCallback,
             cancelPayload.toCell()
         );
 
-        builder.store(EverToTip3OperationStatus.SWAP);
+        builder.store(VenomToTip3OperationStatus.SWAP);
         builder.store(pool);
         builder.store(pairPayload);
 
@@ -161,12 +161,12 @@ contract Tip3ToEver is IAcceptTokensTransferCallback, IAcceptTokensBurnCallback,
         TvmCell payload
     ) override external {
         require(msg.sender.value != 0);
-        tvm.rawReserve(EverToTip3Gas.TARGET_BALANCE, 0);
+        tvm.rawReserve(VenomToTip3Gas.TARGET_BALANCE, 0);
 
         bool needCancel = false;
         TvmSlice payloadSlice = payload.toSlice();
 
-        uint8 operationStatus = EverToTip3OperationStatus.UNKNOWN;
+        uint8 operationStatus = VenomToTip3OperationStatus.UNKNOWN;
 
         if (payloadSlice.bits() >= 8) {
             operationStatus = payloadSlice.decode(uint8);
@@ -174,8 +174,8 @@ contract Tip3ToEver is IAcceptTokensTransferCallback, IAcceptTokensBurnCallback,
 
         if (
             payloadSlice.bits() == 267 && payloadSlice.refs() == 1 &&
-            operationStatus == EverToTip3OperationStatus.SWAP &&
-            msg.value >= EverToTip3Gas.SWAP_TIP3_TO_EVER_MIN_VALUE
+            operationStatus == VenomToTip3OperationStatus.SWAP &&
+            msg.value >= VenomToTip3Gas.SWAP_TIP3_TO_EVER_MIN_VALUE
         ) {
             address pair = payloadSlice.decode(address);
             TvmCell ref1 = payloadSlice.loadRef();
@@ -188,7 +188,7 @@ contract Tip3ToEver is IAcceptTokensTransferCallback, IAcceptTokensBurnCallback,
                 true,
                 ref1
             );
-        } else if (operationStatus == DexOperationStatusV2.SUCCESS || operationStatus == DexOperationStatusV2.CANCEL) {
+        } else if (operationStatus == OperationStatus.SUCCESS || operationStatus == OperationStatus.CANCEL) {
 
             TvmSlice everToTip3PayloadSlice;
             if (payloadSlice.refs() >= 1) {
@@ -202,7 +202,7 @@ contract Tip3ToEver is IAcceptTokensTransferCallback, IAcceptTokensBurnCallback,
 
             if (
                 everToTip3PayloadSlice.bits() == 192 &&
-                everToTip3OperationStatus == EverToTip3OperationStatus.CANCEL
+                everToTip3OperationStatus == VenomToTip3OperationStatus.CANCEL
             ) {
                 (uint64 id_, uint128 deployWalletValue_) = everToTip3PayloadSlice.decode(uint64, uint128);
                 TvmBuilder payloadID;
@@ -210,7 +210,7 @@ contract Tip3ToEver is IAcceptTokensTransferCallback, IAcceptTokensBurnCallback,
 
                 emit SwapTip3EverCancelTransfer(user, id_, amount, tokenRoot);
                 IEverTip3SwapCallbacks(user).onSwapTip3ToEverCancel{
-                    value: EverToTip3Gas.OPERATION_CALLBACK_BASE,
+                    value: VenomToTip3Gas.OPERATION_CALLBACK_BASE,
                     flag: MsgFlag.SENDER_PAYS_FEES,
                     bounce: false
                 }(id_, amount, tokenRoot);
@@ -225,7 +225,7 @@ contract Tip3ToEver is IAcceptTokensTransferCallback, IAcceptTokensBurnCallback,
                 );
             } else if (
                 everToTip3PayloadSlice.bits() == 64 &&
-                everToTip3OperationStatus == EverToTip3OperationStatus.SUCCESS &&
+                everToTip3OperationStatus == VenomToTip3OperationStatus.SUCCESS &&
                 (msg.sender.value != 0 && msg.sender == weverWallet)
             ) {
                 uint64 id_ = everToTip3PayloadSlice.decode(uint64);
@@ -268,14 +268,14 @@ contract Tip3ToEver is IAcceptTokensTransferCallback, IAcceptTokensBurnCallback,
         address user,
         TvmCell payload
     ) override external {
-        require(msg.sender.value != 0 && msg.sender == weverRoot, EverToTip3Errors.NOT_WEVER_ROOT);
-        tvm.rawReserve(EverToTip3Gas.TARGET_BALANCE, 0);
+        require(msg.sender.value != 0 && msg.sender == weverRoot, VenomToTip3Errors.NOT_WEVER_ROOT);
+        tvm.rawReserve(VenomToTip3Gas.TARGET_BALANCE, 0);
 
         TvmSlice payloadSlice =  payload.toSlice();
         uint64 id = payloadSlice.decode(uint64);
 
         emit SwapTip3EverSuccessTransfer(user, id, amount);
-        IEverTip3SwapCallbacks(user).onSwapTip3ToEverSuccess{ value: EverToTip3Gas.OPERATION_CALLBACK_BASE, flag: MsgFlag.ALL_NOT_RESERVED, bounce: false }(id, amount);
+        IEverTip3SwapCallbacks(user).onSwapTip3ToEverSuccess{ value: VenomToTip3Gas.OPERATION_CALLBACK_BASE, flag: MsgFlag.ALL_NOT_RESERVED, bounce: false }(id, amount);
     }
 
     fallback() external pure {  }

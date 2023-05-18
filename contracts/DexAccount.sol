@@ -17,7 +17,7 @@ import "./interfaces/IDexTokenVault.sol";
 import "./interfaces/IResetGas.sol";
 import "./interfaces/IDexAccountOwner.sol";
 
-import "./libraries/DexPlatformTypes.sol";
+import "./libraries/PlatformTypes.sol";
 import "./libraries/Errors.sol";
 import "./libraries/Constants.sol";
 import "./libraries/MsgFlag.sol";
@@ -378,7 +378,7 @@ contract DexAccount is
         address recipientDexAccount = address(
             tvm.hash(
                 _buildInitData(
-                    DexPlatformTypes.Account,
+                    PlatformTypes.Account,
                     _buildAccountParams(recipient)
                 )
             )
@@ -527,7 +527,7 @@ contract DexAccount is
         address pair = address(
             tvm.hash(
                 _buildInitData(
-                    DexPlatformTypes.Pool,
+                    PlatformTypes.Pool,
                     _buildPairParams(_roots)
                 )
             )
@@ -633,7 +633,7 @@ contract DexAccount is
         address pair = address(
             tvm.hash(
                 _buildInitData(
-                    DexPlatformTypes.Pool,
+                    PlatformTypes.Pool,
                     _buildPairParams(roots)
                 )
             )
@@ -741,7 +741,7 @@ contract DexAccount is
         address pair = address(
             tvm.hash(
                 _buildInitData(
-                    DexPlatformTypes.Pool,
+                    PlatformTypes.Pool,
                     _buildPairParams(_roots)
                 )
             )
@@ -799,7 +799,7 @@ contract DexAccount is
         address pair = address(
             tvm.hash(
                 _buildInitData(
-                    DexPlatformTypes.Pool,
+                    PlatformTypes.Pool,
                     _buildPairParams(_roots)
                 )
             )

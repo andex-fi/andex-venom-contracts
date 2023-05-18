@@ -19,7 +19,7 @@ import "./interfaces/IDexPairOperationCallback.sol";
 
 import "./libraries/Errors.sol";
 import "./libraries/Constants.sol";
-import "./libraries/DexOperationTypes.sol";
+import "./libraries/OperationTypes.sol";
 import "./libraries/PairPayload.sol";
 import "./libraries/DirectOperationErrors.sol";
 
@@ -271,7 +271,7 @@ contract DexTokenVault is ContractBase, IDexTokenVault {
     {
         TvmBuilder builder;
 
-        builder.store(DexOperationTypes.REFERRAL_FEE);
+        builder.store(OperationTypes.REFERRAL_FEE);
         builder.storeRef(abi.encode(_poolTokenRoots, _referrer, _referral));
 
         ITokenWallet(_tokenWallet)
@@ -533,7 +533,7 @@ contract DexTokenVault is ContractBase, IDexTokenVault {
         onlyTokenWallet
     {
         TvmSlice payloadSlice = _payload.toSlice();
-        uint8 op = DexOperationTypes.CROSS_PAIR_EXCHANGE_V2;
+        uint8 op = OperationTypes.CROSS_PAIR_EXCHANGE_V2;
 
         TvmCell exchangeData = payloadSlice.loadRef();
 
@@ -605,12 +605,12 @@ contract DexTokenVault is ContractBase, IDexTokenVault {
             allLeaves += nextStep.leaves;
         }
 
-        if (errorCode == 0 && msg.value < Constants.CROSS_POOL_EXCHANGE_MIN_VALUE * allNestedNodes + 0.1 ton) {
+        if (errorCode == 0 && msg.value < Constants.CROSS_POOL_EXCHANGE_MIN_VALUE * allNestedNodes + 0.1 ever) {
             errorCode = DirectOperationErrors.VALUE_TOO_LOW;
         }
 
         if (errorCode == 0 && nextSteps.length > 0) {
-            uint128 extraValue = msg.value - Constants.CROSS_POOL_EXCHANGE_MIN_VALUE * allNestedNodes - 0.1 ton;
+            uint128 extraValue = msg.value - Constants.CROSS_POOL_EXCHANGE_MIN_VALUE * allNestedNodes - 0.1 ever;
 
             for (uint32 i = 0; i < nextSteps.length; i++) {
                 NextExchangeData nextStep = nextSteps[i];

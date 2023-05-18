@@ -4,8 +4,8 @@ import "../structures/IExchangeStepStructure.sol";
 import "../structures/ITokenOperationStructure.sol";
 import "../structures/INextExchangeData.sol";
 
-import "./DexOperationStatusV2.sol";
-import "./DexOperationTypes.sol";
+import "./OperationStatus.sol";
+import "./OperationTypes.sol";
 import "./Errors.sol";
 
 /**
@@ -27,7 +27,7 @@ library PairPayload {
     ) public returns (TvmCell) {
         TvmBuilder builder;
 
-        builder.store(DexOperationTypes.EXCHANGE);
+        builder.store(OperationTypes.EXCHANGE);
         builder.store(_id);
         builder.store(_deployWalletGrams);
         builder.store(_expectedAmount);
@@ -56,7 +56,7 @@ library PairPayload {
 
         TvmBuilder builder;
 
-        builder.store(DexOperationTypes.EXCHANGE_V2);
+        builder.store(OperationTypes.EXCHANGE_V2);
         builder.store(_id);
         builder.store(_deployWalletGrams);
         builder.store(_recipient);
@@ -89,7 +89,7 @@ library PairPayload {
     ) public returns (TvmCell) {
         TvmBuilder builder;
 
-        builder.store(DexOperationTypes.DEPOSIT_LIQUIDITY);
+        builder.store(OperationTypes.DEPOSIT_LIQUIDITY);
         builder.store(_id);
         builder.store(_deployWalletGrams);
 
@@ -117,7 +117,7 @@ library PairPayload {
 
         TvmBuilder builder;
 
-        builder.store(DexOperationTypes.DEPOSIT_LIQUIDITY_V2);
+        builder.store(OperationTypes.DEPOSIT_LIQUIDITY_V2);
         builder.store(_id);
         builder.store(_deployWalletGrams);
         builder.store(_recipient);
@@ -150,7 +150,7 @@ library PairPayload {
     ) public returns (TvmCell) {
         TvmBuilder builder;
 
-        builder.store(DexOperationTypes.WITHDRAW_LIQUIDITY);
+        builder.store(OperationTypes.WITHDRAW_LIQUIDITY);
         builder.store(_id);
         builder.store(_deployWalletGrams);
 
@@ -178,7 +178,7 @@ library PairPayload {
 
         TvmBuilder builder;
 
-        builder.store(DexOperationTypes.WITHDRAW_LIQUIDITY_V2);
+        builder.store(OperationTypes.WITHDRAW_LIQUIDITY_V2);
         builder.store(_id);
         builder.store(_deployWalletGrams);
         builder.store(_recipient);
@@ -218,7 +218,7 @@ library PairPayload {
 
         TvmBuilder builder;
 
-        builder.store(DexOperationTypes.WITHDRAW_LIQUIDITY_ONE_COIN);
+        builder.store(OperationTypes.WITHDRAW_LIQUIDITY_ONE_COIN);
         builder.store(_id);
         builder.store(_deployWalletGrams);
         builder.store(_recipient);
@@ -259,7 +259,7 @@ library PairPayload {
         // Pack data for the first pair
         TvmBuilder builder;
 
-        builder.store(DexOperationTypes.CROSS_PAIR_EXCHANGE);
+        builder.store(OperationTypes.CROSS_PAIR_EXCHANGE);
         builder.store(_id);
         builder.store(_deployWalletGrams);
         builder.store(_expectedAmount);
@@ -310,7 +310,7 @@ library PairPayload {
 
         TvmBuilder builder;
 
-        builder.store(DexOperationTypes.CROSS_PAIR_EXCHANGE_V2);
+        builder.store(OperationTypes.CROSS_PAIR_EXCHANGE_V2);
         builder.store(_id);
         builder.store(_deployWalletGrams);
         builder.store(_recipient);
@@ -408,10 +408,10 @@ library PairPayload {
         }
 
         if (
-            op == DexOperationTypes.EXCHANGE
-            || op == DexOperationTypes.DEPOSIT_LIQUIDITY
-            || op == DexOperationTypes.WITHDRAW_LIQUIDITY
-            || op == DexOperationTypes.CROSS_PAIR_EXCHANGE
+            op == OperationTypes.EXCHANGE
+            || op == OperationTypes.DEPOSIT_LIQUIDITY
+            || op == OperationTypes.WITHDRAW_LIQUIDITY
+            || op == OperationTypes.CROSS_PAIR_EXCHANGE
         ) {
             return _decodeOnAcceptTokensTransferDataV1(_payload);
         } else {
@@ -459,11 +459,11 @@ library PairPayload {
                 expectedAmounts.push(expectedAmount);
             }
 
-            if (slice.bits() >= 267 && op == DexOperationTypes.CROSS_PAIR_EXCHANGE) {
+            if (slice.bits() >= 267 && op == OperationTypes.CROSS_PAIR_EXCHANGE) {
                 nextTokenRoot = slice.decode(address);
             }
 
-            if (slice.refs() >= 1 && op == DexOperationTypes.CROSS_PAIR_EXCHANGE && nextTokenRoot.value != 0) {
+            if (slice.refs() >= 1 && op == OperationTypes.CROSS_PAIR_EXCHANGE && nextTokenRoot.value != 0) {
                 TvmCell nextStepsData = slice.loadRef();
                 nextSteps.push(INextExchangeData.NextExchangeData(
                     1,
@@ -536,19 +536,19 @@ library PairPayload {
 
             if (slice.refs() >= 1) {
                 TvmCell dataCell = slice.loadRef(); // ref2
-                if (op == DexOperationTypes.EXCHANGE_V2) {
+                if (op == OperationTypes.EXCHANGE_V2) {
                     (expectedAmount, outcoming) = abi.decode(dataCell, (uint128, address));
                 }
-                if (op == DexOperationTypes.DEPOSIT_LIQUIDITY_V2) {
+                if (op == OperationTypes.DEPOSIT_LIQUIDITY_V2) {
                     expectedAmount = abi.decode(dataCell, uint128);
                 }
-                if (op == DexOperationTypes.WITHDRAW_LIQUIDITY_V2) {
+                if (op == OperationTypes.WITHDRAW_LIQUIDITY_V2) {
                     expectedAmounts = abi.decode(dataCell, uint128[]);
                 }
-                if (op == DexOperationTypes.WITHDRAW_LIQUIDITY_ONE_COIN) {
+                if (op == OperationTypes.WITHDRAW_LIQUIDITY_ONE_COIN) {
                     (expectedAmount, outcoming) = abi.decode(dataCell, (uint128, address));
                 }
-                if (op == DexOperationTypes.CROSS_PAIR_EXCHANGE_V2) {
+                if (op == OperationTypes.CROSS_PAIR_EXCHANGE_V2) {
                     (expectedAmount, outcoming, nextSteps) = abi.decode(dataCell, (uint128, address, INextExchangeData.NextExchangeData[]));
                 }
             }
@@ -596,13 +596,13 @@ library PairPayload {
         }
 
         if (
-            op == DexOperationTypes.EXCHANGE ||
-            op == DexOperationTypes.DEPOSIT_LIQUIDITY ||
-            op == DexOperationTypes.WITHDRAW_LIQUIDITY
+            op == OperationTypes.EXCHANGE ||
+            op == OperationTypes.DEPOSIT_LIQUIDITY ||
+            op == OperationTypes.WITHDRAW_LIQUIDITY
         ) {
             notifySuccess = refs >= 1;
             notifyCancel = refs >= 2;
-        } else if (op == DexOperationTypes.CROSS_PAIR_EXCHANGE) {
+        } else if (op == OperationTypes.CROSS_PAIR_EXCHANGE) {
             notifySuccess = refs >= 2;
             notifyCancel = refs >= 3;
 
@@ -644,7 +644,7 @@ library PairPayload {
         address outcoming;
         INextExchangeData.NextExchangeData[] nextSteps;
 
-        if (_op == DexOperationTypes.CROSS_PAIR_EXCHANGE) {
+        if (_op == OperationTypes.CROSS_PAIR_EXCHANGE) {
             TvmSlice slice = _payload.toSlice();
 
             expectedAmount = slice.decode(uint128);
@@ -660,7 +660,7 @@ library PairPayload {
                     1
                 ));
             }
-        } else if (_op == DexOperationTypes.CROSS_PAIR_EXCHANGE_V2) {
+        } else if (_op == OperationTypes.CROSS_PAIR_EXCHANGE_V2) {
             (expectedAmount, outcoming, nextSteps) = abi.decode(_payload, (uint128, address, INextExchangeData.NextExchangeData[]));
         }
 
@@ -677,22 +677,22 @@ library PairPayload {
         TvmCell origPayload,
         INextExchangeData.NextExchangeData[] nextSteps
     ) public returns (TvmCell) {
-        if (op == DexOperationTypes.EXCHANGE
-            || op == DexOperationTypes.DEPOSIT_LIQUIDITY
-            || op == DexOperationTypes.WITHDRAW_LIQUIDITY
-            || op == DexOperationTypes.CROSS_PAIR_EXCHANGE) {
+        if (op == OperationTypes.EXCHANGE
+            || op == OperationTypes.DEPOSIT_LIQUIDITY
+            || op == OperationTypes.WITHDRAW_LIQUIDITY
+            || op == OperationTypes.CROSS_PAIR_EXCHANGE) {
 
             return origPayload;
         }
 
         TvmBuilder builder;
 
-        builder.store(DexOperationStatusV2.CANCEL);
+        builder.store(OperationStatus.CANCEL);
         builder.store(op);
         builder.store(errorCode);
         builder.store(origPayload);
 
-        if (op == DexOperationTypes.CROSS_PAIR_EXCHANGE_V2) {
+        if (op == OperationTypes.CROSS_PAIR_EXCHANGE_V2) {
             TvmBuilder data;
 
             // if there are no next steps leaves = 1
@@ -715,17 +715,17 @@ library PairPayload {
         TvmCell origPayload,
         address senderAddress
     ) public returns (TvmCell) {
-        if (op == DexOperationTypes.EXCHANGE
-            || op == DexOperationTypes.DEPOSIT_LIQUIDITY
-            || op == DexOperationTypes.WITHDRAW_LIQUIDITY
-            || op == DexOperationTypes.CROSS_PAIR_EXCHANGE) {
+        if (op == OperationTypes.EXCHANGE
+            || op == OperationTypes.DEPOSIT_LIQUIDITY
+            || op == OperationTypes.WITHDRAW_LIQUIDITY
+            || op == OperationTypes.CROSS_PAIR_EXCHANGE) {
 
             return origPayload;
         }
 
         TvmBuilder builder;
 
-        builder.store(DexOperationStatusV2.SUCCESS);
+        builder.store(OperationStatus.SUCCESS);
         builder.store(op);
         builder.store(origPayload);
 

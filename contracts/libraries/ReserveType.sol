@@ -2,7 +2,7 @@ pragma ever-solidity >= 0.62.0;
 
 /// @title Reserve Types
 /// @notice Utility reserve types to use
-library DexReserveType {
+library ReserveType {
     /// @dev Pool's reserves
     uint8 constant POOL = 1;
 
