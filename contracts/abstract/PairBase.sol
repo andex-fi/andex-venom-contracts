@@ -8,21 +8,21 @@ import "../interfaces/IDexRoot.sol";
 import "../interfaces/IDexTokenVault.sol";
 
 import "../libraries/DexPoolTypes.sol";
-import "../libraries/DexGas.sol";
+import "../libraries/Constants.sol";
 import "../libraries/DexAddressType.sol";
 import "../libraries/DexReserveType.sol";
 
 import "../structures/IPoolTokenData.sol";
 import "../structures/IAmplificationCoefficient.sol";
 
-import "./DexContractBase.sol";
+import "./ContractBase.sol";
 import "./TWAPOracle.sol";
 
 /// @title DEX Pair Base
 /// @notice Base implementation of the DEX pair
 /// @dev A contract is abstract - to be sure that it will be inherited by another contract
-abstract contract DexPairBase is
-    DexContractBase,
+abstract contract PairBase is
+    ContractBase,
     IDexConstantProductPair,
     TWAPOracle
 {
@@ -52,7 +52,7 @@ abstract contract DexPairBase is
 
     // Prevent manual transfers
     receive() external pure {
-        tvm.rawReserve(DexGas.PAIR_INITIAL_BALANCE, 0);
+        tvm.rawReserve(Constants.PAIR_INITIAL_BALANCE, 0);
         msg.sender.transfer({
             value: 0,
             flag: MsgFlag.ALL_NOT_RESERVED + MsgFlag.IGNORE_ERRORS,
@@ -70,7 +70,7 @@ abstract contract DexPairBase is
 
     /// @dev Only the pair's owner can call a function with this modifier
     modifier onlyActive() {
-        require(_active, DexErrors.NOT_ACTIVE);
+        require(_active, Errors.NOT_ACTIVE);
         _;
     }
 
@@ -79,7 +79,7 @@ abstract contract DexPairBase is
         require(
             _typeToRootAddresses[DexAddressType.LP][0].value != 0 &&
             msg.sender == _typeToRootAddresses[DexAddressType.LP][0],
-            DexErrors.NOT_LP_TOKEN_ROOT
+            Errors.NOT_LP_TOKEN_ROOT
         );
         _;
     }
@@ -90,14 +90,14 @@ abstract contract DexPairBase is
             (_typeToRootAddresses[DexAddressType.RESERVE][0].value != 0 && msg.sender == _typeToRootAddresses[DexAddressType.RESERVE][0]) ||
             (_typeToRootAddresses[DexAddressType.RESERVE][1].value != 0 && msg.sender == _typeToRootAddresses[DexAddressType.RESERVE][1]) ||
             (_typeToRootAddresses[DexAddressType.LP][0].value != 0 && msg.sender == _typeToRootAddresses[DexAddressType.LP][0]),
-            DexErrors.NOT_TOKEN_ROOT
+            Errors.NOT_TOKEN_ROOT
         );
         _;
     }
 
     /// @dev Only the DEX root can call a function with this modifier
     modifier onlyRoot() override {
-        require(_root.value != 0 && msg.sender == _root, DexErrors.NOT_ROOT);
+        require(_root.value != 0 && msg.sender == _root, Errors.NOT_ROOT);
         _;
     }
 
@@ -106,7 +106,7 @@ abstract contract DexPairBase is
         require(
             msg.sender == _expectedPoolAddress(_poolTokenRoots) ||
             msg.sender == _expectedTokenVaultAddress(_tokenRoot),
-            DexErrors.NEITHER_POOL_NOR_VAULT
+            Errors.NEITHER_POOL_NOR_VAULT
         );
         _;
     }
@@ -243,10 +243,10 @@ abstract contract DexPairBase is
             (_params.pool_numerator + _params.beneficiary_numerator + _params.referrer_numerator) < _params.denominator &&
             ((_params.beneficiary.value != 0 && _params.beneficiary_numerator != 0) ||
             (_params.beneficiary.value == 0 && _params.beneficiary_numerator == 0)),
-            DexErrors.WRONG_FEE_PARAMS
+            Errors.WRONG_FEE_PARAMS
         );
-        require(msg.value >= DexGas.SET_FEE_PARAMS_MIN_VALUE, DexErrors.VALUE_TOO_LOW);
-        tvm.rawReserve(DexGas.PAIR_INITIAL_BALANCE, 0);
+        require(msg.value >= Constants.SET_FEE_PARAMS_MIN_VALUE, Errors.VALUE_TOO_LOW);
+        tvm.rawReserve(Constants.PAIR_INITIAL_BALANCE, 0);
 
         // Flush all fees from pair
         if (_fee.beneficiary.value != 0) {
@@ -266,8 +266,8 @@ abstract contract DexPairBase is
     }
 
     function withdrawBeneficiaryFee(address send_gas_to) external {
-        require(_fee.beneficiary.value != 0 && msg.sender == _fee.beneficiary, DexErrors.NOT_BENEFICIARY);
-        tvm.rawReserve(DexGas.PAIR_INITIAL_BALANCE, 0);
+        require(_fee.beneficiary.value != 0 && msg.sender == _fee.beneficiary, Errors.NOT_BENEFICIARY);
+        tvm.rawReserve(Constants.PAIR_INITIAL_BALANCE, 0);
 
         // Withdraw left and right accumulated fees
         _processBeneficiaryFees(true, send_gas_to);
@@ -284,7 +284,7 @@ abstract contract DexPairBase is
         address _accountOwner,
         uint32
     ) override external onlyAccount(_accountOwner) {
-        tvm.rawReserve(DexGas.PAIR_INITIAL_BALANCE, 0);
+        tvm.rawReserve(Constants.PAIR_INITIAL_BALANCE, 0);
 
         // Notify account about pair
         IDexAccount(msg.sender)
@@ -305,7 +305,7 @@ abstract contract DexPairBase is
             _currentVersion == _newVersion &&
             _newType == DexPoolTypes.CONSTANT_PRODUCT
         ) {
-            tvm.rawReserve(DexGas.PAIR_INITIAL_BALANCE, 0);
+            tvm.rawReserve(Constants.PAIR_INITIAL_BALANCE, 0);
 
             _remainingGasTo.transfer({
                 value: 0,
@@ -354,7 +354,7 @@ abstract contract DexPairBase is
         address _lpRootAddress,
         address _remainingGasTo
     ) override external onlyRoot {
-        tvm.rawReserve(DexGas.PAIR_INITIAL_BALANCE, 0);
+        tvm.rawReserve(Constants.PAIR_INITIAL_BALANCE, 0);
 
         _typeToRootAddresses[DexAddressType.LP].push(_lpRootAddress);
 
@@ -385,7 +385,7 @@ abstract contract DexPairBase is
                 bounce: false
             });
         } else {
-            tvm.rawReserve(DexGas.PAIR_INITIAL_BALANCE, 0);
+            tvm.rawReserve(Constants.PAIR_INITIAL_BALANCE, 0);
 
             _remainingGasTo.transfer({
                 value: 0,
@@ -475,7 +475,7 @@ abstract contract DexPairBase is
                 _typeToReserves[DexReserveType.FEE][i] >= _fee.threshold.at(_typeToRootAddresses[DexAddressType.RESERVE][i])
             ) {
                 IDexAccount(_expectedAccountAddress(_fee.beneficiary))
-                    .internalPoolTransfer{ value: DexGas.INTERNAL_PAIR_TRANSFER_VALUE, flag: MsgFlag.SENDER_PAYS_FEES }
+                    .internalPoolTransfer{ value: Constants.INTERNAL_PAIR_TRANSFER_VALUE, flag: MsgFlag.SENDER_PAYS_FEES }
                     (
                         _typeToReserves[DexReserveType.FEE][i],
                         _typeToRootAddresses[DexAddressType.RESERVE][i],
@@ -518,17 +518,17 @@ abstract contract DexPairBase is
     function _configureTokenRootWallets(address _tokenRoot) private pure {
         ITokenRoot(_tokenRoot)
             .deployWallet{
-                value: DexGas.DEPLOY_EMPTY_WALLET_VALUE,
+                value: Constants.DEPLOY_EMPTY_WALLET_VALUE,
                 flag: MsgFlag.SENDER_PAYS_FEES,
-                callback: DexPairBase.onTokenWallet
-            }(address(this), DexGas.DEPLOY_EMPTY_WALLET_GRAMS);
+                callback: PairBase.onTokenWallet
+            }(address(this), Constants.DEPLOY_EMPTY_WALLET_GRAMS);
     }
 
     function setActive(
         bool _newActive,
         address _remainingGasTo
     ) external override onlyRoot {
-        tvm.rawReserve(DexGas.PAIR_INITIAL_BALANCE, 0);
+        tvm.rawReserve(Constants.PAIR_INITIAL_BALANCE, 0);
 
         bool previous = _active;
 
@@ -563,7 +563,7 @@ abstract contract DexPairBase is
     /// @dev Restores old data after contract's code update
     /// @param _data Old encoded data
     function onCodeUpgrade(TvmCell _data) private {
-        tvm.rawReserve(DexGas.PAIR_INITIAL_BALANCE, 0);
+        tvm.rawReserve(Constants.PAIR_INITIAL_BALANCE, 0);
         tvm.resetStorage();
 
         TvmSlice dataSlice = _data.toSlice();

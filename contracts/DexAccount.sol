@@ -18,16 +18,16 @@ import "./interfaces/IResetGas.sol";
 import "./interfaces/IDexAccountOwner.sol";
 
 import "./libraries/DexPlatformTypes.sol";
-import "./libraries/DexErrors.sol";
-import "./libraries/DexGas.sol";
+import "./libraries/Errors.sol";
+import "./libraries/Constants.sol";
 import "./libraries/MsgFlag.sol";
 
-import "./abstract/DexContractBase.sol";
+import "./abstract/ContractBase.sol";
 
 import "./DexPlatform.sol";
 
 contract DexAccount is
-    DexContractBase,
+    ContractBase,
     IDexAccount,
     IAcceptTokensTransferCallback,
     IUpgradableByRequest,
@@ -61,12 +61,12 @@ contract DexAccount is
     // MODIFIERS
 
     modifier onlyOwner() {
-        require(_owner.value != 0 && msg.sender == _owner, DexErrors.NOT_MY_OWNER);
+        require(_owner.value != 0 && msg.sender == _owner, Errors.NOT_MY_OWNER);
         _;
     }
 
     modifier onlyRoot() {
-        require(_root.value != 0 && msg.sender == _root, DexErrors.NOT_ROOT);
+        require(_root.value != 0 && msg.sender == _root, Errors.NOT_ROOT);
         _;
     }
 
@@ -90,7 +90,7 @@ contract DexAccount is
 
     // ...and allow user to get surplus gas
     function resetGas(address receiver) override external view onlyOwner {
-        tvm.rawReserve(DexGas.ACCOUNT_INITIAL_BALANCE, 0);
+        tvm.rawReserve(Constants.ACCOUNT_INITIAL_BALANCE, 0);
 
         receiver.transfer({
             value: 0,
@@ -167,8 +167,8 @@ contract DexAccount is
         address _originalGasTo,
         TvmCell _payload
     ) override external {
-        require(msg.value >= DexGas.DEPOSIT_TO_ACCOUNT_MIN_VALUE, DexErrors.VALUE_TOO_LOW);
-        tvm.rawReserve(DexGas.ACCOUNT_INITIAL_BALANCE, 0);
+        require(msg.value >= Constants.DEPOSIT_TO_ACCOUNT_MIN_VALUE, Errors.VALUE_TOO_LOW);
+        tvm.rawReserve(Constants.ACCOUNT_INITIAL_BALANCE, 0);
 
         TvmSlice payloadSlice = _payload.toSlice();
         bool notifyCancel = payloadSlice.refs() >= 1;
@@ -226,7 +226,7 @@ contract DexAccount is
         address[] _roots,
         address _lpRoot
     ) override external onlyPool(_roots) {
-        tvm.rawReserve(DexGas.ACCOUNT_INITIAL_BALANCE, 0);
+        tvm.rawReserve(Constants.ACCOUNT_INITIAL_BALANCE, 0);
 
         for (address tokenRoot : _roots) {
             if (!_wallets.exists(tokenRoot)) {
@@ -245,13 +245,13 @@ contract DexAccount is
     }
 
     function successCallback(uint64 _callId) override external {
-        require(_tmpOperations.exists(_callId), DexErrors.INVALID_CALLBACK);
+        require(_tmpOperations.exists(_callId), Errors.INVALID_CALLBACK);
 
         Operation operation = _tmpOperations[_callId];
 
-        require(operation.expected_callback_sender == msg.sender, DexErrors.INVALID_CALLBACK_SENDER);
+        require(operation.expected_callback_sender == msg.sender, Errors.INVALID_CALLBACK_SENDER);
 
-        tvm.rawReserve(DexGas.ACCOUNT_INITIAL_BALANCE, 0);
+        tvm.rawReserve(Constants.ACCOUNT_INITIAL_BALANCE, 0);
 
         delete _tmpOperations[_callId];
 
@@ -265,7 +265,7 @@ contract DexAccount is
         } else {
             IDexAccountOwner(_owner)
                 .dexAccountOnSuccess{
-                    value: DexGas.OPERATION_CALLBACK_BASE,
+                    value: Constants.OPERATION_CALLBACK_BASE,
                     flag: MsgFlag.SENDER_PAYS_FEES + MsgFlag.IGNORE_ERRORS
                 }(_callId);
 
@@ -281,10 +281,10 @@ contract DexAccount is
         require(
             _tmpDeployingWallets.exists(msg.sender) &&
             !_wallets.exists(msg.sender),
-            DexErrors.TODO
+            Errors.TODO
         );
 
-        tvm.rawReserve(DexGas.ACCOUNT_INITIAL_BALANCE, 2);
+        tvm.rawReserve(Constants.ACCOUNT_INITIAL_BALANCE, 2);
 
         address remainingGasTo = _tmpDeployingWallets[msg.sender];
 
@@ -313,14 +313,14 @@ contract DexAccount is
         uint128 deploy_wallet_grams,
         address send_gas_to
     ) override external onlyOwner {
-        require(!_tmpOperations.exists(call_id), DexErrors.OPERATION_ALREADY_IN_PROGRESS);
-        require(amount > 0, DexErrors.AMOUNT_TOO_LOW);
-        require(recipient_address.value != 0, DexErrors.WRONG_RECIPIENT);
-        require(msg.value >= DexGas.WITHDRAW_MIN_VALUE_BASE + deploy_wallet_grams, DexErrors.VALUE_TOO_LOW);
-        require(_wallets.exists(token_root) && _balances.exists(token_root), DexErrors.UNKNOWN_TOKEN_ROOT);
-        require(_balances[token_root] >= amount, DexErrors.NOT_ENOUGH_FUNDS);
+        require(!_tmpOperations.exists(call_id), Errors.OPERATION_ALREADY_IN_PROGRESS);
+        require(amount > 0, Errors.AMOUNT_TOO_LOW);
+        require(recipient_address.value != 0, Errors.WRONG_RECIPIENT);
+        require(msg.value >= Constants.WITHDRAW_MIN_VALUE_BASE + deploy_wallet_grams, Errors.VALUE_TOO_LOW);
+        require(_wallets.exists(token_root) && _balances.exists(token_root), Errors.UNKNOWN_TOKEN_ROOT);
+        require(_balances[token_root] >= amount, Errors.NOT_ENOUGH_FUNDS);
 
-        tvm.rawReserve(DexGas.ACCOUNT_INITIAL_BALANCE, 0);
+        tvm.rawReserve(Constants.ACCOUNT_INITIAL_BALANCE, 0);
 
         _balances[token_root] -= amount;
 
@@ -357,13 +357,13 @@ contract DexAccount is
         bool willing_to_deploy,
         address send_gas_to
     ) override external onlyOwner {
-        require(!_tmpOperations.exists(call_id), DexErrors.OPERATION_ALREADY_IN_PROGRESS);
-        require(amount > 0, DexErrors.AMOUNT_TOO_LOW);
-        require(msg.value >= DexGas.TRANSFER_MIN_VALUE, DexErrors.VALUE_TOO_LOW);
-        require(_wallets.exists(token_root) && _balances.exists(token_root), DexErrors.UNKNOWN_TOKEN_ROOT);
-        require(_balances[token_root] >= amount, DexErrors.NOT_ENOUGH_FUNDS);
+        require(!_tmpOperations.exists(call_id), Errors.OPERATION_ALREADY_IN_PROGRESS);
+        require(amount > 0, Errors.AMOUNT_TOO_LOW);
+        require(msg.value >= Constants.TRANSFER_MIN_VALUE, Errors.VALUE_TOO_LOW);
+        require(_wallets.exists(token_root) && _balances.exists(token_root), Errors.UNKNOWN_TOKEN_ROOT);
+        require(_balances[token_root] >= amount, Errors.NOT_ENOUGH_FUNDS);
 
-        tvm.rawReserve(DexGas.ACCOUNT_INITIAL_BALANCE, 0);
+        tvm.rawReserve(Constants.ACCOUNT_INITIAL_BALANCE, 0);
 
         _balances[token_root] -= amount;
 
@@ -414,10 +414,10 @@ contract DexAccount is
             willing_to_deploy ||
             _wallets.exists(token_root) ||
             _tmpDeployingWallets.exists(token_root),
-            DexErrors.UNKNOWN_TOKEN_ROOT
+            Errors.UNKNOWN_TOKEN_ROOT
         );
 
-        tvm.rawReserve(DexGas.ACCOUNT_INITIAL_BALANCE, 0);
+        tvm.rawReserve(Constants.ACCOUNT_INITIAL_BALANCE, 0);
 
         if(_balances.exists(token_root)) {
             _balances[token_root] += amount;
@@ -451,7 +451,7 @@ contract DexAccount is
         address[] _roots,
         address _remainingGasTo
     ) override external onlyPool(_roots) {
-        tvm.rawReserve(DexGas.ACCOUNT_INITIAL_BALANCE, 0);
+        tvm.rawReserve(Constants.ACCOUNT_INITIAL_BALANCE, 0);
 
         if(_balances.exists(_tokenRoot)) {
             _balances[_tokenRoot] += _amount;
@@ -515,14 +515,14 @@ contract DexAccount is
         address[] _roots,
         address _remainingGasTo
     ) private {
-        require(!_tmpOperations.exists(_callId), DexErrors.OPERATION_ALREADY_IN_PROGRESS);
-        require(_operation.amount > 0, DexErrors.AMOUNT_TOO_LOW);
-        require(msg.value >= DexGas.EXCHANGE_MIN_VALUE, DexErrors.VALUE_TOO_LOW);
-        require(_wallets.exists(_operation.root) && _balances.exists(_operation.root), DexErrors.UNKNOWN_TOKEN_ROOT);
-        require(_wallets.exists(_expected.root), DexErrors.UNKNOWN_TOKEN_ROOT);
-        require(_balances[_operation.root] >= _operation.amount, DexErrors.NOT_ENOUGH_FUNDS);
+        require(!_tmpOperations.exists(_callId), Errors.OPERATION_ALREADY_IN_PROGRESS);
+        require(_operation.amount > 0, Errors.AMOUNT_TOO_LOW);
+        require(msg.value >= Constants.EXCHANGE_MIN_VALUE, Errors.VALUE_TOO_LOW);
+        require(_wallets.exists(_operation.root) && _balances.exists(_operation.root), Errors.UNKNOWN_TOKEN_ROOT);
+        require(_wallets.exists(_expected.root), Errors.UNKNOWN_TOKEN_ROOT);
+        require(_balances[_operation.root] >= _operation.amount, Errors.NOT_ENOUGH_FUNDS);
 
-        tvm.rawReserve(DexGas.ACCOUNT_INITIAL_BALANCE, 0);
+        tvm.rawReserve(Constants.ACCOUNT_INITIAL_BALANCE, 0);
 
         address pair = address(
             tvm.hash(
@@ -612,16 +612,16 @@ contract DexAccount is
         address _remainingGasTo,
         address _referrer
     ) private {
-        require(!_tmpOperations.exists(_callId), DexErrors.OPERATION_ALREADY_IN_PROGRESS);
-        require(_operations.length > 1, DexErrors.WRONG_PAIR);
-        require(msg.value >= DexGas.DEPOSIT_LIQUIDITY_MIN_VALUE, DexErrors.VALUE_TOO_LOW);
-        require(_wallets.exists(_expected.root) && _balances.exists(_expected.root), DexErrors.UNKNOWN_TOKEN_ROOT);
+        require(!_tmpOperations.exists(_callId), Errors.OPERATION_ALREADY_IN_PROGRESS);
+        require(_operations.length > 1, Errors.WRONG_PAIR);
+        require(msg.value >= Constants.DEPOSIT_LIQUIDITY_MIN_VALUE, Errors.VALUE_TOO_LOW);
+        require(_wallets.exists(_expected.root) && _balances.exists(_expected.root), Errors.UNKNOWN_TOKEN_ROOT);
         for (TokenOperation operation : _operations) {
-            require(_wallets.exists(operation.root) && _balances.exists(operation.root), DexErrors.UNKNOWN_TOKEN_ROOT);
-            require(_balances[operation.root] >= operation.amount, DexErrors.NOT_ENOUGH_FUNDS);
+            require(_wallets.exists(operation.root) && _balances.exists(operation.root), Errors.UNKNOWN_TOKEN_ROOT);
+            require(_balances[operation.root] >= operation.amount, Errors.NOT_ENOUGH_FUNDS);
         }
 
-        tvm.rawReserve(DexGas.ACCOUNT_INITIAL_BALANCE, 0);
+        tvm.rawReserve(Constants.ACCOUNT_INITIAL_BALANCE, 0);
 
         address[] roots;
 
@@ -689,7 +689,7 @@ contract DexAccount is
         TokenOperation[] _expected,
         address _remainingGasTo
     ) override external onlyOwner {
-        require(_expected.length > 1, DexErrors.WRONG_PAIR);
+        require(_expected.length > 1, Errors.WRONG_PAIR);
 
         address[] roots;
         for (TokenOperation operation : _expected) {
@@ -712,7 +712,7 @@ contract DexAccount is
         TokenOperation _expected,
         address _remainingGasTo
     ) override external onlyOwner {
-        require(_roots.length > 2, DexErrors.WRONG_PAIR);
+        require(_roots.length > 2, Errors.WRONG_PAIR);
 
         _withdrawLiquidityInternal(
             _callId,
@@ -730,13 +730,13 @@ contract DexAccount is
         TokenOperation[] _expected,
         address _remainingGasTo
     ) private {
-        require(!_tmpOperations.exists(_callId), DexErrors.OPERATION_ALREADY_IN_PROGRESS);
-        require(_operation.amount > 0, DexErrors.AMOUNT_TOO_LOW);
-        require(msg.value >= DexGas.WITHDRAW_LIQUIDITY_MIN_VALUE, DexErrors.VALUE_TOO_LOW);
-        require(_wallets.exists(_operation.root) && _balances.exists(_operation.root), DexErrors.UNKNOWN_TOKEN_ROOT);
-        require(_balances[_operation.root] >= _operation.amount, DexErrors.NOT_ENOUGH_FUNDS);
+        require(!_tmpOperations.exists(_callId), Errors.OPERATION_ALREADY_IN_PROGRESS);
+        require(_operation.amount > 0, Errors.AMOUNT_TOO_LOW);
+        require(msg.value >= Constants.WITHDRAW_LIQUIDITY_MIN_VALUE, Errors.VALUE_TOO_LOW);
+        require(_wallets.exists(_operation.root) && _balances.exists(_operation.root), Errors.UNKNOWN_TOKEN_ROOT);
+        require(_balances[_operation.root] >= _operation.amount, Errors.NOT_ENOUGH_FUNDS);
 
-        tvm.rawReserve(DexGas.ACCOUNT_INITIAL_BALANCE, 0);
+        tvm.rawReserve(Constants.ACCOUNT_INITIAL_BALANCE, 0);
 
         address pair = address(
             tvm.hash(
@@ -791,10 +791,10 @@ contract DexAccount is
     }
 
     function _addPoolInternal(address[] _roots) private view {
-        require(_roots.length > 1, DexErrors.WRONG_PAIR);
-        require(msg.value >= DexGas.ADD_PAIR_MIN_VALUE, DexErrors.VALUE_TOO_LOW);
+        require(_roots.length > 1, Errors.WRONG_PAIR);
+        require(msg.value >= Constants.ADD_PAIR_MIN_VALUE, Errors.VALUE_TOO_LOW);
 
-        tvm.rawReserve(DexGas.ACCOUNT_INITIAL_BALANCE, 0);
+        tvm.rawReserve(Constants.ACCOUNT_INITIAL_BALANCE, 0);
 
         address pair = address(
             tvm.hash(
@@ -820,12 +820,12 @@ contract DexAccount is
 
         ITokenRoot(_tokenRoot)
             .deployWallet{
-                value: DexGas.DEPLOY_EMPTY_WALLET_VALUE,
+                value: Constants.DEPLOY_EMPTY_WALLET_VALUE,
                 flag: MsgFlag.SENDER_PAYS_FEES,
                 callback: DexAccount.onTokenWallet
             }(
                 address(this),
-                DexGas.DEPLOY_EMPTY_WALLET_GRAMS
+                Constants.DEPLOY_EMPTY_WALLET_GRAMS
             );
     }
 
@@ -833,9 +833,9 @@ contract DexAccount is
     // CODE UPGRADE
 
     function requestUpgrade(address send_gas_to) external view onlyOwner {
-        require(msg.value >= DexGas.UPGRADE_ACCOUNT_MIN_VALUE, DexErrors.VALUE_TOO_LOW);
+        require(msg.value >= Constants.UPGRADE_ACCOUNT_MIN_VALUE, Errors.VALUE_TOO_LOW);
 
-        tvm.rawReserve(DexGas.ACCOUNT_INITIAL_BALANCE, 0);
+        tvm.rawReserve(Constants.ACCOUNT_INITIAL_BALANCE, 0);
 
         emit CodeUpgradeRequested();
 
@@ -850,7 +850,7 @@ contract DexAccount is
         address _sendGasTo
     ) override external onlyRoot {
         if (_currentVersion == _newVersion) {
-            tvm.rawReserve(DexGas.ACCOUNT_INITIAL_BALANCE, 0);
+            tvm.rawReserve(Constants.ACCOUNT_INITIAL_BALANCE, 0);
 
             _sendGasTo.transfer({
                 value: 0,
@@ -907,7 +907,7 @@ contract DexAccount is
                         [mapping(address => address) _tmpDeployingWallets]
     */
     function onCodeUpgrade(TvmCell _data) private {
-        tvm.rawReserve(DexGas.ACCOUNT_INITIAL_BALANCE, 0);
+        tvm.rawReserve(Constants.ACCOUNT_INITIAL_BALANCE, 0);
         tvm.resetStorage();
 
         TvmSlice dataSlice = _data.toSlice();
@@ -957,7 +957,7 @@ contract DexAccount is
     }
 
     onBounce(TvmSlice _body) external {
-        tvm.rawReserve(DexGas.ACCOUNT_INITIAL_BALANCE, 0);
+        tvm.rawReserve(Constants.ACCOUNT_INITIAL_BALANCE, 0);
 
         uint32 functionId = _body.decode(uint32);
 
@@ -996,7 +996,7 @@ contract DexAccount is
                 } else {
                     IDexAccountOwner(_owner)
                         .dexAccountOnBounce{
-                            value: DexGas.OPERATION_CALLBACK_BASE,
+                            value: Constants.OPERATION_CALLBACK_BASE,
                             flag: MsgFlag.SENDER_PAYS_FEES + MsgFlag.IGNORE_ERRORS,
                             bounce: false
                         }(callId, functionId);

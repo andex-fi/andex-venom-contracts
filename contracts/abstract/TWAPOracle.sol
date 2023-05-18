@@ -5,8 +5,8 @@ import "../interfaces/ITWAPOracle.sol";
 import "../interfaces/IOnObservationCallback.sol";
 import "../interfaces/IOnRateCallback.sol";
 import "../libraries/FixedPoint128.sol";
-import "../libraries/DexErrors.sol";
-import "../libraries/DexGas.sol";
+import "../libraries/Errors.sol";
+import "../libraries/Constants.sol";
 
 /// @title TWAP-Oracle
 /// @notice Stores, calculates, and provides prices for DEX pair
@@ -38,11 +38,11 @@ abstract contract TWAPOracle is ITWAPOracle {
         OracleOptions _newOptions,
         address _remainingGasTo
     ) external onlyRoot override {
-        tvm.rawReserve(DexGas.PAIR_INITIAL_BALANCE, 0);
+        tvm.rawReserve(Constants.PAIR_INITIAL_BALANCE, 0);
 
         // Check input params
-        require(_newOptions.cardinality >= _options.cardinality, DexErrors.LOWER_CARDINALITY);
-        require(_newOptions.minRateDeltaDenominator > 0, DexErrors.NON_POSITIVE_DENOMINATOR);
+        require(_newOptions.cardinality >= _options.cardinality, Errors.LOWER_CARDINALITY);
+        require(_newOptions.minRateDeltaDenominator > 0, Errors.NON_POSITIVE_DENOMINATOR);
 
         // Update options
         _options = _newOptions;
@@ -63,11 +63,11 @@ abstract contract TWAPOracle is ITWAPOracle {
         uint16 _count,
         address _remainingGasTo
     ) external onlyRoot override {
-        tvm.rawReserve(DexGas.PAIR_INITIAL_BALANCE, 0);
+        tvm.rawReserve(Constants.PAIR_INITIAL_BALANCE, 0);
 
         // Check input params
-        require(_count > 0, DexErrors.NON_POSITIVE_COUNT);
-        require(_count <= _length, DexErrors.BIGGER_THAN_LENGTH);
+        require(_count > 0, Errors.NON_POSITIVE_COUNT);
+        require(_count <= _length, Errors.BIGGER_THAN_LENGTH);
 
         // Remove last point _count times and decrease length
         for (uint16 i = 0; i < _count; i++) {
@@ -91,7 +91,7 @@ abstract contract TWAPOracle is ITWAPOracle {
         address _callbackTo,
         TvmCell _payload
     ) external view override {
-        tvm.rawReserve(DexGas.PAIR_INITIAL_BALANCE, 0);
+        tvm.rawReserve(Constants.PAIR_INITIAL_BALANCE, 0);
 
         IOnObservationCallback(_callbackTo)
             .onObservationCallback{
@@ -125,7 +125,7 @@ abstract contract TWAPOracle is ITWAPOracle {
         address _callbackTo,
         TvmCell _payload
     ) external view override {
-        tvm.rawReserve(DexGas.PAIR_INITIAL_BALANCE, 0);
+        tvm.rawReserve(Constants.PAIR_INITIAL_BALANCE, 0);
 
         IOnRateCallback(_callbackTo)
             .onRateCallback{
@@ -149,14 +149,14 @@ abstract contract TWAPOracle is ITWAPOracle {
         address[] roots = _tokenRoots();
 
         // Check input params
-        require(_tokenRoot == roots[0] || _tokenRoot == roots[1], DexErrors.WRONG_TOKEN_ROOT);
-        require(_amount > 0, DexErrors.WRONG_AMOUNT);
+        require(_tokenRoot == roots[0] || _tokenRoot == roots[1], Errors.WRONG_TOKEN_ROOT);
+        require(_amount > 0, Errors.WRONG_AMOUNT);
 
         optional(Rate) rateOpt = _calculateRate(_fromTimestamp, _toTimestamp);
 
         // Revert call if rate is null
         if (!rateOpt.hasValue()) {
-            revert(DexErrors.CAN_NOT_CALCULATE_TWAP);
+            revert(Errors.CAN_NOT_CALCULATE_TWAP);
         }
 
         bool isLeftTokenRoot = roots[0] == _tokenRoot;
@@ -177,8 +177,8 @@ abstract contract TWAPOracle is ITWAPOracle {
     /// @return bool Whether or not oracle was initialized
     function _initializeTWAPOracle(uint32 _timestamp) internal returns (bool) {
         // Check input params and initialization status of the oracle
-        require(_points.empty(), DexErrors.ALREADY_INITIALIZED);
-        require(_timestamp > 0, DexErrors.NON_POSITIVE_TIMESTAMP);
+        require(_points.empty(), Errors.ALREADY_INITIALIZED);
+        require(_timestamp > 0, Errors.NON_POSITIVE_TIMESTAMP);
 
         Point first = Point(0, 0);
 
@@ -297,9 +297,9 @@ abstract contract TWAPOracle is ITWAPOracle {
         uint32 _toTimestamp
     ) private view returns (optional(Rate)) {
         // Check input params
-        require(!_points.empty(), DexErrors.NOT_INITIALIZED);
-        require(_fromTimestamp < _toTimestamp, DexErrors.FROM_IS_BIGGER_THAN_TO);
-        require(_fromTimestamp > 0, DexErrors.NON_POSITIVE_TIMESTAMP);
+        require(!_points.empty(), Errors.NOT_INITIALIZED);
+        require(_fromTimestamp < _toTimestamp, Errors.FROM_IS_BIGGER_THAN_TO);
+        require(_fromTimestamp > 0, Errors.NON_POSITIVE_TIMESTAMP);
 
         optional(Rate) rateOpt;
 

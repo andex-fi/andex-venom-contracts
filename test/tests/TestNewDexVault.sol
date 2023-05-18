@@ -4,8 +4,8 @@ pragma AbiHeader time;
 pragma AbiHeader expire;
 pragma AbiHeader pubkey;
 
-import "../libraries/DexErrors.sol";
-import "../libraries/DexGas.sol";
+import "../libraries/Errors.sol";
+import "../libraries/Constants.sol";
 import "../libraries/MsgFlag.sol";
 
 import "../structures/IReferralProgramParams.sol";

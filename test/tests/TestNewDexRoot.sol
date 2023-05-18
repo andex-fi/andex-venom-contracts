@@ -4,8 +4,8 @@ pragma AbiHeader time;
 pragma AbiHeader expire;
 pragma AbiHeader pubkey;
 
-import "../libraries/DexErrors.sol";
-import "../libraries/DexGas.sol";
+import "../libraries/Errors.sol";
+import "../libraries/Constants.sol";
 import "../libraries/MsgFlag.sol";
 
 // This is just for test purposes, this is not a real contract!
@@ -54,22 +54,22 @@ contract NewDexRoot {
     }
 
     function getPairVersion(uint8 pool_type) external view responsible returns (uint32) {
-        require(pair_versions.exists(pool_type), DexErrors.UNSUPPORTED_POOL_TYPE);
+        require(pair_versions.exists(pool_type), Errors.UNSUPPORTED_POOL_TYPE);
         return{ value: 0, bounce: false, flag: MsgFlag.REMAINING_GAS } pair_versions[pool_type];
     }
 
     function getPairCode(uint8 pool_type) external view responsible returns (TvmCell) {
-        require(pair_codes.exists(pool_type), DexErrors.UNSUPPORTED_POOL_TYPE);
+        require(pair_codes.exists(pool_type), Errors.UNSUPPORTED_POOL_TYPE);
         return{ value: 0, bounce: false, flag: MsgFlag.REMAINING_GAS } pair_codes[pool_type];
     }
 
     function getPoolVersion(uint8 pool_type) external view responsible returns (uint32) {
-        require(pool_versions.exists(pool_type), DexErrors.UNSUPPORTED_POOL_TYPE);
+        require(pool_versions.exists(pool_type), Errors.UNSUPPORTED_POOL_TYPE);
         return{ value: 0, bounce: false, flag: MsgFlag.REMAINING_GAS } pool_versions[pool_type];
     }
 
     function getPoolCode(uint8 pool_type) external view responsible returns (TvmCell) {
-        require(pool_codes.exists(pool_type), DexErrors.UNSUPPORTED_POOL_TYPE);
+        require(pool_codes.exists(pool_type), Errors.UNSUPPORTED_POOL_TYPE);
         return{ value: 0, bounce: false, flag: MsgFlag.REMAINING_GAS } pool_codes[pool_type];
     }
 
@@ -98,7 +98,7 @@ contract NewDexRoot {
     }
 
     function setActive(bool new_active) external {
-        tvm.rawReserve(DexGas.ROOT_INITIAL_BALANCE, 2);
+        tvm.rawReserve(Constants.ROOT_INITIAL_BALANCE, 2);
         if (
             new_active &&
             !platform_code.toSlice().empty() &&

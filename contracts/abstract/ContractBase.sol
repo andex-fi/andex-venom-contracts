@@ -9,7 +9,7 @@ import "../libraries/DexPlatformTypes.sol";
 import "../DexPlatform.sol";
 import "../DexVaultLpTokenPendingV2.sol";
 
-abstract contract DexContractBase  {
+abstract contract ContractBase  {
     TvmCell public platform_code;
 
     modifier onlyPlatform(
@@ -25,22 +25,22 @@ abstract contract DexContractBase  {
             )
         );
 
-        require(msg.sender == expected, DexErrors.NOT_PLATFORM);
+        require(msg.sender == expected, Errors.NOT_PLATFORM);
         _;
     }
 
     modifier onlyAccount(address _accountOwner) {
-        require(msg.sender == _expectedAccountAddress(_accountOwner), DexErrors.NOT_ACCOUNT);
+        require(msg.sender == _expectedAccountAddress(_accountOwner), Errors.NOT_ACCOUNT);
         _;
     }
 
     modifier onlyPool(address[] _roots) {
-        require(msg.sender == _expectedPoolAddress(_roots), DexErrors.NOT_POOL);
+        require(msg.sender == _expectedPoolAddress(_roots), Errors.NOT_POOL);
         _;
     }
 
     modifier onlyTokenVault(address _tokenRoot) {
-        require(msg.sender == _expectedTokenVaultAddress(_tokenRoot), DexErrors.NOT_TOKEN_VAULT);
+        require(msg.sender == _expectedTokenVaultAddress(_tokenRoot), Errors.NOT_TOKEN_VAULT);
         _;
     }
 
@@ -52,7 +52,7 @@ abstract contract DexContractBase  {
     ) {
         address lpPending = _expectedLpTokenPendingAddress(_nonce, _pool, _roots, _code);
 
-        require(msg.sender == lpPending, DexErrors.NOT_LP_PENDING_CONTRACT);
+        require(msg.sender == lpPending, Errors.NOT_LP_PENDING_CONTRACT);
         _;
     }
 
@@ -129,7 +129,7 @@ abstract contract DexContractBase  {
         mapping(address => uint8) sorted;
 
         for (address root : _roots) {
-            require(!sorted.exists(root), DexErrors.INVALID_TOKEN_ROOTS);
+            require(!sorted.exists(root), Errors.INVALID_TOKEN_ROOTS);
             sorted[root] = 0;
         }
 

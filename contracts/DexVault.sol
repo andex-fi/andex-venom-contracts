@@ -8,17 +8,17 @@ import "./libraries/MsgFlag.sol";
 
 import "tip3/contracts/interfaces/ITokenWallet.tsol";
 
-import "./abstract/DexContractBase.sol";
+import "./abstract/ContractBase.sol";
 
 import "./interfaces/IDexVault.sol";
 import "./interfaces/IDexAccount.sol";
 import "./interfaces/IReferralProgramCallbacks.sol";
 
-import "./libraries/DexErrors.sol";
-import "./libraries/DexGas.sol";
+import "./libraries/Errors.sol";
+import "./libraries/Constants.sol";
 import "./libraries/DexOperationTypes.sol";
 
-contract DexVault is DexContractBase, IDexVault {
+contract DexVault is ContractBase, IDexVault {
     uint32 private static _nonce;
 
     address private _root;
@@ -48,9 +48,9 @@ contract DexVault is DexContractBase, IDexVault {
 
     function migrateToken(address _tokenRoot) external onlyManagerOrOwner {
         require(_vaultWallets.exists(_tokenRoot), 404);
-        require(msg.value >= DexGas.DEPLOY_VAULT_MIN_VALUE + DexGas.TRANSFER_TOKENS_VALUE + DexGas.DEPLOY_EMPTY_WALLET_GRAMS + 0.5 ever, 404);
+        require(msg.value >= Constants.DEPLOY_VAULT_MIN_VALUE + Constants.TRANSFER_TOKENS_VALUE + Constants.DEPLOY_EMPTY_WALLET_GRAMS + 0.5 ever, 404);
 
-        tvm.rawReserve(DexGas.VAULT_INITIAL_BALANCE, 0);
+        tvm.rawReserve(Constants.VAULT_INITIAL_BALANCE, 0);
 
         address vaultTokenWallet = _vaultWallets.at(_tokenRoot);
 
@@ -70,12 +70,12 @@ contract DexVault is DexContractBase, IDexVault {
 
     function onTokenBalance(uint128 _amount) external view {
         require(_vaultWalletsToRoots.exists(msg.sender));
-        tvm.rawReserve(DexGas.VAULT_INITIAL_BALANCE, 0);
+        tvm.rawReserve(Constants.VAULT_INITIAL_BALANCE, 0);
 
         address _tokenRoot = _vaultWalletsToRoots.at(msg.sender);
 
         IDexRoot(_dexRoot()).deployTokenVault{
-            value: DexGas.DEPLOY_VAULT_MIN_VALUE + 0.05 ever,
+            value: Constants.DEPLOY_VAULT_MIN_VALUE + 0.05 ever,
             flag: MsgFlag.SENDER_PAYS_FEES
         }(_tokenRoot, _owner);
 
@@ -88,7 +88,7 @@ contract DexVault is DexContractBase, IDexVault {
             }(
                 _amount,
                 _expectedTokenVaultAddress(_tokenRoot),
-                DexGas.DEPLOY_EMPTY_WALLET_GRAMS,
+                Constants.DEPLOY_EMPTY_WALLET_GRAMS,
                 _owner,
                 false,
                 empty
@@ -99,7 +99,7 @@ contract DexVault is DexContractBase, IDexVault {
     }
 
     function internalHelper(address _startTokenRoot) internal {
-        tvm.rawReserve(DexGas.VAULT_INITIAL_BALANCE, 0);
+        tvm.rawReserve(Constants.VAULT_INITIAL_BALANCE, 0);
         uint8 counter = 0;
         optional(address, address) itemOpt = _vaultWallets.next(_startTokenRoot);
 
@@ -108,7 +108,7 @@ contract DexVault is DexContractBase, IDexVault {
             _vaultWalletsToRoots[vaultTokenWallet] = tokenRoot;
             counter++;
             ITokenWallet(vaultTokenWallet).balance{
-                value: DexGas.DEPLOY_VAULT_MIN_VALUE + DexGas.TRANSFER_TOKENS_VALUE + DexGas.DEPLOY_EMPTY_WALLET_GRAMS + 0.5 ever,
+                value: Constants.DEPLOY_VAULT_MIN_VALUE + Constants.TRANSFER_TOKENS_VALUE + Constants.DEPLOY_EMPTY_WALLET_GRAMS + 0.5 ever,
                 flag: MsgFlag.SENDER_PAYS_FEES,
                 callback: DexVault.onTokenBalance
             }();
@@ -129,7 +129,7 @@ contract DexVault is DexContractBase, IDexVault {
     //migration END
 
     modifier onlyOwner() {
-        require(msg.sender == _owner, DexErrors.NOT_MY_OWNER);
+        require(msg.sender == _owner, Errors.NOT_MY_OWNER);
         _;
     }
 
@@ -137,7 +137,7 @@ contract DexVault is DexContractBase, IDexVault {
         require(
             msg.sender.value != 0 &&
             (msg.sender == _owner || msg.sender == _manager),
-            DexErrors.NOT_MY_OWNER
+            Errors.NOT_MY_OWNER
         );
         _;
     }
@@ -150,9 +150,9 @@ contract DexVault is DexContractBase, IDexVault {
     }
 
     function installPlatformOnce(TvmCell code) external onlyOwner {
-        require(platform_code.toSlice().empty(), DexErrors.PLATFORM_CODE_NON_EMPTY);
+        require(platform_code.toSlice().empty(), Errors.PLATFORM_CODE_NON_EMPTY);
 
-        tvm.rawReserve(DexGas.VAULT_INITIAL_BALANCE, 0);
+        tvm.rawReserve(Constants.VAULT_INITIAL_BALANCE, 0);
 
         platform_code = code;
 
@@ -164,7 +164,7 @@ contract DexVault is DexContractBase, IDexVault {
     }
 
     function transferOwner(address new_owner) public override onlyOwner {
-        tvm.rawReserve(DexGas.VAULT_INITIAL_BALANCE, 0);
+        tvm.rawReserve(Constants.VAULT_INITIAL_BALANCE, 0);
 
         emit RequestedOwnerTransfer(_owner, new_owner);
 
@@ -177,10 +177,10 @@ contract DexVault is DexContractBase, IDexVault {
         require(
             msg.sender == _pendingOwner &&
             msg.sender.value != 0,
-            DexErrors.NOT_PENDING_OWNER
+            Errors.NOT_PENDING_OWNER
         );
 
-        tvm.rawReserve(DexGas.VAULT_INITIAL_BALANCE, 0);
+        tvm.rawReserve(Constants.VAULT_INITIAL_BALANCE, 0);
 
         emit OwnerTransferAccepted(_owner, _pendingOwner);
 
@@ -215,7 +215,7 @@ contract DexVault is DexContractBase, IDexVault {
     }
 
     function setManager(address _newManager) external override onlyOwner {
-        tvm.rawReserve(DexGas.ROOT_INITIAL_BALANCE, 0);
+        tvm.rawReserve(Constants.ROOT_INITIAL_BALANCE, 0);
 
         _manager = _newManager;
 
@@ -227,7 +227,7 @@ contract DexVault is DexContractBase, IDexVault {
     }
 
     function revokeManager() external override onlyManagerOrOwner {
-        tvm.rawReserve(DexGas.ROOT_INITIAL_BALANCE, 0);
+        tvm.rawReserve(Constants.ROOT_INITIAL_BALANCE, 0);
 
         _manager = address(0);
 
@@ -257,7 +257,7 @@ contract DexVault is DexContractBase, IDexVault {
     function setReferralProgramParams(ReferralProgramParams params) external override onlyOwner {
         tvm.rawReserve(
             math.max(
-                DexGas.VAULT_INITIAL_BALANCE,
+                Constants.VAULT_INITIAL_BALANCE,
                 address(this).balance - msg.value
             ),
             2
@@ -273,9 +273,9 @@ contract DexVault is DexContractBase, IDexVault {
     }
 
     function upgrade(TvmCell code) public override onlyOwner {
-        require(msg.value > DexGas.UPGRADE_VAULT_MIN_VALUE, DexErrors.VALUE_TOO_LOW);
+        require(msg.value > Constants.UPGRADE_VAULT_MIN_VALUE, Errors.VALUE_TOO_LOW);
 
-        tvm.rawReserve(DexGas.VAULT_INITIAL_BALANCE, 0);
+        tvm.rawReserve(Constants.VAULT_INITIAL_BALANCE, 0);
 
         emit VaultCodeUpgraded();
 
@@ -329,7 +329,7 @@ contract DexVault is DexContractBase, IDexVault {
     }
 
     function resetGas(address receiver) external view override onlyOwner {
-        tvm.rawReserve(DexGas.VAULT_INITIAL_BALANCE, 2);
+        tvm.rawReserve(Constants.VAULT_INITIAL_BALANCE, 2);
 
         receiver.transfer({ value: 0, flag: MsgFlag.ALL_NOT_RESERVED });
     }
@@ -340,7 +340,7 @@ contract DexVault is DexContractBase, IDexVault {
     ) external view override onlyOwner {
         tvm.rawReserve(
             math.max(
-                DexGas.VAULT_INITIAL_BALANCE,
+                Constants.VAULT_INITIAL_BALANCE,
                 address(this).balance - msg.value
             ),
             2
@@ -361,7 +361,7 @@ contract DexVault is DexContractBase, IDexVault {
     ) external override {
         tvm.rawReserve(
             math.max(
-                DexGas.VAULT_INITIAL_BALANCE,
+                Constants.VAULT_INITIAL_BALANCE,
                 address(this).balance - msg.value
             ),
             0
@@ -397,7 +397,7 @@ contract DexVault is DexContractBase, IDexVault {
 
             IReferralProgramCallbacks(_refProgramParams.projectAddress)
                 .onRefLastUpdate{
-                    value: DexGas.REFERRAL_PROGRAM_CALLBACK,
+                    value: Constants.REFERRAL_PROGRAM_CALLBACK,
                     flag: MsgFlag.SENDER_PAYS_FEES + MsgFlag.IGNORE_ERRORS,
                     bounce: false
                 }(_referral, _referrer, _referral);
@@ -412,7 +412,7 @@ contract DexVault is DexContractBase, IDexVault {
                 }(
                     _amount,
                     _refProgramParams.systemAddress,
-                    DexGas.REFERRAL_DEPLOY_EMPTY_WALLET_GRAMS,
+                    Constants.REFERRAL_DEPLOY_EMPTY_WALLET_GRAMS,
                     _remainingGasTo,
                     true,
                     refPayload

@@ -1,6 +1,6 @@
 pragma ever-solidity >= 0.62.0;
 
-library DexErrors {
+library Errors {
     uint16 constant TODO = 777;
 
     uint16 constant NOT_MY_OWNER                     = 100;

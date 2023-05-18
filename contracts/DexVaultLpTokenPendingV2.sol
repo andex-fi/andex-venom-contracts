@@ -11,8 +11,8 @@ import "./interfaces/ITokenFactory.sol";
 import "./interfaces/ITokenRootDeployedCallback.sol";
 import "./interfaces/IDexRoot.sol";
 
-import "./libraries/DexErrors.sol";
-import "./libraries/DexGas.sol";
+import "./libraries/Errors.sol";
+import "./libraries/Constants.sol";
 
 contract DexVaultLpTokenPendingV2 is
     ITokenRootDeployedCallback,
@@ -44,17 +44,17 @@ contract DexVaultLpTokenPendingV2 is
     uint8 N_COINS;
 
     modifier onlyRoot {
-        require(msg.sender == root, DexErrors.NOT_ROOT);
+        require(msg.sender == root, Errors.NOT_ROOT);
         _;
     }
 
     modifier onlyTokenFactory {
-        require(msg.sender == token_factory, DexErrors.NOT_TOKEN_FACTORY);
+        require(msg.sender == token_factory, Errors.NOT_TOKEN_FACTORY);
         _;
     }
 
     modifier onlyExpectedToken {
-        require(isSenderExpectedToken(), DexErrors.NOT_EXPECTED_TOKEN);
+        require(isSenderExpectedToken(), Errors.NOT_EXPECTED_TOKEN);
         _;
     }
 
@@ -73,7 +73,7 @@ contract DexVaultLpTokenPendingV2 is
 
         for (uint8 i = 0; i < N_COINS; i++) {
             ITokenRoot(roots[i]).symbol{
-                value: DexGas.GET_TOKEN_DETAILS_VALUE,
+                value: Constants.GET_TOKEN_DETAILS_VALUE,
                 flag: MsgFlag.SENDER_PAYS_FEES,
                 callback: onSymbol
             }();
@@ -82,7 +82,7 @@ contract DexVaultLpTokenPendingV2 is
     }
 
     function terminate() public view {
-        require(msg.sender == send_gas_to, DexErrors.NOT_MY_OWNER);
+        require(msg.sender == send_gas_to, Errors.NOT_MY_OWNER);
         tvm.accept();
         _onLiquidityTokenNotDeployed();
     }
@@ -114,7 +114,7 @@ contract DexVaultLpTokenPendingV2 is
         mapping(address => ICallbackParamsStructure.CallbackParams) callbacks;
         callbacks[address(this)] = ICallbackParamsStructure.CallbackParams(0, empty);
         ITransferableOwnership(token_root).transferOwnership{
-            value: DexGas.TRANSFER_ROOT_OWNERSHIP_VALUE,
+            value: Constants.TRANSFER_ROOT_OWNERSHIP_VALUE,
             flag: MsgFlag.SENDER_PAYS_FEES
         }(pool, address(this), callbacks);
     }
@@ -125,7 +125,7 @@ contract DexVaultLpTokenPendingV2 is
         address,
         TvmCell
     ) external override {
-        require(msg.sender.value != 0 && msg.sender == lp_token_root, DexErrors.NOT_LP_TOKEN_ROOT);
+        require(msg.sender.value != 0 && msg.sender == lp_token_root, Errors.NOT_LP_TOKEN_ROOT);
 
         pending_messages--;
 
@@ -170,7 +170,7 @@ contract DexVaultLpTokenPendingV2 is
     function deployLpToken(bytes symbol, uint8 decimals) private {
         pending_messages++;
         ITokenFactory(token_factory).createToken{
-            value: DexGas.CREATE_TOKEN_VALUE,
+            value: Constants.CREATE_TOKEN_VALUE,
             flag: MsgFlag.SENDER_PAYS_FEES
         }(
             0,

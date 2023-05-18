@@ -6,8 +6,8 @@ pragma AbiHeader pubkey;
 
 import "../libraries/MsgFlag.sol";
 
-import "../libraries/DexErrors.sol";
-import "../libraries/DexGas.sol";
+import "../libraries/Errors.sol";
+import "../libraries/Constants.sol";
 import "../libraries/FixedPoint128.sol";
 import "../libraries/DexAddressType.sol";
 import "../libraries/DexReserveType.sol";
@@ -160,7 +160,7 @@ contract TestNewDexPair is
     }
 
     function onCodeUpgrade(TvmCell data) private {
-        tvm.rawReserve(DexGas.PAIR_INITIAL_BALANCE, 2);
+        tvm.rawReserve(Constants.PAIR_INITIAL_BALANCE, 2);
         tvm.resetStorage();
         TvmSlice s = data.toSlice();
 

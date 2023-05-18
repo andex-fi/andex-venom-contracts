@@ -1,6 +1,6 @@
 pragma ever-solidity >= 0.62.0;
 
-library DexGas {
+library Constants {
 
     // ABSOLUTE
 

@@ -6,7 +6,7 @@ pragma AbiHeader pubkey;
 
 
 
-import "./abstract/DexContractBase.sol";
+import "./abstract/ContractBase.sol";
 
 import "./interfaces/IUpgradableByRequest.sol";
 import "./interfaces/IDexRoot.sol";
@@ -18,14 +18,14 @@ import "./interfaces/ILiquidityTokenRootDeployedCallback.sol";
 import "./interfaces/ILiquidityTokenRootNotDeployedCallback.sol";
 
 import "./libraries/DexPlatformTypes.sol";
-import "./libraries/DexErrors.sol";
+import "./libraries/Errors.sol";
 import "./libraries/DexPoolTypes.sol";
-import "./libraries/DexGas.sol";
+import "./libraries/Constants.sol";
 import "./libraries/MsgFlag.sol";
 
 import "./DexPlatform.sol";
 
-contract DexRoot is DexContractBase, IDexRoot {
+contract DexRoot is ContractBase, IDexRoot {
     ///////////////////////////////////////////////////////////////////////////////////////////////////////
     // DATA
     uint32 static _nonce;
@@ -71,7 +71,7 @@ contract DexRoot is DexContractBase, IDexRoot {
         require(
             msg.sender.value != 0 &&
             (msg.sender == _owner || msg.sender == _manager),
-            DexErrors.NOT_MY_OWNER
+            Errors.NOT_MY_OWNER
         );
         _;
     }
@@ -80,23 +80,23 @@ contract DexRoot is DexContractBase, IDexRoot {
         require(
             msg.sender.value != 0 &&
             (msg.sender == _owner || msg.sender == _manager || msg.sender == address(this)),
-            DexErrors.NOT_MY_OWNER
+            Errors.NOT_MY_OWNER
         );
         _;
     }
 
     modifier onlyActive() {
-        require(_active, DexErrors.NOT_ACTIVE);
+        require(_active, Errors.NOT_ACTIVE);
         _;
     }
 
     modifier onlyOwner() {
-        require(_owner.value != 0 && msg.sender == _owner, DexErrors.NOT_MY_OWNER);
+        require(_owner.value != 0 && msg.sender == _owner, Errors.NOT_MY_OWNER);
         _;
     }
 
     constructor(address initial_owner, address initial_vault) public {
-        tvm.rawReserve(DexGas.ROOT_INITIAL_BALANCE, 0);
+        tvm.rawReserve(Constants.ROOT_INITIAL_BALANCE, 0);
         tvm.accept();
 
         _owner = initial_owner;
@@ -132,7 +132,7 @@ contract DexRoot is DexContractBase, IDexRoot {
     }
 
     function getPairVersion(uint8 pool_type) override external view responsible returns (uint32) {
-        require(_pairVersions.exists(pool_type), DexErrors.UNSUPPORTED_POOL_TYPE);
+        require(_pairVersions.exists(pool_type), Errors.UNSUPPORTED_POOL_TYPE);
 
         return {
             value: 0,
@@ -142,7 +142,7 @@ contract DexRoot is DexContractBase, IDexRoot {
     }
 
     function getPoolVersion(uint8 pool_type) override external view responsible returns (uint32) {
-        require(_poolVersions.exists(pool_type), DexErrors.UNSUPPORTED_POOL_TYPE);
+        require(_poolVersions.exists(pool_type), Errors.UNSUPPORTED_POOL_TYPE);
 
         return {
             value: 0,
@@ -152,7 +152,7 @@ contract DexRoot is DexContractBase, IDexRoot {
     }
 
     function getPairCode(uint8 pool_type) override external view responsible returns (TvmCell) {
-        require(_pairCodes.exists(pool_type), DexErrors.UNSUPPORTED_POOL_TYPE);
+        require(_pairCodes.exists(pool_type), Errors.UNSUPPORTED_POOL_TYPE);
 
         return {
             value: 0,
@@ -162,7 +162,7 @@ contract DexRoot is DexContractBase, IDexRoot {
     }
 
     function getPoolCode(uint8 pool_type) override external view responsible returns (TvmCell) {
-        require(_poolCodes.exists(pool_type), DexErrors.UNSUPPORTED_POOL_TYPE);
+        require(_poolCodes.exists(pool_type), Errors.UNSUPPORTED_POOL_TYPE);
 
         return {
             value: 0,
@@ -292,10 +292,10 @@ contract DexRoot is DexContractBase, IDexRoot {
     function setVaultOnce(address new_vault)
         external
         override
-        reserve(DexGas.ROOT_INITIAL_BALANCE)
+        reserve(Constants.ROOT_INITIAL_BALANCE)
         onlyOwner
     {
-        require(_vault.value == 0, DexErrors.VAULT_ALREADY_SET);
+        require(_vault.value == 0, Errors.VAULT_ALREADY_SET);
 
         _vault = new_vault;
 
@@ -309,7 +309,7 @@ contract DexRoot is DexContractBase, IDexRoot {
     function setActive(bool new_active)
         external
         override
-        reserve(DexGas.ROOT_INITIAL_BALANCE)
+        reserve(Constants.ROOT_INITIAL_BALANCE)
         onlyOwner
     {
         if (
@@ -338,7 +338,7 @@ contract DexRoot is DexContractBase, IDexRoot {
     function setManager(address _newManager)
         external
         override
-        reserve(DexGas.ROOT_INITIAL_BALANCE)
+        reserve(Constants.ROOT_INITIAL_BALANCE)
         onlyOwner
     {
         _manager = _newManager;
@@ -353,7 +353,7 @@ contract DexRoot is DexContractBase, IDexRoot {
     function revokeManager()
         external
         override
-        reserve(DexGas.ROOT_INITIAL_BALANCE)
+        reserve(Constants.ROOT_INITIAL_BALANCE)
         onlyOwner
     {
         _manager = address(0);
@@ -368,7 +368,7 @@ contract DexRoot is DexContractBase, IDexRoot {
     function transferOwner(address new_owner)
         external
         override
-        reserve(DexGas.ROOT_INITIAL_BALANCE)
+        reserve(Constants.ROOT_INITIAL_BALANCE)
         onlyOwner
     {
         emit RequestedOwnerTransfer(_owner, new_owner);
@@ -379,12 +379,12 @@ contract DexRoot is DexContractBase, IDexRoot {
     function acceptOwner()
         external
         override
-        reserve(DexGas.ROOT_INITIAL_BALANCE)
+        reserve(Constants.ROOT_INITIAL_BALANCE)
     {
         require(
             msg.sender == _pendingOwner &&
             msg.sender.value != 0,
-            DexErrors.NOT_PENDING_OWNER
+            Errors.NOT_PENDING_OWNER
         );
 
         emit OwnerTransferAccepted(_owner, _pendingOwner);
@@ -399,7 +399,7 @@ contract DexRoot is DexContractBase, IDexRoot {
     )
         external
         override
-        reserve(DexGas.ROOT_INITIAL_BALANCE)
+        reserve(Constants.ROOT_INITIAL_BALANCE)
         onlyManagerOrOwner
     {
         address previous = _tokenFactory;
@@ -423,11 +423,11 @@ contract DexRoot is DexContractBase, IDexRoot {
     function installPlatformOnce(TvmCell code)
         external
         override
-        reserve(DexGas.ROOT_INITIAL_BALANCE)
+        reserve(Constants.ROOT_INITIAL_BALANCE)
         onlyOwner
     {
         // can be installed only once
-        require(platform_code.toSlice().empty(), DexErrors.PLATFORM_CODE_NON_EMPTY);
+        require(platform_code.toSlice().empty(), Errors.PLATFORM_CODE_NON_EMPTY);
 
         platform_code = code;
 
@@ -440,7 +440,7 @@ contract DexRoot is DexContractBase, IDexRoot {
     function installOrUpdateAccountCode(TvmCell code)
         external
         override
-        reserve(DexGas.ROOT_INITIAL_BALANCE)
+        reserve(Constants.ROOT_INITIAL_BALANCE)
         onlyManagerOrOwner
     {
         _accountCode = code;
@@ -460,7 +460,7 @@ contract DexRoot is DexContractBase, IDexRoot {
     )
         external
         override
-        reserve(DexGas.ROOT_INITIAL_BALANCE)
+        reserve(Constants.ROOT_INITIAL_BALANCE)
         onlyManagerOrOwner
     {
         _pairCodes[pool_type] = code;
@@ -480,7 +480,7 @@ contract DexRoot is DexContractBase, IDexRoot {
     )
         external
         override
-        reserve(DexGas.ROOT_INITIAL_BALANCE)
+        reserve(Constants.ROOT_INITIAL_BALANCE)
         onlyManagerOrOwner
     {
         _poolCodes[pool_type] = code;
@@ -500,10 +500,10 @@ contract DexRoot is DexContractBase, IDexRoot {
     )
         external
         override
-        reserve(DexGas.ROOT_INITIAL_BALANCE)
+        reserve(Constants.ROOT_INITIAL_BALANCE)
         onlyManagerOrOwner
     {
-        require(!_newCode.toSlice().empty(), DexErrors.VAULT_CODE_EMPTY);
+        require(!_newCode.toSlice().empty(), Errors.VAULT_CODE_EMPTY);
 
         _vaultCode = _newCode;
         _vaultVersion += 1;
@@ -526,10 +526,10 @@ contract DexRoot is DexContractBase, IDexRoot {
     )
         external
         override
-        reserve(DexGas.ROOT_INITIAL_BALANCE)
+        reserve(Constants.ROOT_INITIAL_BALANCE)
         onlyManagerOrOwner
     {
-        require(!_newCode.toSlice().empty(), DexErrors.LP_TOKEN_PENDING_CODE_EMPTY);
+        require(!_newCode.toSlice().empty(), Errors.LP_TOKEN_PENDING_CODE_EMPTY);
 
         _lpTokenPendingCode = _newCode;
         _lpTokenPendingVersion += 1;
@@ -552,10 +552,10 @@ contract DexRoot is DexContractBase, IDexRoot {
     function upgrade(TvmCell code)
         external
         override
-        reserve(DexGas.ROOT_INITIAL_BALANCE)
+        reserve(Constants.ROOT_INITIAL_BALANCE)
         onlyOwner
     {
-        require(msg.value > DexGas.UPGRADE_ROOT_MIN_VALUE, DexErrors.VALUE_TOO_LOW);
+        require(msg.value > Constants.UPGRADE_ROOT_MIN_VALUE, Errors.VALUE_TOO_LOW);
 
         emit RootCodeUpgraded();
 
@@ -632,7 +632,7 @@ contract DexRoot is DexContractBase, IDexRoot {
         override
         onlyOwner
     {
-        tvm.rawReserve(DexGas.ROOT_INITIAL_BALANCE, 0);
+        tvm.rawReserve(Constants.ROOT_INITIAL_BALANCE, 0);
 
         receiver.transfer({
             value: 0,
@@ -650,11 +650,11 @@ contract DexRoot is DexContractBase, IDexRoot {
     )
         external
         override
-        reserve(DexGas.ROOT_INITIAL_BALANCE)
+        reserve(Constants.ROOT_INITIAL_BALANCE)
         onlyActive
     {
-        require(msg.value >= DexGas.DEPLOY_VAULT_MIN_VALUE, DexErrors.VALUE_TOO_LOW);
-        require(_tokenRoot.value != 0 && _tokenRoot != address(this), DexErrors.WRONG_TOKEN_ROOT);
+        require(msg.value >= Constants.DEPLOY_VAULT_MIN_VALUE, Errors.VALUE_TOO_LOW);
+        require(_tokenRoot.value != 0 && _tokenRoot != address(this), Errors.WRONG_TOKEN_ROOT);
 
         _deployVaultInternal(
             _tokenRoot,
@@ -676,7 +676,7 @@ contract DexRoot is DexContractBase, IDexRoot {
     )
         external
         override
-        reserve(DexGas.ROOT_INITIAL_BALANCE)
+        reserve(Constants.ROOT_INITIAL_BALANCE)
         onlyTokenVault(_tokenRoot)
     {
         emit NewTokenVaultCreated({
@@ -704,7 +704,7 @@ contract DexRoot is DexContractBase, IDexRoot {
 
         new DexPlatform{
             stateInit: data,
-            value: DexGas.DEPLOY_VAULT_MIN_VALUE,
+            value: Constants.DEPLOY_VAULT_MIN_VALUE,
             flag: 0
         }(
             _vaultCode,
@@ -720,10 +720,10 @@ contract DexRoot is DexContractBase, IDexRoot {
     )
         external
         override
-        reserve(DexGas.ROOT_INITIAL_BALANCE)
+        reserve(Constants.ROOT_INITIAL_BALANCE)
         onlyPool(_tokenRoots)
     {
-        require(msg.value >= DexGas.DEPLOY_LP_TOKEN_ROOT_VALUE, DexErrors.VALUE_TOO_LOW);
+        require(msg.value >= Constants.DEPLOY_LP_TOKEN_ROOT_VALUE, Errors.VALUE_TOO_LOW);
 
         TvmCell data = _buildLpTokenPendingInitData(
             now,
@@ -749,7 +749,7 @@ contract DexRoot is DexContractBase, IDexRoot {
     )
         external
         override
-        reserve(DexGas.ROOT_INITIAL_BALANCE)
+        reserve(Constants.ROOT_INITIAL_BALANCE)
         onlyLpTokenPending(
             _lpPendingNonce,
             _pool,
@@ -783,7 +783,7 @@ contract DexRoot is DexContractBase, IDexRoot {
     )
         external
         override
-        reserve(DexGas.ROOT_INITIAL_BALANCE)
+        reserve(Constants.ROOT_INITIAL_BALANCE)
         onlyLpTokenPending(
             _lpPendingNonce,
             _pool,
@@ -805,7 +805,7 @@ contract DexRoot is DexContractBase, IDexRoot {
     )
         external
         override
-        reserve(DexGas.ROOT_INITIAL_BALANCE)
+        reserve(Constants.ROOT_INITIAL_BALANCE)
         onlyManagerOrOwner
     {
         _upgradeVaultInternal(_tokenRoot, _remainingGasTo);
@@ -824,7 +824,7 @@ contract DexRoot is DexContractBase, IDexRoot {
     )
         external
         override
-        reserve(DexGas.ROOT_INITIAL_BALANCE)
+        reserve(Constants.ROOT_INITIAL_BALANCE)
         onlyManagerOwnerOrSelf
     {
         uint length = _tokenRoots.length;
@@ -859,7 +859,7 @@ contract DexRoot is DexContractBase, IDexRoot {
 
         IUpgradableByRequest(vault)
             .upgrade{
-                value: DexGas.UPGRADE_TOKEN_VAULT_MIN_VALUE,
+                value: Constants.UPGRADE_TOKEN_VAULT_MIN_VALUE,
                 flag: MsgFlag.SENDER_PAYS_FEES,
                 bounce: false
             }(_vaultCode, _vaultVersion, _remainingGasTo);
@@ -874,11 +874,11 @@ contract DexRoot is DexContractBase, IDexRoot {
     )
         external
         override
-        reserve(DexGas.ROOT_INITIAL_BALANCE)
+        reserve(Constants.ROOT_INITIAL_BALANCE)
         onlyActive
     {
-        require(msg.value >= DexGas.DEPLOY_ACCOUNT_MIN_VALUE, DexErrors.VALUE_TOO_LOW);
-        require(account_owner.value != 0, DexErrors.INVALID_ADDRESS);
+        require(msg.value >= Constants.DEPLOY_ACCOUNT_MIN_VALUE, Errors.VALUE_TOO_LOW);
+        require(account_owner.value != 0, Errors.INVALID_ADDRESS);
 
         new DexPlatform{
             stateInit: _buildInitData(
@@ -902,7 +902,7 @@ contract DexRoot is DexContractBase, IDexRoot {
     )
         external
         override
-        reserve(DexGas.ROOT_INITIAL_BALANCE)
+        reserve(Constants.ROOT_INITIAL_BALANCE)
         onlyAccount(account_owner)
     {
         if (current_version == _accountVersion || !_active) {
@@ -924,10 +924,10 @@ contract DexRoot is DexContractBase, IDexRoot {
         external
         view
         override
-        reserve(DexGas.ROOT_INITIAL_BALANCE)
+        reserve(Constants.ROOT_INITIAL_BALANCE)
         onlyManagerOrOwner
     {
-        require(msg.value >= DexGas.UPGRADE_ACCOUNT_MIN_VALUE, DexErrors.VALUE_TOO_LOW);
+        require(msg.value >= Constants.UPGRADE_ACCOUNT_MIN_VALUE, Errors.VALUE_TOO_LOW);
 
         _upgradeAccountInternal(
             account_owner,
@@ -949,7 +949,7 @@ contract DexRoot is DexContractBase, IDexRoot {
         external
         view
         override
-        reserve(DexGas.ROOT_INITIAL_BALANCE)
+        reserve(Constants.ROOT_INITIAL_BALANCE)
         onlyManagerOwnerOrSelf
     {
         uint length = _accountsOwners.length;
@@ -986,7 +986,7 @@ contract DexRoot is DexContractBase, IDexRoot {
         emit RequestedForceAccountUpgrade(_accountOwner);
 
         IUpgradableByRequest(_expectedAccountAddress(_accountOwner))
-            .upgrade{ value: DexGas.UPGRADE_ACCOUNT_MIN_VALUE, flag: MsgFlag.SENDER_PAYS_FEES }
+            .upgrade{ value: Constants.UPGRADE_ACCOUNT_MIN_VALUE, flag: MsgFlag.SENDER_PAYS_FEES }
             (_accountCode, _accountVersion, _remainingGasTo);
     }
 
@@ -1002,10 +1002,10 @@ contract DexRoot is DexContractBase, IDexRoot {
         external
         view
         override
-        reserve(DexGas.ROOT_INITIAL_BALANCE)
+        reserve(Constants.ROOT_INITIAL_BALANCE)
         onlyManagerOrOwner
     {
-        require(msg.value >= DexGas.UPGRADE_POOL_MIN_VALUE, DexErrors.VALUE_TOO_LOW);
+        require(msg.value >= Constants.UPGRADE_POOL_MIN_VALUE, Errors.VALUE_TOO_LOW);
 
         _upgradePairInternal(
             PairUpgradeParam({
@@ -1030,15 +1030,15 @@ contract DexRoot is DexContractBase, IDexRoot {
         external
         view
         override
-        reserve(DexGas.ROOT_INITIAL_BALANCE)
+        reserve(Constants.ROOT_INITIAL_BALANCE)
         onlyManagerOrOwner
     {
         require(
             _poolVersions.exists(pool_type) &&
             _poolCodes.exists(pool_type),
-            DexErrors.UNSUPPORTED_POOL_TYPE
+            Errors.UNSUPPORTED_POOL_TYPE
         );
-        require(msg.value >= DexGas.UPGRADE_POOL_MIN_VALUE, DexErrors.VALUE_TOO_LOW);
+        require(msg.value >= Constants.UPGRADE_POOL_MIN_VALUE, Errors.VALUE_TOO_LOW);
 
         emit RequestedPoolUpgrade(roots);
 
@@ -1058,7 +1058,7 @@ contract DexRoot is DexContractBase, IDexRoot {
         external
         view
         override
-        reserve(DexGas.ROOT_INITIAL_BALANCE)
+        reserve(Constants.ROOT_INITIAL_BALANCE)
         onlyManagerOwnerOrSelf
     {
         uint length = _params.length;
@@ -1092,7 +1092,7 @@ contract DexRoot is DexContractBase, IDexRoot {
         require(
             _pairVersions.exists(_param.poolType) &&
             _pairCodes.exists(_param.poolType),
-            DexErrors.UNSUPPORTED_POOL_TYPE
+            Errors.UNSUPPORTED_POOL_TYPE
         );
 
         emit RequestedPoolUpgrade(_param.tokenRoots);
@@ -1102,7 +1102,7 @@ contract DexRoot is DexContractBase, IDexRoot {
 
         IDexBasePool(_expectedPoolAddress(_param.tokenRoots))
             .upgrade{
-                value: DexGas.UPGRADE_POOL_MIN_VALUE,
+                value: Constants.UPGRADE_POOL_MIN_VALUE,
                 flag: MsgFlag.SENDER_PAYS_FEES
             }(code, version, _param.poolType, _remainingGasTo);
     }
@@ -1114,7 +1114,7 @@ contract DexRoot is DexContractBase, IDexRoot {
         external
         view
         override
-        reserve(DexGas.ROOT_INITIAL_BALANCE)
+        reserve(Constants.ROOT_INITIAL_BALANCE)
         onlyManagerOrOwner
     {
         _setPoolActiveInternal(_param, _remainingGasTo);
@@ -1134,7 +1134,7 @@ contract DexRoot is DexContractBase, IDexRoot {
         external
         view
         override
-        reserve(DexGas.ROOT_INITIAL_BALANCE)
+        reserve(Constants.ROOT_INITIAL_BALANCE)
         onlyManagerOwnerOrSelf
     {
         uint length = _params.length;
@@ -1167,7 +1167,7 @@ contract DexRoot is DexContractBase, IDexRoot {
     ) private view {
         IDexBasePool(_expectedPoolAddress(_param.tokenRoots))
             .setActive{
-                value: DexGas.SET_POOL_ACTIVE_VALUE,
+                value: Constants.SET_POOL_ACTIVE_VALUE,
                 flag: MsgFlag.SENDER_PAYS_FEES,
                 bounce: false
             }(_param.newActive, _remainingGasTo);
@@ -1180,19 +1180,19 @@ contract DexRoot is DexContractBase, IDexRoot {
     )
         external
         override
-        reserve(DexGas.ROOT_INITIAL_BALANCE)
+        reserve(Constants.ROOT_INITIAL_BALANCE)
         onlyActive
     {
         require(
             msg.value >=  (
-                DexGas.DEPLOY_POOL_BASE_VALUE +
-                3 * (DexGas.DEPLOY_VAULT_MIN_VALUE + 0.1 ever)
+                Constants.DEPLOY_POOL_BASE_VALUE +
+                3 * (Constants.DEPLOY_VAULT_MIN_VALUE + 0.1 ever)
             ),
-            DexErrors.VALUE_TOO_LOW
+            Errors.VALUE_TOO_LOW
         );
-        require(left_root.value != right_root.value, DexErrors.WRONG_PAIR);
-        require(left_root.value != 0, DexErrors.WRONG_PAIR);
-        require(right_root.value != 0, DexErrors.WRONG_PAIR);
+        require(left_root.value != right_root.value, Errors.WRONG_PAIR);
+        require(left_root.value != 0, Errors.WRONG_PAIR);
+        require(right_root.value != 0, Errors.WRONG_PAIR);
 
         _deployVaultInternal(left_root, send_gas_to);
         _deployVaultInternal(right_root, send_gas_to);
@@ -1218,23 +1218,23 @@ contract DexRoot is DexContractBase, IDexRoot {
     )
         external
         override
-        reserve(DexGas.ROOT_INITIAL_BALANCE)
+        reserve(Constants.ROOT_INITIAL_BALANCE)
         onlyManagerOrOwner
     {
         uint256 rootsCount = roots.length;
         require(
             msg.value >=  (
-                DexGas.DEPLOY_POOL_BASE_VALUE +
-                (rootsCount + 1) * (DexGas.DEPLOY_VAULT_MIN_VALUE + 0.1 ever)
+                Constants.DEPLOY_POOL_BASE_VALUE +
+                (rootsCount + 1) * (Constants.DEPLOY_VAULT_MIN_VALUE + 0.1 ever)
             ),
-            DexErrors.VALUE_TOO_LOW
+            Errors.VALUE_TOO_LOW
         );
-        require(_poolCodes.exists(DexPoolTypes.STABLE_POOL), DexErrors.PAIR_CODE_EMPTY);
+        require(_poolCodes.exists(DexPoolTypes.STABLE_POOL), Errors.PAIR_CODE_EMPTY);
 
         mapping(address => bool) _roots;
         for (uint i = 0; i < rootsCount; i++) {
-            require(roots[i].value != 0, DexErrors.WRONG_PAIR);
-            require(_roots[roots[i]] != true, DexErrors.WRONG_PAIR);
+            require(roots[i].value != 0, Errors.WRONG_PAIR);
+            require(_roots[roots[i]] != true, Errors.WRONG_PAIR);
 
             _roots[roots[i]] = true;
         }
@@ -1266,7 +1266,7 @@ contract DexRoot is DexContractBase, IDexRoot {
         external
         view
         override
-        reserve(DexGas.ROOT_INITIAL_BALANCE)
+        reserve(Constants.ROOT_INITIAL_BALANCE)
         onlyManagerOrOwner
     {
         require(
@@ -1275,7 +1275,7 @@ contract DexRoot is DexContractBase, IDexRoot {
             (_params.pool_numerator + _params.beneficiary_numerator) > 0 &&
             ((_params.beneficiary.value != 0 && _params.beneficiary_numerator != 0) ||
             (_params.beneficiary.value == 0 && _params.beneficiary_numerator == 0)),
-            DexErrors.WRONG_FEE_PARAMS
+            Errors.WRONG_FEE_PARAMS
         );
 
         IDexBasePool(_expectedPoolAddress(_roots))
@@ -1291,7 +1291,7 @@ contract DexRoot is DexContractBase, IDexRoot {
         external
         view
         override
-        reserve(DexGas.ROOT_INITIAL_BALANCE)
+        reserve(Constants.ROOT_INITIAL_BALANCE)
         onlyManagerOrOwner
     {
         IDexStablePair(_expectedPoolAddress(_roots))
@@ -1306,7 +1306,7 @@ contract DexRoot is DexContractBase, IDexRoot {
         external
         view
         override
-        reserve(DexGas.ROOT_INITIAL_BALANCE)
+        reserve(Constants.ROOT_INITIAL_BALANCE)
         onlyOwner
     {
         IResetGas(target)
@@ -1321,7 +1321,7 @@ contract DexRoot is DexContractBase, IDexRoot {
     )
         external
         override
-        reserve(DexGas.ROOT_INITIAL_BALANCE)
+        reserve(Constants.ROOT_INITIAL_BALANCE)
         onlyPool(_roots)
     {
         emit NewPoolCreated(_roots, _poolType);
@@ -1342,7 +1342,7 @@ contract DexRoot is DexContractBase, IDexRoot {
         external
         view
         override
-        reserve(DexGas.ROOT_INITIAL_BALANCE)
+        reserve(Constants.ROOT_INITIAL_BALANCE)
         onlyManagerOrOwner
     {
         IDexConstantProductPair(_expectedPoolAddress([_leftRoot, _rightRoot]))
@@ -1359,7 +1359,7 @@ contract DexRoot is DexContractBase, IDexRoot {
         external
         view
         override
-        reserve(DexGas.ROOT_INITIAL_BALANCE)
+        reserve(Constants.ROOT_INITIAL_BALANCE)
         onlyManagerOrOwner
     {
         IDexConstantProductPair(_expectedPoolAddress([_leftRoot, _rightRoot]))

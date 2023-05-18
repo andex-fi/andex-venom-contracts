@@ -9,7 +9,7 @@ import "./libraries/MsgFlag.sol";
 import "tip3/contracts/interfaces/ITokenRoot.tsol";
 import "tip3/contracts/interfaces/ITokenWallet.tsol";
 
-import "./abstract/DexContractBase.sol";
+import "./abstract/ContractBase.sol";
 
 import "./interfaces/IDexAccount.sol";
 import "./interfaces/IDexBasePool.sol";
@@ -17,13 +17,13 @@ import "./interfaces/IDexRoot.sol";
 import "./interfaces/IDexTokenVault.sol";
 import "./interfaces/IDexPairOperationCallback.sol";
 
-import "./libraries/DexErrors.sol";
-import "./libraries/DexGas.sol";
+import "./libraries/Errors.sol";
+import "./libraries/Constants.sol";
 import "./libraries/DexOperationTypes.sol";
 import "./libraries/PairPayload.sol";
 import "./libraries/DirectOperationErrors.sol";
 
-contract DexTokenVault is DexContractBase, IDexTokenVault {
+contract DexTokenVault is ContractBase, IDexTokenVault {
     address private _root;
     address private _vault;
     uint32 private _version;
@@ -42,7 +42,7 @@ contract DexTokenVault is DexContractBase, IDexTokenVault {
     modifier onlyDexRoot() {
         require(
             _root.value != 0 && msg.sender == _root,
-            DexErrors.NOT_ROOT
+            Errors.NOT_ROOT
         );
         _;
     }
@@ -50,7 +50,7 @@ contract DexTokenVault is DexContractBase, IDexTokenVault {
     modifier onlyTokenRoot() {
         require(
             _tokenRoot.value != 0 && msg.sender == _tokenRoot,
-            DexErrors.WRONG_TOKEN_ROOT
+            Errors.WRONG_TOKEN_ROOT
         );
         _;
     }
@@ -58,7 +58,7 @@ contract DexTokenVault is DexContractBase, IDexTokenVault {
     modifier onlyTokenWallet() {
         require(
             _tokenWallet.value != 0 && msg.sender == _tokenWallet,
-            DexErrors.NOT_TOKEN_VAULT_WALLET
+            Errors.NOT_TOKEN_VAULT_WALLET
         );
         _;
     }
@@ -196,7 +196,7 @@ contract DexTokenVault is DexContractBase, IDexTokenVault {
 
         ITokenWallet(_tokenWallet)
             .transfer{
-                value: DexGas.TRANSFER_TOKENS_VALUE + _deployRecipientWalletGrams,
+                value: Constants.TRANSFER_TOKENS_VALUE + _deployRecipientWalletGrams,
                 flag: MsgFlag.SENDER_PAYS_FEES,
                 bounce: false
             }(
@@ -480,7 +480,7 @@ contract DexTokenVault is DexContractBase, IDexTokenVault {
         pure
         returns (uint128)
     {
-        return DexGas.VAULT_INITIAL_BALANCE;
+        return Constants.VAULT_INITIAL_BALANCE;
     }
 
     /// @notice Deploys and sets vault's wallet after deploy
@@ -488,22 +488,22 @@ contract DexTokenVault is DexContractBase, IDexTokenVault {
     function _deployTokenWallet() private view {
         ITokenRoot(_tokenRoot)
             .deployWallet{
-                value: DexGas.DEPLOY_EMPTY_WALLET_VALUE,
+                value: Constants.DEPLOY_EMPTY_WALLET_VALUE,
                 flag: MsgFlag.SENDER_PAYS_FEES,
                 callback: DexTokenVault.onTokenWallet,
                 bounce: true
-            }(address(this), DexGas.DEPLOY_EMPTY_WALLET_GRAMS);
+            }(address(this), Constants.DEPLOY_EMPTY_WALLET_GRAMS);
     }
 
     /// @notice Deploys wallet for vault after token vault wallet deploy
     function _deployTokenWalletForVault() private view {
         ITokenRoot(_tokenRoot)
             .deployWallet{
-                value: DexGas.DEPLOY_EMPTY_WALLET_VALUE,
+                value: Constants.DEPLOY_EMPTY_WALLET_VALUE,
                 flag: MsgFlag.SENDER_PAYS_FEES,
                 callback: DexTokenVault.onVaultTokenWallet,
                 bounce: true
-            }(_vault, DexGas.DEPLOY_EMPTY_WALLET_GRAMS);
+            }(_vault, Constants.DEPLOY_EMPTY_WALLET_GRAMS);
     }
 
     /// @notice Destroys vault and transfers all balance to gas recipient from initial deploy
@@ -605,12 +605,12 @@ contract DexTokenVault is DexContractBase, IDexTokenVault {
             allLeaves += nextStep.leaves;
         }
 
-        if (errorCode == 0 && msg.value < DexGas.CROSS_POOL_EXCHANGE_MIN_VALUE * allNestedNodes + 0.1 ton) {
+        if (errorCode == 0 && msg.value < Constants.CROSS_POOL_EXCHANGE_MIN_VALUE * allNestedNodes + 0.1 ton) {
             errorCode = DirectOperationErrors.VALUE_TOO_LOW;
         }
 
         if (errorCode == 0 && nextSteps.length > 0) {
-            uint128 extraValue = msg.value - DexGas.CROSS_POOL_EXCHANGE_MIN_VALUE * allNestedNodes - 0.1 ton;
+            uint128 extraValue = msg.value - Constants.CROSS_POOL_EXCHANGE_MIN_VALUE * allNestedNodes - 0.1 ton;
 
             for (uint32 i = 0; i < nextSteps.length; i++) {
                 NextExchangeData nextStep = nextSteps[i];
@@ -620,7 +620,7 @@ contract DexTokenVault is DexContractBase, IDexTokenVault {
 
                 IDexBasePool(nextStep.poolRoot)
                     .crossPoolExchange{
-                        value: i == maxNestedNodesIdx ? 0 : (nextStep.nestedNodes + 1) * DexGas.CROSS_POOL_EXCHANGE_MIN_VALUE + currentExtraValue,
+                        value: i == maxNestedNodesIdx ? 0 : (nextStep.nestedNodes + 1) * Constants.CROSS_POOL_EXCHANGE_MIN_VALUE + currentExtraValue,
                         flag: i == maxNestedNodesIdx ? MsgFlag.ALL_NOT_RESERVED : MsgFlag.SENDER_PAYS_FEES
                     }(
                         id,
@@ -660,7 +660,7 @@ contract DexTokenVault is DexContractBase, IDexTokenVault {
             } else {
                 IDexPairOperationCallback(senderAddress)
                     .dexPairOperationCancelled{
-                        value: DexGas.OPERATION_CALLBACK_BASE + 44,
+                        value: Constants.OPERATION_CALLBACK_BASE + 44,
                         flag: MsgFlag.SENDER_PAYS_FEES + MsgFlag.IGNORE_ERRORS,
                         bounce: false
                     }(id);
@@ -668,7 +668,7 @@ contract DexTokenVault is DexContractBase, IDexTokenVault {
                 if (recipient != senderAddress) {
                     IDexPairOperationCallback(recipient)
                         .dexPairOperationCancelled{
-                            value: DexGas.OPERATION_CALLBACK_BASE,
+                            value: Constants.OPERATION_CALLBACK_BASE,
                             flag: MsgFlag.SENDER_PAYS_FEES + MsgFlag.IGNORE_ERRORS,
                             bounce: false
                         }(id);

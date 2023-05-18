@@ -12,8 +12,8 @@ import "tip3/contracts/interfaces/IAcceptTokensTransferCallback.tsol";
 
 import "./libraries/DexPlatformTypes.sol";
 import "./libraries/DexPoolTypes.sol";
-import "./libraries/DexErrors.sol";
-import "./libraries/DexGas.sol";
+import "./libraries/Errors.sol";
+import "./libraries/Constants.sol";
 import "./libraries/DexAddressType.sol";
 import "./libraries/DexReserveType.sol";
 import "./libraries/MsgFlag.sol";
@@ -38,12 +38,12 @@ import "./structures/IDexPoolBalances.sol";
 import "./structures/IPoolTokenData.sol";
 import "./structures/INextExchangeData.sol";
 
-import "./abstract/DexContractBase.sol";
+import "./abstract/ContractBase.sol";
 import "./DexPlatform.sol";
 import "./TokenFactory.sol";
 
 contract DexStablePool is
-    DexContractBase,
+    ContractBase,
     IDexStablePool,
     IPoolTokenData,
     INextExchangeData
@@ -93,7 +93,7 @@ contract DexStablePool is
 
     // Prevent manual transfers
     receive() external pure {
-        tvm.rawReserve(DexGas.PAIR_INITIAL_BALANCE, 0);
+        tvm.rawReserve(Constants.PAIR_INITIAL_BALANCE, 0);
         msg.sender.transfer({
             value: 0,
             flag: MsgFlag.ALL_NOT_RESERVED + MsgFlag.IGNORE_ERRORS,
@@ -176,7 +176,7 @@ contract DexStablePool is
         bool _newActive,
         address _remainingGasTo
     ) external override onlyRoot {
-        tvm.rawReserve(DexGas.PAIR_INITIAL_BALANCE, 0);
+        tvm.rawReserve(Constants.PAIR_INITIAL_BALANCE, 0);
 
         if (_newActive) {
             _tryToActivate();
@@ -192,8 +192,8 @@ contract DexStablePool is
     }
 
     function setAmplificationCoefficient(AmplificationCoefficient _A, address send_gas_to) override external onlyRoot {
-        require(msg.value >= DexGas.SET_FEE_PARAMS_MIN_VALUE, DexErrors.VALUE_TOO_LOW);
-        tvm.rawReserve(DexGas.PAIR_INITIAL_BALANCE, 0);
+        require(msg.value >= Constants.SET_FEE_PARAMS_MIN_VALUE, Errors.VALUE_TOO_LOW);
+        tvm.rawReserve(Constants.PAIR_INITIAL_BALANCE, 0);
 
         A = _A;
 
@@ -208,9 +208,9 @@ contract DexStablePool is
         (params.pool_numerator + params.beneficiary_numerator) < params.denominator &&
             ((params.beneficiary.value != 0 && params.beneficiary_numerator != 0) ||
             (params.beneficiary.value == 0 && params.beneficiary_numerator == 0)),
-            DexErrors.WRONG_FEE_PARAMS);
-        require(msg.value >= DexGas.SET_FEE_PARAMS_MIN_VALUE, DexErrors.VALUE_TOO_LOW);
-        tvm.rawReserve(DexGas.PAIR_INITIAL_BALANCE, 0);
+            Errors.WRONG_FEE_PARAMS);
+        require(msg.value >= Constants.SET_FEE_PARAMS_MIN_VALUE, Errors.VALUE_TOO_LOW);
+        tvm.rawReserve(Constants.PAIR_INITIAL_BALANCE, 0);
 
         if (fee.beneficiary.value != 0) {
             _processBeneficiaryFees(true, send_gas_to);
@@ -224,8 +224,8 @@ contract DexStablePool is
     }
 
     function withdrawBeneficiaryFee(address send_gas_to) external {
-        require(fee.beneficiary.value != 0 && msg.sender == fee.beneficiary, DexErrors.NOT_BENEFICIARY);
-        tvm.rawReserve(DexGas.PAIR_INITIAL_BALANCE, 0);
+        require(fee.beneficiary.value != 0 && msg.sender == fee.beneficiary, Errors.NOT_BENEFICIARY);
+        tvm.rawReserve(Constants.PAIR_INITIAL_BALANCE, 0);
         _processBeneficiaryFees(true, send_gas_to);
         send_gas_to.transfer({ value: 0, flag: MsgFlag.ALL_NOT_RESERVED + MsgFlag.IGNORE_ERRORS, bounce: false });
     }
@@ -362,7 +362,7 @@ contract DexStablePool is
         address original_gas_to,
         TvmCell payload
     ) override external {
-        tvm.rawReserve(DexGas.PAIR_INITIAL_BALANCE, 0);
+        tvm.rawReserve(Constants.PAIR_INITIAL_BALANCE, 0);
 
         // Decode base data from payload
         (
@@ -394,7 +394,7 @@ contract DexStablePool is
         ) = PairPayload.decodeOnAcceptTokensTransferPayloads(payload, op);
 
         TvmCell empty;
-        uint128 referrer_value = referrer.value != 0 ? DexGas.REFERRER_FEE_EXTRA_VALUE : 0;
+        uint128 referrer_value = referrer.value != 0 ? Constants.REFERRER_FEE_EXTRA_VALUE : 0;
 
         uint16 errorCode = _checkOperationData(msg.sender, msg.value, is_payload_valid, deploy_wallet_grams, op, token_root, outcoming, referrer_value);
 
@@ -422,7 +422,7 @@ contract DexStablePool is
                     for (uint8 ii = 0; ii < N_COINS; ii++) {
                         if (result.amounts[ii] >= 0) {
                             IDexTokenVault(_expectedTokenVaultAddress(tokenData[ii].root)).transfer{
-                                value: DexGas.VAULT_TRANSFER_BASE_VALUE_V2 + deploy_wallet_grams,
+                                value: Constants.VAULT_TRANSFER_BASE_VALUE_V2 + deploy_wallet_grams,
                                 flag: MsgFlag.SENDER_PAYS_FEES
                             }(
                                 result.amounts[ii],
@@ -466,7 +466,7 @@ contract DexStablePool is
                     );
 
                     IDexTokenVault(_expectedTokenVaultAddress(tokenData[i].root)).transfer{
-                        value: DexGas.VAULT_TRANSFER_BASE_VALUE_V2 + deploy_wallet_grams,
+                        value: Constants.VAULT_TRANSFER_BASE_VALUE_V2 + deploy_wallet_grams,
                         flag: MsgFlag.SENDER_PAYS_FEES
                     }(
                         result.amounts[i],
@@ -537,7 +537,7 @@ contract DexStablePool is
                     }
 
                     IDexPairOperationCallback(sender_address).dexPairExchangeSuccessV2{
-                        value: DexGas.OPERATION_CALLBACK_BASE + 10,
+                        value: Constants.OPERATION_CALLBACK_BASE + 10,
                         flag: MsgFlag.SENDER_PAYS_FEES + MsgFlag.IGNORE_ERRORS,
                         bounce: false
                     }(id, false, IExchangeResultV2.ExchangeResultV2(
@@ -550,7 +550,7 @@ contract DexStablePool is
 
                     if (recipient != sender_address) {
                         IDexPairOperationCallback(recipient).dexPairExchangeSuccessV2{
-                            value: DexGas.OPERATION_CALLBACK_BASE,
+                            value: Constants.OPERATION_CALLBACK_BASE,
                             flag: MsgFlag.SENDER_PAYS_FEES + MsgFlag.IGNORE_ERRORS,
                             bounce: false
                         }(id, false, IExchangeResultV2.ExchangeResultV2(
@@ -563,7 +563,7 @@ contract DexStablePool is
                     }
 
                     ITokenWallet(msg.sender).transfer{
-                        value: DexGas.TRANSFER_TOKENS_VALUE,
+                        value: Constants.TRANSFER_TOKENS_VALUE,
                         flag: MsgFlag.SENDER_PAYS_FEES
                     }(
                         tokens_amount,
@@ -614,7 +614,7 @@ contract DexStablePool is
                     all_leaves += next_step.leaves;
                 }
 
-                if (errorCode == 0 && msg.value < (DexGas.CROSS_POOL_EXCHANGE_MIN_VALUE + referrer_value) * (1 + all_nested_nodes)) {
+                if (errorCode == 0 && msg.value < (Constants.CROSS_POOL_EXCHANGE_MIN_VALUE + referrer_value) * (1 + all_nested_nodes)) {
                     errorCode = DirectOperationErrors.VALUE_TOO_LOW;
                 }
 
@@ -694,7 +694,7 @@ contract DexStablePool is
                             operation = TokenOperation(result.amounts[j], tokenData[j].root);
 
                             IBurnableTokenWallet(msg.sender).burn{
-                                value: DexGas.BURN_VALUE,
+                                value: Constants.BURN_VALUE,
                                 flag: MsgFlag.SENDER_PAYS_FEES
                             }(
                                 tokens_amount,
@@ -761,7 +761,7 @@ contract DexStablePool is
                 if (errorCode == 0) {
                     if (token_root != lp_root) { // deposit or exchange
                         ITokenWallet(msg.sender).transfer{
-                            value: DexGas.TRANSFER_TOKENS_VALUE,
+                            value: Constants.TRANSFER_TOKENS_VALUE,
                             flag: MsgFlag.SENDER_PAYS_FEES
                         }(
                             tokens_amount,
@@ -774,7 +774,7 @@ contract DexStablePool is
                     }
 
                     if (outcoming != lp_root) { // withdraw or exchange
-                        uint128 extraValue = msg.value - (DexGas.CROSS_POOL_EXCHANGE_MIN_VALUE + referrer_value) * (1 + all_nested_nodes);
+                        uint128 extraValue = msg.value - (Constants.CROSS_POOL_EXCHANGE_MIN_VALUE + referrer_value) * (1 + all_nested_nodes);
 
                         for (uint32 i = 0; i < next_steps.length; i++) {
                             NextExchangeData next_step = next_steps[i];
@@ -783,7 +783,7 @@ contract DexStablePool is
                             uint128 current_extra_value = math.muldiv(uint128(next_step.leaves), extraValue, uint128(all_leaves));
 
                             IDexBasePool(next_step.poolRoot).crossPoolExchange{
-                                value: i == max_nested_nodes_idx ? 0 : (next_step.nestedNodes + 1) * (DexGas.CROSS_POOL_EXCHANGE_MIN_VALUE + referrer_value) + current_extra_value,
+                                value: i == max_nested_nodes_idx ? 0 : (next_step.nestedNodes + 1) * (Constants.CROSS_POOL_EXCHANGE_MIN_VALUE + referrer_value) + current_extra_value,
                                 flag: i == max_nested_nodes_idx ? MsgFlag.ALL_NOT_RESERVED : MsgFlag.SENDER_PAYS_FEES
                             }(
                                 id,
@@ -833,7 +833,7 @@ contract DexStablePool is
                     );
 
                     ITokenWallet(msg.sender).transfer{
-                        value: DexGas.TRANSFER_TOKENS_VALUE,
+                        value: Constants.TRANSFER_TOKENS_VALUE,
                         flag: MsgFlag.SENDER_PAYS_FEES
                     }(
                         tokens_amount,
@@ -863,14 +863,14 @@ contract DexStablePool is
 
         if (errorCode != 0) {
             IDexPairOperationCallback(sender_address).dexPairOperationCancelled{
-                value: DexGas.OPERATION_CALLBACK_BASE + 44,
+                value: Constants.OPERATION_CALLBACK_BASE + 44,
                 flag: MsgFlag.SENDER_PAYS_FEES + MsgFlag.IGNORE_ERRORS,
                 bounce: false
             }(id);
 
             if (recipient != sender_address) {
                 IDexPairOperationCallback(recipient).dexPairOperationCancelled{
-                    value: DexGas.OPERATION_CALLBACK_BASE,
+                    value: Constants.OPERATION_CALLBACK_BASE,
                     flag: MsgFlag.SENDER_PAYS_FEES + MsgFlag.IGNORE_ERRORS,
                     bounce: false
                 }(id);
@@ -902,7 +902,7 @@ contract DexStablePool is
         if (!active) return DirectOperationErrors.NOT_ACTIVE;
         if (!is_payload_valid) return DirectOperationErrors.INVALID_PAYLOAD;
         if (lp_supply == 0) return DirectOperationErrors.NON_POSITIVE_LP_SUPPLY;
-        if (msg_value < DexGas.DIRECT_PAIR_OP_MIN_VALUE_V2 + deploy_wallet_grams + referrer_value) return DirectOperationErrors.VALUE_TOO_LOW;
+        if (msg_value < Constants.DIRECT_PAIR_OP_MIN_VALUE_V2 + deploy_wallet_grams + referrer_value) return DirectOperationErrors.VALUE_TOO_LOW;
 
         if (token_root == lp_root && msg_sender != lp_wallet) return DirectOperationErrors.NOT_LP_TOKEN_WALLET;
         if (token_root != lp_root) {
@@ -914,7 +914,7 @@ contract DexStablePool is
             || msg_sender != lp_wallet && (op == DexOperationTypes.DEPOSIT_LIQUIDITY_V2 || op == DexOperationTypes.EXCHANGE_V2)
             || op == DexOperationTypes.CROSS_PAIR_EXCHANGE_V2)) return DirectOperationErrors.WRONG_OPERATION_TYPE;
 
-        if (op == DexOperationTypes.WITHDRAW_LIQUIDITY_V2 && msg_value < DexGas.DIRECT_PAIR_OP_MIN_VALUE_V2 + N_COINS * deploy_wallet_grams + referrer_value) {
+        if (op == DexOperationTypes.WITHDRAW_LIQUIDITY_V2 && msg_value < Constants.DIRECT_PAIR_OP_MIN_VALUE_V2 + N_COINS * deploy_wallet_grams + referrer_value) {
             return DirectOperationErrors.VALUE_TOO_LOW;
         }
 
@@ -966,7 +966,7 @@ contract DexStablePool is
         uint128[] amounts
     ) override external view responsible returns (DepositLiquidityResultV2) {
         (optional(DepositLiquidityResultV2) resultOpt,) = _expectedDepositLiquidity(amounts, _reserves(), lp_supply, address(0));
-        require(resultOpt.hasValue(), DexErrors.WRONG_LIQUIDITY);
+        require(resultOpt.hasValue(), Errors.WRONG_LIQUIDITY);
         return { value: 0, bounce: false, flag: MsgFlag.REMAINING_GAS } resultOpt.get();
     }
 
@@ -974,11 +974,11 @@ contract DexStablePool is
         address spent_token_root,
         uint128 amount
     ) external view responsible returns (DepositLiquidityResultV2) {
-        require(tokenIndex.exists(spent_token_root), DexErrors.NOT_TOKEN_ROOT);
+        require(tokenIndex.exists(spent_token_root), Errors.NOT_TOKEN_ROOT);
         uint8 i = tokenIndex[spent_token_root];
 
         (optional(DepositLiquidityResultV2) resultOpt,) = _expectedOneCoinDepositLiquidity(amount, i, _reserves(), lp_supply, address(0));
-        require(resultOpt.hasValue(), DexErrors.WRONG_LIQUIDITY);
+        require(resultOpt.hasValue(), Errors.WRONG_LIQUIDITY);
         return { value: 0, bounce: false, flag: MsgFlag.REMAINING_GAS } resultOpt.get();
     }
 
@@ -992,7 +992,7 @@ contract DexStablePool is
         address send_gas_to,
         address referrer
     ) override external onlyActive onlyAccount(account_owner) {
-        require(_expected.root == lp_root, DexErrors.NOT_LP_TOKEN_ROOT);
+        require(_expected.root == lp_root, Errors.NOT_LP_TOKEN_ROOT);
 
         bool isValid = true;
         if (lp_supply == 0) {
@@ -1013,21 +1013,21 @@ contract DexStablePool is
             }
         }
 
-        require(isValid, DexErrors.WRONG_LIQUIDITY);
-        require(allGreaterThanZero || (auto_change && anyGreaterThanZero), DexErrors.AMOUNT_TOO_LOW);
+        require(isValid, Errors.WRONG_LIQUIDITY);
+        require(allGreaterThanZero || (auto_change && anyGreaterThanZero), Errors.AMOUNT_TOO_LOW);
 
         uint128[] amounts = new uint128[](N_COINS);
         for (TokenOperation op: _operations) {
             amounts[tokenIndex[op.root]] = op.amount;
         }
         (optional(DepositLiquidityResultV2) resultOpt, uint128[] referrer_fees) = _expectedDepositLiquidity(amounts, _reserves(), lp_supply, referrer);
-        require(resultOpt.hasValue(), DexErrors.WRONG_LIQUIDITY);
+        require(resultOpt.hasValue(), Errors.WRONG_LIQUIDITY);
         DepositLiquidityResultV2 result = resultOpt.get();
-        require(result.lp_reward >= _expected.amount, DexErrors.WRONG_LIQUIDITY);
+        require(result.lp_reward >= _expected.amount, Errors.WRONG_LIQUIDITY);
 
-        tvm.rawReserve(DexGas.PAIR_INITIAL_BALANCE, 0);
+        tvm.rawReserve(Constants.PAIR_INITIAL_BALANCE, 0);
 
-        uint128 referrer_value = referrer.value != 0 ? DexGas.REFERRER_FEE_EXTRA_VALUE : 0;
+        uint128 referrer_value = referrer.value != 0 ? Constants.REFERRER_FEE_EXTRA_VALUE : 0;
 
         _applyAddLiquidity(
             result,
@@ -1046,12 +1046,12 @@ contract DexStablePool is
         TvmCell empty;
         ITokenRoot(lp_root)
         .mint{
-            value: DexGas.DEPLOY_MINT_VALUE_BASE + DexGas.DEPLOY_EMPTY_WALLET_GRAMS,
+            value: Constants.DEPLOY_MINT_VALUE_BASE + Constants.DEPLOY_EMPTY_WALLET_GRAMS,
             flag: MsgFlag.SENDER_PAYS_FEES
         }(
             result.lp_reward,
             account_owner,
-            DexGas.DEPLOY_EMPTY_WALLET_GRAMS,
+            Constants.DEPLOY_EMPTY_WALLET_GRAMS,
             send_gas_to,
             send_gas_to == account_owner,
             empty
@@ -1064,11 +1064,11 @@ contract DexStablePool is
         uint128 lp_amount,
         address spent_token_root
     ) external view responsible returns (uint128 tokens_amount, uint128 expected_fee) {
-        require(tokenIndex.exists(spent_token_root), DexErrors.NOT_TOKEN_ROOT);
+        require(tokenIndex.exists(spent_token_root), Errors.NOT_TOKEN_ROOT);
         uint8 i = tokenIndex[spent_token_root];
 
         (optional(uint128) deposit_amount_opt, uint128 dx_fee) = _getExpectedDepositAmount(i, lp_amount);
-        require(deposit_amount_opt.hasValue(), DexErrors.WRONG_AMOUNT);
+        require(deposit_amount_opt.hasValue(), Errors.WRONG_AMOUNT);
 
         uint128 deposit_amount = deposit_amount_opt.get();
 
@@ -1086,7 +1086,7 @@ contract DexStablePool is
         uint128 lp_amount
     ) override external view responsible returns (WithdrawResultV2) {
         optional(WithdrawResultV2) resultOpt = _expectedWithdrawLiquidity(lp_amount);
-        require(resultOpt.hasValue(), DexErrors.WRONG_LIQUIDITY);
+        require(resultOpt.hasValue(), Errors.WRONG_LIQUIDITY);
 
         return { value: 0, bounce: false, flag: MsgFlag.REMAINING_GAS} resultOpt.get();
     }
@@ -1095,11 +1095,11 @@ contract DexStablePool is
         uint128 receive_amount,
         address receive_token_root
     ) external view responsible returns (uint128 lp, uint128 expected_fee) {
-        require(tokenIndex.exists(receive_token_root), DexErrors.NOT_TOKEN_ROOT);
+        require(tokenIndex.exists(receive_token_root), Errors.NOT_TOKEN_ROOT);
         uint8 i = tokenIndex[receive_token_root];
 
         (optional(uint128) lp_amount_opt, uint128 dy_fee) = _getExpectedLpAmount(i, receive_amount);
-        require(lp_amount_opt.hasValue(), DexErrors.WRONG_AMOUNT);
+        require(lp_amount_opt.hasValue(), Errors.WRONG_AMOUNT);
 
         uint128 lp_amount = lp_amount_opt.get();
 
@@ -1114,11 +1114,11 @@ contract DexStablePool is
         uint128 lp_amount,
         address outcoming
     ) override external view responsible returns (WithdrawResultV2) {
-        require(tokenIndex.exists(outcoming), DexErrors.NOT_TOKEN_ROOT);
-        require(lp_amount < lp_supply, DexErrors.WRONG_LIQUIDITY);
+        require(tokenIndex.exists(outcoming), Errors.NOT_TOKEN_ROOT);
+        require(lp_amount < lp_supply, Errors.WRONG_LIQUIDITY);
 
         (optional(WithdrawResultV2) resultOpt,) = _expectedWithdrawLiquidityOneCoin(lp_amount, tokenIndex[outcoming], _reserves(), lp_supply, address(0));
-        require(resultOpt.hasValue(), DexErrors.WRONG_LIQUIDITY);
+        require(resultOpt.hasValue(), Errors.WRONG_LIQUIDITY);
 
         return { value: 0, bounce: false, flag: MsgFlag.REMAINING_GAS } resultOpt.get();
     }
@@ -1131,8 +1131,8 @@ contract DexStablePool is
         uint32 /*account_version*/,
         address send_gas_to
     ) override external onlyActive onlyAccount(account_owner) {
-        require(_operation.root == lp_root, DexErrors.NOT_LP_TOKEN_ROOT);
-        tvm.rawReserve(DexGas.PAIR_INITIAL_BALANCE, 0);
+        require(_operation.root == lp_root, Errors.NOT_LP_TOKEN_ROOT);
+        tvm.rawReserve(Constants.PAIR_INITIAL_BALANCE, 0);
 
         optional(WithdrawResultV2) resultOpt;
         uint128[] referrer_fees = new uint128[](N_COINS);
@@ -1142,11 +1142,11 @@ contract DexStablePool is
             resultOpt = _expectedWithdrawLiquidity(_operation.amount);
         }
 
-        require(resultOpt.hasValue(), DexErrors.WRONG_LIQUIDITY);
+        require(resultOpt.hasValue(), Errors.WRONG_LIQUIDITY);
         WithdrawResultV2 result = resultOpt.get();
 
         for (TokenOperation expected: _expected) {
-            require(expected.amount <= result.amounts[tokenIndex[expected.root]], DexErrors.WRONG_LIQUIDITY);
+            require(expected.amount <= result.amounts[tokenIndex[expected.root]], Errors.WRONG_LIQUIDITY);
         }
 
         _applyWithdrawLiquidity(
@@ -1166,7 +1166,7 @@ contract DexStablePool is
         for (uint8 i = 0; i < N_COINS; i++) {
             if (result.amounts[i] > 0) {
                 IDexAccount(msg.sender)
-                    .internalPoolTransfer{ value: DexGas.INTERNAL_PAIR_TRANSFER_VALUE, flag: MsgFlag.SENDER_PAYS_FEES }
+                    .internalPoolTransfer{ value: Constants.INTERNAL_PAIR_TRANSFER_VALUE, flag: MsgFlag.SENDER_PAYS_FEES }
                 (
                     result.amounts[i],
                     tokenData[i].root,
@@ -1178,7 +1178,7 @@ contract DexStablePool is
 
         TvmCell empty;
         IBurnableByRootTokenRoot(lp_root).burnTokens{
-            value: DexGas.BURN_VALUE,
+            value: Constants.BURN_VALUE,
             flag: MsgFlag.SENDER_PAYS_FEES
         }(
             _operation.amount,
@@ -1200,7 +1200,7 @@ contract DexStablePool is
         address spent_token_root,
         address receive_token_root
     ) override external view responsible returns (uint128 expected_amount, uint128 expected_fee) {
-        require(tokenIndex.exists(spent_token_root) && tokenIndex.exists(receive_token_root), DexErrors.NOT_TOKEN_ROOT);
+        require(tokenIndex.exists(spent_token_root) && tokenIndex.exists(receive_token_root), Errors.NOT_TOKEN_ROOT);
         uint8 i = tokenIndex[spent_token_root];
         uint8 j = tokenIndex[receive_token_root];
         (optional(ExpectedExchangeResult) dy_result_opt,) = _get_dy(i, j, amount, address(0));
@@ -1226,11 +1226,11 @@ contract DexStablePool is
         address receive_token_root,
         address spent_token_root
     ) override external view responsible returns (uint128 expected_amount, uint128 expected_fee) {
-        require(tokenIndex.exists(receive_token_root) && tokenIndex.exists(spent_token_root), DexErrors.NOT_TOKEN_ROOT);
+        require(tokenIndex.exists(receive_token_root) && tokenIndex.exists(spent_token_root), Errors.NOT_TOKEN_ROOT);
         uint8 j = tokenIndex[receive_token_root];
         uint8 i = tokenIndex[spent_token_root];
         optional(ExpectedExchangeResult) dx_result_opt = _get_dx(i, j, receive_amount);
-        require(dx_result_opt.hasValue(), DexErrors.WRONG_AMOUNT);
+        require(dx_result_opt.hasValue(), Errors.WRONG_AMOUNT);
 
         ExpectedExchangeResult dx_result = dx_result_opt.get();
 
@@ -1249,18 +1249,18 @@ contract DexStablePool is
         uint32 /*account_version*/,
         address send_gas_to
     ) override external onlyActive onlyAccount(account_owner) {
-        require(tokenIndex.exists(_operation.root) && tokenIndex.exists(_expected.root), DexErrors.NOT_TOKEN_ROOT);
+        require(tokenIndex.exists(_operation.root) && tokenIndex.exists(_expected.root), Errors.NOT_TOKEN_ROOT);
         uint8 i = tokenIndex[_operation.root];
         uint8 j = tokenIndex[_expected.root];
-        require(i != j && i < N_COINS && j < N_COINS, DexErrors.WRONG_TOKEN_ROOT);
+        require(i != j && i < N_COINS && j < N_COINS, Errors.WRONG_TOKEN_ROOT);
         (optional(ExpectedExchangeResult) dy_result_opt,) = _get_dy(i, j, _operation.amount, address(0));
-        require(dy_result_opt.hasValue(), DexErrors.WRONG_AMOUNT);
+        require(dy_result_opt.hasValue(), Errors.WRONG_AMOUNT);
 
         ExpectedExchangeResult dy_result = dy_result_opt.get();
 
-        require(dy_result.amount >= _expected.amount, DexErrors.LOW_EXCHANGE_RATE);
+        require(dy_result.amount >= _expected.amount, Errors.LOW_EXCHANGE_RATE);
 
-        tvm.rawReserve(DexGas.PAIR_INITIAL_BALANCE, 0);
+        tvm.rawReserve(Constants.PAIR_INITIAL_BALANCE, 0);
 
         tokenData[i].balance += _operation.amount - dy_result.beneficiary_fee;
         tokenData[j].balance -= dy_result.amount;
@@ -1286,7 +1286,7 @@ contract DexStablePool is
         _sync();
 
         IDexPairOperationCallback(account_owner).dexPairExchangeSuccessV2{
-            value: DexGas.OPERATION_CALLBACK_BASE + 1,
+            value: Constants.OPERATION_CALLBACK_BASE + 1,
             flag: MsgFlag.SENDER_PAYS_FEES + MsgFlag.IGNORE_ERRORS,
             bounce: false
         }(call_id, true, IExchangeResultV2.ExchangeResultV2(
@@ -1298,7 +1298,7 @@ contract DexStablePool is
         ));
 
         IDexAccount(msg.sender)
-            .internalPoolTransfer{ value: DexGas.INTERNAL_PAIR_TRANSFER_VALUE, flag: MsgFlag.SENDER_PAYS_FEES }
+            .internalPoolTransfer{ value: Constants.INTERNAL_PAIR_TRANSFER_VALUE, flag: MsgFlag.SENDER_PAYS_FEES }
         (
             dy_result.amount,
             _expected.root,
@@ -1323,7 +1323,7 @@ contract DexStablePool is
                 tokenData[i].accumulatedFee >= fee.threshold[_root]
             ) {
                 IDexAccount(beneficiaryAccount).internalPoolTransfer{
-                    value: DexGas.INTERNAL_PAIR_TRANSFER_VALUE,
+                    value: Constants.INTERNAL_PAIR_TRANSFER_VALUE,
                     flag: MsgFlag.SENDER_PAYS_FEES
                 }(
                     tokenData[i].accumulatedFee,
@@ -1365,9 +1365,9 @@ contract DexStablePool is
         bool notify_cancel,
         TvmCell cancel_payload
     ) override external onlyPoolOrTokenVault(prev_pool_token_roots, spent_token_root) {
-        require(tokenIndex.exists(spent_token_root) || spent_token_root == lp_root, DexErrors.NOT_TOKEN_ROOT);
+        require(tokenIndex.exists(spent_token_root) || spent_token_root == lp_root, Errors.NOT_TOKEN_ROOT);
 
-        tvm.rawReserve(DexGas.PAIR_INITIAL_BALANCE, 0);
+        tvm.rawReserve(Constants.PAIR_INITIAL_BALANCE, 0);
 
         (
             uint128 expected_amount,
@@ -1376,7 +1376,7 @@ contract DexStablePool is
         ) = PairPayload.decodeCrossPoolExchangePayload(payload, op);
 
         TvmCell empty;
-        uint128 referrer_value = referrer.value != 0 ? DexGas.REFERRER_FEE_EXTRA_VALUE : 0;
+        uint128 referrer_value = referrer.value != 0 ? Constants.REFERRER_FEE_EXTRA_VALUE : 0;
 
         uint16 errorCode = !active ? DirectOperationErrors.NOT_ACTIVE
             : msg.sender == address(this) ? DirectOperationErrors.WRONG_PREVIOUS_POOL
@@ -1459,7 +1459,7 @@ contract DexStablePool is
                     operation = TokenOperation(result.amounts[j], tokenData[j].root);
 
                     IBurnableByRootTokenRoot(lp_root).burnTokens{
-                        value: DexGas.BURN_VALUE,
+                        value: Constants.BURN_VALUE,
                         flag: MsgFlag.SENDER_PAYS_FEES
                     }(
                         spent_amount,
@@ -1552,12 +1552,12 @@ contract DexStablePool is
                         all_leaves += next_step.leaves;
                     }
 
-                    if (post_swap_error_code == 0 && msg.value < (DexGas.CROSS_POOL_EXCHANGE_MIN_VALUE + referrer_value) * (1 + all_nested_nodes)) {
+                    if (post_swap_error_code == 0 && msg.value < (Constants.CROSS_POOL_EXCHANGE_MIN_VALUE + referrer_value) * (1 + all_nested_nodes)) {
                         post_swap_error_code = DirectOperationErrors.VALUE_TOO_LOW;
                     }
 
                     if (post_swap_error_code == 0 && next_steps.length > 0) {
-                        uint128 extraValue = msg.value - (DexGas.CROSS_POOL_EXCHANGE_MIN_VALUE + referrer_value) * (1 + all_nested_nodes);
+                        uint128 extraValue = msg.value - (Constants.CROSS_POOL_EXCHANGE_MIN_VALUE + referrer_value) * (1 + all_nested_nodes);
 
                         for (uint32 i = 0; i < next_steps.length; i++) {
                             NextExchangeData next_step = next_steps[i];
@@ -1566,7 +1566,7 @@ contract DexStablePool is
                             uint128 current_extra_value = math.muldiv(uint128(next_step.leaves), extraValue, uint128(all_leaves));
 
                             IDexBasePool(next_step.poolRoot).crossPoolExchange{
-                                value: i == max_nested_nodes_idx ? 0 : (next_step.nestedNodes + 1) * (DexGas.CROSS_POOL_EXCHANGE_MIN_VALUE + referrer_value) + current_extra_value,
+                                value: i == max_nested_nodes_idx ? 0 : (next_step.nestedNodes + 1) * (Constants.CROSS_POOL_EXCHANGE_MIN_VALUE + referrer_value) + current_extra_value,
                                 flag: i == max_nested_nodes_idx ? MsgFlag.ALL_NOT_RESERVED : MsgFlag.SENDER_PAYS_FEES
                             }(
                                 id,
@@ -1600,14 +1600,14 @@ contract DexStablePool is
 
                         if (!is_last_step) {
                             IDexPairOperationCallback(sender_address).dexPairOperationCancelled{
-                                value: DexGas.OPERATION_CALLBACK_BASE + 44,
+                                value: Constants.OPERATION_CALLBACK_BASE + 44,
                                 flag: MsgFlag.SENDER_PAYS_FEES + MsgFlag.IGNORE_ERRORS,
                                 bounce: false
                             }(id);
 
                             if (recipient != sender_address) {
                                 IDexPairOperationCallback(recipient).dexPairOperationCancelled{
-                                    value: DexGas.OPERATION_CALLBACK_BASE,
+                                    value: Constants.OPERATION_CALLBACK_BASE,
                                     flag: MsgFlag.SENDER_PAYS_FEES + MsgFlag.IGNORE_ERRORS,
                                     bounce: false
                                 }(id);
@@ -1636,14 +1636,14 @@ contract DexStablePool is
 
         if (errorCode != 0) {
             IDexPairOperationCallback(sender_address).dexPairOperationCancelled{
-                value: DexGas.OPERATION_CALLBACK_BASE + 44,
+                value: Constants.OPERATION_CALLBACK_BASE + 44,
                 flag: MsgFlag.SENDER_PAYS_FEES + MsgFlag.IGNORE_ERRORS,
                 bounce: false
             }(id);
 
             if (recipient != sender_address) {
                 IDexPairOperationCallback(recipient).dexPairOperationCancelled{
-                    value: DexGas.OPERATION_CALLBACK_BASE,
+                    value: Constants.OPERATION_CALLBACK_BASE,
                     flag: MsgFlag.SENDER_PAYS_FEES + MsgFlag.IGNORE_ERRORS,
                     bounce: false
                 }(id);
@@ -1671,7 +1671,7 @@ contract DexStablePool is
     // Account operations
 
     function checkPair(address account_owner, uint32 /*account_version*/) override external onlyAccount(account_owner) {
-        tvm.rawReserve(DexGas.PAIR_INITIAL_BALANCE, 0);
+        tvm.rawReserve(Constants.PAIR_INITIAL_BALANCE, 0);
         IDexAccount(msg.sender).checkPoolCallback{ value: 0, flag: MsgFlag.ALL_NOT_RESERVED }(
             _tokenRoots(),
             lp_root
@@ -1682,12 +1682,12 @@ contract DexStablePool is
     // Modifiers
 
     modifier onlyActive() {
-        require(active, DexErrors.NOT_ACTIVE);
+        require(active, Errors.NOT_ACTIVE);
         _;
     }
 
     modifier onlyLiquidityTokenRoot() {
-        require(msg.sender == lp_root, DexErrors.NOT_LP_TOKEN_ROOT);
+        require(msg.sender == lp_root, Errors.NOT_LP_TOKEN_ROOT);
         _;
     }
 
@@ -1699,12 +1699,12 @@ contract DexStablePool is
                 break;
             }
         }
-        require(found, DexErrors.NOT_TOKEN_ROOT);
+        require(found, Errors.NOT_TOKEN_ROOT);
         _;
     }
 
     modifier onlyRoot() {
-        require(msg.sender == root, DexErrors.NOT_ROOT);
+        require(msg.sender == root, Errors.NOT_ROOT);
         _;
     }
 
@@ -1712,7 +1712,7 @@ contract DexStablePool is
         require(
             msg.sender == _expectedPoolAddress(_poolTokenRoots) ||
             msg.sender == _expectedTokenVaultAddress(_tokenRoot),
-            DexErrors.NEITHER_POOL_NOR_VAULT
+            Errors.NEITHER_POOL_NOR_VAULT
         );
         _;
     }
@@ -1722,7 +1722,7 @@ contract DexStablePool is
 
     function upgrade(TvmCell code, uint32 new_version, uint8 new_type, address send_gas_to) override external onlyRoot {
         if (current_version == new_version && new_type == DexPoolTypes.STABLE_POOL) {
-            tvm.rawReserve(DexGas.PAIR_INITIAL_BALANCE, 0);
+            tvm.rawReserve(Constants.PAIR_INITIAL_BALANCE, 0);
             send_gas_to.transfer({ value: 0, flag: MsgFlag.ALL_NOT_RESERVED + MsgFlag.IGNORE_ERRORS, bounce: false });
         } else {
             if (fee.beneficiary.value != 0) {
@@ -1768,7 +1768,7 @@ contract DexStablePool is
     }
 
     function onCodeUpgrade(TvmCell upgrade_data) private {
-        tvm.rawReserve(DexGas.PAIR_INITIAL_BALANCE, 0);
+        tvm.rawReserve(Constants.PAIR_INITIAL_BALANCE, 0);
         tvm.resetStorage();
         TvmSlice s = upgrade_data.toSlice();
 
@@ -1853,12 +1853,12 @@ contract DexStablePool is
             tokenData[1] = PoolTokenData(type_to_root_addresses[DexAddressType.RESERVE][1], type_to_wallet_addresses[DexAddressType.RESERVE][1], type_to_reserves[DexReserveType.POOL][1], 0, type_to_reserves[DexReserveType.FEE][1], 0, 0, false, false);
 
             ITokenRoot(type_to_root_addresses[DexAddressType.RESERVE][0]).decimals{
-                value: DexGas.GET_TOKEN_DECIMALS_VALUE,
+                value: Constants.GET_TOKEN_DECIMALS_VALUE,
                 flag: MsgFlag.SENDER_PAYS_FEES,
                 callback: DexStablePool.onTokenDecimals
             }();
                 ITokenRoot(type_to_root_addresses[DexAddressType.RESERVE][1]).decimals{
-                value: DexGas.GET_TOKEN_DECIMALS_VALUE,
+                value: Constants.GET_TOKEN_DECIMALS_VALUE,
                 flag: MsgFlag.SENDER_PAYS_FEES,
                 callback: DexStablePool.onTokenDecimals
             }();
@@ -1931,14 +1931,14 @@ contract DexStablePool is
 
     function _configureToken(address token_root) private view {
         ITokenRoot(token_root).deployWallet {
-            value: DexGas.DEPLOY_EMPTY_WALLET_VALUE,
+            value: Constants.DEPLOY_EMPTY_WALLET_VALUE,
             flag: MsgFlag.SENDER_PAYS_FEES,
             callback: DexStablePool.onTokenWallet
-        }(address(this), DexGas.DEPLOY_EMPTY_WALLET_GRAMS);
+        }(address(this), Constants.DEPLOY_EMPTY_WALLET_GRAMS);
 
         if (token_root != lp_root) {
             ITokenRoot(token_root).decimals{
-                value: DexGas.GET_TOKEN_DECIMALS_VALUE,
+                value: Constants.GET_TOKEN_DECIMALS_VALUE,
                 flag: MsgFlag.SENDER_PAYS_FEES,
                 callback: DexStablePool.onTokenDecimals
             }();
@@ -1946,7 +1946,7 @@ contract DexStablePool is
     }
 
     function onTokenWallet(address wallet) external {
-        require(tokenIndex.exists(msg.sender) || msg.sender == lp_root, DexErrors.NOT_ROOT);
+        require(tokenIndex.exists(msg.sender) || msg.sender == lp_root, Errors.NOT_ROOT);
 
         if (msg.sender == lp_root && lp_wallet.value == 0) {
             lp_wallet = wallet;
@@ -1971,7 +1971,7 @@ contract DexStablePool is
     }
 
     function onTokenDecimals(uint8 _decimals) external {
-        require(tokenIndex.exists(msg.sender), DexErrors.NOT_ROOT);
+        require(tokenIndex.exists(msg.sender), Errors.NOT_ROOT);
 
         tokenData[tokenIndex[msg.sender]].decimals = _decimals;
         tokenData[tokenIndex[msg.sender]].decimalsLoaded = true;
@@ -2007,7 +2007,7 @@ contract DexStablePool is
     }
 
     function liquidityTokenRootDeployed(address lp_root_, address send_gas_to) override external onlyRoot {
-        tvm.rawReserve(DexGas.PAIR_INITIAL_BALANCE, 0);
+        tvm.rawReserve(Constants.PAIR_INITIAL_BALANCE, 0);
 
         lp_root = lp_root_;
 
@@ -2025,7 +2025,7 @@ contract DexStablePool is
     function liquidityTokenRootNotDeployed(address /*lp_root_*/, address send_gas_to) override external onlyRoot {
         if (!active) send_gas_to.transfer({ value: 0, flag: MsgFlag.ALL_NOT_RESERVED + MsgFlag.DESTROY_IF_ZERO, bounce: false});
         else {
-            tvm.rawReserve(DexGas.PAIR_INITIAL_BALANCE, 0);
+            tvm.rawReserve(Constants.PAIR_INITIAL_BALANCE, 0);
             send_gas_to.transfer({ value: 0, flag: MsgFlag.ALL_NOT_RESERVED + MsgFlag.IGNORE_ERRORS, bounce: false});
         }
     }
@@ -2740,14 +2740,14 @@ contract DexStablePool is
         }
 
         IDexPairOperationCallback(sender_address).dexPairDepositLiquiditySuccessV2{
-            value: DexGas.OPERATION_CALLBACK_BASE + 2,
+            value: Constants.OPERATION_CALLBACK_BASE + 2,
             flag: MsgFlag.SENDER_PAYS_FEES + MsgFlag.IGNORE_ERRORS,
             bounce: false
         }(call_id, via_account, r);
 
         if (recipient != sender_address) {
             IDexPairOperationCallback(recipient).dexPairDepositLiquiditySuccessV2{
-                value: DexGas.OPERATION_CALLBACK_BASE,
+                value: Constants.OPERATION_CALLBACK_BASE,
                 flag: MsgFlag.SENDER_PAYS_FEES + MsgFlag.IGNORE_ERRORS,
                 bounce: false
             }(call_id, via_account, r);
@@ -2980,14 +2980,14 @@ contract DexStablePool is
         }
 
         IDexPairOperationCallback(sender_address).dexPairWithdrawSuccessV2{
-            value: DexGas.OPERATION_CALLBACK_BASE + 2,
+            value: Constants.OPERATION_CALLBACK_BASE + 2,
             flag: MsgFlag.SENDER_PAYS_FEES + MsgFlag.IGNORE_ERRORS,
             bounce: false
         }(call_id, via_account, r);
 
         if (sender_address != recipient) {
             IDexPairOperationCallback(recipient).dexPairWithdrawSuccessV2{
-                value: DexGas.OPERATION_CALLBACK_BASE,
+                value: Constants.OPERATION_CALLBACK_BASE,
                 flag: MsgFlag.SENDER_PAYS_FEES + MsgFlag.IGNORE_ERRORS,
                 bounce: false
             }(call_id, via_account, r);

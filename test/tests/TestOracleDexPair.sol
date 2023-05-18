@@ -11,7 +11,7 @@ contract TestOracleDexPair is DexPair {
         TvmCell _newPoints,
         uint16 _newLength
     ) external responsible returns (bool) {
-        tvm.rawReserve(DexGas.PAIR_INITIAL_BALANCE, 0);
+        tvm.rawReserve(Constants.PAIR_INITIAL_BALANCE, 0);
 
         // Check input params
         require(_newLength <= _options.cardinality, 1234);
