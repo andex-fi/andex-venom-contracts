@@ -1,6 +1,6 @@
 pragma ever-solidity >= 0.62.0;
 
-interface IEverVault {
+interface IVenomVault {
     function wrap(
         uint128 tokens,
         address owner_address,

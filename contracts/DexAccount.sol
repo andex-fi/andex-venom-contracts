@@ -11,11 +11,11 @@ import "tip3/contracts/interfaces/IAcceptTokensTransferCallback.tsol";
 
 import "./interfaces/IUpgradableByRequest.sol";
 import "./interfaces/IDexRoot.sol";
-import "./interfaces/IDexAccount.sol";
-import "./interfaces/IDexBasePool.sol";
-import "./interfaces/IDexTokenVault.sol";
+import "./interfaces/IAccount.sol";
+import "./interfaces/IBasePool.sol";
+import "./interfaces/ITokenVault.sol";
 import "./interfaces/IResetGas.sol";
-import "./interfaces/IDexAccountOwner.sol";
+import "./interfaces/IAccountOwner.sol";
 
 import "./libraries/PlatformTypes.sol";
 import "./libraries/Errors.sol";
@@ -28,7 +28,7 @@ import "./DexPlatform.sol";
 
 contract DexAccount is
     ContractBase,
-    IDexAccount,
+    IAccount,
     IAcceptTokensTransferCallback,
     IUpgradableByRequest,
     IResetGas
@@ -256,14 +256,14 @@ contract DexAccount is
         delete _tmpOperations[_callId];
 
         if (operation.send_gas_to == _owner) {
-            IDexAccountOwner(_owner)
+            IAccountOwner(_owner)
                 .dexAccountOnSuccess{
                     value: 0,
                     flag: MsgFlag.ALL_NOT_RESERVED + MsgFlag.IGNORE_ERRORS,
                     bounce: false
                 }(_callId);
         } else {
-            IDexAccountOwner(_owner)
+            IAccountOwner(_owner)
                 .dexAccountOnSuccess{
                     value: Constants.OPERATION_CALLBACK_BASE,
                     flag: MsgFlag.SENDER_PAYS_FEES + MsgFlag.IGNORE_ERRORS
@@ -336,7 +336,7 @@ contract DexAccount is
             tokenVault
         );
 
-        IDexTokenVault(tokenVault)
+        ITokenVault(tokenVault)
         .withdraw{ value: 0, flag: MsgFlag.ALL_NOT_RESERVED, bounce: true }
         (
             call_id,
@@ -390,7 +390,7 @@ contract DexAccount is
             recipientDexAccount
         );
 
-        IDexAccount(recipientDexAccount)
+        IAccount(recipientDexAccount)
             .internalAccountTransfer{ value: 0, bounce: true, flag: MsgFlag.ALL_NOT_RESERVED }
             (
                 call_id,
@@ -440,7 +440,7 @@ contract DexAccount is
             _deployWallet(token_root, send_gas_to);
         }
 
-        IDexAccount(msg.sender)
+        IAccount(msg.sender)
             .successCallback{ value: 0, flag: MsgFlag.ALL_NOT_RESERVED }
             (call_id);
     }
@@ -551,7 +551,7 @@ contract DexAccount is
             pair
         );
 
-        IDexBasePool(pair)
+        IBasePool(pair)
             .exchange{ value: 0, bounce: true, flag: MsgFlag.ALL_NOT_RESERVED }
             (
                 _callId,
@@ -649,7 +649,7 @@ contract DexAccount is
             pair
         );
 
-        IDexBasePool(pair)
+        IBasePool(pair)
             .depositLiquidity{ value: 0, bounce: true, flag: MsgFlag.ALL_NOT_RESERVED }
             (
                 _callId,
@@ -764,7 +764,7 @@ contract DexAccount is
             pair
         );
 
-        IDexBasePool(pair)
+        IBasePool(pair)
             .withdrawLiquidity{ value: 0, bounce: true, flag: MsgFlag.ALL_NOT_RESERVED }
             (
                 _callId,
@@ -807,7 +807,7 @@ contract DexAccount is
 
         emit AddPool(_roots, pair);
 
-        IDexBasePool(pair)
+        IBasePool(pair)
             .checkPair{ value: 0, bounce: true, flag: MsgFlag.ALL_NOT_RESERVED }
             (_owner, _currentVersion);
     }
@@ -962,11 +962,11 @@ contract DexAccount is
         uint32 functionId = _body.decode(uint32);
 
         if (
-            functionId == tvm.functionId(IDexBasePool.exchange) ||
-            functionId == tvm.functionId(IDexBasePool.depositLiquidity) ||
-            functionId == tvm.functionId(IDexBasePool.withdrawLiquidity) ||
-            functionId == tvm.functionId(IDexAccount.internalAccountTransfer) ||
-            functionId == tvm.functionId(IDexTokenVault.withdraw)
+            functionId == tvm.functionId(IBasePool.exchange) ||
+            functionId == tvm.functionId(IBasePool.depositLiquidity) ||
+            functionId == tvm.functionId(IBasePool.withdrawLiquidity) ||
+            functionId == tvm.functionId(IAccount.internalAccountTransfer) ||
+            functionId == tvm.functionId(ITokenVault.withdraw)
         ) {
             uint64 callId = _body.decode(uint64);
 
@@ -987,14 +987,14 @@ contract DexAccount is
                 }
 
                 if (operation.send_gas_to == _owner) {
-                    IDexAccountOwner(_owner)
+                    IAccountOwner(_owner)
                         .dexAccountOnBounce{
                             value: 0,
                             flag: MsgFlag.ALL_NOT_RESERVED + MsgFlag.IGNORE_ERRORS,
                             bounce: false
                         }(callId, functionId);
                 } else {
-                    IDexAccountOwner(_owner)
+                    IAccountOwner(_owner)
                         .dexAccountOnBounce{
                             value: Constants.OPERATION_CALLBACK_BASE,
                             flag: MsgFlag.SENDER_PAYS_FEES + MsgFlag.IGNORE_ERRORS,
@@ -1008,10 +1008,10 @@ contract DexAccount is
                     });
                 }
             }
-        } else if (functionId == tvm.functionId(IDexBasePool.checkPair)) {
+        } else if (functionId == tvm.functionId(IBasePool.checkPair)) {
             emit ExpectedPairNotExist(msg.sender);
 
-            IDexAccountOwner(_owner)
+            IAccountOwner(_owner)
                 .dexAccountOnBounce{
                     value: 0,
                     flag: MsgFlag.ALL_NOT_RESERVED + MsgFlag.IGNORE_ERRORS,

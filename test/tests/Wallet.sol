@@ -1,21 +1,21 @@
 pragma ever-solidity >= 0.62.0;
 
 import '@broxus/contracts/contracts/wallets/Account.tsol';
-import '../interfaces/IDexPairOperationCallback.sol';
+import '../interfaces/IPairOperationCallback.sol';
 import "../interfaces/ITokenRootDeployedCallback.sol";
 import "../interfaces/IReferralProgramCallbacks.sol";
 import "tip3/contracts/interfaces/IAcceptTokensTransferCallback.tsol";
 import "tip3/contracts/interfaces/IAcceptTokensMintCallback.tsol";
-import "../interfaces/IDexAccountOwner.sol";
+import "../interfaces/IAccountOwner.sol";
 
 
 contract Wallet is Account,
-IDexPairOperationCallback,
+IPairOperationCallback,
 IAcceptTokensTransferCallback,
 ITokenRootDeployedCallback,
 IAcceptTokensMintCallback,
 IReferralProgramCallbacks,
-IDexAccountOwner
+IAccountOwner
 {
 
     function dexPairDepositLiquiditySuccess(uint64 id, bool via_account, IDepositLiquidityResult.DepositLiquidityResult result)

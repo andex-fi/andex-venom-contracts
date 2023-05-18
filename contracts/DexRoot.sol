@@ -10,9 +10,9 @@ import "./abstract/ContractBase.sol";
 
 import "./interfaces/IUpgradableByRequest.sol";
 import "./interfaces/IDexRoot.sol";
-import "./interfaces/IDexBasePool.sol";
-import "./interfaces/IDexStablePair.sol";
-import "./interfaces/IDexConstantProductPair.sol";
+import "./interfaces/IBasePool.sol";
+import "./interfaces/IStablePair.sol";
+import "./interfaces/IConstantProductPair.sol";
 import "./interfaces/IResetGas.sol";
 import "./interfaces/ILiquidityTokenRootDeployedCallback.sol";
 import "./interfaces/ILiquidityTokenRootNotDeployedCallback.sol";
@@ -1045,7 +1045,7 @@ contract DexRoot is ContractBase, IDexRoot {
         TvmCell code = _poolCodes[pool_type];
         uint32 version = _poolVersions[pool_type];
 
-        IDexBasePool(_expectedPoolAddress(roots))
+        IBasePool(_expectedPoolAddress(roots))
             .upgrade{ value: 0, flag: MsgFlag.ALL_NOT_RESERVED }
             (code, version, pool_type, send_gas_to);
     }
@@ -1100,7 +1100,7 @@ contract DexRoot is ContractBase, IDexRoot {
         TvmCell code = _pairCodes[_param.poolType];
         uint32 version = _pairVersions[_param.poolType];
 
-        IDexBasePool(_expectedPoolAddress(_param.tokenRoots))
+        IBasePool(_expectedPoolAddress(_param.tokenRoots))
             .upgrade{
                 value: Constants.UPGRADE_POOL_MIN_VALUE,
                 flag: MsgFlag.SENDER_PAYS_FEES
@@ -1165,7 +1165,7 @@ contract DexRoot is ContractBase, IDexRoot {
         PoolActiveParam _param,
         address _remainingGasTo
     ) private view {
-        IDexBasePool(_expectedPoolAddress(_param.tokenRoots))
+        IBasePool(_expectedPoolAddress(_param.tokenRoots))
             .setActive{
                 value: Constants.SET_POOL_ACTIVE_VALUE,
                 flag: MsgFlag.SENDER_PAYS_FEES,
@@ -1278,7 +1278,7 @@ contract DexRoot is ContractBase, IDexRoot {
             Errors.WRONG_FEE_PARAMS
         );
 
-        IDexBasePool(_expectedPoolAddress(_roots))
+        IBasePool(_expectedPoolAddress(_roots))
             .setFeeParams{ value: 0, flag: MsgFlag.ALL_NOT_RESERVED }
             (_params, _remainingGasTo);
     }
@@ -1294,7 +1294,7 @@ contract DexRoot is ContractBase, IDexRoot {
         reserve(Constants.ROOT_INITIAL_BALANCE)
         onlyManagerOrOwner
     {
-        IDexStablePair(_expectedPoolAddress(_roots))
+        IStablePair(_expectedPoolAddress(_roots))
             .setAmplificationCoefficient{ value: 0, flag: MsgFlag.ALL_NOT_RESERVED }
             (_A, _remainingGasTo);
     }
@@ -1345,7 +1345,7 @@ contract DexRoot is ContractBase, IDexRoot {
         reserve(Constants.ROOT_INITIAL_BALANCE)
         onlyManagerOrOwner
     {
-        IDexConstantProductPair(_expectedPoolAddress([_leftRoot, _rightRoot]))
+        IConstantProductPair(_expectedPoolAddress([_leftRoot, _rightRoot]))
             .setOracleOptions{ value: 0, flag: MsgFlag.ALL_NOT_RESERVED }
             (_options, _remainingGasTo);
     }
@@ -1362,7 +1362,7 @@ contract DexRoot is ContractBase, IDexRoot {
         reserve(Constants.ROOT_INITIAL_BALANCE)
         onlyManagerOrOwner
     {
-        IDexConstantProductPair(_expectedPoolAddress([_leftRoot, _rightRoot]))
+        IConstantProductPair(_expectedPoolAddress([_leftRoot, _rightRoot]))
             .removeLastNPoints{ value: 0, flag: MsgFlag.ALL_NOT_RESERVED }
             (_count, _remainingGasTo);
     }

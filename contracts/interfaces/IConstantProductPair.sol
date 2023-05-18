@@ -2,15 +2,15 @@ pragma ever-solidity >= 0.62.0;
 
 import "../structures/IDepositLiquidityResult.sol";
 
-import "./IDexPair.sol";
+import "./IPair.sol";
 import "./ITWAPOracle.sol";
 
 /**
  * @title DEX Pair Interface
  * @notice Interface for pair with constant product formula logic aka k = y * x
  */
-interface IDexConstantProductPair is
-    IDexPair,
+interface IConstantProductPair is
+    IPair,
     IDepositLiquidityResult,
     ITWAPOracle
 {

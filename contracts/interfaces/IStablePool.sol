@@ -1,9 +1,9 @@
 pragma ever-solidity >= 0.62.0;
 
-import "./IDexNPool.sol";
+import "./INPool.sol";
 import "../structures/IAmplificationCoefficient.sol";
 
-interface IDexStablePool is IDexNPool, IAmplificationCoefficient {
+interface IStablePool is INPool, IAmplificationCoefficient {
 
     event AmplificationCoefficientUpdated(AmplificationCoefficient A);
 

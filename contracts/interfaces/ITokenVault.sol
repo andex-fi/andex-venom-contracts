@@ -8,7 +8,7 @@ import "./IResetGas.sol";
 import "./IUpgradableByRequest.sol";
 
 /// @title DEX Token Vault Interface
-interface IDexTokenVault is
+interface ITokenVault is
     IResetGas,
     IUpgradableByRequest,
     IAcceptTokensMintCallback,

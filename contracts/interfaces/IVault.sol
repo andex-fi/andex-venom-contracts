@@ -7,7 +7,7 @@ import "../interfaces/IResetGas.sol";
 
 import "../structures/IReferralProgramParams.sol";
 
-interface IDexVault is
+interface IVault is
     IUpgradable,
     IResetGas,
     IAcceptTokensTransferCallback,

@@ -1,11 +1,11 @@
 pragma ever-solidity >= 0.62.0;
 
-import "./IDexBasePool.sol";
+import "./IBasePool.sol";
 import "../structures/IDexPoolBalances.sol";
 import "../structures/IDepositLiquidityResultV2.sol";
 import "../structures/IWithdrawResultV2.sol";
 
-interface IDexNPool is IDexBasePool, IDexPoolBalances, IDepositLiquidityResultV2, IWithdrawResultV2 {
+interface INPool is IBasePool, IDexPoolBalances, IDepositLiquidityResultV2, IWithdrawResultV2 {
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////
     // EVENTS

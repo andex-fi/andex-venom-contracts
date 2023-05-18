@@ -13,10 +13,10 @@ import "../libraries/AddressType.sol";
 import "../libraries/ReserveType.sol";
 import "../libraries/PoolTypes.sol";
 
-import "../interfaces/IDexPair.sol";
+import "../interfaces/IPair.sol";
 
 import "../structures/ITokenOperationStructure.sol";
-import "../structures/IDexPairBalances.sol";
+import "../structures/IPairBalances.sol";
 import "../structures/IPoint.sol";
 import "../structures/IOracleOptions.sol";
 
@@ -24,7 +24,7 @@ import "../structures/IOracleOptions.sol";
 contract TestNewDexPair is
     ITokenOperationStructure,
     IFeeParams,
-    IDexPairBalances,
+    IPairBalances,
     IPoint,
     IOracleOptions
 {

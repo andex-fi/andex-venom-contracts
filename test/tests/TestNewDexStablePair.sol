@@ -10,10 +10,10 @@ import "../libraries/Errors.sol";
 import "../libraries/Constants.sol";
 import "../libraries/PoolTypes.sol";
 
-import "../interfaces/IDexPair.sol";
+import "../interfaces/IPair.sol";
 
 import "../structures/ITokenOperationStructure.sol";
-import "../structures/IDexPairBalances.sol";
+import "../structures/IPairBalances.sol";
 import "../structures/IPoolTokenData.sol";
 import "../structures/IAmplificationCoefficient.sol";
 
@@ -22,7 +22,7 @@ contract TestNewDexStablePair is
     ITokenOperationStructure,
     IFeeParams,
     IPoolTokenData,
-    IDexPairBalances,
+    IPairBalances,
     IAmplificationCoefficient
 {
     address root;

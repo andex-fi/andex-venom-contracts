@@ -8,7 +8,7 @@ import "./libraries/VenomToTip3Gas.sol";
 import "./libraries/VenomToTip3Errors.sol";
 import "./libraries/VenomToTip3Payloads.sol";
 
-import "./interfaces/IEverVault.sol";
+import "./interfaces/IVenomVault.sol";
 import "./structures/INextExchangeData.sol";
 
 import "./libraries/MsgFlag.sol";
@@ -162,7 +162,7 @@ contract EverWeverToTip3 is IAcceptTokensTransferCallback, IAcceptTokensBurnCall
         TvmSlice payloadSlice =  payload.toSlice();
         (, uint128 amount_) = payloadSlice.decode(address, uint128);
 
-        IEverVault(weverVault).wrap{ value: 0, flag: MsgFlag.ALL_NOT_RESERVED, bounce: false }(
+        IVenomVault(weverVault).wrap{ value: 0, flag: MsgFlag.ALL_NOT_RESERVED, bounce: false }(
             amount_,
             everToTip3,
             user,

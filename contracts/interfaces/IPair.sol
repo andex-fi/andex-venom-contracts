@@ -1,12 +1,12 @@
 pragma ever-solidity >= 0.62.0;
 
-import "../structures/IDexPairBalances.sol";
+import "../structures/IPairBalances.sol";
 
-import "./IDexBasePool.sol";
+import "./IBasePool.sol";
 
 /// @title DEX Pair Interface
 /// @notice Interface for interaction with DEX pair
-interface IDexPair is IDexPairBalances, IDexBasePool {
+interface IPair is IPairBalances, IBasePool {
     //////////////////////////////////////////////////////////////////////////////////////////////////////
     // EVENTS
 

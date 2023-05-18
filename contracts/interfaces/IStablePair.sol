@@ -1,10 +1,10 @@
 pragma ever-solidity >= 0.62.0;
 
-import "./IDexPair.sol";
+import "./IPair.sol";
 import "../structures/IAmplificationCoefficient.sol";
 import "../structures/IDepositLiquidityResultV2.sol";
 
-interface IDexStablePair is IDexPair, IAmplificationCoefficient, IDepositLiquidityResultV2 {
+interface IStablePair is IPair, IAmplificationCoefficient, IDepositLiquidityResultV2 {
 
     event AmplificationCoefficientUpdated(AmplificationCoefficient A);
 

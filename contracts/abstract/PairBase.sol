@@ -2,10 +2,10 @@ pragma ever-solidity >= 0.62.0;
 
 import "tip3/contracts/interfaces/ITokenRoot.tsol";
 
-import "../interfaces/IDexConstantProductPair.sol";
-import "../interfaces/IDexAccount.sol";
+import "../interfaces/IConstantProductPair.sol";
+import "../interfaces/IAccount.sol";
 import "../interfaces/IDexRoot.sol";
-import "../interfaces/IDexTokenVault.sol";
+import "../interfaces/ITokenVault.sol";
 
 import "../libraries/PoolTypes.sol";
 import "../libraries/Constants.sol";
@@ -23,7 +23,7 @@ import "./TWAPOracle.sol";
 /// @dev A contract is abstract - to be sure that it will be inherited by another contract
 abstract contract PairBase is
     ContractBase,
-    IDexConstantProductPair,
+    IConstantProductPair,
     TWAPOracle
 {
     /// @dev DexRoot address
@@ -287,7 +287,7 @@ abstract contract PairBase is
         tvm.rawReserve(Constants.PAIR_INITIAL_BALANCE, 0);
 
         // Notify account about pair
-        IDexAccount(msg.sender)
+        IAccount(msg.sender)
             .checkPoolCallback{ value: 0, flag: MsgFlag.ALL_NOT_RESERVED }
             (
                 _typeToRootAddresses[AddressType.RESERVE],
@@ -474,7 +474,7 @@ abstract contract PairBase is
                 !_fee.threshold.exists(_typeToRootAddresses[AddressType.RESERVE][i]) ||
                 _typeToReserves[ReserveType.FEE][i] >= _fee.threshold.at(_typeToRootAddresses[AddressType.RESERVE][i])
             ) {
-                IDexAccount(_expectedAccountAddress(_fee.beneficiary))
+                IAccount(_expectedAccountAddress(_fee.beneficiary))
                     .internalPoolTransfer{ value: Constants.INTERNAL_PAIR_TRANSFER_VALUE, flag: MsgFlag.SENDER_PAYS_FEES }
                     (
                         _typeToReserves[ReserveType.FEE][i],

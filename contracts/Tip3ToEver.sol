@@ -11,8 +11,8 @@ import "./libraries/VenomToTip3OperationStatus.sol";
 import "./libraries/OperationStatus.sol";
 import "./libraries/PairPayload.sol";
 
-import "./interfaces/IEverTip3SwapEvents.sol";
-import "./interfaces/IEverTip3SwapCallbacks.sol";
+import "./interfaces/IVenomTip3SwapEvents.sol";
+import "./interfaces/IVenomTip3SwapCallbacks.sol";
 
 import "./structures/IExchangeStepStructure.sol";
 
@@ -22,7 +22,7 @@ import "tip3/contracts/interfaces/ITokenWallet.tsol";
 import "tip3/contracts/interfaces/IAcceptTokensTransferCallback.tsol";
 import "tip3/contracts/interfaces/IAcceptTokensBurnCallback.tsol";
 
-contract Tip3ToEver is IAcceptTokensTransferCallback, IAcceptTokensBurnCallback, IEverTip3SwapEvents {
+contract Tip3ToEver is IAcceptTokensTransferCallback, IAcceptTokensBurnCallback, IVenomTip3SwapEvents {
 
     uint32 static randomNonce_;
 
@@ -209,7 +209,7 @@ contract Tip3ToEver is IAcceptTokensTransferCallback, IAcceptTokensBurnCallback,
                 payloadID.store(id_);
 
                 emit SwapTip3EverCancelTransfer(user, id_, amount, tokenRoot);
-                IEverTip3SwapCallbacks(user).onSwapTip3ToEverCancel{
+                IVenomTip3SwapCallbacks(user).onSwapTip3ToEverCancel{
                     value: VenomToTip3Gas.OPERATION_CALLBACK_BASE,
                     flag: MsgFlag.SENDER_PAYS_FEES,
                     bounce: false
@@ -275,7 +275,7 @@ contract Tip3ToEver is IAcceptTokensTransferCallback, IAcceptTokensBurnCallback,
         uint64 id = payloadSlice.decode(uint64);
 
         emit SwapTip3EverSuccessTransfer(user, id, amount);
-        IEverTip3SwapCallbacks(user).onSwapTip3ToEverSuccess{ value: VenomToTip3Gas.OPERATION_CALLBACK_BASE, flag: MsgFlag.ALL_NOT_RESERVED, bounce: false }(id, amount);
+        IVenomTip3SwapCallbacks(user).onSwapTip3ToEverSuccess{ value: VenomToTip3Gas.OPERATION_CALLBACK_BASE, flag: MsgFlag.ALL_NOT_RESERVED, bounce: false }(id, amount);
     }
 
     fallback() external pure {  }

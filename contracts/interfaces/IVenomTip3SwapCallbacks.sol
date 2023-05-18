@@ -1,6 +1,6 @@
 pragma ever-solidity >= 0.62.0;
 
-interface IEverTip3SwapCallbacks {
+interface IVenomTip3SwapCallbacks {
     function onSwapEverToTip3Cancel(
         uint64 id,
         uint128 amount

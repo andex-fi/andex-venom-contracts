@@ -7,7 +7,7 @@ import "../structures/IExchangeResultV2.sol";
 import "../structures/IWithdrawResult.sol";
 import "../structures/IWithdrawResultV2.sol";
 
-interface IDexPairOperationCallback {
+interface IPairOperationCallback {
     function dexPairDepositLiquiditySuccess(uint64 id, bool via_account, IDepositLiquidityResult.DepositLiquidityResult result) external;
     function dexPairDepositLiquiditySuccessV2(uint64 id, bool via_account, IDepositLiquidityResultV2.DepositLiquidityResultV2 result) external;
     function dexPairExchangeSuccess(uint64 id, bool via_account, IExchangeResult.ExchangeResult result) external;

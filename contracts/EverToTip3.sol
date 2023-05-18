@@ -13,9 +13,9 @@ import "./libraries/OperationStatus.sol";
 
 import "./structures/INextExchangeData.sol";
 
-import "./interfaces/IEverVault.sol";
-import "./interfaces/IEverTip3SwapEvents.sol";
-import "./interfaces/IEverTip3SwapCallbacks.sol";
+import "./interfaces/IVenomVault.sol";
+import "./interfaces/IVenomTip3SwapEvents.sol";
+import "./interfaces/IVenomTip3SwapCallbacks.sol";
 
 import "./libraries/MsgFlag.sol";
 import "tip3/contracts/interfaces/ITokenRoot.tsol";
@@ -24,7 +24,7 @@ import "tip3/contracts/interfaces/IAcceptTokensMintCallback.tsol";
 import "tip3/contracts/interfaces/IAcceptTokensTransferCallback.tsol";
 import "tip3/contracts/interfaces/IAcceptTokensBurnCallback.tsol";
 
-contract EverToTip3 is IAcceptTokensMintCallback, IAcceptTokensTransferCallback, IAcceptTokensBurnCallback, IEverTip3SwapEvents {
+contract EverToTip3 is IAcceptTokensMintCallback, IAcceptTokensTransferCallback, IAcceptTokensBurnCallback, IVenomTip3SwapEvents {
 
     uint32 static randomNonce_;
 
@@ -231,7 +231,7 @@ contract EverToTip3 is IAcceptTokensMintCallback, IAcceptTokensTransferCallback,
         } else if (operationStatus == VenomToTip3OperationStatus.CANCEL) {
             emit SwapEverToTip3Partial(user, id, amount, tokenRoot);
 
-            IEverTip3SwapCallbacks(user).onSwapEverToTip3Partial{
+            IVenomTip3SwapCallbacks(user).onSwapEverToTip3Partial{
                 value: VenomToTip3Gas.OPERATION_CALLBACK_BASE,
                 flag: MsgFlag.SENDER_PAYS_FEES,
                 bounce: false
@@ -246,7 +246,7 @@ contract EverToTip3 is IAcceptTokensMintCallback, IAcceptTokensTransferCallback,
                 payloadID_.toCell()
             );
         } else if (operationStatus == VenomToTip3OperationStatus.SUCCESS) {
-            IEverTip3SwapCallbacks(user).onSwapEverToTip3Success{
+            IVenomTip3SwapCallbacks(user).onSwapEverToTip3Success{
                 value: VenomToTip3Gas.OPERATION_CALLBACK_BASE,
                 flag: MsgFlag.SENDER_PAYS_FEES,
                 bounce: false
@@ -294,7 +294,7 @@ contract EverToTip3 is IAcceptTokensMintCallback, IAcceptTokensTransferCallback,
         }
 
         emit SwapEverToTip3Cancel(user, id, amount);
-        IEverTip3SwapCallbacks(user).onSwapEverToTip3Cancel{ value: VenomToTip3Gas.OPERATION_CALLBACK_BASE, flag: MsgFlag.ALL_NOT_RESERVED, bounce: false }(id, amount);
+        IVenomTip3SwapCallbacks(user).onSwapEverToTip3Cancel{ value: VenomToTip3Gas.OPERATION_CALLBACK_BASE, flag: MsgFlag.ALL_NOT_RESERVED, bounce: false }(id, amount);
     }
 
     fallback() external pure {  }

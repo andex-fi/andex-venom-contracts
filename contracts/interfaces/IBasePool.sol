@@ -12,7 +12,7 @@ import "./ILiquidityTokenRootNotDeployedCallback.sol";
 
 /// @title DEX Pool Interface
 /// @notice Interface for interaction with DEX pool
-interface IDexBasePool is
+interface IBasePool is
     IFeeParams,
     ITokenOperationStructure,
     IAcceptTokensTransferCallback,

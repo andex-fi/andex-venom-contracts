@@ -23,12 +23,12 @@ import "./libraries/DirectOperationErrors.sol";
 
 import "./interfaces/IUpgradableByRequest.sol";
 import "./interfaces/IDexRoot.sol";
-import "./interfaces/IDexStablePair.sol";
-import "./interfaces/IDexBasePool.sol";
+import "./interfaces/IStablePair.sol";
+import "./interfaces/IBasePool.sol";
 import "./interfaces/ISuccessCallback.sol";
-import "./interfaces/IDexAccount.sol";
-import "./interfaces/IDexTokenVault.sol";
-import "./interfaces/IDexPairOperationCallback.sol";
+import "./interfaces/IAccount.sol";
+import "./interfaces/ITokenVault.sol";
+import "./interfaces/IPairOperationCallback.sol";
 
 import "./structures/IExchangeResult.sol";
 import "./structures/IDepositLiquidityResultV2.sol";
@@ -42,7 +42,7 @@ import "./abstract/ContractBase.sol";
 
 contract DexStablePair is
     ContractBase,
-    IDexStablePair,
+    IStablePair,
     IPoolTokenData,
     INextExchangeData
 {
@@ -415,14 +415,14 @@ contract DexStablePair is
                     } else {
                         TokenOperation[] operations = operationsOpt.get();
 
-                        IDexPairOperationCallback(sender_address).dexPairWithdrawSuccess{
+                        IPairOperationCallback(sender_address).dexPairWithdrawSuccess{
                             value: Constants.OPERATION_CALLBACK_BASE + 30,
                             flag: MsgFlag.SENDER_PAYS_FEES + MsgFlag.IGNORE_ERRORS,
                             bounce: false
                         }(id, false, IWithdrawResult.WithdrawResult(tokens_amount, operations[0].amount, operations[1].amount));
 
                         if (recipient != sender_address) {
-                            IDexPairOperationCallback(recipient).dexPairWithdrawSuccess{
+                            IPairOperationCallback(recipient).dexPairWithdrawSuccess{
                                 value: Constants.OPERATION_CALLBACK_BASE,
                                 flag: MsgFlag.SENDER_PAYS_FEES + MsgFlag.IGNORE_ERRORS,
                                 bounce: false
@@ -431,7 +431,7 @@ contract DexStablePair is
 
                         for (uint8 ii = 0; ii < N_COINS; ii++) {
                             if (operations[ii].amount >= 0) {
-                                IDexTokenVault(_expectedTokenVaultAddress(operations[ii].root)).transfer{
+                                ITokenVault(_expectedTokenVaultAddress(operations[ii].root)).transfer{
                                     value: Constants.VAULT_TRANSFER_BASE_VALUE_V2 + deploy_wallet_grams,
                                     flag: MsgFlag.SENDER_PAYS_FEES
                                 }(
@@ -498,7 +498,7 @@ contract DexStablePair is
                         }
 
                         if (referrer_fee > 0) {
-                            IDexTokenVault(_expectedTokenVaultAddress(tokenData[i].root)).referralFeeTransfer{
+                            ITokenVault(_expectedTokenVaultAddress(tokenData[i].root)).referralFeeTransfer{
                                 value: referrer_value,
                                 flag: 0
                             }(
@@ -511,7 +511,7 @@ contract DexStablePair is
                             emit ReferrerFees([TokenOperation(referrer_fee, tokenData[i].root)]);
                         }
 
-                        IDexPairOperationCallback(sender_address).dexPairExchangeSuccess{
+                        IPairOperationCallback(sender_address).dexPairExchangeSuccess{
                             value: Constants.OPERATION_CALLBACK_BASE + 10,
                             flag: MsgFlag.SENDER_PAYS_FEES + MsgFlag.IGNORE_ERRORS,
                             bounce: false
@@ -523,7 +523,7 @@ contract DexStablePair is
                         ));
 
                         if (recipient != sender_address) {
-                            IDexPairOperationCallback(recipient).dexPairExchangeSuccess{
+                            IPairOperationCallback(recipient).dexPairExchangeSuccess{
                                 value: Constants.OPERATION_CALLBACK_BASE,
                                 flag: MsgFlag.SENDER_PAYS_FEES + MsgFlag.IGNORE_ERRORS,
                                 bounce: false
@@ -547,7 +547,7 @@ contract DexStablePair is
                             empty
                         );
 
-                        IDexTokenVault(_expectedTokenVaultAddress(tokenData[j].root)).transfer{
+                        ITokenVault(_expectedTokenVaultAddress(tokenData[j].root)).transfer{
                             value: 0,
                             flag: MsgFlag.ALL_NOT_RESERVED
                         }(
@@ -629,7 +629,7 @@ contract DexStablePair is
                         }
 
                         if (referrer_fee > 0) {
-                            IDexTokenVault(_expectedTokenVaultAddress(tokenData[i].root)).referralFeeTransfer{
+                            ITokenVault(_expectedTokenVaultAddress(tokenData[i].root)).referralFeeTransfer{
                                 value: referrer_value,
                                 flag: 0
                             }(
@@ -642,7 +642,7 @@ contract DexStablePair is
                             emit ReferrerFees([TokenOperation(referrer_fee, tokenData[i].root)]);
                         }
 
-                        IDexPairOperationCallback(sender_address).dexPairExchangeSuccess{
+                        IPairOperationCallback(sender_address).dexPairExchangeSuccess{
                             value: Constants.OPERATION_CALLBACK_BASE + 40,
                             flag: MsgFlag.SENDER_PAYS_FEES + MsgFlag.IGNORE_ERRORS,
                             bounce: false
@@ -673,7 +673,7 @@ contract DexStablePair is
                             uint128 next_pool_amount = uint128(math.muldiv(dy_result.amount, next_step.numerator, denominator));
                             uint128 current_extra_value = math.muldiv(uint128(next_step.leaves), extraValue, uint128(all_leaves));
 
-                            IDexBasePool(next_step.poolRoot).crossPoolExchange{
+                            IBasePool(next_step.poolRoot).crossPoolExchange{
                                 value: idx == max_nested_nodes_idx ? 0 : (next_step.nestedNodes + 1) * (Constants.CROSS_POOL_EXCHANGE_MIN_VALUE + referrer_value) + current_extra_value,
                                 flag: idx == max_nested_nodes_idx ? MsgFlag.ALL_NOT_RESERVED : MsgFlag.SENDER_PAYS_FEES
                             }(
@@ -749,7 +749,7 @@ contract DexStablePair is
         }
 
         if (errorCode != 0) {
-            IDexPairOperationCallback(sender_address).dexPairOperationCancelled{
+            IPairOperationCallback(sender_address).dexPairOperationCancelled{
                 value: Constants.OPERATION_CALLBACK_BASE + 44,
                 flag: MsgFlag.SENDER_PAYS_FEES + MsgFlag.IGNORE_ERRORS,
                 bounce: false
@@ -922,7 +922,7 @@ contract DexStablePair is
         TokenOperation[] operations = operationsOpt.get();
         _sync();
 
-        IDexPairOperationCallback(account_owner)
+        IPairOperationCallback(account_owner)
             .dexPairWithdrawSuccess{
                 value: Constants.OPERATION_CALLBACK_BASE + 3,
                 flag: MsgFlag.SENDER_PAYS_FEES + MsgFlag.IGNORE_ERRORS,
@@ -939,7 +939,7 @@ contract DexStablePair is
 
         for (TokenOperation op: operations) {
             if (op.amount > 0) {
-                IDexAccount(msg.sender)
+                IAccount(msg.sender)
                     .internalPoolTransfer{ value: Constants.INTERNAL_PAIR_TRANSFER_VALUE, flag: MsgFlag.SENDER_PAYS_FEES }
                     (
                         op.amount,
@@ -1056,7 +1056,7 @@ contract DexStablePair is
 
         _sync();
 
-        IDexPairOperationCallback(account_owner).dexPairExchangeSuccess{
+        IPairOperationCallback(account_owner).dexPairExchangeSuccess{
             value: Constants.OPERATION_CALLBACK_BASE + 1,
             flag: MsgFlag.SENDER_PAYS_FEES + MsgFlag.IGNORE_ERRORS,
             bounce: false
@@ -1067,7 +1067,7 @@ contract DexStablePair is
             dy_result.amount
         ));
 
-        IDexAccount(msg.sender)
+        IAccount(msg.sender)
             .internalPoolTransfer{ value: Constants.INTERNAL_PAIR_TRANSFER_VALUE, flag: MsgFlag.SENDER_PAYS_FEES }
             (
                 dy_result.amount,
@@ -1092,7 +1092,7 @@ contract DexStablePair is
                 !fee.threshold.exists(_root) ||
                 tokenData[i].accumulatedFee >= fee.threshold[_root]
             ) {
-                IDexAccount(beneficiaryAccount)
+                IAccount(beneficiaryAccount)
                     .internalPoolTransfer{ value: Constants.INTERNAL_PAIR_TRANSFER_VALUE, flag: MsgFlag.SENDER_PAYS_FEES }
                     (
                         tokenData[i].accumulatedFee,
@@ -1196,7 +1196,7 @@ contract DexStablePair is
                 }
 
                 if (referrer_fee > 0) {
-                    IDexTokenVault(_expectedTokenVaultAddress(tokenData[i].root)).referralFeeTransfer{
+                    ITokenVault(_expectedTokenVaultAddress(tokenData[i].root)).referralFeeTransfer{
                         value: referrer_value,
                         flag: 0
                     }(
@@ -1209,7 +1209,7 @@ contract DexStablePair is
                     emit ReferrerFees([TokenOperation(referrer_fee, tokenData[i].root)]);
                 }
 
-                IDexPairOperationCallback(sender_address).dexPairExchangeSuccess{
+                IPairOperationCallback(sender_address).dexPairExchangeSuccess{
                     value: Constants.OPERATION_CALLBACK_BASE + 4,
                     flag: MsgFlag.SENDER_PAYS_FEES + MsgFlag.IGNORE_ERRORS,
                     bounce: false
@@ -1221,7 +1221,7 @@ contract DexStablePair is
                 ));
 
                 if (recipient != sender_address) {
-                    IDexPairOperationCallback(recipient).dexPairExchangeSuccess{
+                    IPairOperationCallback(recipient).dexPairExchangeSuccess{
                         value: Constants.OPERATION_CALLBACK_BASE,
                         flag: MsgFlag.SENDER_PAYS_FEES + MsgFlag.IGNORE_ERRORS,
                         bounce: false
@@ -1270,7 +1270,7 @@ contract DexStablePair is
                         uint128 next_pool_amount = uint128(math.muldiv(dy_result.amount, next_step.numerator, denominator));
                         uint128 current_extra_value = math.muldiv(uint128(next_step.leaves), extraValue, uint128(all_leaves));
 
-                        IDexBasePool(next_step.poolRoot).crossPoolExchange{
+                        IBasePool(next_step.poolRoot).crossPoolExchange{
                             value: idx == max_nested_nodes_idx ? 0 : (next_step.nestedNodes + 1) * (Constants.CROSS_POOL_EXCHANGE_MIN_VALUE + referrer_value) + current_extra_value,
                             flag: idx == max_nested_nodes_idx ? MsgFlag.ALL_NOT_RESERVED : MsgFlag.SENDER_PAYS_FEES
                         }(
@@ -1303,14 +1303,14 @@ contract DexStablePair is
                     bool is_last_step = next_steps.length == 0;
 
                     if (!is_last_step) {
-                        IDexPairOperationCallback(sender_address).dexPairOperationCancelled{
+                        IPairOperationCallback(sender_address).dexPairOperationCancelled{
                             value: Constants.OPERATION_CALLBACK_BASE + 44,
                             flag: MsgFlag.SENDER_PAYS_FEES + MsgFlag.IGNORE_ERRORS,
                             bounce: false
                         }(id);
 
                         if (recipient != sender_address) {
-                            IDexPairOperationCallback(recipient).dexPairOperationCancelled{
+                            IPairOperationCallback(recipient).dexPairOperationCancelled{
                                 value: Constants.OPERATION_CALLBACK_BASE,
                                 flag: MsgFlag.SENDER_PAYS_FEES + MsgFlag.IGNORE_ERRORS,
                                 bounce: false
@@ -1318,7 +1318,7 @@ contract DexStablePair is
                         }
                     }
 
-                    IDexTokenVault(_expectedTokenVaultAddress(tokenData[j].root)).transfer{
+                    ITokenVault(_expectedTokenVaultAddress(tokenData[j].root)).transfer{
                         value: 0,
                         flag: MsgFlag.ALL_NOT_RESERVED
                     }(
@@ -1338,21 +1338,21 @@ contract DexStablePair is
         }
 
         if (errorCode != 0) {
-            IDexPairOperationCallback(sender_address).dexPairOperationCancelled{
+            IPairOperationCallback(sender_address).dexPairOperationCancelled{
                 value: Constants.OPERATION_CALLBACK_BASE + 44,
                 flag: MsgFlag.SENDER_PAYS_FEES + MsgFlag.IGNORE_ERRORS,
                 bounce: false
             }(id);
 
             if (recipient != sender_address) {
-                IDexPairOperationCallback(recipient).dexPairOperationCancelled{
+                IPairOperationCallback(recipient).dexPairOperationCancelled{
                     value: Constants.OPERATION_CALLBACK_BASE,
                     flag: MsgFlag.SENDER_PAYS_FEES + MsgFlag.IGNORE_ERRORS,
                     bounce: false
                 }(id);
             }
 
-            IDexTokenVault(_expectedTokenVaultAddress(spent_token_root)).transfer{
+            ITokenVault(_expectedTokenVaultAddress(spent_token_root)).transfer{
                 value: 0,
                 flag: MsgFlag.ALL_NOT_RESERVED
             }(
@@ -1378,7 +1378,7 @@ contract DexStablePair is
         onlyAccount(account_owner)
     {
         tvm.rawReserve(Constants.PAIR_INITIAL_BALANCE, 0);
-        IDexAccount(msg.sender)
+        IAccount(msg.sender)
             .checkPoolCallback{ value: 0, flag: MsgFlag.ALL_NOT_RESERVED }(
                 [tokenData[0].root, tokenData[1].root],
                 lp_root
@@ -2128,7 +2128,7 @@ contract DexStablePair is
             if (referrer_fees[i] > 0) {
                 is_zero_referrer_fees = false;
 
-                IDexTokenVault(_expectedTokenVaultAddress(tokenData[i].root)).referralFeeTransfer{
+                ITokenVault(_expectedTokenVaultAddress(tokenData[i].root)).referralFeeTransfer{
                     value: referrer_value,
                     flag: 0
                 }(
@@ -2160,14 +2160,14 @@ contract DexStablePair is
 
         emit DepositLiquidity(sender_address, recipient, deposits, r.lp_reward);
 
-        IDexPairOperationCallback(sender_address).dexPairDepositLiquiditySuccessV2{
+        IPairOperationCallback(sender_address).dexPairDepositLiquiditySuccessV2{
             value: Constants.OPERATION_CALLBACK_BASE + 2,
             flag: MsgFlag.SENDER_PAYS_FEES + MsgFlag.IGNORE_ERRORS,
             bounce: false
         }(call_id, via_account, r);
 
         if (recipient != sender_address) {
-            IDexPairOperationCallback(recipient).dexPairDepositLiquiditySuccessV2{
+            IPairOperationCallback(recipient).dexPairDepositLiquiditySuccessV2{
                 value: Constants.OPERATION_CALLBACK_BASE,
                 flag: MsgFlag.SENDER_PAYS_FEES + MsgFlag.IGNORE_ERRORS,
                 bounce: false

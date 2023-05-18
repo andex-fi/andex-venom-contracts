@@ -13,10 +13,10 @@ import "tip3/contracts/interfaces/IAcceptTokensTransferCallback.tsol";
 import "./abstract/PairBase.sol";
 
 import "./interfaces/IUpgradableByRequest.sol";
-import "./interfaces/IDexPair.sol";
+import "./interfaces/IPair.sol";
 import "./interfaces/ISuccessCallback.sol";
-import "./interfaces/IDexPairOperationCallback.sol";
-import "./interfaces/IDexTokenVault.sol";
+import "./interfaces/IPairOperationCallback.sol";
+import "./interfaces/ITokenVault.sol";
 
 import "./libraries/PlatformTypes.sol";
 import "./libraries/Errors.sol";
@@ -303,7 +303,7 @@ contract DexPair is PairBase, INextExchangeData {
                 _typeToReserves[ReserveType.POOL][1] += result.step_1_right_deposit;
 
                 if (result.step_1_left_deposit < operations[0].amount) {
-                    IDexAccount(msg.sender)
+                    IAccount(msg.sender)
                         .internalPoolTransfer{ value: Constants.INTERNAL_PAIR_TRANSFER_VALUE, flag: MsgFlag.SENDER_PAYS_FEES }
                         (
                             operations[0].amount - result.step_1_left_deposit,
@@ -314,7 +314,7 @@ contract DexPair is PairBase, INextExchangeData {
                 }
 
                 if (result.step_1_right_deposit < operations[1].amount) {
-                    IDexAccount(msg.sender)
+                    IAccount(msg.sender)
                         .internalPoolTransfer{ value: Constants.INTERNAL_PAIR_TRANSFER_VALUE, flag: MsgFlag.SENDER_PAYS_FEES }
                         (
                             operations[1].amount - result.step_1_right_deposit,
@@ -428,7 +428,7 @@ contract DexPair is PairBase, INextExchangeData {
             );
         }
 
-        IDexPairOperationCallback(_senderAddress)
+        IPairOperationCallback(_senderAddress)
             .dexPairDepositLiquiditySuccess{
                 value: Constants.OPERATION_CALLBACK_BASE + 2,
                 flag: MsgFlag.SENDER_PAYS_FEES + MsgFlag.IGNORE_ERRORS,
@@ -440,7 +440,7 @@ contract DexPair is PairBase, INextExchangeData {
             );
 
         if (_recipient != _senderAddress) {
-            IDexPairOperationCallback(_recipient)
+            IPairOperationCallback(_recipient)
                 .dexPairDepositLiquiditySuccess{
                     value: Constants.OPERATION_CALLBACK_BASE,
                     flag: MsgFlag.SENDER_PAYS_FEES + MsgFlag.IGNORE_ERRORS,
@@ -618,7 +618,7 @@ contract DexPair is PairBase, INextExchangeData {
             operations[1].amount
         );
 
-        IDexPairOperationCallback(_senderAddress)
+        IPairOperationCallback(_senderAddress)
             .dexPairWithdrawSuccess{
                 value: Constants.OPERATION_CALLBACK_BASE + 3,
                 flag: MsgFlag.SENDER_PAYS_FEES + MsgFlag.IGNORE_ERRORS,
@@ -630,7 +630,7 @@ contract DexPair is PairBase, INextExchangeData {
             );
 
         if (_recipient != _senderAddress) {
-            IDexPairOperationCallback(_recipient)
+            IPairOperationCallback(_recipient)
                 .dexPairWithdrawSuccess{
                     value: Constants.OPERATION_CALLBACK_BASE,
                     flag: MsgFlag.SENDER_PAYS_FEES + MsgFlag.IGNORE_ERRORS,
@@ -645,7 +645,7 @@ contract DexPair is PairBase, INextExchangeData {
         for (TokenOperation op : operations) {
             if (op.amount > 0) {
                 if (_isViaAccount) {
-                    IDexAccount(msg.sender)
+                    IAccount(msg.sender)
                         .internalPoolTransfer{ value: Constants.INTERNAL_PAIR_TRANSFER_VALUE, flag: MsgFlag.SENDER_PAYS_FEES }
                         (
                             op.amount,
@@ -654,7 +654,7 @@ contract DexPair is PairBase, INextExchangeData {
                             _remainingGasTo
                         );
                 } else {
-                    IDexTokenVault(_expectedTokenVaultAddress(op.root))
+                    ITokenVault(_expectedTokenVaultAddress(op.root))
                         .transfer{
                             value: Constants.VAULT_TRANSFER_BASE_VALUE_V2 + _deployWalletGrams,
                             flag: MsgFlag.SENDER_PAYS_FEES
@@ -802,7 +802,7 @@ contract DexPair is PairBase, INextExchangeData {
 
             _sync();
 
-            IDexAccount(msg.sender)
+            IAccount(msg.sender)
                 .internalPoolTransfer{ value: Constants.INTERNAL_PAIR_TRANSFER_VALUE, flag: MsgFlag.SENDER_PAYS_FEES }
                 (
                     amount,
@@ -861,7 +861,7 @@ contract DexPair is PairBase, INextExchangeData {
         }
 
         if (_referrerFee > 0) {
-            IDexTokenVault(_expectedTokenVaultAddress(_tokenRoots()[spentTokenIndex]))
+            ITokenVault(_expectedTokenVaultAddress(_tokenRoots()[spentTokenIndex]))
                 .referralFeeTransfer{
                     value: _referrerValue,
                     flag: 0
@@ -910,7 +910,7 @@ contract DexPair is PairBase, INextExchangeData {
             _amount
         );
 
-        IDexPairOperationCallback(_senderAddress)
+        IPairOperationCallback(_senderAddress)
             .dexPairExchangeSuccess{
                 value: Constants.OPERATION_CALLBACK_BASE + 1,
                 flag: MsgFlag.SENDER_PAYS_FEES + MsgFlag.IGNORE_ERRORS,
@@ -922,7 +922,7 @@ contract DexPair is PairBase, INextExchangeData {
             );
 
         if (_recipient != _senderAddress) {
-            IDexPairOperationCallback(_recipient)
+            IPairOperationCallback(_recipient)
                 .dexPairExchangeSuccess{
                     value: Constants.OPERATION_CALLBACK_BASE,
                     flag: MsgFlag.SENDER_PAYS_FEES + MsgFlag.IGNORE_ERRORS,
@@ -1068,7 +1068,7 @@ contract DexPair is PairBase, INextExchangeData {
                             uint128 nextPoolAmount = uint128(math.muldiv(amount, nextStep.numerator, denominator));
                             uint128 currentExtraValue = math.muldiv(uint128(nextStep.leaves), extraValue, uint128(allLeaves));
 
-                            IDexBasePool(nextStep.poolRoot).crossPoolExchange{
+                            IBasePool(nextStep.poolRoot).crossPoolExchange{
                                 value: i == maxNestedNodesIdx ? 0 : (nextStep.nestedNodes + 1) * (Constants.CROSS_POOL_EXCHANGE_MIN_VALUE + referrerValue) + currentExtraValue,
                                 flag: i == maxNestedNodesIdx ? MsgFlag.ALL_NOT_RESERVED : MsgFlag.SENDER_PAYS_FEES
                             }(
@@ -1095,14 +1095,14 @@ contract DexPair is PairBase, INextExchangeData {
                         bool isLastStep = nextSteps.length == 0;
 
                         if (!isLastStep) {
-                            IDexPairOperationCallback(_senderAddress).dexPairOperationCancelled{
+                            IPairOperationCallback(_senderAddress).dexPairOperationCancelled{
                                 value: Constants.OPERATION_CALLBACK_BASE + 44,
                                 flag: MsgFlag.SENDER_PAYS_FEES + MsgFlag.IGNORE_ERRORS,
                                 bounce: false
                             }(_id);
 
                             if (_recipient != _senderAddress) {
-                                IDexPairOperationCallback(_recipient).dexPairOperationCancelled{
+                                IPairOperationCallback(_recipient).dexPairOperationCancelled{
                                     value: Constants.OPERATION_CALLBACK_BASE,
                                     flag: MsgFlag.SENDER_PAYS_FEES + MsgFlag.IGNORE_ERRORS,
                                     bounce: false
@@ -1110,7 +1110,7 @@ contract DexPair is PairBase, INextExchangeData {
                             }
                         }
                         // Transfer final token to recipient in the case of success or to sender otherwise
-                        IDexTokenVault(_expectedTokenVaultAddress(_tokenRoots()[receiveTokenIndex]))
+                        ITokenVault(_expectedTokenVaultAddress(_tokenRoots()[receiveTokenIndex]))
                             .transfer{ value: 0, flag: MsgFlag.ALL_NOT_RESERVED }
                             (
                                 amount,
@@ -1130,7 +1130,7 @@ contract DexPair is PairBase, INextExchangeData {
 
             if (errorCode != 0) {
                 // Send callback about failed cross-pool exchange to user
-                IDexPairOperationCallback(_senderAddress)
+                IPairOperationCallback(_senderAddress)
                     .dexPairOperationCancelled{
                         value: Constants.OPERATION_CALLBACK_BASE + 44,
                         flag: MsgFlag.SENDER_PAYS_FEES + MsgFlag.IGNORE_ERRORS,
@@ -1138,7 +1138,7 @@ contract DexPair is PairBase, INextExchangeData {
                     }(_id);
 
                 if (_recipient != _senderAddress) {
-                    IDexPairOperationCallback(_recipient)
+                    IPairOperationCallback(_recipient)
                         .dexPairOperationCancelled{
                             value: Constants.OPERATION_CALLBACK_BASE,
                             flag: MsgFlag.SENDER_PAYS_FEES + MsgFlag.IGNORE_ERRORS,
@@ -1147,7 +1147,7 @@ contract DexPair is PairBase, INextExchangeData {
                 }
 
                 // Refund incoming token to sender
-                IDexTokenVault(_expectedTokenVaultAddress(_spentTokenRoot))
+                ITokenVault(_expectedTokenVaultAddress(_spentTokenRoot))
                     .transfer{ value: 0, flag: MsgFlag.ALL_NOT_RESERVED }
                     (
                         _spentAmount,
@@ -1285,7 +1285,7 @@ contract DexPair is PairBase, INextExchangeData {
                                 empty
                             );
 
-                        IDexTokenVault(_expectedTokenVaultAddress(_tokenRoots()[receiveTokenIndex]))
+                        ITokenVault(_expectedTokenVaultAddress(_tokenRoots()[receiveTokenIndex]))
                             .transfer{ value: 0, flag: MsgFlag.ALL_NOT_RESERVED }
                             (
                                 amount,
@@ -1481,7 +1481,7 @@ contract DexPair is PairBase, INextExchangeData {
                             uint128 nextPoolAmount = uint128(math.muldiv(amount, nextStep.numerator, denominator));
                             uint128 currentExtraValue = math.muldiv(uint128(nextStep.leaves), extraValue, uint128(allLeaves));
 
-                            IDexBasePool(nextStep.poolRoot).crossPoolExchange{
+                            IBasePool(nextStep.poolRoot).crossPoolExchange{
                                 value: i == maxNestedNodesIdx ? 0 : (nextStep.nestedNodes + 1) * (Constants.CROSS_POOL_EXCHANGE_MIN_VALUE + referrerValue) + currentExtraValue,
                                 flag: i == maxNestedNodesIdx ? MsgFlag.ALL_NOT_RESERVED : MsgFlag.SENDER_PAYS_FEES
                             }(
@@ -1549,7 +1549,7 @@ contract DexPair is PairBase, INextExchangeData {
 
         if (errorCode != 0) {
             // Send callback about failed operation to user
-            IDexPairOperationCallback(_senderAddress)
+            IPairOperationCallback(_senderAddress)
                 .dexPairOperationCancelled{
                     value: Constants.OPERATION_CALLBACK_BASE,
                     flag: MsgFlag.SENDER_PAYS_FEES + MsgFlag.IGNORE_ERRORS,
@@ -1557,7 +1557,7 @@ contract DexPair is PairBase, INextExchangeData {
                 }(id);
 
             if (recipient != _senderAddress) {
-                IDexPairOperationCallback(recipient)
+                IPairOperationCallback(recipient)
                     .dexPairOperationCancelled{
                         value: Constants.OPERATION_CALLBACK_BASE,
                         flag: MsgFlag.SENDER_PAYS_FEES + MsgFlag.IGNORE_ERRORS,

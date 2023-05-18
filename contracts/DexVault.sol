@@ -10,15 +10,15 @@ import "tip3/contracts/interfaces/ITokenWallet.tsol";
 
 import "./abstract/ContractBase.sol";
 
-import "./interfaces/IDexVault.sol";
-import "./interfaces/IDexAccount.sol";
+import "./interfaces/IVault.sol";
+import "./interfaces/IAccount.sol";
 import "./interfaces/IReferralProgramCallbacks.sol";
 
 import "./libraries/Errors.sol";
 import "./libraries/Constants.sol";
 import "./libraries/OperationTypes.sol";
 
-contract DexVault is ContractBase, IDexVault {
+contract DexVault is ContractBase, IVault {
     uint32 private static _nonce;
 
     address private _root;

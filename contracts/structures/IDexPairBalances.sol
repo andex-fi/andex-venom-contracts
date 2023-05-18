@@ -2,7 +2,7 @@ pragma ever-solidity >= 0.62.0;
 
 /// @title DEX Pair Balances Interface
 /// @notice Structure for packed pair's reserves
-interface IDexPairBalances {
+interface IPairBalances {
     /// @dev Packed reserves of the pair
     struct DexPairBalances {
         uint128 lp_supply;

@@ -5,7 +5,7 @@ import "../structures/IOperation.sol";
 
 import "./ISuccessCallback.sol";
 
-interface IDexAccount is
+interface IAccount is
     ISuccessCallback,
     IOperation,
     IWithdrawalParams

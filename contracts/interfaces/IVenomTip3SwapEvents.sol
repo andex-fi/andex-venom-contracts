@@ -1,6 +1,6 @@
 pragma ever-solidity >= 0.62.0;
 
-interface IEverTip3SwapEvents {
+interface IVenomTip3SwapEvents {
 
     event SwapEverToTip3Start(
         address pair,

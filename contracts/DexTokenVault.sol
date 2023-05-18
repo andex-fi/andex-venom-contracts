@@ -11,11 +11,11 @@ import "tip3/contracts/interfaces/ITokenWallet.tsol";
 
 import "./abstract/ContractBase.sol";
 
-import "./interfaces/IDexAccount.sol";
-import "./interfaces/IDexBasePool.sol";
+import "./interfaces/IAccount.sol";
+import "./interfaces/IBasePool.sol";
 import "./interfaces/IDexRoot.sol";
-import "./interfaces/IDexTokenVault.sol";
-import "./interfaces/IDexPairOperationCallback.sol";
+import "./interfaces/ITokenVault.sol";
+import "./interfaces/IPairOperationCallback.sol";
 
 import "./libraries/Errors.sol";
 import "./libraries/Constants.sol";
@@ -23,7 +23,7 @@ import "./libraries/OperationTypes.sol";
 import "./libraries/PairPayload.sol";
 import "./libraries/DirectOperationErrors.sol";
 
-contract DexTokenVault is ContractBase, IDexTokenVault {
+contract DexTokenVault is ContractBase, ITokenVault {
     address private _root;
     address private _vault;
     uint32 private _version;
@@ -208,7 +208,7 @@ contract DexTokenVault is ContractBase, IDexTokenVault {
                 empty
             );
 
-        IDexAccount(msg.sender)
+        IAccount(msg.sender)
             .successCallback{
                 value: 0,
                 flag: MsgFlag.ALL_NOT_RESERVED,
@@ -618,7 +618,7 @@ contract DexTokenVault is ContractBase, IDexTokenVault {
                 uint128 nextPoolAmount = uint128(math.muldiv(_amount, nextStep.numerator, denominator));
                 uint128 currentExtraValue = math.muldiv(uint128(nextStep.leaves), extraValue, uint128(allLeaves));
 
-                IDexBasePool(nextStep.poolRoot)
+                IBasePool(nextStep.poolRoot)
                     .crossPoolExchange{
                         value: i == maxNestedNodesIdx ? 0 : (nextStep.nestedNodes + 1) * Constants.CROSS_POOL_EXCHANGE_MIN_VALUE + currentExtraValue,
                         flag: i == maxNestedNodesIdx ? MsgFlag.ALL_NOT_RESERVED : MsgFlag.SENDER_PAYS_FEES
@@ -658,7 +658,7 @@ contract DexTokenVault is ContractBase, IDexTokenVault {
                     recipient: recipient
                 });
             } else {
-                IDexPairOperationCallback(senderAddress)
+                IPairOperationCallback(senderAddress)
                     .dexPairOperationCancelled{
                         value: Constants.OPERATION_CALLBACK_BASE + 44,
                         flag: MsgFlag.SENDER_PAYS_FEES + MsgFlag.IGNORE_ERRORS,
@@ -666,7 +666,7 @@ contract DexTokenVault is ContractBase, IDexTokenVault {
                     }(id);
 
                 if (recipient != senderAddress) {
-                    IDexPairOperationCallback(recipient)
+                    IPairOperationCallback(recipient)
                         .dexPairOperationCancelled{
                             value: Constants.OPERATION_CALLBACK_BASE,
                             flag: MsgFlag.SENDER_PAYS_FEES + MsgFlag.IGNORE_ERRORS,
