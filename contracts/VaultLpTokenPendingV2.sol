@@ -18,7 +18,7 @@ contract VaultLpTokenPendingV2 is
     ITokenRootDeployedCallback,
     ITransferTokenRootOwnershipCallback
 {
-    string LP_TOKEN_SYMBOL_PREFIX = "FlatQube-LP-";
+    string LP_TOKEN_SYMBOL_PREFIX = "Andex-LP-";
     string LP_TOKEN_SYMBOL_SEPARATOR = "-";
     uint8 LP_TOKEN_DECIMALS = 9;
 
