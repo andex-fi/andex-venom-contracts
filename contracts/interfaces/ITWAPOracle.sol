@@ -1,4 +1,4 @@
-pragma ever-solidity >= 0.57.1;
+pragma ever-solidity >= 0.62.0;
 
 import "./IOracle.sol";
 import "../structures/IRate.sol";

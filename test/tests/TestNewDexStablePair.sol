@@ -108,8 +108,8 @@ contract TestNewDexStablePair is
         return { value: 0, bounce: false, flag: MsgFlag.REMAINING_GAS } active;
     }
 
-    function getBalances() external view responsible returns (DexPairBalances) {
-        return { value: 0, bounce: false, flag: MsgFlag.REMAINING_GAS } DexPairBalances(
+    function getBalances() external view responsible returns (PairBalances) {
+        return { value: 0, bounce: false, flag: MsgFlag.REMAINING_GAS } PairBalances(
             lp_supply,
             tokenData[0].balance,
             tokenData[1].balance

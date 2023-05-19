@@ -74,7 +74,7 @@ contract DexVault is ContractBase, IVault {
 
         address _tokenRoot = _vaultWalletsToRoots.at(msg.sender);
 
-        IDexRoot(_dexRoot()).deployTokenVault{
+        IRoot(_dexRoot()).deployTokenVault{
             value: Constants.DEPLOY_VAULT_MIN_VALUE + 0.05 ever,
             flag: MsgFlag.SENDER_PAYS_FEES
         }(_tokenRoot, _owner);

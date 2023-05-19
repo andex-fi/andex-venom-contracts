@@ -4,7 +4,7 @@ import "tip3/contracts/interfaces/ITokenRoot.tsol";
 
 import "../interfaces/IConstantProductPair.sol";
 import "../interfaces/IAccount.sol";
-import "../interfaces/IDexRoot.sol";
+import "../interfaces/IRoot.sol";
 import "../interfaces/ITokenVault.sol";
 
 import "../libraries/PoolTypes.sol";
@@ -218,12 +218,12 @@ abstract contract PairBase is
     }
 
     // return current pair's reserves
-    function getBalances() override external view responsible returns (DexPairBalances) {
+    function getBalances() override external view responsible returns (PairBalances) {
         return {
             value: 0,
             bounce: false,
             flag: MsgFlag.REMAINING_GAS
-        } DexPairBalances(
+        } PairBalances(
             _typeToReserves[ReserveType.LP][0],
             _typeToReserves[ReserveType.POOL][0],
             _typeToReserves[ReserveType.POOL][1]
@@ -364,7 +364,7 @@ abstract contract PairBase is
         _configureTokenRootWallets(_typeToRootAddresses[AddressType.RESERVE][1]);
 
         // Notify root that pair was created
-        IDexRoot(_root)
+        IRoot(_root)
             .onPoolCreated{ value: 0, flag: MsgFlag.ALL_NOT_RESERVED }
             (
                 _tokenRoots(),
@@ -609,7 +609,7 @@ abstract contract PairBase is
             _fee = FeeParams(1000000, 3000, 0, 0, address(0), emptyMap, emptyMap);
 
             // Deploy LP TokenRoot and vault for each token
-            IDexRoot(_root)
+            IRoot(_root)
                 .deployLpToken{
                     value: 0,
                     flag: MsgFlag.ALL_NOT_RESERVED,

@@ -13,7 +13,7 @@ import "./abstract/ContractBase.sol";
 
 import "./interfaces/IAccount.sol";
 import "./interfaces/IBasePool.sol";
-import "./interfaces/IDexRoot.sol";
+import "./interfaces/IRoot.sol";
 import "./interfaces/ITokenVault.sol";
 import "./interfaces/IPairOperationCallback.sol";
 
@@ -705,7 +705,7 @@ contract DexTokenVault is ContractBase, ITokenVault {
 
                 emit TokenWalletSet(_wallet);
 
-                IDexRoot(_root)
+                IRoot(_root)
                     .onTokenVaultDeployed{
                         value: 0,
                         flag: MsgFlag.ALL_NOT_RESERVED,

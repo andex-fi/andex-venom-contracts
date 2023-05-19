@@ -1,11 +1,11 @@
 pragma ever-solidity >= 0.62.0;
 
 import "./IBasePool.sol";
-import "../structures/IDexPoolBalances.sol";
+import "../structures/IPoolBalances.sol";
 import "../structures/IDepositLiquidityResultV2.sol";
 import "../structures/IWithdrawResultV2.sol";
 
-interface INPool is IBasePool, IDexPoolBalances, IDepositLiquidityResultV2, IWithdrawResultV2 {
+interface INPool is IBasePool, IPoolBalances, IDepositLiquidityResultV2, IWithdrawResultV2 {
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////
     // EVENTS
@@ -56,8 +56,8 @@ interface INPool is IBasePool, IDexPoolBalances, IDepositLiquidityResultV2, IWit
     );
 
     /// @notice Get pool's reserves
-    /// @return DexPoolBalances Current reserves of the pool
-    function getBalances() external view responsible returns (DexPoolBalances);
+    /// @return PoolBalances Current reserves of the pool
+    function getBalances() external view responsible returns (PoolBalances);
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////
     // DEPOSIT LIQUIDITY

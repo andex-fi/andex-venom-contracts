@@ -10,7 +10,7 @@ import "tip3/contracts/interfaces/ITokenWallet.tsol";
 import "tip3/contracts/interfaces/IAcceptTokensTransferCallback.tsol";
 
 import "./interfaces/IUpgradableByRequest.sol";
-import "./interfaces/IDexRoot.sol";
+import "./interfaces/IRoot.sol";
 import "./interfaces/IAccount.sol";
 import "./interfaces/IBasePool.sol";
 import "./interfaces/ITokenVault.sol";
@@ -839,7 +839,7 @@ contract DexAccount is
 
         emit CodeUpgradeRequested();
 
-        IDexRoot(_root)
+        IRoot(_root)
             .requestUpgradeAccount{ value: 0, flag: MsgFlag.ALL_NOT_RESERVED }
             (_currentVersion, _owner, send_gas_to);
     }

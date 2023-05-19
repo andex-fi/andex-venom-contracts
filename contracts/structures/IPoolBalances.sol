@@ -2,9 +2,9 @@ pragma ever-solidity >= 0.62.0;
 
 /// @title DEX Pool Balances Interface
 /// @notice Structure for packed pool's reserves
-interface IDexPoolBalances {
+interface IPoolBalances {
     /// @dev Packed reserves of the pool
-    struct DexPoolBalances {
+    struct PoolBalances {
         uint128[] balances;
         uint128 lp_supply;
     }

@@ -36,8 +36,8 @@ interface IPair is IPairBalances, IBasePool {
     );
 
     /// @notice Get pair's reserves
-    /// @return DexPairBalances Current reserves of the pair
-    function getBalances() external view responsible returns (DexPairBalances);
+    /// @return PairBalances Current reserves of the pair
+    function getBalances() external view responsible returns (PairBalances);
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////
     // SWAP

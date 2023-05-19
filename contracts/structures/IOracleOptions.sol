@@ -1,4 +1,4 @@
-pragma ever-solidity >= 0.57.1;
+pragma ever-solidity >= 0.62.0;
 
 /// @title Oracle Options Interface
 /// @notice Structure for packed oracle's options

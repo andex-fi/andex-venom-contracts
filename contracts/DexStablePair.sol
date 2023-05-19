@@ -22,7 +22,7 @@ import "./libraries/ReserveType.sol";
 import "./libraries/DirectOperationErrors.sol";
 
 import "./interfaces/IUpgradableByRequest.sol";
-import "./interfaces/IDexRoot.sol";
+import "./interfaces/IRoot.sol";
 import "./interfaces/IStablePair.sol";
 import "./interfaces/IBasePool.sol";
 import "./interfaces/ISuccessCallback.sol";
@@ -146,8 +146,8 @@ contract DexStablePair is
         return { value: 0, bounce: false, flag: MsgFlag.REMAINING_GAS } active;
     }
 
-    function getBalances() override external view responsible returns (DexPairBalances) {
-        return { value: 0, bounce: false, flag: MsgFlag.REMAINING_GAS } DexPairBalances(
+    function getBalances() override external view responsible returns (PairBalances) {
+        return { value: 0, bounce: false, flag: MsgFlag.REMAINING_GAS } PairBalances(
             lp_supply,
             tokenData[0].balance,
             tokenData[1].balance
@@ -1507,7 +1507,7 @@ contract DexStablePair is
             tokenData[0] = PoolTokenData(left_root, address(0), 0, 0, 0, 0, 0, false, false);
             tokenData[1] = PoolTokenData(right_root, address(0), 0, 0, 0, 0, 0, false, false);
 
-            IDexRoot(root)
+            IRoot(root)
                 .deployLpToken{
                     value: 0,
                     flag: MsgFlag.ALL_NOT_RESERVED
@@ -1683,7 +1683,7 @@ contract DexStablePair is
         _configureToken(tokenData[0].root);
         _configureToken(tokenData[1].root);
 
-        IDexRoot(root)
+        IRoot(root)
             .onPoolCreated{ value: 0, flag: MsgFlag.ALL_NOT_RESERVED }
             ([tokenData[0].root, tokenData[1].root], PoolTypes.STABLESWAP, send_gas_to);
     }

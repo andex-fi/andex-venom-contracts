@@ -9,7 +9,7 @@ pragma AbiHeader pubkey;
 import "./abstract/ContractBase.sol";
 
 import "./interfaces/IUpgradableByRequest.sol";
-import "./interfaces/IDexRoot.sol";
+import "./interfaces/IRoot.sol";
 import "./interfaces/IBasePool.sol";
 import "./interfaces/IStablePair.sol";
 import "./interfaces/IConstantProductPair.sol";
@@ -25,7 +25,7 @@ import "./libraries/MsgFlag.sol";
 
 import "./DexPlatform.sol";
 
-contract DexRoot is ContractBase, IDexRoot {
+contract DexRoot is ContractBase, IRoot {
     ///////////////////////////////////////////////////////////////////////////////////////////////////////
     // DATA
     uint32 static _nonce;
@@ -836,7 +836,7 @@ contract DexRoot is ContractBase, IDexRoot {
         }
 
         if (takeUntil < length) {
-            IDexRoot(address(this))
+            IRoot(address(this))
                 .upgradeTokenVaults{
                     value: 0,
                     flag: MsgFlag.ALL_NOT_RESERVED,
@@ -961,7 +961,7 @@ contract DexRoot is ContractBase, IDexRoot {
         }
 
         if (takeUntil < length) {
-            IDexRoot(address(this))
+            IRoot(address(this))
                 .upgradeAccounts{
                     value: 0,
                     flag: MsgFlag.ALL_NOT_RESERVED,
@@ -1070,7 +1070,7 @@ contract DexRoot is ContractBase, IDexRoot {
         }
 
         if (takeUntil < length) {
-            IDexRoot(address(this))
+            IRoot(address(this))
                 .upgradePairs{
                     value: 0,
                     flag: MsgFlag.ALL_NOT_RESERVED,
@@ -1146,7 +1146,7 @@ contract DexRoot is ContractBase, IDexRoot {
         }
 
         if (takeUntil < length) {
-            IDexRoot(address(this))
+            IRoot(address(this))
                 .setPoolsActive{
                     value: 0,
                     flag: MsgFlag.ALL_NOT_RESERVED,

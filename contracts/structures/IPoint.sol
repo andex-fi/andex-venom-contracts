@@ -1,4 +1,4 @@
-pragma ever-solidity >= 0.57.1;
+pragma ever-solidity >= 0.62.0;
 
 /// @title Point Interface
 /// @notice Root structure for the point

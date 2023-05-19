@@ -1,4 +1,4 @@
-pragma ever-solidity >= 0.57.1;
+pragma ever-solidity >= 0.62.0;
 
 /// @title Rate Interface
 /// @notice Structure for packed rate info response

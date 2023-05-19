@@ -22,7 +22,7 @@ import "./libraries/PairPayload.sol";
 import "./libraries/DirectOperationErrors.sol";
 
 import "./interfaces/IUpgradableByRequest.sol";
-import "./interfaces/IDexRoot.sol";
+import "./interfaces/IRoot.sol";
 import "./interfaces/IBasePool.sol";
 import "./interfaces/ISuccessCallback.sol";
 import "./interfaces/IAccount.sol";
@@ -34,7 +34,7 @@ import "./structures/IExchangeResultV2.sol";
 import "./structures/IWithdrawResultV2.sol";
 import "./structures/ITokenOperationStructure.sol";
 import "./structures/IDepositLiquidityResultV2.sol";
-import "./structures/IDexPoolBalances.sol";
+import "./structures/IPoolBalances.sol";
 import "./structures/IPoolTokenData.sol";
 import "./structures/INextExchangeData.sol";
 
@@ -158,12 +158,12 @@ contract DexStablePool is
         return { value: 0, bounce: false, flag: MsgFlag.REMAINING_GAS } active;
     }
 
-    function getBalances() override external view responsible returns (DexPoolBalances) {
+    function getBalances() override external view responsible returns (PoolBalances) {
         uint128[] balances = new uint128[](0);
         for (uint8 i = 0; i < N_COINS; i++) {
             balances.push(tokenData[i].balance);
         }
-        return { value: 0, bounce: false, flag: MsgFlag.REMAINING_GAS } DexPoolBalances(
+        return { value: 0, bounce: false, flag: MsgFlag.REMAINING_GAS } PoolBalances(
             balances,
             lp_supply
         );
@@ -1811,7 +1811,7 @@ contract DexStablePool is
                 tokenData[i] = PoolTokenData(roots[i], address(0), 0, 0, 0, 0, 0, false, false);
             }
 
-            IDexRoot(root)
+            IRoot(root)
                 .deployLpToken{
                     value: 0,
                     flag: MsgFlag.ALL_NOT_RESERVED
@@ -2019,7 +2019,7 @@ contract DexStablePool is
             r.push(t.root);
         }
 
-        IDexRoot(root).onPoolCreated{ value: 0, flag: MsgFlag.ALL_NOT_RESERVED }(r, PoolTypes.STABLE_POOL, send_gas_to);
+        IRoot(root).onPoolCreated{ value: 0, flag: MsgFlag.ALL_NOT_RESERVED }(r, PoolTypes.STABLE_POOL, send_gas_to);
     }
 
     function liquidityTokenRootNotDeployed(address /*lp_root_*/, address send_gas_to) override external onlyRoot {

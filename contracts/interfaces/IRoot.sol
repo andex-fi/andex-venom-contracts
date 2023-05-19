@@ -7,7 +7,7 @@ import "../structures/IAmplificationCoefficient.sol";
 import "./IUpgradable.sol";
 import "./IResetGas.sol";
 
-interface IDexRoot is
+interface IRoot is
     IFeeParams,
     IOracleOptions,
     IAmplificationCoefficient,

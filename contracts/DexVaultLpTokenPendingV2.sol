@@ -9,7 +9,7 @@ import "tip3/contracts/structures/ICallbackParamsStructure.tsol";
 
 import "./interfaces/ITokenFactory.sol";
 import "./interfaces/ITokenRootDeployedCallback.sol";
-import "./interfaces/IDexRoot.sol";
+import "./interfaces/IRoot.sol";
 
 import "./libraries/Errors.sol";
 import "./libraries/Constants.sol";
@@ -130,7 +130,7 @@ contract DexVaultLpTokenPendingV2 is
         pending_messages--;
 
         if (oldOwner == address(this) && newOwner == pool) {
-            IDexRoot(root)
+            IRoot(root)
                 .onLiquidityTokenDeployed{
                     value: 0,
                     flag: MsgFlag.ALL_NOT_RESERVED + MsgFlag.DESTROY_IF_ZERO,
@@ -148,7 +148,7 @@ contract DexVaultLpTokenPendingV2 is
     }
 
     function _onLiquidityTokenNotDeployed() private inline view {
-        IDexRoot(root)
+        IRoot(root)
             .onLiquidityTokenNotDeployed{
                 value: 0,
                 flag: MsgFlag.ALL_NOT_RESERVED + MsgFlag.DESTROY_IF_ZERO,

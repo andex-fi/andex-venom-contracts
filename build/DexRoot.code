@@ -4848,7 +4848,7 @@ ROT
 PAIR
 OVER
 CALLREF {
-	CALL $_upgradePairInternal_d1342864_internal_macro$
+	CALL $_upgradePairInternal_3db96332_internal_macro$
 }
 .loc ../contracts/DexRoot.sol, 1018
 NEWC
@@ -5052,14 +5052,14 @@ LDMSGADDR
 ENDS
 .loc ../contracts/DexRoot.sol, 0
 CALLREF {
-	CALL $upgradePairs_83c7b1d4_internal_macro$
+	CALL $upgradePairs_3bc8c3f8_internal_macro$
 }
 IFREF {
 	CALL $upd_only_time_in_c4$
 }
 THROW 0
 
-.macro upgradePairs_83c7b1d4_internal_macro
+.macro upgradePairs_3bc8c3f8_internal_macro
 .loc ../contracts/DexRoot.sol, 1053
 PUSHINT 1000000000
 .loc ../contracts/DexRoot.sol, 60
@@ -5126,7 +5126,7 @@ PUSHCONT {
 	}
 	PUSH S4
 	CALLREF {
-		CALL $_upgradePairInternal_d1342864_internal_macro$
+		CALL $_upgradePairInternal_3db96332_internal_macro$
 	}
 	.loc ../contracts/DexRoot.sol, 1068
 	INC
@@ -5180,11 +5180,11 @@ SENDRAWMSG
 .loc ../contracts/DexRoot.sol, 0
 BLKDROP 3
 
-.globl	_upgradePairInternal_d1342864_internal
-.type	_upgradePairInternal_d1342864_internal, @function
-CALL $_upgradePairInternal_d1342864_internal_macro$
+.globl	_upgradePairInternal_3db96332_internal
+.type	_upgradePairInternal_3db96332_internal, @function
+CALL $_upgradePairInternal_3db96332_internal_macro$
 
-.macro _upgradePairInternal_d1342864_internal_macro
+.macro _upgradePairInternal_3db96332_internal_macro
 .loc ../contracts/DexRoot.sol, 1092
 OVER
 SECOND
@@ -5311,14 +5311,14 @@ LDMSGADDR
 ENDS
 .loc ../contracts/DexRoot.sol, 0
 CALLREF {
-	CALL $setPoolActive_d92db8e5_internal_macro$
+	CALL $setPoolActive_89a69aac_internal_macro$
 }
 IFREF {
 	CALL $upd_only_time_in_c4$
 }
 THROW 0
 
-.macro setPoolActive_d92db8e5_internal_macro
+.macro setPoolActive_89a69aac_internal_macro
 .loc ../contracts/DexRoot.sol, 1110
 PUSHINT 1000000000
 .loc ../contracts/DexRoot.sol, 60
@@ -5350,7 +5350,7 @@ THROWIFNOT 100
 .loc ../contracts/DexRoot.sol, 1120
 TUCK
 CALLREF {
-	CALL $_setPoolActiveInternal_f4b2921e_internal_macro$
+	CALL $_setPoolActiveInternal_7e8fd766_internal_macro$
 }
 .loc ../contracts/DexRoot.sol, 1122
 NEWC
@@ -5398,14 +5398,14 @@ LDMSGADDR
 ENDS
 .loc ../contracts/DexRoot.sol, 0
 CALLREF {
-	CALL $setPoolsActive_3464835f_internal_macro$
+	CALL $setPoolsActive_1df77c5a_internal_macro$
 }
 IFREF {
 	CALL $upd_only_time_in_c4$
 }
 THROW 0
 
-.macro setPoolsActive_3464835f_internal_macro
+.macro setPoolsActive_1df77c5a_internal_macro
 .loc ../contracts/DexRoot.sol, 1129
 PUSHINT 1000000000
 .loc ../contracts/DexRoot.sol, 60
@@ -5472,7 +5472,7 @@ PUSHCONT {
 	}
 	PUSH S4
 	CALLREF {
-		CALL $_setPoolActiveInternal_f4b2921e_internal_macro$
+		CALL $_setPoolActiveInternal_7e8fd766_internal_macro$
 	}
 	.loc ../contracts/DexRoot.sol, 1144
 	INC
@@ -5526,11 +5526,11 @@ SENDRAWMSG
 .loc ../contracts/DexRoot.sol, 0
 BLKDROP 3
 
-.globl	_setPoolActiveInternal_f4b2921e_internal
-.type	_setPoolActiveInternal_f4b2921e_internal, @function
-CALL $_setPoolActiveInternal_f4b2921e_internal_macro$
+.globl	_setPoolActiveInternal_7e8fd766_internal
+.type	_setPoolActiveInternal_7e8fd766_internal, @function
+CALL $_setPoolActiveInternal_7e8fd766_internal_macro$
 
-.macro _setPoolActiveInternal_f4b2921e_internal_macro
+.macro _setPoolActiveInternal_7e8fd766_internal_macro
 .loc ../contracts/DexRoot.sol, 1168
 OVER
 SECOND
