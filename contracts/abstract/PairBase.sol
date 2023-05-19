@@ -26,10 +26,10 @@ abstract contract PairBase is
     IConstantProductPair,
     TWAPOracle
 {
-    /// @dev DexRoot address
+    /// @dev Root address
     address private _root;
 
-    /// @dev DexRoot address
+    /// @dev Root address
     address private _vault;
 
     /// @dev Whether or not pair is active
@@ -172,7 +172,7 @@ abstract contract PairBase is
         } _currentVersion;
     }
 
-    // Return DexVault address
+    // Return Vault address
     function getVault() override external view responsible returns (address) {
         return {
             value: 0,
@@ -456,7 +456,7 @@ abstract contract PairBase is
     }
 
     /// @dev Returns DEX root address
-    /// @return address DexRoot address
+    /// @return address Root address
     function _dexRoot() override internal view returns (address) {
         return _root;
     }

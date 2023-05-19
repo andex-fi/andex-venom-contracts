@@ -6,8 +6,8 @@ pragma AbiHeader pubkey;
 
 import "../libraries/PlatformTypes.sol";
 
-import "../DexPlatform.sol";
-import "../DexVaultLpTokenPendingV2.sol";
+import "../Platform.sol";
+import "../VaultLpTokenPendingV2.sol";
 
 abstract contract ContractBase  {
     TvmCell public platform_code;
@@ -155,7 +155,7 @@ abstract contract ContractBase  {
         TvmCell _params
     ) internal view returns (TvmCell) {
         return tvm.buildStateInit({
-            contr: DexPlatform,
+            contr: Platform,
             varInit: {
                 root: _dexRoot(),
                 type_id: _typeId,
@@ -173,7 +173,7 @@ abstract contract ContractBase  {
         TvmCell _code
     ) internal pure returns (TvmCell) {
         return tvm.buildStateInit({
-            contr: DexVaultLpTokenPendingV2,
+            contr: VaultLpTokenPendingV2,
             varInit: {
                 _nonce: _nonce,
                 root: address(this),

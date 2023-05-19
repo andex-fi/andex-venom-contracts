@@ -42,7 +42,7 @@ interface ITokenVault is
         address referral
     );
 
-    function getDexRoot() external view responsible returns (address);
+    function getRoot() external view responsible returns (address);
 
     function getVersion() external view responsible returns (uint32);
 

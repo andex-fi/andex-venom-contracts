@@ -49,7 +49,7 @@ library VenomToTip3Payloads {
         return builder.toCell();
     }
 
-    struct EverToTip3ExchangeStep {
+    struct VenomToTip3ExchangeStep {
         uint128 amount;
         address pool;
         address outcoming;
@@ -65,7 +65,7 @@ library VenomToTip3Payloads {
         uint128 expectedAmount,
         address outcoming,
         uint32[] nextStepIndices,
-        EverToTip3ExchangeStep[] steps,
+        VenomToTip3ExchangeStep[] steps,
         uint128 amount,
         address referrer
     ) public returns (TvmCell) {
