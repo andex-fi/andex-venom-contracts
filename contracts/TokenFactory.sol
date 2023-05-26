@@ -33,7 +33,7 @@ contract TokenFactory is ITokenFactory, IUpgradable {
     }
 
     modifier onlyOwner {
-        require(msg.sender.value != 0 && msg.sender == owner_, TokenFactoryErrors.NOT_MY_OWNER);
+        require(msg.sender.value != 0 && msg.sender == owner_, TokenFactoryErrors.NOT_OWNER);
         _;
     }
 

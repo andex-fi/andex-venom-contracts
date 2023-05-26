@@ -7,7 +7,7 @@ pragma AbiHeader pubkey;
 import "../libraries/PlatformTypes.sol";
 
 import "../Platform.sol";
-import "../VaultLpTokenPendingV2.sol";
+import "../VaultLpTokenPending.sol";
 
 abstract contract ContractBase  {
     TvmCell public platform_code;
@@ -173,7 +173,7 @@ abstract contract ContractBase  {
         TvmCell _code
     ) internal pure returns (TvmCell) {
         return tvm.buildStateInit({
-            contr: VaultLpTokenPendingV2,
+            contr: VaultLpTokenPending,
             varInit: {
                 _nonce: _nonce,
                 root: address(this),

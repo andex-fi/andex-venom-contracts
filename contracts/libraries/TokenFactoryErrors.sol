@@ -2,7 +2,7 @@ pragma ever-solidity >= 0.62.0;
 
 library TokenFactoryErrors {
 
-    uint8 constant NOT_MY_OWNER       = 100;
+    uint8 constant NOT_OWNER       = 100;
     uint8 constant NOT_PENDING_OWNER  = 101;
     uint8 constant NOT_MY_STORAGE     = 102;
     uint8 constant IMAGE_ALREADY_SET  = 103;

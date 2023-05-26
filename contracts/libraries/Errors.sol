@@ -3,7 +3,7 @@ pragma ever-solidity >= 0.62.0;
 library Errors {
     uint16 constant TODO = 777;
 
-    uint16 constant NOT_MY_OWNER                     = 100;
+    uint16 constant NOT_OWNER                        = 100;
     uint16 constant NOT_ROOT                         = 101;
     uint16 constant NOT_PENDING_OWNER                = 102;
     uint16 constant VALUE_TOO_LOW                    = 103;

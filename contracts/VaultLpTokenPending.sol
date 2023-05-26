@@ -14,7 +14,7 @@ import "./interfaces/IRoot.sol";
 import "./libraries/Errors.sol";
 import "./libraries/Constants.sol";
 
-contract VaultLpTokenPendingV2 is
+contract VaultLpTokenPending is
     ITokenRootDeployedCallback,
     ITransferTokenRootOwnershipCallback
 {
@@ -82,7 +82,7 @@ contract VaultLpTokenPendingV2 is
     }
 
     function terminate() public view {
-        require(msg.sender == send_gas_to, Errors.NOT_MY_OWNER);
+        require(msg.sender == send_gas_to, Errors.NOT_OWNER);
         tvm.accept();
         _onLiquidityTokenNotDeployed();
     }

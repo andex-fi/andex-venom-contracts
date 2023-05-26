@@ -129,7 +129,7 @@ contract Vault is ContractBase, IVault {
     //migration END
 
     modifier onlyOwner() {
-        require(msg.sender == _owner, Errors.NOT_MY_OWNER);
+        require(msg.sender == _owner, Errors.NOT_OWNER);
         _;
     }
 
@@ -137,7 +137,7 @@ contract Vault is ContractBase, IVault {
         require(
             msg.sender.value != 0 &&
             (msg.sender == _owner || msg.sender == _manager),
-            Errors.NOT_MY_OWNER
+            Errors.NOT_OWNER
         );
         _;
     }

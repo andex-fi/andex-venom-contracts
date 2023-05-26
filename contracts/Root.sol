@@ -4,8 +4,6 @@ pragma AbiHeader time;
 pragma AbiHeader expire;
 pragma AbiHeader pubkey;
 
-
-
 import "./abstract/ContractBase.sol";
 
 import "./interfaces/IUpgradableByRequest.sol";
@@ -71,7 +69,7 @@ contract Root is ContractBase, IRoot {
         require(
             msg.sender.value != 0 &&
             (msg.sender == _owner || msg.sender == _manager),
-            Errors.NOT_MY_OWNER
+            Errors.NOT_OWNER
         );
         _;
     }
@@ -80,7 +78,7 @@ contract Root is ContractBase, IRoot {
         require(
             msg.sender.value != 0 &&
             (msg.sender == _owner || msg.sender == _manager || msg.sender == address(this)),
-            Errors.NOT_MY_OWNER
+            Errors.NOT_OWNER
         );
         _;
     }
@@ -91,7 +89,7 @@ contract Root is ContractBase, IRoot {
     }
 
     modifier onlyOwner() {
-        require(_owner.value != 0 && msg.sender == _owner, Errors.NOT_MY_OWNER);
+        require(_owner.value != 0 && msg.sender == _owner, Errors.NOT_OWNER);
         _;
     }
 
@@ -732,7 +730,7 @@ contract Root is ContractBase, IRoot {
             _lpTokenPendingCode
         );
 
-        new VaultLpTokenPendingV2{
+        new VaultLpTokenPending{
             stateInit: data,
             value: 0,
             flag: MsgFlag.ALL_NOT_RESERVED,

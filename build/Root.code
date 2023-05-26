@@ -22,18 +22,18 @@ ENDS
 CTOS
 LDMSGADDR
 ENDS
-.loc ../contracts/Root.sol, 99
+.loc ../contracts/Root.sol, 97
 PUSHINT 1000000000
 PUSHINT 0
 RAWRESERVE
-.loc ../contracts/Root.sol, 100
+.loc ../contracts/Root.sol, 98
 ACCEPT
-.loc ../contracts/Root.sol, 102
+.loc ../contracts/Root.sol, 100
 SWAP
 SETGLOB 24
-.loc ../contracts/Root.sol, 103
+.loc ../contracts/Root.sol, 101
 SETGLOB 25
-.loc ../contracts/Root.sol, 105
+.loc ../contracts/Root.sol, 103
 GETGLOB 24
 NEWC
 STSLICECONST x62_
@@ -54,7 +54,7 @@ THROW 0
 CALL $_dexRoot_8347403b_internal_macro$
 
 .macro _dexRoot_8347403b_internal_macro
-.loc ../contracts/Root.sol, 112
+.loc ../contracts/Root.sol, 110
 MYADDR
 .loc ../contracts/Root.sol, 0
 
@@ -67,7 +67,7 @@ ISNULL
 IFREF {
 	CALL $c4_to_c7$
 }
-.loc ../contracts/Root.sol, 118
+.loc ../contracts/Root.sol, 116
 LDU 32
 GETGLOB 4
 ROT
@@ -130,7 +130,7 @@ IFREF {
 THROW 0
 
 .macro getAccountVersion_3bcafeaf_internal_macro
-.loc ../contracts/Root.sol, 123
+.loc ../contracts/Root.sol, 121
 GETGLOB 4
 PUSHINT 0
 SETINDEXQ 2
@@ -151,7 +151,7 @@ ISNULL
 IFREF {
 	CALL $c4_to_c7$
 }
-.loc ../contracts/Root.sol, 126
+.loc ../contracts/Root.sol, 124
 LDU 32
 GETGLOB 4
 ROT
@@ -214,7 +214,7 @@ IFREF {
 THROW 0
 
 .macro getAccountCode_9ec0a521_internal_macro
-.loc ../contracts/Root.sol, 131
+.loc ../contracts/Root.sol, 129
 GETGLOB 4
 PUSHINT 0
 SETINDEXQ 2
@@ -235,7 +235,7 @@ ISNULL
 IFREF {
 	CALL $c4_to_c7$
 }
-.loc ../contracts/Root.sol, 134
+.loc ../contracts/Root.sol, 132
 LDU 32
 GETGLOB 4
 ROT
@@ -299,7 +299,7 @@ IFREF {
 THROW 0
 
 .macro getPairVersion_638875e0_internal_macro
-.loc ../contracts/Root.sol, 135
+.loc ../contracts/Root.sol, 133
 DUP
 GETGLOB 15
 PUSHINT 8
@@ -307,7 +307,7 @@ DICTUGET
 NULLSWAPIFNOT
 NIP
 THROWIFNOT 133
-.loc ../contracts/Root.sol, 141
+.loc ../contracts/Root.sol, 139
 GETGLOB 4
 PUSHINT 0
 SETINDEXQ 2
@@ -335,7 +335,7 @@ ISNULL
 IFREF {
 	CALL $c4_to_c7$
 }
-.loc ../contracts/Root.sol, 144
+.loc ../contracts/Root.sol, 142
 LDU 32
 GETGLOB 4
 ROT
@@ -399,7 +399,7 @@ IFREF {
 THROW 0
 
 .macro getPoolVersion_98c36aef_internal_macro
-.loc ../contracts/Root.sol, 145
+.loc ../contracts/Root.sol, 143
 DUP
 GETGLOB 17
 PUSHINT 8
@@ -407,7 +407,7 @@ DICTUGET
 NULLSWAPIFNOT
 NIP
 THROWIFNOT 133
-.loc ../contracts/Root.sol, 151
+.loc ../contracts/Root.sol, 149
 GETGLOB 4
 PUSHINT 0
 SETINDEXQ 2
@@ -435,7 +435,7 @@ ISNULL
 IFREF {
 	CALL $c4_to_c7$
 }
-.loc ../contracts/Root.sol, 154
+.loc ../contracts/Root.sol, 152
 LDU 32
 GETGLOB 4
 ROT
@@ -499,7 +499,7 @@ IFREF {
 THROW 0
 
 .macro getPairCode_bbcf2a7e_internal_macro
-.loc ../contracts/Root.sol, 155
+.loc ../contracts/Root.sol, 153
 DUP
 GETGLOB 14
 PUSHINT 8
@@ -507,7 +507,7 @@ DICTUGET
 NULLSWAPIFNOT
 NIP
 THROWIFNOT 133
-.loc ../contracts/Root.sol, 161
+.loc ../contracts/Root.sol, 159
 GETGLOB 4
 PUSHINT 0
 SETINDEXQ 2
@@ -535,7 +535,7 @@ ISNULL
 IFREF {
 	CALL $c4_to_c7$
 }
-.loc ../contracts/Root.sol, 164
+.loc ../contracts/Root.sol, 162
 LDU 32
 GETGLOB 4
 ROT
@@ -599,7 +599,7 @@ IFREF {
 THROW 0
 
 .macro getPoolCode_8514ebc9_internal_macro
-.loc ../contracts/Root.sol, 165
+.loc ../contracts/Root.sol, 163
 DUP
 GETGLOB 16
 PUSHINT 8
@@ -607,7 +607,7 @@ DICTUGET
 NULLSWAPIFNOT
 NIP
 THROWIFNOT 133
-.loc ../contracts/Root.sol, 171
+.loc ../contracts/Root.sol, 169
 GETGLOB 4
 PUSHINT 0
 SETINDEXQ 2
@@ -635,7 +635,7 @@ ISNULL
 IFREF {
 	CALL $c4_to_c7$
 }
-.loc ../contracts/Root.sol, 174
+.loc ../contracts/Root.sol, 172
 LDU 32
 GETGLOB 4
 ROT
@@ -705,7 +705,7 @@ IFREF {
 THROW 0
 
 .macro getVault_8d928af8_internal_macro
-.loc ../contracts/Root.sol, 179
+.loc ../contracts/Root.sol, 177
 GETGLOB 4
 PUSHINT 0
 SETINDEXQ 2
@@ -726,7 +726,7 @@ ISNULL
 IFREF {
 	CALL $c4_to_c7$
 }
-.loc ../contracts/Root.sol, 182
+.loc ../contracts/Root.sol, 180
 LDU 32
 GETGLOB 4
 ROT
@@ -789,7 +789,7 @@ IFREF {
 THROW 0
 
 .macro getTokenVaultCode_c29091f5_internal_macro
-.loc ../contracts/Root.sol, 187
+.loc ../contracts/Root.sol, 185
 GETGLOB 4
 PUSHINT 0
 SETINDEXQ 2
@@ -810,7 +810,7 @@ ISNULL
 IFREF {
 	CALL $c4_to_c7$
 }
-.loc ../contracts/Root.sol, 190
+.loc ../contracts/Root.sol, 188
 LDU 32
 GETGLOB 4
 ROT
@@ -873,7 +873,7 @@ IFREF {
 THROW 0
 
 .macro getTokenVaultVersion_88fe698c_internal_macro
-.loc ../contracts/Root.sol, 195
+.loc ../contracts/Root.sol, 193
 GETGLOB 4
 PUSHINT 0
 SETINDEXQ 2
@@ -894,7 +894,7 @@ ISNULL
 IFREF {
 	CALL $c4_to_c7$
 }
-.loc ../contracts/Root.sol, 198
+.loc ../contracts/Root.sol, 196
 LDU 32
 GETGLOB 4
 ROT
@@ -957,7 +957,7 @@ IFREF {
 THROW 0
 
 .macro getLpTokenPendingCode_5ea0c66e_internal_macro
-.loc ../contracts/Root.sol, 203
+.loc ../contracts/Root.sol, 201
 GETGLOB 4
 PUSHINT 0
 SETINDEXQ 2
@@ -978,7 +978,7 @@ ISNULL
 IFREF {
 	CALL $c4_to_c7$
 }
-.loc ../contracts/Root.sol, 206
+.loc ../contracts/Root.sol, 204
 LDU 32
 GETGLOB 4
 ROT
@@ -1041,7 +1041,7 @@ IFREF {
 THROW 0
 
 .macro getLpTokenPendingVersion_9efc8281_internal_macro
-.loc ../contracts/Root.sol, 211
+.loc ../contracts/Root.sol, 209
 GETGLOB 4
 PUSHINT 0
 SETINDEXQ 2
@@ -1062,7 +1062,7 @@ ISNULL
 IFREF {
 	CALL $c4_to_c7$
 }
-.loc ../contracts/Root.sol, 214
+.loc ../contracts/Root.sol, 212
 LDU 32
 GETGLOB 4
 ROT
@@ -1132,7 +1132,7 @@ IFREF {
 THROW 0
 
 .macro getTokenFactory_925d6ba2_internal_macro
-.loc ../contracts/Root.sol, 219
+.loc ../contracts/Root.sol, 217
 GETGLOB 4
 PUSHINT 0
 SETINDEXQ 2
@@ -1153,7 +1153,7 @@ ISNULL
 IFREF {
 	CALL $c4_to_c7$
 }
-.loc ../contracts/Root.sol, 222
+.loc ../contracts/Root.sol, 220
 LDU 32
 GETGLOB 4
 ROT
@@ -1216,7 +1216,7 @@ IFREF {
 THROW 0
 
 .macro isActive_22f3e2d4_internal_macro
-.loc ../contracts/Root.sol, 227
+.loc ../contracts/Root.sol, 225
 GETGLOB 4
 PUSHINT 0
 SETINDEXQ 2
@@ -1237,7 +1237,7 @@ ISNULL
 IFREF {
 	CALL $c4_to_c7$
 }
-.loc ../contracts/Root.sol, 230
+.loc ../contracts/Root.sol, 228
 LDU 32
 GETGLOB 4
 ROT
@@ -1307,7 +1307,7 @@ IFREF {
 THROW 0
 
 .macro getOwner_893d20e8_internal_macro
-.loc ../contracts/Root.sol, 235
+.loc ../contracts/Root.sol, 233
 GETGLOB 4
 PUSHINT 0
 SETINDEXQ 2
@@ -1328,7 +1328,7 @@ ISNULL
 IFREF {
 	CALL $c4_to_c7$
 }
-.loc ../contracts/Root.sol, 238
+.loc ../contracts/Root.sol, 236
 LDU 32
 GETGLOB 4
 ROT
@@ -1398,7 +1398,7 @@ IFREF {
 THROW 0
 
 .macro getPendingOwner_93596c7b_internal_macro
-.loc ../contracts/Root.sol, 243
+.loc ../contracts/Root.sol, 241
 GETGLOB 4
 PUSHINT 0
 SETINDEXQ 2
@@ -1419,7 +1419,7 @@ ISNULL
 IFREF {
 	CALL $c4_to_c7$
 }
-.loc ../contracts/Root.sol, 246
+.loc ../contracts/Root.sol, 244
 LDU 32
 GETGLOB 4
 ROT
@@ -1497,7 +1497,7 @@ IFREF {
 THROW 0
 
 .macro getExpectedAccountAddress_3c6dbabd_internal_macro
-.loc ../contracts/Root.sol, 251
+.loc ../contracts/Root.sol, 249
 GETGLOB 4
 PUSHINT 0
 SETINDEXQ 2
@@ -1520,7 +1520,7 @@ ISNULL
 IFREF {
 	CALL $c4_to_c7$
 }
-.loc ../contracts/Root.sol, 254
+.loc ../contracts/Root.sol, 252
 LDU 32
 GETGLOB 4
 ROT
@@ -1602,7 +1602,7 @@ IFREF {
 THROW 0
 
 .macro getExpectedPairAddress_14d479d9_internal_macro
-.loc ../contracts/Root.sol, 262
+.loc ../contracts/Root.sol, 260
 GETGLOB 4
 PUSHINT 0
 SETINDEXQ 2
@@ -1640,7 +1640,7 @@ ISNULL
 IFREF {
 	CALL $c4_to_c7$
 }
-.loc ../contracts/Root.sol, 265
+.loc ../contracts/Root.sol, 263
 LDU 32
 GETGLOB 4
 ROT
@@ -1715,7 +1715,7 @@ IFREF {
 THROW 0
 
 .macro getExpectedPoolAddress_eeacf5e2_internal_macro
-.loc ../contracts/Root.sol, 270
+.loc ../contracts/Root.sol, 268
 GETGLOB 4
 PUSHINT 0
 SETINDEXQ 2
@@ -1738,7 +1738,7 @@ ISNULL
 IFREF {
 	CALL $c4_to_c7$
 }
-.loc ../contracts/Root.sol, 273
+.loc ../contracts/Root.sol, 271
 LDU 32
 GETGLOB 4
 ROT
@@ -1816,7 +1816,7 @@ IFREF {
 THROW 0
 
 .macro getExpectedTokenVaultAddress_e4590f92_internal_macro
-.loc ../contracts/Root.sol, 278
+.loc ../contracts/Root.sol, 276
 GETGLOB 4
 PUSHINT 0
 SETINDEXQ 2
@@ -1839,7 +1839,7 @@ ISNULL
 IFREF {
 	CALL $c4_to_c7$
 }
-.loc ../contracts/Root.sol, 281
+.loc ../contracts/Root.sol, 279
 LDU 32
 GETGLOB 4
 ROT
@@ -1909,7 +1909,7 @@ IFREF {
 THROW 0
 
 .macro getManager_d5009584_internal_macro
-.loc ../contracts/Root.sol, 286
+.loc ../contracts/Root.sol, 284
 GETGLOB 4
 PUSHINT 0
 SETINDEXQ 2
@@ -1930,7 +1930,7 @@ ISNULL
 IFREF {
 	CALL $c4_to_c7$
 }
-.loc ../contracts/Root.sol, 292
+.loc ../contracts/Root.sol, 290
 OVER
 PUSHCONT {
 	LDREF
@@ -1951,9 +1951,9 @@ CALLREF {
 THROW 0
 
 .macro setVaultOnce_45313084_internal_macro
-.loc ../contracts/Root.sol, 292
+.loc ../contracts/Root.sol, 290
 PUSHINT 1000000000
-.loc ../contracts/Root.sol, 60
+.loc ../contracts/Root.sol, 58
 GETPARAM 7
 FIRST
 DEPTH
@@ -1964,7 +1964,7 @@ UFITS 128
 MAX
 PUSHINT 0
 RAWRESERVE
-.loc ../contracts/Root.sol, 94
+.loc ../contracts/Root.sol, 92
 GETGLOB 24
 PARSEMSGADDR
 INDEX 3
@@ -1975,15 +1975,15 @@ GETGLOB 24
 SDEQ
 AND
 THROWIFNOT 100
-.loc ../contracts/Root.sol, 298
+.loc ../contracts/Root.sol, 296
 GETGLOB 25
 PARSEMSGADDR
 INDEX 3
 PLDU 256
 THROWIF 151
-.loc ../contracts/Root.sol, 300
+.loc ../contracts/Root.sol, 298
 SETGLOB 25
-.loc ../contracts/Root.sol, 302
+.loc ../contracts/Root.sol, 300
 GETGLOB 24
 NEWC
 STSLICECONST x42_
@@ -2006,7 +2006,7 @@ ISNULL
 IFREF {
 	CALL $c4_to_c7$
 }
-.loc ../contracts/Root.sol, 309
+.loc ../contracts/Root.sol, 307
 LDI 1
 ENDS
 .loc ../contracts/Root.sol, 0
@@ -2020,9 +2020,9 @@ CALLREF {
 THROW 0
 
 .macro setActive_acec338a_internal_macro
-.loc ../contracts/Root.sol, 309
+.loc ../contracts/Root.sol, 307
 PUSHINT 1000000000
-.loc ../contracts/Root.sol, 60
+.loc ../contracts/Root.sol, 58
 GETPARAM 7
 FIRST
 DEPTH
@@ -2033,7 +2033,7 @@ UFITS 128
 MAX
 PUSHINT 0
 RAWRESERVE
-.loc ../contracts/Root.sol, 94
+.loc ../contracts/Root.sol, 92
 GETGLOB 24
 PARSEMSGADDR
 INDEX 3
@@ -2044,7 +2044,7 @@ GETGLOB 24
 SDEQ
 AND
 THROWIFNOT 100
-.loc ../contracts/Root.sol, 315
+.loc ../contracts/Root.sol, 313
 DUP
 PUSHCONT {
 	DROP
@@ -2092,7 +2092,7 @@ FALSE
 CONDSEL
 DUP
 SETGLOB 23
-.loc ../contracts/Root.sol, 330
+.loc ../contracts/Root.sol, 328
 PUSHSLICE xc000000000000000000000000006f5aa9c
 NEWC
 STSLICE
@@ -2100,7 +2100,7 @@ STI 1
 ENDC
 PUSHINT 0
 SENDRAWMSG
-.loc ../contracts/Root.sol, 332
+.loc ../contracts/Root.sol, 330
 GETGLOB 24
 NEWC
 STSLICECONST x62_
@@ -2123,7 +2123,7 @@ ISNULL
 IFREF {
 	CALL $c4_to_c7$
 }
-.loc ../contracts/Root.sol, 338
+.loc ../contracts/Root.sol, 336
 OVER
 PUSHCONT {
 	LDREF
@@ -2144,9 +2144,9 @@ CALLREF {
 THROW 0
 
 .macro setManager_d0ebdbe7_internal_macro
-.loc ../contracts/Root.sol, 338
+.loc ../contracts/Root.sol, 336
 PUSHINT 1000000000
-.loc ../contracts/Root.sol, 60
+.loc ../contracts/Root.sol, 58
 GETPARAM 7
 FIRST
 DEPTH
@@ -2157,7 +2157,7 @@ UFITS 128
 MAX
 PUSHINT 0
 RAWRESERVE
-.loc ../contracts/Root.sol, 94
+.loc ../contracts/Root.sol, 92
 GETGLOB 24
 PARSEMSGADDR
 INDEX 3
@@ -2168,9 +2168,9 @@ GETGLOB 24
 SDEQ
 AND
 THROWIFNOT 100
-.loc ../contracts/Root.sol, 344
+.loc ../contracts/Root.sol, 342
 SETGLOB 27
-.loc ../contracts/Root.sol, 346
+.loc ../contracts/Root.sol, 344
 GETGLOB 9
 NEWC
 STSLICECONST x42_
@@ -2193,7 +2193,7 @@ ISNULL
 IFREF {
 	CALL $c4_to_c7$
 }
-.loc ../contracts/Root.sol, 353
+.loc ../contracts/Root.sol, 351
 ENDS
 .loc ../contracts/Root.sol, 0
 CALLREF {
@@ -2206,9 +2206,9 @@ CALLREF {
 THROW 0
 
 .macro revokeManager_df2678ff_internal_macro
-.loc ../contracts/Root.sol, 353
+.loc ../contracts/Root.sol, 351
 PUSHINT 1000000000
-.loc ../contracts/Root.sol, 60
+.loc ../contracts/Root.sol, 58
 GETPARAM 7
 FIRST
 DEPTH
@@ -2219,7 +2219,7 @@ UFITS 128
 MAX
 PUSHINT 0
 RAWRESERVE
-.loc ../contracts/Root.sol, 94
+.loc ../contracts/Root.sol, 92
 GETGLOB 24
 PARSEMSGADDR
 INDEX 3
@@ -2230,12 +2230,12 @@ GETGLOB 24
 SDEQ
 AND
 THROWIFNOT 100
-.loc ../contracts/Root.sol, 359
+.loc ../contracts/Root.sol, 357
 PUSHREFSLICE {
 	.blob x8000000000000000000000000000000000000000000000000000000000000000001_
 }
 SETGLOB 27
-.loc ../contracts/Root.sol, 361
+.loc ../contracts/Root.sol, 359
 GETGLOB 9
 NEWC
 STSLICECONST x42_
@@ -2258,7 +2258,7 @@ ISNULL
 IFREF {
 	CALL $c4_to_c7$
 }
-.loc ../contracts/Root.sol, 368
+.loc ../contracts/Root.sol, 366
 OVER
 PUSHCONT {
 	LDREF
@@ -2279,9 +2279,9 @@ CALLREF {
 THROW 0
 
 .macro transferOwner_4fb2e45d_internal_macro
-.loc ../contracts/Root.sol, 368
+.loc ../contracts/Root.sol, 366
 PUSHINT 1000000000
-.loc ../contracts/Root.sol, 60
+.loc ../contracts/Root.sol, 58
 GETPARAM 7
 FIRST
 DEPTH
@@ -2292,7 +2292,7 @@ UFITS 128
 MAX
 PUSHINT 0
 RAWRESERVE
-.loc ../contracts/Root.sol, 94
+.loc ../contracts/Root.sol, 92
 GETGLOB 24
 PARSEMSGADDR
 INDEX 3
@@ -2303,7 +2303,7 @@ GETGLOB 24
 SDEQ
 AND
 THROWIFNOT 100
-.loc ../contracts/Root.sol, 374
+.loc ../contracts/Root.sol, 372
 DUP
 GETGLOB 24
 PUSHREFSLICE {
@@ -2323,7 +2323,7 @@ STBREFR
 ENDC
 PUSHINT 0
 SENDRAWMSG
-.loc ../contracts/Root.sol, 376
+.loc ../contracts/Root.sol, 374
 SETGLOB 26
 .loc ../contracts/Root.sol, 0
 
@@ -2336,7 +2336,7 @@ ISNULL
 IFREF {
 	CALL $c4_to_c7$
 }
-.loc ../contracts/Root.sol, 379
+.loc ../contracts/Root.sol, 377
 ENDS
 .loc ../contracts/Root.sol, 0
 CALLREF {
@@ -2349,9 +2349,9 @@ CALLREF {
 THROW 0
 
 .macro acceptOwner_ebbc4965_internal_macro
-.loc ../contracts/Root.sol, 379
+.loc ../contracts/Root.sol, 377
 PUSHINT 1000000000
-.loc ../contracts/Root.sol, 60
+.loc ../contracts/Root.sol, 58
 GETPARAM 7
 FIRST
 DEPTH
@@ -2362,7 +2362,7 @@ UFITS 128
 MAX
 PUSHINT 0
 RAWRESERVE
-.loc ../contracts/Root.sol, 384
+.loc ../contracts/Root.sol, 382
 GETGLOB 9
 GETGLOB 26
 SDEQ
@@ -2377,7 +2377,7 @@ PUSHCONT {
 }
 IF
 THROWIFNOT 102
-.loc ../contracts/Root.sol, 390
+.loc ../contracts/Root.sol, 388
 GETGLOB 26
 GETGLOB 24
 PUSHREFSLICE {
@@ -2397,10 +2397,10 @@ STBREFR
 ENDC
 PUSHINT 0
 SENDRAWMSG
-.loc ../contracts/Root.sol, 392
+.loc ../contracts/Root.sol, 390
 GETGLOB 26
 SETGLOB 24
-.loc ../contracts/Root.sol, 393
+.loc ../contracts/Root.sol, 391
 PUSHREFSLICE {
 	.blob x8000000000000000000000000000000000000000000000000000000000000000001_
 }
@@ -2416,7 +2416,7 @@ ISNULL
 IFREF {
 	CALL $c4_to_c7$
 }
-.loc ../contracts/Root.sol, 396
+.loc ../contracts/Root.sol, 394
 OVER
 PUSHCONT {
 	LDREF
@@ -2441,9 +2441,9 @@ CALLREF {
 THROW 0
 
 .macro setTokenFactory_836d9889_internal_macro
-.loc ../contracts/Root.sol, 396
+.loc ../contracts/Root.sol, 394
 PUSHINT 1000000000
-.loc ../contracts/Root.sol, 60
+.loc ../contracts/Root.sol, 58
 GETPARAM 7
 FIRST
 DEPTH
@@ -2454,7 +2454,7 @@ UFITS 128
 MAX
 PUSHINT 0
 RAWRESERVE
-.loc ../contracts/Root.sol, 71
+.loc ../contracts/Root.sol, 69
 GETGLOB 9
 PARSEMSGADDR
 INDEX 3
@@ -2469,12 +2469,12 @@ SDEQ
 OR
 AND
 THROWIFNOT 100
-.loc ../contracts/Root.sol, 405
+.loc ../contracts/Root.sol, 403
 GETGLOB 22
-.loc ../contracts/Root.sol, 406
+.loc ../contracts/Root.sol, 404
 PUSH S2
 SETGLOB 22
-.loc ../contracts/Root.sol, 408
+.loc ../contracts/Root.sol, 406
 ROT
 PUSHREFSLICE {
 	.blob xc0000000000000000000000001
@@ -2493,7 +2493,7 @@ STBREFR
 ENDC
 PUSHINT 0
 SENDRAWMSG
-.loc ../contracts/Root.sol, 413
+.loc ../contracts/Root.sol, 411
 NEWC
 STSLICECONST x42_
 STSLICE
@@ -2515,7 +2515,7 @@ ISNULL
 IFREF {
 	CALL $c4_to_c7$
 }
-.loc ../contracts/Root.sol, 423
+.loc ../contracts/Root.sol, 421
 LDREF
 ENDS
 .loc ../contracts/Root.sol, 0
@@ -2529,9 +2529,9 @@ CALLREF {
 THROW 0
 
 .macro installPlatformOnce_d58bd352_internal_macro
-.loc ../contracts/Root.sol, 423
+.loc ../contracts/Root.sol, 421
 PUSHINT 1000000000
-.loc ../contracts/Root.sol, 60
+.loc ../contracts/Root.sol, 58
 GETPARAM 7
 FIRST
 DEPTH
@@ -2542,7 +2542,7 @@ UFITS 128
 MAX
 PUSHINT 0
 RAWRESERVE
-.loc ../contracts/Root.sol, 94
+.loc ../contracts/Root.sol, 92
 GETGLOB 24
 PARSEMSGADDR
 INDEX 3
@@ -2553,14 +2553,14 @@ GETGLOB 24
 SDEQ
 AND
 THROWIFNOT 100
-.loc ../contracts/Root.sol, 430
+.loc ../contracts/Root.sol, 428
 GETGLOB 10
 CTOS
 SEMPTY
 THROWIFNOT 108
-.loc ../contracts/Root.sol, 432
+.loc ../contracts/Root.sol, 430
 SETGLOB 10
-.loc ../contracts/Root.sol, 434
+.loc ../contracts/Root.sol, 432
 GETGLOB 24
 NEWC
 STSLICECONST x62_
@@ -2581,7 +2581,7 @@ ISNULL
 IFREF {
 	CALL $c4_to_c7$
 }
-.loc ../contracts/Root.sol, 440
+.loc ../contracts/Root.sol, 438
 LDREF
 ENDS
 .loc ../contracts/Root.sol, 0
@@ -2595,9 +2595,9 @@ CALLREF {
 THROW 0
 
 .macro installOrUpdateAccountCode_59e89e27_internal_macro
-.loc ../contracts/Root.sol, 440
+.loc ../contracts/Root.sol, 438
 PUSHINT 1000000000
-.loc ../contracts/Root.sol, 60
+.loc ../contracts/Root.sol, 58
 GETPARAM 7
 FIRST
 DEPTH
@@ -2608,7 +2608,7 @@ UFITS 128
 MAX
 PUSHINT 0
 RAWRESERVE
-.loc ../contracts/Root.sol, 71
+.loc ../contracts/Root.sol, 69
 GETGLOB 9
 PARSEMSGADDR
 INDEX 3
@@ -2623,15 +2623,15 @@ SDEQ
 OR
 AND
 THROWIFNOT 100
-.loc ../contracts/Root.sol, 446
+.loc ../contracts/Root.sol, 444
 SETGLOB 12
-.loc ../contracts/Root.sol, 447
+.loc ../contracts/Root.sol, 445
 GETGLOB 13
 INC
 UFITS 32
 DUP
 SETGLOB 13
-.loc ../contracts/Root.sol, 449
+.loc ../contracts/Root.sol, 447
 PUSHSLICE xc00000000000000000000000005e12d57f
 NEWC
 STSLICE
@@ -2639,7 +2639,7 @@ STU 32
 ENDC
 PUSHINT 0
 SENDRAWMSG
-.loc ../contracts/Root.sol, 451
+.loc ../contracts/Root.sol, 449
 GETGLOB 24
 NEWC
 STSLICECONST x62_
@@ -2660,7 +2660,7 @@ ISNULL
 IFREF {
 	CALL $c4_to_c7$
 }
-.loc ../contracts/Root.sol, 457
+.loc ../contracts/Root.sol, 455
 LDREF
 LDU 8
 ENDS
@@ -2675,9 +2675,9 @@ CALLREF {
 THROW 0
 
 .macro installOrUpdatePairCode_122afc8b_internal_macro
-.loc ../contracts/Root.sol, 457
+.loc ../contracts/Root.sol, 455
 PUSHINT 1000000000
-.loc ../contracts/Root.sol, 60
+.loc ../contracts/Root.sol, 58
 GETPARAM 7
 FIRST
 DEPTH
@@ -2688,7 +2688,7 @@ UFITS 128
 MAX
 PUSHINT 0
 RAWRESERVE
-.loc ../contracts/Root.sol, 71
+.loc ../contracts/Root.sol, 69
 GETGLOB 9
 PARSEMSGADDR
 INDEX 3
@@ -2703,13 +2703,13 @@ SDEQ
 OR
 AND
 THROWIFNOT 100
-.loc ../contracts/Root.sol, 466
+.loc ../contracts/Root.sol, 464
 TUCK
 GETGLOB 14
 PUSHINT 8
 DICTUSETREF
 SETGLOB 14
-.loc ../contracts/Root.sol, 467
+.loc ../contracts/Root.sol, 465
 DUP
 GETGLOB 15
 DUP2
@@ -2728,7 +2728,7 @@ ROTREV
 PUSHINT 8
 DICTUSETB
 SETGLOB 15
-.loc ../contracts/Root.sol, 469
+.loc ../contracts/Root.sol, 467
 DUP
 GETGLOB 15
 PUSHINT 8
@@ -2746,7 +2746,7 @@ STU 8
 ENDC
 PUSHINT 0
 SENDRAWMSG
-.loc ../contracts/Root.sol, 471
+.loc ../contracts/Root.sol, 469
 GETGLOB 24
 NEWC
 STSLICECONST x62_
@@ -2767,7 +2767,7 @@ ISNULL
 IFREF {
 	CALL $c4_to_c7$
 }
-.loc ../contracts/Root.sol, 477
+.loc ../contracts/Root.sol, 475
 LDREF
 LDU 8
 ENDS
@@ -2782,9 +2782,9 @@ CALLREF {
 THROW 0
 
 .macro installOrUpdatePoolCode_f336eb06_internal_macro
-.loc ../contracts/Root.sol, 477
+.loc ../contracts/Root.sol, 475
 PUSHINT 1000000000
-.loc ../contracts/Root.sol, 60
+.loc ../contracts/Root.sol, 58
 GETPARAM 7
 FIRST
 DEPTH
@@ -2795,7 +2795,7 @@ UFITS 128
 MAX
 PUSHINT 0
 RAWRESERVE
-.loc ../contracts/Root.sol, 71
+.loc ../contracts/Root.sol, 69
 GETGLOB 9
 PARSEMSGADDR
 INDEX 3
@@ -2810,13 +2810,13 @@ SDEQ
 OR
 AND
 THROWIFNOT 100
-.loc ../contracts/Root.sol, 486
+.loc ../contracts/Root.sol, 484
 TUCK
 GETGLOB 16
 PUSHINT 8
 DICTUSETREF
 SETGLOB 16
-.loc ../contracts/Root.sol, 487
+.loc ../contracts/Root.sol, 485
 DUP
 GETGLOB 17
 DUP2
@@ -2835,7 +2835,7 @@ ROTREV
 PUSHINT 8
 DICTUSETB
 SETGLOB 17
-.loc ../contracts/Root.sol, 489
+.loc ../contracts/Root.sol, 487
 DUP
 GETGLOB 17
 PUSHINT 8
@@ -2853,7 +2853,7 @@ STU 8
 ENDC
 PUSHINT 0
 SENDRAWMSG
-.loc ../contracts/Root.sol, 491
+.loc ../contracts/Root.sol, 489
 GETGLOB 24
 NEWC
 STSLICECONST x62_
@@ -2874,7 +2874,7 @@ ISNULL
 IFREF {
 	CALL $c4_to_c7$
 }
-.loc ../contracts/Root.sol, 497
+.loc ../contracts/Root.sol, 495
 OVER
 PUSHCONT {
 	LDREF
@@ -2899,9 +2899,9 @@ CALLREF {
 THROW 0
 
 .macro installOrUpdateTokenVaultCode_e4457a30_internal_macro
-.loc ../contracts/Root.sol, 497
+.loc ../contracts/Root.sol, 495
 PUSHINT 1000000000
-.loc ../contracts/Root.sol, 60
+.loc ../contracts/Root.sol, 58
 GETPARAM 7
 FIRST
 DEPTH
@@ -2912,7 +2912,7 @@ UFITS 128
 MAX
 PUSHINT 0
 RAWRESERVE
-.loc ../contracts/Root.sol, 71
+.loc ../contracts/Root.sol, 69
 GETGLOB 9
 PARSEMSGADDR
 INDEX 3
@@ -2927,20 +2927,20 @@ SDEQ
 OR
 AND
 THROWIFNOT 100
-.loc ../contracts/Root.sol, 506
+.loc ../contracts/Root.sol, 504
 OVER
 CTOS
 SEMPTY
 THROWIF 150
-.loc ../contracts/Root.sol, 508
+.loc ../contracts/Root.sol, 506
 SWAP
 SETGLOB 18
-.loc ../contracts/Root.sol, 509
+.loc ../contracts/Root.sol, 507
 GETGLOB 19
 INC
 UFITS 32
 SETGLOB 19
-.loc ../contracts/Root.sol, 511
+.loc ../contracts/Root.sol, 509
 GETGLOB 18
 HASHCU
 GETGLOB 19
@@ -2952,7 +2952,7 @@ STU 256
 ENDC
 PUSHINT 0
 SENDRAWMSG
-.loc ../contracts/Root.sol, 516
+.loc ../contracts/Root.sol, 514
 NEWC
 STSLICECONST x42_
 STSLICE
@@ -2974,7 +2974,7 @@ ISNULL
 IFREF {
 	CALL $c4_to_c7$
 }
-.loc ../contracts/Root.sol, 523
+.loc ../contracts/Root.sol, 521
 OVER
 PUSHCONT {
 	LDREF
@@ -2999,9 +2999,9 @@ CALLREF {
 THROW 0
 
 .macro installOrUpdateLpTokenPendingCode_287dd447_internal_macro
-.loc ../contracts/Root.sol, 523
+.loc ../contracts/Root.sol, 521
 PUSHINT 1000000000
-.loc ../contracts/Root.sol, 60
+.loc ../contracts/Root.sol, 58
 GETPARAM 7
 FIRST
 DEPTH
@@ -3012,7 +3012,7 @@ UFITS 128
 MAX
 PUSHINT 0
 RAWRESERVE
-.loc ../contracts/Root.sol, 71
+.loc ../contracts/Root.sol, 69
 GETGLOB 9
 PARSEMSGADDR
 INDEX 3
@@ -3027,20 +3027,20 @@ SDEQ
 OR
 AND
 THROWIFNOT 100
-.loc ../contracts/Root.sol, 532
+.loc ../contracts/Root.sol, 530
 OVER
 CTOS
 SEMPTY
 THROWIF 152
-.loc ../contracts/Root.sol, 534
+.loc ../contracts/Root.sol, 532
 OVER
 SETGLOB 20
-.loc ../contracts/Root.sol, 535
+.loc ../contracts/Root.sol, 533
 GETGLOB 21
 INC
 UFITS 32
 SETGLOB 21
-.loc ../contracts/Root.sol, 537
+.loc ../contracts/Root.sol, 535
 SWAP
 HASHCU
 GETGLOB 21
@@ -3052,7 +3052,7 @@ STU 256
 ENDC
 PUSHINT 0
 SENDRAWMSG
-.loc ../contracts/Root.sol, 542
+.loc ../contracts/Root.sol, 540
 NEWC
 STSLICECONST x42_
 STSLICE
@@ -3074,7 +3074,7 @@ ISNULL
 IFREF {
 	CALL $c4_to_c7$
 }
-.loc ../contracts/Root.sol, 552
+.loc ../contracts/Root.sol, 550
 LDREF
 ENDS
 .loc ../contracts/Root.sol, 0
@@ -3088,9 +3088,9 @@ CALLREF {
 THROW 0
 
 .macro upgrade_7916ae0d_internal_macro
-.loc ../contracts/Root.sol, 552
+.loc ../contracts/Root.sol, 550
 PUSHINT 1000000000
-.loc ../contracts/Root.sol, 60
+.loc ../contracts/Root.sol, 58
 GETPARAM 7
 FIRST
 DEPTH
@@ -3101,7 +3101,7 @@ UFITS 128
 MAX
 PUSHINT 0
 RAWRESERVE
-.loc ../contracts/Root.sol, 94
+.loc ../contracts/Root.sol, 92
 GETGLOB 24
 PARSEMSGADDR
 INDEX 3
@@ -3112,20 +3112,20 @@ GETGLOB 24
 SDEQ
 AND
 THROWIFNOT 100
-.loc ../contracts/Root.sol, 558
+.loc ../contracts/Root.sol, 556
 DEPTH
 ADDCONST -2
 PICK
 PUSHINT 3000000000
 GREATER
 THROWIFNOT 103
-.loc ../contracts/Root.sol, 560
+.loc ../contracts/Root.sol, 558
 PUSHREF {
 	.blob xc00000000000000000000000005c131a68
 }
 PUSHINT 0
 SENDRAWMSG
-.loc ../contracts/Root.sol, 562
+.loc ../contracts/Root.sol, 560
 GETGLOB 26
 GETGLOB 22
 GETGLOB 21
@@ -3170,10 +3170,10 @@ STBREFR
 STBREFR
 STBREFR
 ENDC
-.loc ../contracts/Root.sol, 580
+.loc ../contracts/Root.sol, 578
 OVER
 SETCODE
-.loc ../contracts/Root.sol, 581
+.loc ../contracts/Root.sol, 579
 SWAP
 CTOS
 DUP
@@ -3188,7 +3188,7 @@ PLDREF
 CTOS
 BLESS
 POP C3
-.loc ../contracts/Root.sol, 583
+.loc ../contracts/Root.sol, 581
 CALLREF {
 	CALL $:onCodeUpgrade$
 }
@@ -3196,7 +3196,7 @@ CALLREF {
 
 .internal-alias :onCodeUpgrade, 2
 .internal :onCodeUpgrade
-.loc ../contracts/Root.sol, 587
+.loc ../contracts/Root.sol, 585
 PUSHREF {
 }
 SETGLOB 10
@@ -3247,7 +3247,7 @@ PUSHREFSLICE {
 	.blob x8000000000000000000000000000000000000000000000000000000000000000001_
 }
 SETGLOB 27
-.loc ../contracts/Root.sol, 589
+.loc ../contracts/Root.sol, 587
 CTOS
 LDREF
 LDREF
@@ -3293,12 +3293,12 @@ SETGLOB 20
 SETGLOB 21
 SETGLOB 22
 SETGLOB 26
-.loc ../contracts/Root.sol, 623
+.loc ../contracts/Root.sol, 621
 PUSHREFSLICE {
 	.blob x8000000000000000000000000000000000000000000000000000000000000000001_
 }
 SETGLOB 27
-.loc ../contracts/Root.sol, 625
+.loc ../contracts/Root.sol, 623
 TRUE
 SETGLOB 23
 .loc ../contracts/Root.sol, 0
@@ -3317,7 +3317,7 @@ ISNULL
 IFREF {
 	CALL $c4_to_c7$
 }
-.loc ../contracts/Root.sol, 629
+.loc ../contracts/Root.sol, 627
 OVER
 PUSHCONT {
 	LDREF
@@ -3337,7 +3337,7 @@ IFREF {
 THROW 0
 
 .macro resetGas_0cada961_internal_macro
-.loc ../contracts/Root.sol, 94
+.loc ../contracts/Root.sol, 92
 GETGLOB 24
 PARSEMSGADDR
 INDEX 3
@@ -3348,11 +3348,11 @@ GETGLOB 24
 SDEQ
 AND
 THROWIFNOT 100
-.loc ../contracts/Root.sol, 635
+.loc ../contracts/Root.sol, 633
 PUSHINT 1000000000
 PUSHINT 0
 RAWRESERVE
-.loc ../contracts/Root.sol, 637
+.loc ../contracts/Root.sol, 635
 NEWC
 STSLICECONST x42_
 STSLICE
@@ -3374,7 +3374,7 @@ ISNULL
 IFREF {
 	CALL $c4_to_c7$
 }
-.loc ../contracts/Root.sol, 647
+.loc ../contracts/Root.sol, 645
 OVER
 PUSHCONT {
 	LDREF
@@ -3399,9 +3399,9 @@ CALLREF {
 THROW 0
 
 .macro deployTokenVault_b695c0f6_internal_macro
-.loc ../contracts/Root.sol, 647
+.loc ../contracts/Root.sol, 645
 PUSHINT 1000000000
-.loc ../contracts/Root.sol, 60
+.loc ../contracts/Root.sol, 58
 GETPARAM 7
 FIRST
 DEPTH
@@ -3412,17 +3412,17 @@ UFITS 128
 MAX
 PUSHINT 0
 RAWRESERVE
-.loc ../contracts/Root.sol, 89
+.loc ../contracts/Root.sol, 87
 GETGLOB 23
 THROWIFNOT 114
-.loc ../contracts/Root.sol, 656
+.loc ../contracts/Root.sol, 654
 DEPTH
 ADDCONST -2
 PICK
 PUSHINT 2500000000
 GEQ
 THROWIFNOT 103
-.loc ../contracts/Root.sol, 657
+.loc ../contracts/Root.sol, 655
 OVER
 PARSEMSGADDR
 INDEX 3
@@ -3434,12 +3434,12 @@ SDEQ
 NOT
 AND
 THROWIFNOT 135
-.loc ../contracts/Root.sol, 659
+.loc ../contracts/Root.sol, 657
 TUCK
 CALLREF {
 	CALL $_deployVaultInternal_a38a82ef_internal_macro$
 }
-.loc ../contracts/Root.sol, 664
+.loc ../contracts/Root.sol, 662
 NEWC
 STSLICECONST x42_
 STSLICE
@@ -3461,7 +3461,7 @@ ISNULL
 IFREF {
 	CALL $c4_to_c7$
 }
-.loc ../contracts/Root.sol, 671
+.loc ../contracts/Root.sol, 669
 OVER
 PUSHCONT {
 	LDU 32
@@ -3494,9 +3494,9 @@ CALLREF {
 THROW 0
 
 .macro onTokenVaultDeployed_dd35f745_internal_macro
-.loc ../contracts/Root.sol, 671
+.loc ../contracts/Root.sol, 669
 PUSHINT 1000000000
-.loc ../contracts/Root.sol, 60
+.loc ../contracts/Root.sol, 58
 GETPARAM 7
 FIRST
 DEPTH
@@ -3507,7 +3507,7 @@ UFITS 128
 MAX
 PUSHINT 0
 RAWRESERVE
-.loc ../contracts/Root.sol, 67
+.loc ../contracts/Root.sol, 65
 GETGLOB 9
 PUSH S3
 .loc ../contracts/abstract/ContractBase.sol, 43
@@ -3516,7 +3516,7 @@ CALLREF {
 }
 SDEQ
 THROWIFNOT 149
-.loc ../contracts/Root.sol, 682
+.loc ../contracts/Root.sol, 680
 ROLLREV 3
 SWAP
 GETGLOB 9
@@ -3542,7 +3542,7 @@ STBREFR
 ENDC
 PUSHINT 0
 SENDRAWMSG
-.loc ../contracts/Root.sol, 689
+.loc ../contracts/Root.sol, 687
 NEWC
 STSLICECONST x42_
 STSLICE
@@ -3560,7 +3560,7 @@ SENDRAWMSG
 CALL $_deployVaultInternal_a38a82ef_internal_macro$
 
 .macro _deployVaultInternal_a38a82ef_internal_macro
-.loc ../contracts/Root.sol, 700
+.loc ../contracts/Root.sol, 698
 PUSHINT 3
 ROT
 CALLREF {
@@ -3569,7 +3569,7 @@ CALLREF {
 CALLREF {
 	CALL $_buildInitData_65db94e9_internal_macro$
 }
-.loc ../contracts/Root.sol, 705
+.loc ../contracts/Root.sol, 703
 SWAP
 GETGLOB 25
 GETGLOB 19
@@ -3635,7 +3635,7 @@ ISNULL
 IFREF {
 	CALL $c4_to_c7$
 }
-.loc ../contracts/Root.sol, 717
+.loc ../contracts/Root.sol, 715
 OVER
 PUSHCONT {
 	LDU 32
@@ -3668,9 +3668,9 @@ CALLREF {
 THROW 0
 
 .macro deployLpToken_2abd865b_internal_macro
-.loc ../contracts/Root.sol, 717
+.loc ../contracts/Root.sol, 715
 PUSHINT 1000000000
-.loc ../contracts/Root.sol, 60
+.loc ../contracts/Root.sol, 58
 GETPARAM 7
 FIRST
 DEPTH
@@ -3681,7 +3681,7 @@ UFITS 128
 MAX
 PUSHINT 0
 RAWRESERVE
-.loc ../contracts/Root.sol, 67
+.loc ../contracts/Root.sol, 65
 GETGLOB 9
 PUSH S2
 .loc ../contracts/abstract/ContractBase.sol, 38
@@ -3690,14 +3690,14 @@ CALLREF {
 }
 SDEQ
 THROWIFNOT 106
-.loc ../contracts/Root.sol, 726
+.loc ../contracts/Root.sol, 724
 DEPTH
 ADDCONST -2
 PICK
 PUSHINT 5000000000
 GEQ
 THROWIFNOT 103
-.loc ../contracts/Root.sol, 728
+.loc ../contracts/Root.sol, 726
 NOW
 GETGLOB 9
 ROLL 3
@@ -3705,7 +3705,7 @@ GETGLOB 20
 CALLREF {
 	CALL $_buildLpTokenPendingInitData_6415a6cd_internal_macro$
 }
-.loc ../contracts/Root.sol, 735
+.loc ../contracts/Root.sol, 733
 SWAP
 GETGLOB 22
 ROT
@@ -3767,7 +3767,7 @@ ISNULL
 IFREF {
 	CALL $c4_to_c7$
 }
-.loc ../contracts/Root.sol, 743
+.loc ../contracts/Root.sol, 741
 OVER
 PUSHCONT {
 	LDU 32
@@ -3805,9 +3805,9 @@ CALLREF {
 THROW 0
 
 .macro onLiquidityTokenDeployed_589d3af6_internal_macro
-.loc ../contracts/Root.sol, 743
+.loc ../contracts/Root.sol, 741
 PUSHINT 1000000000
-.loc ../contracts/Root.sol, 60
+.loc ../contracts/Root.sol, 58
 GETPARAM 7
 FIRST
 DEPTH
@@ -3818,7 +3818,7 @@ UFITS 128
 MAX
 PUSHINT 0
 RAWRESERVE
-.loc ../contracts/Root.sol, 67
+.loc ../contracts/Root.sol, 65
 BLKPUSH 3, 4
 GETGLOB 20
 .loc ../contracts/abstract/ContractBase.sol, 53
@@ -3829,7 +3829,7 @@ CALLREF {
 GETGLOB 9
 SDEQ
 THROWIFNOT 124
-.loc ../contracts/Root.sol, 760
+.loc ../contracts/Root.sol, 758
 ROLL 4
 PUSH S2
 ROLL 4
@@ -3857,12 +3857,12 @@ STBREFR
 ENDC
 PUSHINT 0
 SENDRAWMSG
-.loc ../contracts/Root.sol, 767
+.loc ../contracts/Root.sol, 765
 DUP2
 CALLREF {
 	CALL $_deployVaultInternal_a38a82ef_internal_macro$
 }
-.loc ../contracts/Root.sol, 769
+.loc ../contracts/Root.sol, 767
 XCHG S2
 FALSE
 NEWC
@@ -3895,7 +3895,7 @@ ISNULL
 IFREF {
 	CALL $c4_to_c7$
 }
-.loc ../contracts/Root.sol, 777
+.loc ../contracts/Root.sol, 775
 OVER
 PUSHCONT {
 	LDU 32
@@ -3933,9 +3933,9 @@ CALLREF {
 THROW 0
 
 .macro onLiquidityTokenNotDeployed_b5c8275d_internal_macro
-.loc ../contracts/Root.sol, 777
+.loc ../contracts/Root.sol, 775
 PUSHINT 1000000000
-.loc ../contracts/Root.sol, 60
+.loc ../contracts/Root.sol, 58
 GETPARAM 7
 FIRST
 DEPTH
@@ -3946,7 +3946,7 @@ UFITS 128
 MAX
 PUSHINT 0
 RAWRESERVE
-.loc ../contracts/Root.sol, 67
+.loc ../contracts/Root.sol, 65
 ROLL 4
 PUSH S4
 ROLL 4
@@ -3959,7 +3959,7 @@ CALLREF {
 GETGLOB 9
 SDEQ
 THROWIFNOT 124
-.loc ../contracts/Root.sol, 794
+.loc ../contracts/Root.sol, 792
 XCHG S2
 FALSE
 NEWC
@@ -3992,7 +3992,7 @@ ISNULL
 IFREF {
 	CALL $c4_to_c7$
 }
-.loc ../contracts/Root.sol, 802
+.loc ../contracts/Root.sol, 800
 OVER
 PUSHCONT {
 	LDREF
@@ -4017,9 +4017,9 @@ CALLREF {
 THROW 0
 
 .macro upgradeTokenVault_caf8ff30_internal_macro
-.loc ../contracts/Root.sol, 802
+.loc ../contracts/Root.sol, 800
 PUSHINT 1000000000
-.loc ../contracts/Root.sol, 60
+.loc ../contracts/Root.sol, 58
 GETPARAM 7
 FIRST
 DEPTH
@@ -4030,7 +4030,7 @@ UFITS 128
 MAX
 PUSHINT 0
 RAWRESERVE
-.loc ../contracts/Root.sol, 71
+.loc ../contracts/Root.sol, 69
 GETGLOB 9
 PARSEMSGADDR
 INDEX 3
@@ -4045,12 +4045,12 @@ SDEQ
 OR
 AND
 THROWIFNOT 100
-.loc ../contracts/Root.sol, 811
+.loc ../contracts/Root.sol, 809
 TUCK
 CALLREF {
 	CALL $_upgradeVaultInternal_c4d49984_internal_macro$
 }
-.loc ../contracts/Root.sol, 813
+.loc ../contracts/Root.sol, 811
 NEWC
 STSLICECONST x42_
 STSLICE
@@ -4070,7 +4070,7 @@ ISNULL
 IFREF {
 	CALL $c4_to_c7$
 }
-.loc ../contracts/Root.sol, 820
+.loc ../contracts/Root.sol, 818
 OVER
 PUSHCONT {
 	LDU 32
@@ -4105,9 +4105,9 @@ CALLREF {
 THROW 0
 
 .macro upgradeTokenVaults_490f19c6_internal_macro
-.loc ../contracts/Root.sol, 820
+.loc ../contracts/Root.sol, 818
 PUSHINT 1000000000
-.loc ../contracts/Root.sol, 60
+.loc ../contracts/Root.sol, 58
 GETPARAM 7
 FIRST
 DEPTH
@@ -4118,7 +4118,7 @@ UFITS 128
 MAX
 PUSHINT 0
 RAWRESERVE
-.loc ../contracts/Root.sol, 80
+.loc ../contracts/Root.sol, 78
 GETGLOB 9
 PARSEMSGADDR
 INDEX 3
@@ -4137,23 +4137,23 @@ OR
 OR
 AND
 THROWIFNOT 100
-.loc ../contracts/Root.sol, 830
+.loc ../contracts/Root.sol, 828
 PUSH S2
 FIRST
-.loc ../contracts/Root.sol, 832
+.loc ../contracts/Root.sol, 830
 PUSH S2
 ADDCONST 5
 UFITS 32
 OVER
 MIN
-.loc ../contracts/Root.sol, 834
+.loc ../contracts/Root.sol, 832
 ROLL 3
 PUSHCONT {
 	PUSH2 S0, S1
 	LESS
 }
 PUSHCONT {
-	.loc ../contracts/Root.sol, 835
+	.loc ../contracts/Root.sol, 833
 	PUSH2 S0, S4
 	SECOND
 	PUSHINT 32
@@ -4163,18 +4163,18 @@ PUSHCONT {
 	CALLREF {
 		CALL $_upgradeVaultInternal_c4d49984_internal_macro$
 	}
-	.loc ../contracts/Root.sol, 834
+	.loc ../contracts/Root.sol, 832
 	INC
 	.loc ../contracts/Root.sol, 0
 }
 WHILE
 DROP
-.loc ../contracts/Root.sol, 838
+.loc ../contracts/Root.sol, 836
 DUP
 ROT
 LESS
 PUSHCONT {
-	.loc ../contracts/Root.sol, 839
+	.loc ../contracts/Root.sol, 837
 	DUP2
 	UFITS 32
 	PUSH S4
@@ -4200,7 +4200,7 @@ PUSHCONT {
 	STBREFR
 }
 PUSHCONT {
-	.loc ../contracts/Root.sol, 846
+	.loc ../contracts/Root.sol, 844
 	OVER
 	NEWC
 	STSLICECONST x42_
@@ -4220,12 +4220,12 @@ BLKDROP 3
 CALL $_upgradeVaultInternal_c4d49984_internal_macro$
 
 .macro _upgradeVaultInternal_c4d49984_internal_macro
-.loc ../contracts/Root.sol, 858
+.loc ../contracts/Root.sol, 856
 SWAP
 CALLREF {
 	CALL $_expectedTokenVaultAddress_3a7b5f9b_internal_macro$
 }
-.loc ../contracts/Root.sol, 860
+.loc ../contracts/Root.sol, 858
 SWAP
 GETGLOB 19
 GETGLOB 18
@@ -4259,7 +4259,7 @@ ISNULL
 IFREF {
 	CALL $c4_to_c7$
 }
-.loc ../contracts/Root.sol, 871
+.loc ../contracts/Root.sol, 869
 OVER
 PUSHCONT {
 	LDREF
@@ -4284,9 +4284,9 @@ CALLREF {
 THROW 0
 
 .macro deployAccount_5f2807ac_internal_macro
-.loc ../contracts/Root.sol, 871
+.loc ../contracts/Root.sol, 869
 PUSHINT 1000000000
-.loc ../contracts/Root.sol, 60
+.loc ../contracts/Root.sol, 58
 GETPARAM 7
 FIRST
 DEPTH
@@ -4297,23 +4297,23 @@ UFITS 128
 MAX
 PUSHINT 0
 RAWRESERVE
-.loc ../contracts/Root.sol, 89
+.loc ../contracts/Root.sol, 87
 GETGLOB 23
 THROWIFNOT 114
-.loc ../contracts/Root.sol, 880
+.loc ../contracts/Root.sol, 878
 DEPTH
 ADDCONST -2
 PICK
 PUSHINT 2000000000
 GEQ
 THROWIFNOT 103
-.loc ../contracts/Root.sol, 881
+.loc ../contracts/Root.sol, 879
 OVER
 PARSEMSGADDR
 INDEX 3
 PLDU 256
 THROWIFNOT 111
-.loc ../contracts/Root.sol, 883
+.loc ../contracts/Root.sol, 881
 GETGLOB 25
 GETGLOB 13
 GETGLOB 12
@@ -4385,7 +4385,7 @@ ISNULL
 IFREF {
 	CALL $c4_to_c7$
 }
-.loc ../contracts/Root.sol, 898
+.loc ../contracts/Root.sol, 896
 OVER
 PUSHCONT {
 	LDU 32
@@ -4414,9 +4414,9 @@ CALLREF {
 THROW 0
 
 .macro requestUpgradeAccount_b08891f1_internal_macro
-.loc ../contracts/Root.sol, 898
+.loc ../contracts/Root.sol, 896
 PUSHINT 1000000000
-.loc ../contracts/Root.sol, 60
+.loc ../contracts/Root.sol, 58
 GETPARAM 7
 FIRST
 DEPTH
@@ -4435,7 +4435,7 @@ CALLREF {
 }
 SDEQ
 THROWIFNOT 105
-.loc ../contracts/Root.sol, 908
+.loc ../contracts/Root.sol, 906
 SWAP
 GETGLOB 13
 EQUAL
@@ -4443,7 +4443,7 @@ GETGLOB 23
 NOT
 OR
 PUSHCONT {
-	.loc ../contracts/Root.sol, 909
+	.loc ../contracts/Root.sol, 907
 	DUP
 	NEWC
 	STSLICECONST x62_
@@ -4452,7 +4452,7 @@ PUSHCONT {
 	STZEROES
 }
 PUSHCONT {
-	.loc ../contracts/Root.sol, 914
+	.loc ../contracts/Root.sol, 912
 	DUP
 	GETGLOB 13
 	GETGLOB 12
@@ -4486,7 +4486,7 @@ ISNULL
 IFREF {
 	CALL $c4_to_c7$
 }
-.loc ../contracts/Root.sol, 920
+.loc ../contracts/Root.sol, 918
 OVER
 PUSHCONT {
 	LDREF
@@ -4510,9 +4510,9 @@ IFREF {
 THROW 0
 
 .macro forceUpgradeAccount_de7a146c_internal_macro
-.loc ../contracts/Root.sol, 920
+.loc ../contracts/Root.sol, 918
 PUSHINT 1000000000
-.loc ../contracts/Root.sol, 60
+.loc ../contracts/Root.sol, 58
 GETPARAM 7
 FIRST
 DEPTH
@@ -4523,7 +4523,7 @@ UFITS 128
 MAX
 PUSHINT 0
 RAWRESERVE
-.loc ../contracts/Root.sol, 71
+.loc ../contracts/Root.sol, 69
 GETGLOB 9
 PARSEMSGADDR
 INDEX 3
@@ -4538,19 +4538,19 @@ SDEQ
 OR
 AND
 THROWIFNOT 100
-.loc ../contracts/Root.sol, 930
+.loc ../contracts/Root.sol, 928
 DEPTH
 ADDCONST -2
 PICK
 PUSHINT 3000000000
 GEQ
 THROWIFNOT 103
-.loc ../contracts/Root.sol, 932
+.loc ../contracts/Root.sol, 930
 TUCK
 CALLREF {
 	CALL $_upgradeAccountInternal_7540bc5d_internal_macro$
 }
-.loc ../contracts/Root.sol, 937
+.loc ../contracts/Root.sol, 935
 NEWC
 STSLICECONST x42_
 STSLICE
@@ -4572,7 +4572,7 @@ ISNULL
 IFREF {
 	CALL $c4_to_c7$
 }
-.loc ../contracts/Root.sol, 944
+.loc ../contracts/Root.sol, 942
 OVER
 PUSHCONT {
 	LDU 32
@@ -4606,9 +4606,9 @@ IFREF {
 THROW 0
 
 .macro upgradeAccounts_a457ad8d_internal_macro
-.loc ../contracts/Root.sol, 944
+.loc ../contracts/Root.sol, 942
 PUSHINT 1000000000
-.loc ../contracts/Root.sol, 60
+.loc ../contracts/Root.sol, 58
 GETPARAM 7
 FIRST
 DEPTH
@@ -4619,7 +4619,7 @@ UFITS 128
 MAX
 PUSHINT 0
 RAWRESERVE
-.loc ../contracts/Root.sol, 80
+.loc ../contracts/Root.sol, 78
 GETGLOB 9
 PARSEMSGADDR
 INDEX 3
@@ -4638,23 +4638,23 @@ OR
 OR
 AND
 THROWIFNOT 100
-.loc ../contracts/Root.sol, 955
+.loc ../contracts/Root.sol, 953
 PUSH S2
 FIRST
-.loc ../contracts/Root.sol, 957
+.loc ../contracts/Root.sol, 955
 PUSH S2
 ADDCONST 5
 UFITS 32
 OVER
 MIN
-.loc ../contracts/Root.sol, 959
+.loc ../contracts/Root.sol, 957
 ROLL 3
 PUSHCONT {
 	PUSH2 S0, S1
 	LESS
 }
 PUSHCONT {
-	.loc ../contracts/Root.sol, 960
+	.loc ../contracts/Root.sol, 958
 	PUSH2 S0, S4
 	SECOND
 	PUSHINT 32
@@ -4664,18 +4664,18 @@ PUSHCONT {
 	CALLREF {
 		CALL $_upgradeAccountInternal_7540bc5d_internal_macro$
 	}
-	.loc ../contracts/Root.sol, 959
+	.loc ../contracts/Root.sol, 957
 	INC
 	.loc ../contracts/Root.sol, 0
 }
 WHILE
 DROP
-.loc ../contracts/Root.sol, 963
+.loc ../contracts/Root.sol, 961
 DUP
 ROT
 LESS
 PUSHCONT {
-	.loc ../contracts/Root.sol, 964
+	.loc ../contracts/Root.sol, 962
 	DUP2
 	UFITS 32
 	PUSH S4
@@ -4701,7 +4701,7 @@ PUSHCONT {
 	STBREFR
 }
 PUSHCONT {
-	.loc ../contracts/Root.sol, 971
+	.loc ../contracts/Root.sol, 969
 	OVER
 	NEWC
 	STSLICECONST x42_
@@ -4721,7 +4721,7 @@ BLKDROP 3
 CALL $_upgradeAccountInternal_7540bc5d_internal_macro$
 
 .macro _upgradeAccountInternal_7540bc5d_internal_macro
-.loc ../contracts/Root.sol, 986
+.loc ../contracts/Root.sol, 984
 OVER
 PUSHSLICE xc00000000000000000000000005e002dc2
 NEWC
@@ -4730,7 +4730,7 @@ STSLICE
 ENDC
 PUSHINT 0
 SENDRAWMSG
-.loc ../contracts/Root.sol, 988
+.loc ../contracts/Root.sol, 986
 GETGLOB 13
 GETGLOB 12
 ROLL 3
@@ -4763,7 +4763,7 @@ ISNULL
 IFREF {
 	CALL $c4_to_c7$
 }
-.loc ../contracts/Root.sol, 996
+.loc ../contracts/Root.sol, 994
 OVER
 PUSHCONT {
 	LDREF
@@ -4792,9 +4792,9 @@ IFREF {
 THROW 0
 
 .macro upgradePair_50886d12_internal_macro
-.loc ../contracts/Root.sol, 996
+.loc ../contracts/Root.sol, 994
 PUSHINT 1000000000
-.loc ../contracts/Root.sol, 60
+.loc ../contracts/Root.sol, 58
 GETPARAM 7
 FIRST
 DEPTH
@@ -4805,7 +4805,7 @@ UFITS 128
 MAX
 PUSHINT 0
 RAWRESERVE
-.loc ../contracts/Root.sol, 71
+.loc ../contracts/Root.sol, 69
 GETGLOB 9
 PARSEMSGADDR
 INDEX 3
@@ -4820,14 +4820,14 @@ SDEQ
 OR
 AND
 THROWIFNOT 100
-.loc ../contracts/Root.sol, 1008
+.loc ../contracts/Root.sol, 1006
 DEPTH
 ADDCONST -2
 PICK
 PUSHINT 3000000000
 GEQ
 THROWIFNOT 103
-.loc ../contracts/Root.sol, 1010
+.loc ../contracts/Root.sol, 1008
 SWAP2
 SWAP
 PUSHINT 0
@@ -4850,7 +4850,7 @@ OVER
 CALLREF {
 	CALL $_upgradePairInternal_3db96332_internal_macro$
 }
-.loc ../contracts/Root.sol, 1018
+.loc ../contracts/Root.sol, 1016
 NEWC
 STSLICECONST x42_
 STSLICE
@@ -4872,7 +4872,7 @@ ISNULL
 IFREF {
 	CALL $c4_to_c7$
 }
-.loc ../contracts/Root.sol, 1025
+.loc ../contracts/Root.sol, 1023
 OVER
 PUSHCONT {
 	LDU 32
@@ -4906,9 +4906,9 @@ IFREF {
 THROW 0
 
 .macro upgradePool_3ce1f0be_internal_macro
-.loc ../contracts/Root.sol, 1025
+.loc ../contracts/Root.sol, 1023
 PUSHINT 1000000000
-.loc ../contracts/Root.sol, 60
+.loc ../contracts/Root.sol, 58
 GETPARAM 7
 FIRST
 DEPTH
@@ -4919,7 +4919,7 @@ UFITS 128
 MAX
 PUSHINT 0
 RAWRESERVE
-.loc ../contracts/Root.sol, 71
+.loc ../contracts/Root.sol, 69
 GETGLOB 9
 PARSEMSGADDR
 INDEX 3
@@ -4934,7 +4934,7 @@ SDEQ
 OR
 AND
 THROWIFNOT 100
-.loc ../contracts/Root.sol, 1036
+.loc ../contracts/Root.sol, 1034
 OVER
 GETGLOB 17
 PUSHINT 8
@@ -4953,14 +4953,14 @@ PUSHCONT {
 }
 IF
 THROWIFNOT 133
-.loc ../contracts/Root.sol, 1041
+.loc ../contracts/Root.sol, 1039
 DEPTH
 ADDCONST -2
 PICK
 PUSHINT 3000000000
 GEQ
 THROWIFNOT 103
-.loc ../contracts/Root.sol, 1043
+.loc ../contracts/Root.sol, 1041
 PUSH S2
 PUSHSLICE xc0000000000000000000000000414c61fc
 NEWC
@@ -4973,7 +4973,7 @@ STDICT
 ENDC
 PUSHINT 0
 SENDRAWMSG
-.loc ../contracts/Root.sol, 1045
+.loc ../contracts/Root.sol, 1043
 OVER
 GETGLOB 16
 PUSHINT 8
@@ -4983,7 +4983,7 @@ PUSHCONT {
 	}
 }
 IFNOT
-.loc ../contracts/Root.sol, 1046
+.loc ../contracts/Root.sol, 1044
 PUSH S2
 GETGLOB 17
 PUSHINT 8
@@ -4993,7 +4993,7 @@ PUSHCONT {
 	PLDU 32
 }
 IF
-.loc ../contracts/Root.sol, 1048
+.loc ../contracts/Root.sol, 1046
 SWAP2
 REVERSE 5, 0
 CALLREF {
@@ -5026,7 +5026,7 @@ ISNULL
 IFREF {
 	CALL $c4_to_c7$
 }
-.loc ../contracts/Root.sol, 1053
+.loc ../contracts/Root.sol, 1051
 OVER
 PUSHCONT {
 	LDU 32
@@ -5060,9 +5060,9 @@ IFREF {
 THROW 0
 
 .macro upgradePairs_3bc8c3f8_internal_macro
-.loc ../contracts/Root.sol, 1053
+.loc ../contracts/Root.sol, 1051
 PUSHINT 1000000000
-.loc ../contracts/Root.sol, 60
+.loc ../contracts/Root.sol, 58
 GETPARAM 7
 FIRST
 DEPTH
@@ -5073,7 +5073,7 @@ UFITS 128
 MAX
 PUSHINT 0
 RAWRESERVE
-.loc ../contracts/Root.sol, 80
+.loc ../contracts/Root.sol, 78
 GETGLOB 9
 PARSEMSGADDR
 INDEX 3
@@ -5092,23 +5092,23 @@ OR
 OR
 AND
 THROWIFNOT 100
-.loc ../contracts/Root.sol, 1064
+.loc ../contracts/Root.sol, 1062
 PUSH S2
 FIRST
-.loc ../contracts/Root.sol, 1066
+.loc ../contracts/Root.sol, 1064
 PUSH S2
 ADDCONST 5
 UFITS 32
 OVER
 MIN
-.loc ../contracts/Root.sol, 1068
+.loc ../contracts/Root.sol, 1066
 ROLL 3
 PUSHCONT {
 	PUSH2 S0, S1
 	LESS
 }
 PUSHCONT {
-	.loc ../contracts/Root.sol, 1069
+	.loc ../contracts/Root.sol, 1067
 	PUSH2 S0, S4
 	SECOND
 	PUSHINT 32
@@ -5128,18 +5128,18 @@ PUSHCONT {
 	CALLREF {
 		CALL $_upgradePairInternal_3db96332_internal_macro$
 	}
-	.loc ../contracts/Root.sol, 1068
+	.loc ../contracts/Root.sol, 1066
 	INC
 	.loc ../contracts/Root.sol, 0
 }
 WHILE
 DROP
-.loc ../contracts/Root.sol, 1072
+.loc ../contracts/Root.sol, 1070
 DUP
 ROT
 LESS
 PUSHCONT {
-	.loc ../contracts/Root.sol, 1073
+	.loc ../contracts/Root.sol, 1071
 	DUP2
 	UFITS 32
 	PUSH S4
@@ -5165,7 +5165,7 @@ PUSHCONT {
 	STBREFR
 }
 PUSHCONT {
-	.loc ../contracts/Root.sol, 1080
+	.loc ../contracts/Root.sol, 1078
 	OVER
 	NEWC
 	STSLICECONST x42_
@@ -5185,7 +5185,7 @@ BLKDROP 3
 CALL $_upgradePairInternal_3db96332_internal_macro$
 
 .macro _upgradePairInternal_3db96332_internal_macro
-.loc ../contracts/Root.sol, 1092
+.loc ../contracts/Root.sol, 1090
 OVER
 SECOND
 GETGLOB 15
@@ -5206,7 +5206,7 @@ PUSHCONT {
 }
 IF
 THROWIFNOT 133
-.loc ../contracts/Root.sol, 1098
+.loc ../contracts/Root.sol, 1096
 OVER
 FIRST
 PUSHSLICE xc0000000000000000000000000414c61fc
@@ -5220,7 +5220,7 @@ STDICT
 ENDC
 PUSHINT 0
 SENDRAWMSG
-.loc ../contracts/Root.sol, 1100
+.loc ../contracts/Root.sol, 1098
 OVER
 SECOND
 GETGLOB 14
@@ -5231,7 +5231,7 @@ PUSHCONT {
 	}
 }
 IFNOT
-.loc ../contracts/Root.sol, 1101
+.loc ../contracts/Root.sol, 1099
 PUSH S2
 SECOND
 GETGLOB 15
@@ -5242,7 +5242,7 @@ PUSHCONT {
 	PLDU 32
 }
 IF
-.loc ../contracts/Root.sol, 1103
+.loc ../contracts/Root.sol, 1101
 ROT
 PUSH S3
 SECOND
@@ -5279,7 +5279,7 @@ ISNULL
 IFREF {
 	CALL $c4_to_c7$
 }
-.loc ../contracts/Root.sol, 1110
+.loc ../contracts/Root.sol, 1108
 OVER
 PUSHCONT {
 	LDU 32
@@ -5319,9 +5319,9 @@ IFREF {
 THROW 0
 
 .macro setPoolActive_89a69aac_internal_macro
-.loc ../contracts/Root.sol, 1110
+.loc ../contracts/Root.sol, 1108
 PUSHINT 1000000000
-.loc ../contracts/Root.sol, 60
+.loc ../contracts/Root.sol, 58
 GETPARAM 7
 FIRST
 DEPTH
@@ -5332,7 +5332,7 @@ UFITS 128
 MAX
 PUSHINT 0
 RAWRESERVE
-.loc ../contracts/Root.sol, 71
+.loc ../contracts/Root.sol, 69
 GETGLOB 9
 PARSEMSGADDR
 INDEX 3
@@ -5347,12 +5347,12 @@ SDEQ
 OR
 AND
 THROWIFNOT 100
-.loc ../contracts/Root.sol, 1120
+.loc ../contracts/Root.sol, 1118
 TUCK
 CALLREF {
 	CALL $_setPoolActiveInternal_7e8fd766_internal_macro$
 }
-.loc ../contracts/Root.sol, 1122
+.loc ../contracts/Root.sol, 1120
 NEWC
 STSLICECONST x42_
 STSLICE
@@ -5372,7 +5372,7 @@ ISNULL
 IFREF {
 	CALL $c4_to_c7$
 }
-.loc ../contracts/Root.sol, 1129
+.loc ../contracts/Root.sol, 1127
 OVER
 PUSHCONT {
 	LDU 32
@@ -5406,9 +5406,9 @@ IFREF {
 THROW 0
 
 .macro setPoolsActive_1df77c5a_internal_macro
-.loc ../contracts/Root.sol, 1129
+.loc ../contracts/Root.sol, 1127
 PUSHINT 1000000000
-.loc ../contracts/Root.sol, 60
+.loc ../contracts/Root.sol, 58
 GETPARAM 7
 FIRST
 DEPTH
@@ -5419,7 +5419,7 @@ UFITS 128
 MAX
 PUSHINT 0
 RAWRESERVE
-.loc ../contracts/Root.sol, 80
+.loc ../contracts/Root.sol, 78
 GETGLOB 9
 PARSEMSGADDR
 INDEX 3
@@ -5438,23 +5438,23 @@ OR
 OR
 AND
 THROWIFNOT 100
-.loc ../contracts/Root.sol, 1140
+.loc ../contracts/Root.sol, 1138
 PUSH S2
 FIRST
-.loc ../contracts/Root.sol, 1142
+.loc ../contracts/Root.sol, 1140
 PUSH S2
 ADDCONST 5
 UFITS 32
 OVER
 MIN
-.loc ../contracts/Root.sol, 1144
+.loc ../contracts/Root.sol, 1142
 ROLL 3
 PUSHCONT {
 	PUSH2 S0, S1
 	LESS
 }
 PUSHCONT {
-	.loc ../contracts/Root.sol, 1145
+	.loc ../contracts/Root.sol, 1143
 	PUSH2 S0, S4
 	SECOND
 	PUSHINT 32
@@ -5474,18 +5474,18 @@ PUSHCONT {
 	CALLREF {
 		CALL $_setPoolActiveInternal_7e8fd766_internal_macro$
 	}
-	.loc ../contracts/Root.sol, 1144
+	.loc ../contracts/Root.sol, 1142
 	INC
 	.loc ../contracts/Root.sol, 0
 }
 WHILE
 DROP
-.loc ../contracts/Root.sol, 1148
+.loc ../contracts/Root.sol, 1146
 DUP
 ROT
 LESS
 PUSHCONT {
-	.loc ../contracts/Root.sol, 1149
+	.loc ../contracts/Root.sol, 1147
 	DUP2
 	UFITS 32
 	PUSH S4
@@ -5511,7 +5511,7 @@ PUSHCONT {
 	STBREFR
 }
 PUSHCONT {
-	.loc ../contracts/Root.sol, 1156
+	.loc ../contracts/Root.sol, 1154
 	OVER
 	NEWC
 	STSLICECONST x42_
@@ -5531,7 +5531,7 @@ BLKDROP 3
 CALL $_setPoolActiveInternal_7e8fd766_internal_macro$
 
 .macro _setPoolActiveInternal_7e8fd766_internal_macro
-.loc ../contracts/Root.sol, 1168
+.loc ../contracts/Root.sol, 1166
 OVER
 SECOND
 ROT
@@ -5567,7 +5567,7 @@ ISNULL
 IFREF {
 	CALL $c4_to_c7$
 }
-.loc ../contracts/Root.sol, 1176
+.loc ../contracts/Root.sol, 1174
 OVER
 PUSHCONT {
 	LDREF
@@ -5596,9 +5596,9 @@ CALLREF {
 THROW 0
 
 .macro deployPair_09c0bb93_internal_macro
-.loc ../contracts/Root.sol, 1176
+.loc ../contracts/Root.sol, 1174
 PUSHINT 1000000000
-.loc ../contracts/Root.sol, 60
+.loc ../contracts/Root.sol, 58
 GETPARAM 7
 FIRST
 DEPTH
@@ -5609,10 +5609,10 @@ UFITS 128
 MAX
 PUSHINT 0
 RAWRESERVE
-.loc ../contracts/Root.sol, 89
+.loc ../contracts/Root.sol, 87
 GETGLOB 23
 THROWIFNOT 114
-.loc ../contracts/Root.sol, 1186
+.loc ../contracts/Root.sol, 1184
 DEPTH
 ADDCONST -2
 PICK
@@ -5628,7 +5628,7 @@ ADD
 UFITS 128
 GEQ
 THROWIFNOT 103
-.loc ../contracts/Root.sol, 1193
+.loc ../contracts/Root.sol, 1191
 PUSH S2
 PARSEMSGADDR
 INDEX 3
@@ -5639,29 +5639,29 @@ INDEX 3
 PLDU 256
 NEQ
 THROWIFNOT 121
-.loc ../contracts/Root.sol, 1194
+.loc ../contracts/Root.sol, 1192
 PUSH S2
 PARSEMSGADDR
 INDEX 3
 PLDU 256
 THROWIFNOT 121
-.loc ../contracts/Root.sol, 1195
+.loc ../contracts/Root.sol, 1193
 OVER
 PARSEMSGADDR
 INDEX 3
 PLDU 256
 THROWIFNOT 121
-.loc ../contracts/Root.sol, 1197
+.loc ../contracts/Root.sol, 1195
 PUSH2 S2, S0
 CALLREF {
 	CALL $_deployVaultInternal_a38a82ef_internal_macro$
 }
-.loc ../contracts/Root.sol, 1198
+.loc ../contracts/Root.sol, 1196
 DUP2
 CALLREF {
 	CALL $_deployVaultInternal_a38a82ef_internal_macro$
 }
-.loc ../contracts/Root.sol, 1200
+.loc ../contracts/Root.sol, 1198
 GETGLOB 25
 PUSHINT 1
 GETGLOB 15
@@ -5764,7 +5764,7 @@ ISNULL
 IFREF {
 	CALL $c4_to_c7$
 }
-.loc ../contracts/Root.sol, 1215
+.loc ../contracts/Root.sol, 1213
 OVER
 PUSHCONT {
 	LDU 32
@@ -5797,9 +5797,9 @@ CALLREF {
 THROW 0
 
 .macro deployStablePool_50b987d0_internal_macro
-.loc ../contracts/Root.sol, 1215
+.loc ../contracts/Root.sol, 1213
 PUSHINT 1000000000
-.loc ../contracts/Root.sol, 60
+.loc ../contracts/Root.sol, 58
 GETPARAM 7
 FIRST
 DEPTH
@@ -5810,7 +5810,7 @@ UFITS 128
 MAX
 PUSHINT 0
 RAWRESERVE
-.loc ../contracts/Root.sol, 71
+.loc ../contracts/Root.sol, 69
 GETGLOB 9
 PARSEMSGADDR
 INDEX 3
@@ -5825,10 +5825,10 @@ SDEQ
 OR
 AND
 THROWIFNOT 100
-.loc ../contracts/Root.sol, 1224
+.loc ../contracts/Root.sol, 1222
 OVER
 FIRST
-.loc ../contracts/Root.sol, 1225
+.loc ../contracts/Root.sol, 1223
 DEPTH
 ADDCONST -2
 PICK
@@ -5843,7 +5843,7 @@ MUL
 ADD
 GEQ
 THROWIFNOT 103
-.loc ../contracts/Root.sol, 1232
+.loc ../contracts/Root.sol, 1230
 PUSHINT 3
 GETGLOB 16
 PUSHINT 8
@@ -5851,16 +5851,16 @@ DICTUGET
 NULLSWAPIFNOT
 NIP
 THROWIFNOT 110
-.loc ../contracts/Root.sol, 1234
+.loc ../contracts/Root.sol, 1232
 NEWDICT
-.loc ../contracts/Root.sol, 1235
+.loc ../contracts/Root.sol, 1233
 PUSHINT 0
 PUSHCONT {
 	PUSH2 S0, S2
 	LESS
 }
 PUSHCONT {
-	.loc ../contracts/Root.sol, 1236
+	.loc ../contracts/Root.sol, 1234
 	PUSH2 S0, S4
 	SECOND
 	PUSHINT 32
@@ -5870,7 +5870,7 @@ PUSHCONT {
 	INDEX 3
 	PLDU 256
 	THROWIFNOT 121
-	.loc ../contracts/Root.sol, 1237
+	.loc ../contracts/Root.sol, 1235
 	PUSH2 S0, S4
 	SECOND
 	PUSHINT 32
@@ -5887,7 +5887,7 @@ PUSHCONT {
 	TRUE
 	NEQ
 	THROWIFNOT 121
-	.loc ../contracts/Root.sol, 1239
+	.loc ../contracts/Root.sol, 1237
 	DUP2
 	PUSH S6
 	SECOND
@@ -5901,13 +5901,13 @@ PUSHCONT {
 	PUSHINT 267
 	DICTSETB
 	POP S2
-	.loc ../contracts/Root.sol, 1235
+	.loc ../contracts/Root.sol, 1233
 	INC
 	.loc ../contracts/Root.sol, 0
 }
 WHILE
 BLKDROP 3
-.loc ../contracts/Root.sol, 1242
+.loc ../contracts/Root.sol, 1240
 OVER
 SECOND
 PUSHINT 0
@@ -5924,7 +5924,7 @@ PUSHCONT {
 	NOT
 }
 PUSHCONT {
-	.loc ../contracts/Root.sol, 1243
+	.loc ../contracts/Root.sol, 1241
 	PUSH2 S0, S3
 	CALLREF {
 		CALL $_deployVaultInternal_a38a82ef_internal_macro$
@@ -5936,7 +5936,7 @@ PUSHCONT {
 }
 WHILE
 BLKDROP 3
-.loc ../contracts/Root.sol, 1246
+.loc ../contracts/Root.sol, 1244
 GETGLOB 25
 PUSHINT 3
 GETGLOB 17
@@ -6024,7 +6024,7 @@ ISNULL
 IFREF {
 	CALL $c4_to_c7$
 }
-.loc ../contracts/Root.sol, 1261
+.loc ../contracts/Root.sol, 1259
 OVER
 PUSHCONT {
 	LDU 32
@@ -6072,9 +6072,9 @@ IFREF {
 THROW 0
 
 .macro setPairFeeParams_02e916e3_internal_macro
-.loc ../contracts/Root.sol, 1261
+.loc ../contracts/Root.sol, 1259
 PUSHINT 1000000000
-.loc ../contracts/Root.sol, 60
+.loc ../contracts/Root.sol, 58
 GETPARAM 7
 FIRST
 DEPTH
@@ -6085,7 +6085,7 @@ UFITS 128
 MAX
 PUSHINT 0
 RAWRESERVE
-.loc ../contracts/Root.sol, 71
+.loc ../contracts/Root.sol, 69
 GETGLOB 9
 PARSEMSGADDR
 INDEX 3
@@ -6100,7 +6100,7 @@ SDEQ
 OR
 AND
 THROWIFNOT 100
-.loc ../contracts/Root.sol, 1272
+.loc ../contracts/Root.sol, 1270
 OVER
 FIRST
 NEQINT 0
@@ -6165,7 +6165,7 @@ PUSHCONT {
 }
 IF
 THROWIFNOT 131
-.loc ../contracts/Root.sol, 1281
+.loc ../contracts/Root.sol, 1279
 XCHG S2
 CALLREF {
 	CALL $_expectedPoolAddress_95044983_internal_macro$
@@ -6210,7 +6210,7 @@ ISNULL
 IFREF {
 	CALL $c4_to_c7$
 }
-.loc ../contracts/Root.sol, 1286
+.loc ../contracts/Root.sol, 1284
 OVER
 PUSHCONT {
 	LDU 32
@@ -6247,9 +6247,9 @@ IFREF {
 THROW 0
 
 .macro setPairAmplificationCoefficient_5eae4706_internal_macro
-.loc ../contracts/Root.sol, 1286
+.loc ../contracts/Root.sol, 1284
 PUSHINT 1000000000
-.loc ../contracts/Root.sol, 60
+.loc ../contracts/Root.sol, 58
 GETPARAM 7
 FIRST
 DEPTH
@@ -6260,7 +6260,7 @@ UFITS 128
 MAX
 PUSHINT 0
 RAWRESERVE
-.loc ../contracts/Root.sol, 71
+.loc ../contracts/Root.sol, 69
 GETGLOB 9
 PARSEMSGADDR
 INDEX 3
@@ -6275,7 +6275,7 @@ SDEQ
 OR
 AND
 THROWIFNOT 100
-.loc ../contracts/Root.sol, 1297
+.loc ../contracts/Root.sol, 1295
 XCHG S2
 CALLREF {
 	CALL $_expectedPoolAddress_95044983_internal_macro$
@@ -6309,7 +6309,7 @@ ISNULL
 IFREF {
 	CALL $c4_to_c7$
 }
-.loc ../contracts/Root.sol, 1302
+.loc ../contracts/Root.sol, 1300
 OVER
 PUSHCONT {
 	LDREF
@@ -6333,9 +6333,9 @@ IFREF {
 THROW 0
 
 .macro resetTargetGas_6e68a1ca_internal_macro
-.loc ../contracts/Root.sol, 1302
+.loc ../contracts/Root.sol, 1300
 PUSHINT 1000000000
-.loc ../contracts/Root.sol, 60
+.loc ../contracts/Root.sol, 58
 GETPARAM 7
 FIRST
 DEPTH
@@ -6346,7 +6346,7 @@ UFITS 128
 MAX
 PUSHINT 0
 RAWRESERVE
-.loc ../contracts/Root.sol, 94
+.loc ../contracts/Root.sol, 92
 GETGLOB 24
 PARSEMSGADDR
 INDEX 3
@@ -6357,7 +6357,7 @@ GETGLOB 24
 SDEQ
 AND
 THROWIFNOT 100
-.loc ../contracts/Root.sol, 1312
+.loc ../contracts/Root.sol, 1310
 SWAP
 NEWC
 STSLICECONST x62_
@@ -6383,7 +6383,7 @@ ISNULL
 IFREF {
 	CALL $c4_to_c7$
 }
-.loc ../contracts/Root.sol, 1317
+.loc ../contracts/Root.sol, 1315
 OVER
 PUSHCONT {
 	LDU 32
@@ -6418,9 +6418,9 @@ CALLREF {
 THROW 0
 
 .macro onPoolCreated_12f9a1e3_internal_macro
-.loc ../contracts/Root.sol, 1317
+.loc ../contracts/Root.sol, 1315
 PUSHINT 1000000000
-.loc ../contracts/Root.sol, 60
+.loc ../contracts/Root.sol, 58
 GETPARAM 7
 FIRST
 DEPTH
@@ -6431,7 +6431,7 @@ UFITS 128
 MAX
 PUSHINT 0
 RAWRESERVE
-.loc ../contracts/Root.sol, 67
+.loc ../contracts/Root.sol, 65
 GETGLOB 9
 PUSH S3
 .loc ../contracts/abstract/ContractBase.sol, 38
@@ -6440,7 +6440,7 @@ CALLREF {
 }
 SDEQ
 THROWIFNOT 106
-.loc ../contracts/Root.sol, 1327
+.loc ../contracts/Root.sol, 1325
 XCHG S2
 PUSHSLICE xc000000000000000000000000056c8dff7
 NEWC
@@ -6454,7 +6454,7 @@ STU 8
 ENDC
 PUSHINT 0
 SENDRAWMSG
-.loc ../contracts/Root.sol, 1329
+.loc ../contracts/Root.sol, 1327
 NEWC
 STSLICECONST x42_
 STSLICE
@@ -6476,7 +6476,7 @@ ISNULL
 IFREF {
 	CALL $c4_to_c7$
 }
-.loc ../contracts/Root.sol, 1336
+.loc ../contracts/Root.sol, 1334
 OVER
 PUSHCONT {
 	LDREF
@@ -6511,9 +6511,9 @@ IFREF {
 THROW 0
 
 .macro setOracleOptions_0ef70a57_internal_macro
-.loc ../contracts/Root.sol, 1336
+.loc ../contracts/Root.sol, 1334
 PUSHINT 1000000000
-.loc ../contracts/Root.sol, 60
+.loc ../contracts/Root.sol, 58
 GETPARAM 7
 FIRST
 DEPTH
@@ -6524,7 +6524,7 @@ UFITS 128
 MAX
 PUSHINT 0
 RAWRESERVE
-.loc ../contracts/Root.sol, 71
+.loc ../contracts/Root.sol, 69
 GETGLOB 9
 PARSEMSGADDR
 INDEX 3
@@ -6539,7 +6539,7 @@ SDEQ
 OR
 AND
 THROWIFNOT 100
-.loc ../contracts/Root.sol, 1348
+.loc ../contracts/Root.sol, 1346
 REVERSE 4, 0
 PUSHINT 0
 NEWDICT
@@ -6589,7 +6589,7 @@ ISNULL
 IFREF {
 	CALL $c4_to_c7$
 }
-.loc ../contracts/Root.sol, 1353
+.loc ../contracts/Root.sol, 1351
 OVER
 PUSHCONT {
 	LDREF
@@ -6618,9 +6618,9 @@ IFREF {
 THROW 0
 
 .macro removeLastNPoints_d441364b_internal_macro
-.loc ../contracts/Root.sol, 1353
+.loc ../contracts/Root.sol, 1351
 PUSHINT 1000000000
-.loc ../contracts/Root.sol, 60
+.loc ../contracts/Root.sol, 58
 GETPARAM 7
 FIRST
 DEPTH
@@ -6631,7 +6631,7 @@ UFITS 128
 MAX
 PUSHINT 0
 RAWRESERVE
-.loc ../contracts/Root.sol, 71
+.loc ../contracts/Root.sol, 69
 GETGLOB 9
 PARSEMSGADDR
 INDEX 3
@@ -6646,7 +6646,7 @@ SDEQ
 OR
 AND
 THROWIFNOT 100
-.loc ../contracts/Root.sol, 1365
+.loc ../contracts/Root.sol, 1363
 REVERSE 4, 0
 PUSHINT 0
 NEWDICT

@@ -61,7 +61,7 @@ contract Account is
     // MODIFIERS
 
     modifier onlyOwner() {
-        require(_owner.value != 0 && msg.sender == _owner, Errors.NOT_MY_OWNER);
+        require(_owner.value != 0 && msg.sender == _owner, Errors.NOT_OWNER);
         _;
     }
 
