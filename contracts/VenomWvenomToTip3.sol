@@ -12,10 +12,10 @@ import "./interfaces/IVenomVault.sol";
 import "./structures/INextExchangeData.sol";
 
 import "./libraries/MsgFlag.sol";
-import "tip3/contracts/interfaces/ITokenRoot.tsol";
-import "tip3/contracts/interfaces/ITokenWallet.tsol";
-import "tip3/contracts/interfaces/IAcceptTokensTransferCallback.tsol";
-import "tip3/contracts/interfaces/IAcceptTokensBurnCallback.tsol";
+import "tip3/contracts/interfaces/ITokenRoot.sol";
+import "tip3/contracts/interfaces/ITokenWallet.sol";
+import "tip3/contracts/interfaces/IAcceptTokensTransferCallback.sol";
+import "tip3/contracts/interfaces/IAcceptTokensBurnCallback.sol";
 
 contract VenomWvenomToTip3 is IAcceptTokensTransferCallback, IAcceptTokensBurnCallback {
 

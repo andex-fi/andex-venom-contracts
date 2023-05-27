@@ -8,7 +8,7 @@ import "./interfaces/IUpgradable.sol";
 import "./interfaces/ITokenFactory.sol";
 import "./interfaces/ITokenRootDeployedCallback.sol";
 
-import "tip3/contracts/TokenRootUpgradeable.tsol";
+import "tip3/contracts/TokenRootUpgradeable.sol";
 
 
 contract TokenFactory is ITokenFactory, IUpgradable {

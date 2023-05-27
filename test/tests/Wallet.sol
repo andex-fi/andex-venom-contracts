@@ -4,8 +4,8 @@ import '@broxus/contracts/contracts/wallets/Account.tsol';
 import '../interfaces/IPairOperationCallback.sol';
 import "../interfaces/ITokenRootDeployedCallback.sol";
 import "../interfaces/IReferralProgramCallbacks.sol";
-import "tip3/contracts/interfaces/IAcceptTokensTransferCallback.tsol";
-import "tip3/contracts/interfaces/IAcceptTokensMintCallback.tsol";
+import "tip3/contracts/interfaces/IAcceptTokensTransferCallback.sol";
+import "tip3/contracts/interfaces/IAcceptTokensMintCallback.sol";
 import "../interfaces/IAccountOwner.sol";
 
 

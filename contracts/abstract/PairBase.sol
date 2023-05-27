@@ -1,6 +1,6 @@
 pragma ever-solidity >= 0.62.0;
 
-import "tip3/contracts/interfaces/ITokenRoot.tsol";
+import "tip3/contracts/interfaces/ITokenRoot.sol";
 
 import "../interfaces/IConstantProductPair.sol";
 import "../interfaces/IAccount.sol";

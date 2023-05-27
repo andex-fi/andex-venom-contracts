@@ -2,10 +2,10 @@ pragma ever-solidity >= 0.62.0;
 
 import "./libraries/MsgFlag.sol";
 
-import "tip3/contracts/interfaces/ITokenRoot.tsol";
-import "tip3/contracts/interfaces/ITransferableOwnership.tsol";
-import "tip3/contracts/interfaces/ITransferTokenRootOwnershipCallback.tsol";
-import "tip3/contracts/structures/ICallbackParamsStructure.tsol";
+import "tip3/contracts/interfaces/ITokenRoot.sol";
+import "tip3/contracts/interfaces/ITransferableOwnership.sol";
+import "tip3/contracts/interfaces/ITransferTokenRootOwnershipCallback.sol";
+import "tip3/contracts/structures/ICallbackParamsStructure.sol";
 
 import "./interfaces/ITokenFactory.sol";
 import "./interfaces/ITokenRootDeployedCallback.sol";

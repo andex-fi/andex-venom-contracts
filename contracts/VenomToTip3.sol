@@ -18,11 +18,11 @@ import "./interfaces/IVenomTip3SwapEvents.sol";
 import "./interfaces/IVenomTip3SwapCallbacks.sol";
 
 import "./libraries/MsgFlag.sol";
-import "tip3/contracts/interfaces/ITokenRoot.tsol";
-import "tip3/contracts/interfaces/ITokenWallet.tsol";
-import "tip3/contracts/interfaces/IAcceptTokensMintCallback.tsol";
-import "tip3/contracts/interfaces/IAcceptTokensTransferCallback.tsol";
-import "tip3/contracts/interfaces/IAcceptTokensBurnCallback.tsol";
+import "tip3/contracts/interfaces/ITokenRoot.sol";
+import "tip3/contracts/interfaces/ITokenWallet.sol";
+import "tip3/contracts/interfaces/IAcceptTokensMintCallback.sol";
+import "tip3/contracts/interfaces/IAcceptTokensTransferCallback.sol";
+import "tip3/contracts/interfaces/IAcceptTokensBurnCallback.sol";
 
 contract VenomToTip3 is IAcceptTokensMintCallback, IAcceptTokensTransferCallback, IAcceptTokensBurnCallback, IVenomTip3SwapEvents {
 

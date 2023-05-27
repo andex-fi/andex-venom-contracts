@@ -1,6 +1,6 @@
 pragma ever-solidity >= 0.62.0;
 
-import "tip3/contracts/interfaces/IAcceptTokensMintCallback.tsol";
+import "tip3/contracts/interfaces/IAcceptTokensMintCallback.sol";
 
 import "../structures/INextExchangeData.sol";
 

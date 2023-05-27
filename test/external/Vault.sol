@@ -6,9 +6,9 @@ import "tip3/contracts/interfaces/ITokenRoot.tsol";
 import "tip3/contracts/interfaces/IBurnableTokenWallet.tsol";
 import "tip3/contracts/interfaces/IAcceptTokensTransferCallback.tsol";
 
-import "@broxus/contracts/contracts/utils/RandomNonce.tsol";
-import "@broxus/contracts/contracts/utils/CheckPubKey.tsol";
-import "@broxus/contracts/contracts/access/InternalOwner.tsol";
+import "@broxus/contracts/contracts/utils/RandomNonce.sol";
+import "@broxus/contracts/contracts/utils/CheckPubKey.sol";
+import "@broxus/contracts/contracts/access/InternalOwner.sol";
 
 
 import "./ErrorCodes.sol";

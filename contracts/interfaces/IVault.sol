@@ -1,6 +1,6 @@
 pragma ever-solidity >= 0.62.0;
 
-import "tip3/contracts/interfaces/IAcceptTokensTransferCallback.tsol";
+import "tip3/contracts/interfaces/IAcceptTokensTransferCallback.sol";
 
 import "../interfaces/IUpgradable.sol";
 import "../interfaces/IResetGas.sol";
