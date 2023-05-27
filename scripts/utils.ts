@@ -2,14 +2,14 @@ import fs from "fs";
 import BigNumber from "bignumber.js";
 import { Dimension, Address } from "locklift";
 
-const TOKEN_CONTRACTS_PATH = "node_modules/tip3/build";
-const EMPTY_TVM_CELL = "te6ccgEBAQEAAgAAAA==";
+export const TOKEN_CONTRACTS_PATH = "node_modules/tip3/build";
+export const EMPTY_TVM_CELL = "te6ccgEBAQEAAgAAAA==";
 
 BigNumber.config({ EXPONENTIAL_AT: 257 });
 
-const getRandomNonce = () => (Math.random() * 64000) | 0;
+export const getRandomNonce = () => (Math.random() * 64000) | 0;
 
-const stringToBytesArray = (dataString: string) => {
+export const stringToBytesArray = (dataString: string) => {
   return Buffer.from(dataString).toString("hex");
 };
 
@@ -36,7 +36,7 @@ async function sleep(ms: number) {
 }
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-const afterRun = async (tx: any) => {
+export const afterRun = async (tx: any) => {
   await new Promise(resolve => setTimeout(resolve, 3000));
 };
 
@@ -81,8 +81,8 @@ export const Constants = {
       upgradeable: true,
     },
     wever: {
-      name: "Wrapped EVER",
-      symbol: "WEVER",
+      name: "Wrapped VENOM",
+      symbol: "WVENOM",
       decimals: 9,
       upgradeable: true,
     },
@@ -133,7 +133,7 @@ export class Migration {
     return this.migration_log[alias] !== undefined;
   }
 
-  load(contract: { setAddress: (arg0: any) => void }, alias: string | number) {
+  load(contract: any, alias: string | number) {
     if (this.migration_log[alias] !== undefined) {
       contract.setAddress(this.migration_log[alias].address);
     } else {
