@@ -6,12 +6,12 @@ async function main() {
   const { Command } = require("commander");
   const logger = require("mocha-logger");
   const program = new Command();
-  const prompts = require("prompts");
+  // const prompts = require("prompts");
   const { getRandomNonce, toNano } = require("locklift");
 
   // const isValidTonAddress = (address: any) => /^(?:-1|0):[0-9a-fA-F]{64}$/.test(address);
 
-  const promptsData = [];
+  // const promptsData = [];
 
   program
     .allowUnknownOption()
@@ -20,7 +20,7 @@ async function main() {
 
   program.parse(process.argv);
 
-  const options = program.opts();
+  // const options = program.opts();
 
   /*if (!isValidTonAddress(options.weverroot)) {
     promptsData.push({
