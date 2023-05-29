@@ -6,7 +6,9 @@
     "test": "npx locklift test --network local",
     "build": "npx locklift build",
     "deploy": "npx locklift run --disable-build --script scripts/deploy.ts --config locklift.config.ts --network venom_testnet",
-    "deploy:factory": "npx locklift run --disable-build --script scripts/0-deploy-factory.ts --config locklift.config.ts --network venom_testnet"
+    "deploy:factory": "npx locklift run --disable-build --script scripts/0-deploy-factory.ts --config locklift.config.ts --network venom_testnet",
+    "deploy:wvenom": "npx locklift run --disable-build --script scripts/wvenom-setup.ts --config locklift.config.ts --network venom_testnet",
+    "deploy:venom-tip3": "npx locklift run --diable-build --script scripts/deploy-venom-to-tip3.ts --config locklift.config.ts --network venom_testnet"
   },
   "author": "",
   "license": "ISC",
@@ -33,6 +35,7 @@
     "typescript": "4.9.5"
   },
   "dependencies": {
-    "bignumber.js": "^9.1.1"
+    "bignumber.js": "^9.1.1",
+    "locklift-verifier": "^1.0.4"
   }
 }

@@ -1,2 +1,3 @@
 locklift.config.ts
 node_modules
+.env

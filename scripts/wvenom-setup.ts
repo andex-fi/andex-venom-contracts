@@ -127,7 +127,9 @@ async function main() {
 
   console.log(`Adding tunnel (vault, root)`);
 
-  tx = await Account2.runTarget({
+  const user = Account2.getAccount(Account2.address, signer!.publicKey);
+
+  tx = await user.runTarget({
     contract: tunnel,
     method: "__updateTunnel",
     params: {
@@ -141,7 +143,7 @@ async function main() {
 
   console.log(`Draining vault`);
 
-  tx = await Account2.runTarget({
+  tx = await user.runTarget({
     contract: vault,
     method: "drain",
     params: {
@@ -154,7 +156,7 @@ async function main() {
 
   console.log(`Wrap ${options.wrap_amount} EVER`);
 
-  tx = await Account2.run({
+  tx = await user.run({
     method: "sendTransaction",
     params: {
       dest: vault.address,

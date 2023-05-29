@@ -1,1 +1,26 @@
-{"Account1":{"address":"0:ff324594d418a142a2788e50261037624989f3f9262d04777c93817bad1d083d"},"TokenFactory":{"address":"0:9daf6f5bfb814a1987eee90dfa11252baae976638f30e13f86423b7b19b2a2bb"},"Root":{"address":"0:6913eb7240889bc558e1f5c556c049fa8109178e2268b66c7d741b686c507ee3"},"Vault":{"address":"0:27c9b8aa19d6ef803eae2bc0db0e62c5d85c1df349296bb519718b1307690fa0"}}
+{
+    "Account1":{
+        "address":"0:ff324594d418a142a2788e50261037624989f3f9262d04777c93817bad1d083d"
+    },
+    "Account2":{
+        "address":"0:fbfac24f82d383c301b48e7461f622c510e43a8b5df352bc9488831735bfa2ac"
+    },
+    "TokenFactory":{
+        "address":"0:9daf6f5bfb814a1987eee90dfa11252baae976638f30e13f86423b7b19b2a2bb"
+    },
+    "Root":{
+        "address":"0:6913eb7240889bc558e1f5c556c049fa8109178e2268b66c7d741b686c507ee3"
+    },
+    "Vault":{
+        "address":"0:27c9b8aa19d6ef803eae2bc0db0e62c5d85c1df349296bb519718b1307690fa0"
+    },
+    "WVENOMTunnel":{
+        "address":"0:32a3c169fac8a7e4ceb5d80f9c0024a484d450ec84d5a542da1e417ee00cd487"
+    },
+    "WVENOMRoot":{
+        "address":"0:2e98a5663d0701d7eb8830b6a7cb7e3d96fd71899af6afd42ecd5f882bab0333"
+    },
+    "WVENOMVault":{
+        "address":"0:6b9b97e31cc1ce5ec78a785eaa86fc032d29fc1ce42db0ed0a693137b0139296"
+    }
+}

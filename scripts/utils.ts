@@ -80,7 +80,7 @@ export const Constants = {
       decimals: 9,
       upgradeable: true,
     },
-    wever: {
+    wvenom: {
       name: "Wrapped VENOM",
       symbol: "WVENOM",
       decimals: 9,
@@ -133,9 +133,13 @@ export class Migration {
     return this.migration_log[alias] !== undefined;
   }
 
+  setAddress(contract: any, address: any) {
+    contract.address = address;
+  }
+
   load(contract: any, alias: string | number) {
     if (this.migration_log[alias] !== undefined) {
-      contract.setAddress(this.migration_log[alias].address);
+      this.setAddress(contract, this.migration_log[alias].address);
     } else {
       throw new Error(`Contract ${alias} not found in the migration`);
     }
