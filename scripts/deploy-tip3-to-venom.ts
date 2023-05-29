@@ -1,9 +1,10 @@
-import { Address, getRandomNonce, toNano, zeroAddress } from "locklift";
-import BigNumber from "bignumber.js";
+import { getRandomNonce, toNano } from "locklift";
+import { Migration } from "./utils";
 
 async function main() {
-  const signer = (await locklift.keystore.getSigner("0"))!;
-  console.log(signer.publicKey);
+  const signer = await locklift.keystore.getSigner("0");
+
+  const migration = new Migration();
 
   /* 
     Returns compilation artifacts based on the .sol file name
@@ -15,16 +16,17 @@ async function main() {
   */
   const { contract: Tip3ToVenom } = await locklift.factory.deployContract({
     contract: "Tip3ToVenom",
-    publicKey: signer.publicKey,
+    publicKey: signer?.publicKey ?? "",
     initParams: {
       randomNonce_: getRandomNonce(),
-      weverRoot: zeroAddress, //TODO: replace with WVENOM root address
-      weverVault: zeroAddress, //TODO: replace with WVENOM vault address
+      weverRoot: migration.getAddress("WVENOMRoot"),
+      weverVault: migration.getAddress("WVENOMVault"),
     },
     constructorParams: {},
     value: toNano(2),
   });
 
+  migration.store(Tip3ToVenom, "Tip3ToVenom");
   console.log(`${"Tip3ToVenom"}: ${Tip3ToVenom.address}`);
 }
 
