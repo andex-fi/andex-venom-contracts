@@ -38,6 +38,8 @@ async function main() {
 
   const Account2 = migration.load(await locklift.factory.getAccountsFactory("Wallet"), "Account2");
 
+  const user = Account2.getAccount(Account2.address, signer!.publicKey);
+
   Account2.afterRun = afterRun;
 
   console.log(`Owner: ${Account2.address}`);
@@ -127,34 +129,31 @@ async function main() {
 
   console.log(`Adding tunnel (vault, root)`);
 
-  const user = Account2.getAccount(Account2.address, signer!.publicKey);
-
-  tx = await user.runTarget({
-    contract: tunnel,
-    method: "__updateTunnel",
-    params: {
+  tx = await tunnel.methods
+    .__updateTunnel({
       source: vault.address,
       destination: root.address,
-    },
-    publicKey: signer!.publicKey,
-  });
-
+    })
+    .send({
+      from: Account2.address,
+      amount: toNano(1),
+    });
   displayTx(tx);
 
   console.log(`Draining vault`);
 
-  tx = await user.runTarget({
-    contract: vault,
-    method: "drain",
-    params: {
+  tx = await vault.methods
+    .drain({
       receiver: Account2.address,
-    },
-    publicKey: signer!.publicKey,
-  });
+    })
+    .send({
+      from: Account2.address,
+      amount: toNano(1),
+    });
 
   displayTx(tx);
 
-  console.log(`Wrap ${options.wrap_amount} EVER`);
+  console.log(`Wrap ${options.wrap_amount} VENOM`);
 
   tx = await user.run({
     method: "sendTransaction",
@@ -179,8 +178,7 @@ async function main() {
       .call()
   ).value0;
 
-  // TokenWallet.setAddress(tokenWalletAddress);
-  migration.store(TokenWallet, tokenData.symbol + "Wallet2");
+  migration.store(tokenWalletAddress, tokenData.symbol + "Wallet2");
   const tokenWallet = await locklift.factory.getDeployedContract("TokenWalletUpgradeable", tokenWalletAddress);
 
   const balance = (await tokenWallet.methods.balance({ answerId: 0 }).call()).value0;
