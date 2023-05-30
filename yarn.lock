@@ -2047,7 +2047,7 @@ locklift-verifier@^1.0.4:
     ts-node-dev "^1.0.0"
     typescript "^4.4.5"
 
-locklift@^2.4.6, locklift@^2.4.8:
+locklift@^2.4.6, locklift@^2.4.8, locklift@^2.5.5:
   version "2.5.5"
   resolved "https://registry.yarnpkg.com/locklift/-/locklift-2.5.5.tgz#1296ceb32834cff68002131b295c1cbfa09ef6ce"
   integrity sha512-8UQkCn3JdYnRK9fVkb89gjBBlp8KZj4MJrWwTEkk/rYJF5K/6RurVaAEyRg4mY7PN3Dzu/JOXZ+MbtcekfMN3A==

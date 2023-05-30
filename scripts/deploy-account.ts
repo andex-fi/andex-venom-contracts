@@ -16,7 +16,7 @@ async function main() {
 
   const options = program.opts();
 
-  const key_number = +(options.key_number || "0");
+  const key_number = +(options.key_number || "2");
   const balance = +(options.balance || "10");
 
   const signer = await locklift.keystore.getSigner(key_number.toString());

@@ -178,6 +178,8 @@ async function main() {
       .call()
   ).value0;
 
+  console.log(`TokenWallet`, tokenWalletAddress);
+
   migration.store(tokenWalletAddress, tokenData.symbol + "Wallet2");
   const tokenWallet = await locklift.factory.getDeployedContract("TokenWalletUpgradeable", tokenWalletAddress);
 

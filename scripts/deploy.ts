@@ -1,8 +1,9 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 // eslint-disable-next-line @typescript-eslint/no-var-requires
-import { Migration, displayTx } from "./utils";
+import { Migration, displayTx, Constants } from "./utils";
 import { Command } from "commander";
-import { toNano, WalletTypes, getRandomNonce, zeroAddress, Address } from "locklift";
+import { toNano, WalletTypes, getRandomNonce, zeroAddress, Address, Dimension } from "locklift";
+// import BigNumber from "bignumber.js";
 
 async function main() {
   const program = new Command();
@@ -10,13 +11,30 @@ async function main() {
 
   migration.reset();
 
-  program.allowUnknownOption().option("-o, --owner <owner>", "owner");
+  program
+    .allowUnknownOption()
+    .option("-o, --owner <owner>", "owner")
+    .option("-wa, --wrap_amount <wrap_amount>", "wrap_amount");
 
   program.parse(process.argv);
 
   const options = program.opts();
+  options.wrap_amount = options.wrap_amount || "60";
 
   const newOwner = new Address(options.owner);
+
+  const tokenData = Constants.tokens["wvenom"];
+
+  const networkConfig = locklift.context.network.config;
+  const giver = networkConfig.giver.address;
+  const giverAddress = new Address(giver);
+
+  console.log(
+    `Giver balance: ${locklift.utils.convertAmount(
+      await locklift.provider.getBalance(giverAddress),
+      Dimension.ToNano,
+    )}`,
+  );
 
   // ============ DEPLOYER ACCOUNT ============
 
@@ -39,6 +57,25 @@ async function main() {
   const name = `Account1`;
   migration.store(account, name);
   console.log(`${name}: ${account.address}`);
+
+  const account2 = (
+    await locklift.factory.accounts.addNewAccount({
+      type: WalletTypes.EverWallet,
+      value: toNano(10),
+      publicKey: signer!.publicKey,
+    })
+  ).account;
+
+  await locklift.provider.sendMessage({
+    sender: account2.address,
+    recipient: account2.address,
+    amount: toNano(1),
+    bounce: false,
+  });
+
+  const name2 = `Account2`;
+  migration.store(account2, name2);
+  console.log(`${name2}: ${account2.address}`);
 
   // ============ TOKEN FACTORY ============
   // const TokenFactory = await locklift.factory.getContractArtifacts(
@@ -270,6 +307,108 @@ async function main() {
       });
     displayTx(tx);
   }
+
+  // ===============DEPLOY WVENOM================================
+  console.log(`Owner: ${account2.address}`);
+
+  console.log(`Deploying Tunnel`);
+
+  const { contract: tunnel } = await locklift.factory.deployContract({
+    contract: "TestWeverTunnel",
+    constructorParams: {
+      sources: [],
+      destinations: [],
+      owner_: account2.address,
+    },
+    initParams: {
+      _randomNonce: getRandomNonce(),
+    },
+    publicKey: signer!.publicKey,
+    value: toNano(5),
+  });
+
+  console.log(`Tunnel address: ${tunnel.address}`);
+  migration.store(tunnel, `${tokenData.symbol}Tunnel`);
+
+  console.log(`Deploying WVENOM`);
+
+  const { contract: root } = await locklift.factory.deployContract({
+    contract: "TokenRootUpgradeable",
+    constructorParams: {
+      initialSupplyTo: zeroAddress,
+      initialSupply: "0",
+      deployWalletValue: "0",
+      mintDisabled: false,
+      burnByRootDisabled: false,
+      burnPaused: false,
+      remainingGasTo: zeroAddress,
+    },
+    initParams: {
+      randomNonce_: getRandomNonce(),
+      deployer_: zeroAddress,
+      name_: tokenData.name,
+      symbol_: tokenData.symbol,
+      decimals_: tokenData.decimals,
+      walletCode_: TokenWallet.code,
+      rootOwner_: tunnel.address,
+      platformCode_: TokenWalletPlatform.code,
+    },
+    publicKey: signer!.publicKey,
+    value: toNano(3),
+  });
+
+  console.log(`WVENOM root: ${root.address}`);
+  migration.store(root, `${tokenData.symbol}Root`);
+
+  console.log(`Deploying Vault`);
+
+  const { contract: vault } = await locklift.factory.deployContract({
+    contract: "TestWeverVault",
+    constructorParams: {
+      owner_: account2.address,
+      root_tunnel: tunnel.address,
+      root: root.address,
+      receive_safe_fee: toNano(1),
+      settings_deploy_wallet_grams: toNano(0.1),
+      initial_balance: toNano(1),
+    },
+    initParams: {
+      _randomNonce: getRandomNonce(),
+    },
+    publicKey: signer!.publicKey,
+    value: toNano(2),
+  });
+
+  console.log(`Vault address: ${vault.address}`);
+  migration.store(vault, `${tokenData.symbol}Vault`);
+
+  console.log(`Adding tunnel (vault, root)`);
+
+  tx = await tunnel.methods
+    .__updateTunnel({
+      source: vault.address,
+      destination: root.address,
+    })
+    .send({
+      from: account2.address,
+      amount: toNano(1),
+    });
+  displayTx(tx);
+
+  console.log(`Draining vault`);
+
+  tx = await vault.methods
+    .drain({
+      receiver: account2.address,
+    })
+    .send({
+      from: account2.address,
+      amount: toNano(1),
+    });
+
+  displayTx(tx);
+
+  console.log(`Giver balance: ${toNano(await locklift.provider.getBalance(giverAddress))}`);
 
   console.log("=".repeat(64));
   for (const alias in migration.migration_log) {
