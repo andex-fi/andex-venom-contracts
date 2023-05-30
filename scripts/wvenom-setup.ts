@@ -3,7 +3,48 @@
 import BigNumber from "bignumber.js";
 import { Constants, Migration, afterRun, EMPTY_TVM_CELL, getRandomNonce, displayTx } from "./utils";
 import { Command } from "commander";
-import { Dimension, Address, toNano, zeroAddress } from "locklift";
+import { Dimension, Address, toNano, zeroAddress, WalletTypes } from "locklift";
+import { GenericAccount } from "everscale-standalone-client";
+
+const myMsigAccountAbi = `{
+  "ABI version": 2,
+  "header": ["pubkey", "time", "expire"],
+  "functions": [{
+    "name": "sendTransaction",
+    "inputs": [
+      {"name":"dest","type":"address"},
+      {"name":"value","type":"uint128"},
+      {"name":"bounce","type":"bool"},
+      {"name":"flags","type":"uint8"},
+      {"name":"payload","type":"cell"}
+    ],
+    "outputs": []
+  }],
+  "events": []
+}`;
+
+class MyMsigAccount extends GenericAccount {
+  constructor(args: { address: string | Address; publicKey?: string }) {
+    super({
+      address: args.address,
+      publicKey: args.publicKey,
+      abi: myMsigAccountAbi,
+      prepareMessage: async (args, ctx) => {
+        const payload = args.payload ? ctx.encodeInternalInput(args.payload) : "";
+        return {
+          method: "sendTransaction",
+          params: {
+            dest: args.recipient,
+            value: args.amount,
+            bounce: args.bounce,
+            flags: 3,
+            payload,
+          },
+        };
+      },
+    });
+  }
+}
 
 BigNumber.config({ EXPONENTIAL_AT: 257 });
 
@@ -35,12 +76,38 @@ async function main() {
   );
 
   const signer = await locklift.keystore.getSigner("0");
+  // console.log("signer:", locklift.factory.getAccountsFactory("Wallet"), "Account2");
+  const accountsFactory = locklift.factory.getAccountsFactory(
+    "Wallet", // name of contract used as a wallet
+  );
 
-  const Account2 = migration.load(await locklift.factory.getAccountsFactory("Wallet"), "Account2");
+  // const { account: MyAccount } = await accountsFactory.deployNewAccount({
+  //   publicKey: signer!.publicKey,
+  //   initParams: {
+  //     _randomNonce: getRandomNonce(),
+  //   },
+  //   constructorParams: {},
+  //   value: locklift.utils.toNano(100),
+  // });
 
-  const user = Account2.getAccount(Account2.address, signer!.publicKey);
+  // migration.store(MyAccount, `newAccount`);
 
-  Account2.afterRun = afterRun;
+  const Account1 = migration.load(accountsFactory, "Account2");
+  const Account2 = new MyMsigAccount({ address: Account1.address, publicKey: signer!.publicKey });
+  locklift.factory.accounts.storage.addAccount(Account2);
+  // const Account2 = migration.load(accountsFactory, "Account2");
+  // const Account2 = await locklift.factory.accounts.addNewAccount({
+  //   type: WalletTypes.EverWallet, // or WalletTypes.HighLoadWallet or WalletTypes.WalletV3,
+  //   //Value which will send to the new account from a giver
+  //   value: toNano(100000),
+  //   //owner publicKey
+  //   publicKey: signer!.publicKey,
+  //   nonce: getRandomNonce(),
+  // });
+
+  const user = Account1.getAccount(Account2.address, signer!.publicKey);
+
+  // Account2.afterRun = afterRun;
 
   console.log(`Owner: ${Account2.address}`);
 
