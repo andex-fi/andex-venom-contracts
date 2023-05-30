@@ -13,7 +13,7 @@
     "deploy:tip3-venom": "npx locklift run --disable-build --script scripts/deploy-tip3-to-venom.ts --config locklift.config.ts --network venom_testnet",
     "deploy:venom-tip3": "npx locklift run --diable-build --script scripts/deploy-venom-to-tip3.ts --config locklift.config.ts --network venom_testnet",
     "deploy:wvenom-tip3": "npx locklift run --disable-build --script scripts/deploy-venomwvenom-to-tip3.ts --config locklift.config.ts --network venom_testnet",
-    "deploy:all": "npx locklift run --disable-build --script scripts/deploy.ts --config locklift.config.ts --network local"
+    "deploy:all": "npx locklift run --disable-build --script scripts/deploy.ts --config locklift.config.ts --network venom_testnet"
   },
   "author": "",
   "license": "ISC",

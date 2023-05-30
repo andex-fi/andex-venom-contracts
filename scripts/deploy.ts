@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
-// eslint-disable-next-line @typescript-eslint/no-var-requires
 import { Migration, displayTx, Constants } from "./utils";
 import { Command } from "commander";
 import { toNano, WalletTypes, getRandomNonce, zeroAddress, Address, Dimension } from "locklift";
@@ -407,6 +406,58 @@ async function main() {
     });
 
   displayTx(tx);
+
+  /* 
+  =======================Deploy the Tip3ToVenom contract===============================
+  */
+  const { contract: Tip3ToVenom } = await locklift.factory.deployContract({
+    contract: "Tip3ToVenom",
+    publicKey: signer!.publicKey,
+    initParams: {
+      randomNonce_: getRandomNonce(),
+      weverRoot: root.address,
+      weverVault: vault.address,
+    },
+    constructorParams: {},
+    value: toNano(2),
+  });
+
+  migration.store(Tip3ToVenom, "Tip3ToVenom");
+  console.log(`${"Tip3ToVenom"}: ${Tip3ToVenom.address}`);
+
+  const { contract: venomTip3 } = await locklift.factory.deployContract({
+    contract: "VenomToTip3",
+    constructorParams: {},
+    initParams: {
+      randomNonce_: getRandomNonce(),
+      weverRoot: root.address,
+      weverVault: vault.address,
+    },
+    publicKey: signer?.publicKey ?? "",
+    value: toNano(2),
+  });
+
+  migration.store(venomTip3, "VenomToTip3");
+  console.log(`'Venom to Tip3': ${venomTip3.address}`);
+
+  /* 
+    Deploy the VenomWvenomToTip3 contract.
+  */
+  const { contract: VenomWvenomToTip3 } = await locklift.factory.deployContract({
+    contract: "VenomWvenomToTip3",
+    publicKey: signer?.publicKey ?? "",
+    initParams: {
+      randomNonce_: getRandomNonce(),
+      weverRoot: root.address,
+      weverVault: vault.address,
+      everToTip3: venomTip3.address,
+    },
+    constructorParams: {},
+    value: toNano(2),
+  });
+
+  migration.store(VenomWvenomToTip3, "VenomWvenomToTip3");
+  console.log(`${"VenomWvenomToTip3"}: ${VenomWvenomToTip3.address}`);
 
   console.log(`Giver balance: ${toNano(await locklift.provider.getBalance(giverAddress))}`);
 
