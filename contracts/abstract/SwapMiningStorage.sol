@@ -2,8 +2,10 @@ pragma ever-solidity >=0.62.0;
 pragma AbiHeader expire;
 
 abstract contract SwapMiningStorage {
+    // Constants
+    uint128 constant CONTRACT_MIN_BALANCE = 1 ever;
     
-    uint32 const MAX_UINT32 = 0xFFFFFFFF;
+    uint32 constant MAX_UINT32 = 0xFFFFFFFF;
     uint128 constant SCALING_FACTOR = 1e18;
 
     // State vars
