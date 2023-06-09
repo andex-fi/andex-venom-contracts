@@ -9,20 +9,30 @@ abstract contract SwapMiningStorage {
     uint128 constant SCALING_FACTOR = 1e18;
 
     // State vars
-    uint32 lastRewardTime;
+
+    uint128 lastRewardTime; // Last time rewards were distributed
+    uint256[] accAndxPerShare; // Accumulated Andx per share, time 1e12.
+    uint256[] allocPoint; // How many allocation points assigned to this pool. ksts to distribute per block.
+    uint256[] quantity;
+    uint256[] accQuantity;
+    uint256[] allocAndxAmount;
+    uint256[] accAndxAmount;
 
     //should be set dynamically
     address tokenRoot;
     address tokenWallet;
     uint128 tokenBalance;
 
-    uint256[] accRewardPerShare;
+    
     address[] rewardTokenRoot;
     address[] rewardTokenWallet;
     uint128[] rewardTokenBalance;
     uint128[] rewardTokenBalanceCumulative;
     uint128[] unclaimedReward;
 
+    address lp_root; // Address of LP token contract.
+    address lp_wallet; // Address of LP wallet.
+    
     address owner;
 
     TvmCell static platform_code;
