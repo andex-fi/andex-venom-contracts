@@ -21,21 +21,21 @@ contract VenomWvenomToTip3 is IAcceptTokensTransferCallback, IAcceptTokensBurnCa
 
     uint32 static randomNonce_;
 
-    address static public weverRoot;
-    address static public weverVault;
-    address static public everToTip3;
+    address static public wvenomRoot;
+    address static public wvenomVault;
+    address static public venomToTip3;
 
-    address public weverWallet;
+    address public wvenomWallet;
 
     constructor() public {
         tvm.accept();
 
         tvm.rawReserve(VenomToTip3Gas.TARGET_BALANCE, 0);
 
-        ITokenRoot(weverRoot).deployWallet{
+        ITokenRoot(wvenomRoot).deployWallet{
             value: VenomToTip3Gas.DEPLOY_EMPTY_WALLET_VALUE,
             flag: MsgFlag.SENDER_PAYS_FEES,
-            callback: VenomWvenomToTip3.onWeverWallet
+            callback: VenomWvenomToTip3.onWvenomWallet
         }(
             address(this),
             VenomToTip3Gas.DEPLOY_EMPTY_WALLET_GRAMS
@@ -45,13 +45,13 @@ contract VenomWvenomToTip3 is IAcceptTokensTransferCallback, IAcceptTokensBurnCa
     }
 
     // Callback deploy WEVER wallet for contract
-    function onWeverWallet(address _weverWallet) external {
-        require(msg.sender.value != 0 && msg.sender == weverRoot, VenomToTip3Errors.NOT_WEVER_ROOT);
-        weverWallet = _weverWallet;
-        weverWallet.transfer(0, false, MsgFlag.REMAINING_GAS + MsgFlag.IGNORE_ERRORS);
+    function onWvenomWallet(address _wvenomWallet) external {
+        require(msg.sender.value != 0 && msg.sender == wvenomRoot, VenomToTip3Errors.NOT_WEVER_ROOT);
+        wvenomWallet = _wvenomWallet;
+        wvenomWallet.transfer(0, false, MsgFlag.REMAINING_GAS + MsgFlag.IGNORE_ERRORS);
     }
 
-    // Payload constructor swap Ever -> Tip-3
+    // Payload constructor swap Venom -> Tip-3
     function buildExchangePayload(
         address pair,
         uint64 id,
@@ -72,7 +72,7 @@ contract VenomWvenomToTip3 is IAcceptTokensTransferCallback, IAcceptTokensBurnCa
         );
     }
 
-    // Payload constructor swap Ever -> Tip-3 via split-cross-pool
+    // Payload constructor swap Venom -> Tip-3 via split-cross-pool
     function buildCrossPairExchangePayload(
         address pool,
         uint64 id,
@@ -114,12 +114,12 @@ contract VenomWvenomToTip3 is IAcceptTokensTransferCallback, IAcceptTokensBurnCa
         bool needCancel = false;
         TvmSlice payloadSlice = payload.toSlice();
         tvm.rawReserve(VenomToTip3Gas.TARGET_BALANCE, 0);
-        if (payloadSlice.bits() == 395 && msg.sender == weverWallet) {
+        if (payloadSlice.bits() == 395 && msg.sender == wvenomWallet) {
             (, uint128 amount_) = payloadSlice.decode(address, uint128);
             if ((amount + msg.value - VenomToTip3Gas.SWAP_EVER_TO_TIP3_MIN_VALUE) >= amount_) {
                 ITokenWallet(msg.sender).transfer{ value: 0, flag: MsgFlag.ALL_NOT_RESERVED, bounce: false }(
                     amount,
-                    weverVault,
+                    wvenomVault,
                     0,
                     user,
                     true,
@@ -156,15 +156,15 @@ contract VenomWvenomToTip3 is IAcceptTokensTransferCallback, IAcceptTokensBurnCa
         override
         external
     {
-        require(msg.sender.value != 0 && msg.sender == weverRoot, VenomToTip3Errors.NOT_WEVER_ROOT);
+        require(msg.sender.value != 0 && msg.sender == wvenomRoot, VenomToTip3Errors.NOT_WEVER_ROOT);
         tvm.rawReserve(VenomToTip3Gas.TARGET_BALANCE, 0);
 
         TvmSlice payloadSlice =  payload.toSlice();
         (, uint128 amount_) = payloadSlice.decode(address, uint128);
 
-        IVenomVault(weverVault).wrap{ value: 0, flag: MsgFlag.ALL_NOT_RESERVED, bounce: false }(
+        IVenomVault(wvenomVault).wrap{ value: 0, flag: MsgFlag.ALL_NOT_RESERVED, bounce: false }(
             amount_,
-            everToTip3,
+            venomToTip3,
             user,
             payload
         );

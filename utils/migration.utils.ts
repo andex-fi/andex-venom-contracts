@@ -1,13 +1,9 @@
-import { BigNumber } from 'bignumber.js';
-import { Migration } from './migration';
-import {Address, Contract, toNano, WalletTypes, zeroAddress} from 'locklift';
-import { FactorySource } from '../build/factorySource';
-import { Account } from 'everscale-standalone-client/nodejs';
-import {
-  logMigrationParams,
-  logMigrationProcess,
-  logMigrationSuccess,
-} from './log.utils';
+import { BigNumber } from "bignumber.js";
+import { Migration } from "./migration";
+import { Address, Contract, toNano, WalletTypes, zeroAddress } from "locklift";
+import { FactorySource } from "../build/factorySource";
+import { Account } from "everscale-standalone-client/nodejs";
+import { logMigrationParams, logMigrationProcess, logMigrationSuccess } from "./log.utils";
 
 /**
  * Deploys new account with specified amount of EVER and saves migration
@@ -15,15 +11,11 @@ import {
  * @param amount how much EVER to draw for deployed account
  * @param signerId ID of the key pair from mnemonic phrase
  */
-export const accountMigration = async (
-  amount: BigNumber.Value,
-  name = 'Account',
-  signerId = '0',
-): Promise<Account> => {
+export const accountMigration = async (amount: BigNumber.Value, name = "Account", signerId = "0"): Promise<Account> => {
   // Get signer and factory
   const signer = await locklift.keystore.getSigner(signerId);
 
-  logMigrationProcess('Account', 'constructor', 'Deploying Account...');
+  logMigrationProcess("Account", "constructor", "Deploying Account...");
   logMigrationParams({ name, signerId, amount });
 
   const { account } = await locklift.factory.accounts.addNewAccount({
@@ -33,41 +25,27 @@ export const accountMigration = async (
   });
 
   // Log and save address
-  logMigrationSuccess(
-    'Account',
-    'constructor',
-    `Deployed Account: ${account.address}`,
-  );
+  logMigrationSuccess("Account", "constructor", `Deployed Account: ${account.address}`);
   new Migration().store(account, name);
 
   return account;
 };
 
-export const mockPriceAggregatorMigration = async (): Promise<
-  Contract<FactorySource['MockPriceAggregator']>
-> => {
+export const mockPriceAggregatorMigration = async (): Promise<Contract<FactorySource["MockPriceAggregator"]>> => {
   // Get signer and account
-  const signer = await locklift.keystore.getSigner('0');
+  const signer = await locklift.keystore.getSigner("0");
 
-  logMigrationProcess(
-    'MockPriceAggregator',
-    'constructor',
-    'Deploying PriceAggregator...',
-  );
+  logMigrationProcess("MockPriceAggregator", "constructor", "Deploying PriceAggregator...");
   const { contract } = await locklift.factory.deployContract({
-    contract: 'MockPriceAggregator',
+    contract: "MockPriceAggregator",
     publicKey: signer!.publicKey,
     initParams: { _nonce: locklift.utils.getRandomNonce() },
     constructorParams: {},
     value: locklift.utils.toNano(10),
   });
   // Log and save address
-  logMigrationSuccess(
-    'MockAggregator',
-    'constructor',
-    `Deployed PriceAggregator: ${contract.address}`,
-  );
-  new Migration().store(contract, 'PriceAggregator');
+  logMigrationSuccess("MockAggregator", "constructor", `Deployed PriceAggregator: ${contract.address}`);
+  new Migration().store(contract, "PriceAggregator");
 
   return contract;
 };
@@ -87,26 +65,18 @@ export const tokenRootMigration = async (
   decimals: number,
   initialSupplyTo?: Address,
   initialSupply?: string,
-): Promise<Contract<FactorySource['TokenRootUpgradeable']>> => {
+): Promise<Contract<FactorySource["TokenRootUpgradeable"]>> => {
   // Load signer and account
-  const signer = await locklift.keystore.getSigner('0');
-  const account = await new Migration().loadAccount('Account', '0');
+  const signer = await locklift.keystore.getSigner("0");
+  const account = await new Migration().loadAccount("Account", "0");
 
   // Load wallet and platform codes
-  const Wallet = await locklift.factory.getContractArtifacts(
-    'TokenWalletUpgradeable',
-  );
-  const Platform = await locklift.factory.getContractArtifacts(
-    'TokenWalletPlatform',
-  );
+  const Wallet = await locklift.factory.getContractArtifacts("TokenWalletUpgradeable");
+  const Platform = await locklift.factory.getContractArtifacts("TokenWalletPlatform");
 
   const nonce = locklift.utils.getRandomNonce();
 
-  logMigrationProcess(
-    'TokenRootUpgradeable',
-    'constructor',
-    'Deploying TokenRootUpgradeable...',
-  );
+  logMigrationProcess("TokenRootUpgradeable", "constructor", "Deploying TokenRootUpgradeable...");
   logMigrationParams({
     name,
     symbol,
@@ -116,7 +86,7 @@ export const tokenRootMigration = async (
     initialSupply,
   });
   const { contract } = await locklift.factory.deployContract({
-    contract: 'TokenRootUpgradeable',
+    contract: "TokenRootUpgradeable",
     publicKey: signer!.publicKey,
     initParams: {
       randomNonce_: nonce,
@@ -130,8 +100,8 @@ export const tokenRootMigration = async (
     },
     constructorParams: {
       initialSupplyTo: initialSupplyTo ? initialSupplyTo : zeroAddress,
-      initialSupply: initialSupply ? initialSupply : '0',
-      deployWalletValue: locklift.utils.toNano('5'),
+      initialSupply: initialSupply ? initialSupply : "0",
+      deployWalletValue: locklift.utils.toNano("5"),
       mintDisabled: false,
       burnByRootDisabled: true,
       burnPaused: true,
@@ -141,26 +111,20 @@ export const tokenRootMigration = async (
   });
 
   // Log and save address
-  logMigrationSuccess(
-    'TokenRootUpgradeable',
-    'constructor',
-    `Deployed TokenRootUpgradeable: ${contract.address}`,
-  );
+  logMigrationSuccess("TokenRootUpgradeable", "constructor", `Deployed TokenRootUpgradeable: ${contract.address}`);
   new Migration().store(contract, `Token${symbol}`);
 
   return contract;
 };
 
-export const lendingRootMigration = async (
-  owner: string,
-): Promise<Contract<FactorySource['LendingRoot']>> => {
+export const lendingRootMigration = async (owner: string): Promise<Contract<FactorySource["LendingRoot"]>> => {
   // Load signer and account
-  const signer = await locklift.keystore.getSigner('0');
+  const signer = await locklift.keystore.getSigner("0");
 
-  logMigrationProcess('LendingRoot', 'constructor', 'Deploying LendingRoot...');
+  logMigrationProcess("LendingRoot", "constructor", "Deploying LendingRoot...");
 
   const { contract } = await locklift.factory.deployContract({
-    contract: 'LendingRoot',
+    contract: "LendingRoot",
     publicKey: signer!.publicKey,
     initParams: {
       _nonce: locklift.utils.getRandomNonce(),
@@ -173,11 +137,7 @@ export const lendingRootMigration = async (
   });
 
   // Log and save address
-  logMigrationSuccess(
-    'LendingRoot',
-    'constructor',
-    `Deployed LendingRoot: ${contract.address}`,
-  );
+  logMigrationSuccess("LendingRoot", "constructor", `Deployed LendingRoot: ${contract.address}`);
   new Migration().store(contract, `LendingRoot`);
 
   return contract;

@@ -1,4 +1,4 @@
-const logger = require('mocha-logger');
+import { log, success } from "mocha-logger";
 
 /**
  * Upgrades DEX pair's code
@@ -9,38 +9,31 @@ const logger = require('mocha-logger');
  * @param newPair a new DexPair contract
  * @param poolType a new contract's type
  */
-const upgradePair = async (
-  account,
-  dexRoot,
-  leftRoot,
-  rightRoot,
-  newPair,
-  poolType = 1,
-) => {
-  logger.log('[DexRoot] installOrUpdatePairCode...');
+const upgradePair = async (account, dexRoot, leftRoot, rightRoot, newPair, poolType = 1) => {
+  log("[DexRoot] installOrUpdatePairCode...");
   await account.runTarget({
     contract: dexRoot,
-    method: 'installOrUpdatePairCode',
+    method: "installOrUpdatePairCode",
     params: { code: newPair.code, pool_type: poolType },
-    value: locklift.utils.convertCrystal(10, 'nano'),
+    value: locklift.utils.convertCrystal(10, "nano"),
     keyPair: account.keyPair,
   });
 
-  logger.log('[DexRoot] upgradePair...');
+  log("[DexRoot] upgradePair...");
   const tx = await account.runTarget({
     contract: dexRoot,
-    method: 'upgradePair',
+    method: "upgradePair",
     params: {
       left_root: leftRoot,
       right_root: rightRoot,
       send_gas_to: account.address,
       pool_type: poolType,
     },
-    value: locklift.utils.convertCrystal(10, 'nano'),
+    value: locklift.utils.convertCrystal(10, "nano"),
     keyPair: account.keyPair,
   });
 
-  logger.success(`Pair is upgraded: ${tx.id}`);
+  success(`Pair is upgraded: ${tx.id}`);
 };
 
 /**
@@ -49,24 +42,20 @@ const upgradePair = async (
  * @param dexRoot DexRoot contract with address
  * @param newRoot a new DexRoot contract
  */
-const upgradeRoot = async (
-  account,
-  dexRoot,
-  newRoot,
-) => {
-  logger.log('[DexRoot] upgrade...');
+const upgradeRoot = async (account, dexRoot, newRoot) => {
+  log("[DexRoot] upgrade...");
   const tx = await account.runTarget({
     contract: dexRoot,
-    method: 'upgrade',
+    method: "upgrade",
     params: { code: newRoot.code },
-    value: locklift.utils.convertCrystal(10, 'nano'),
+    value: locklift.utils.convertCrystal(10, "nano"),
     keyPair: account.keyPair,
   });
 
-  logger.success(`Root is upgraded: ${tx.id}`);
+  success(`Root is upgraded: ${tx.id}`);
 };
 
-module.exports = {
+export default {
   upgradePair,
   upgradeRoot,
 };

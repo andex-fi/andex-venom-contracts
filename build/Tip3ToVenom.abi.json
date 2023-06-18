@@ -11,9 +11,9 @@
 			]
 		},
 		{
-			"name": "onWeverWallet",
+			"name": "onWvenomWallet",
 			"inputs": [
-				{"name":"_weverWallet","type":"address"}
+				{"name":"_wvenomWallet","type":"address"}
 			],
 			"outputs": [
 			]
@@ -73,34 +73,34 @@
 			]
 		},
 		{
-			"name": "weverRoot",
+			"name": "wvenomRoot",
 			"inputs": [
 			],
 			"outputs": [
-				{"name":"weverRoot","type":"address"}
+				{"name":"wvenomRoot","type":"address"}
 			]
 		},
 		{
-			"name": "weverVault",
+			"name": "wvenomVault",
 			"inputs": [
 			],
 			"outputs": [
-				{"name":"weverVault","type":"address"}
+				{"name":"wvenomVault","type":"address"}
 			]
 		},
 		{
-			"name": "weverWallet",
+			"name": "wvenomWallet",
 			"inputs": [
 			],
 			"outputs": [
-				{"name":"weverWallet","type":"address"}
+				{"name":"wvenomWallet","type":"address"}
 			]
 		}
 	],
 	"data": [
 		{"key":1,"name":"randomNonce_","type":"uint32"},
-		{"key":2,"name":"weverRoot","type":"address"},
-		{"key":3,"name":"weverVault","type":"address"}
+		{"key":2,"name":"wvenomRoot","type":"address"},
+		{"key":3,"name":"wvenomVault","type":"address"}
 	],
 	"events": [
 		{
@@ -182,8 +182,8 @@
 		{"name":"_timestamp","type":"uint64"},
 		{"name":"_constructorFlag","type":"bool"},
 		{"name":"randomNonce_","type":"uint32"},
-		{"name":"weverRoot","type":"address"},
-		{"name":"weverVault","type":"address"},
-		{"name":"weverWallet","type":"address"}
+		{"name":"wvenomRoot","type":"address"},
+		{"name":"wvenomVault","type":"address"},
+		{"name":"wvenomWallet","type":"address"}
 	]
 }

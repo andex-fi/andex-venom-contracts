@@ -1,13 +1,13 @@
-import { existsSync, readFileSync, writeFileSync } from 'fs';
-import { join } from 'path';
-import { Address, WalletTypes, Transaction } from 'locklift';
-import { FactorySource } from '../build/factorySource';
+import { existsSync, readFileSync, writeFileSync } from "fs";
+import { join } from "path";
+import { Address, WalletTypes, Transaction } from "locklift";
+import { FactorySource } from "../build/factorySource";
 
 export class Migration<T extends FactorySource> {
   migrationLog: Record<string, string>;
   private readonly logPath: string;
 
-  constructor(logPath = 'locklift.migration.json') {
+  constructor(logPath = "locklift.migration.json") {
     this.logPath = join(process.cwd(), logPath);
     this.migrationLog = {};
     this._loadMigrationLog();
@@ -20,7 +20,7 @@ export class Migration<T extends FactorySource> {
 
   private _loadMigrationLog = () => {
     if (existsSync(this.logPath)) {
-      const data = readFileSync(this.logPath, 'utf8');
+      const data = readFileSync(this.logPath, "utf8");
       if (data) this.migrationLog = JSON.parse(data);
     }
   };
@@ -42,10 +42,7 @@ export class Migration<T extends FactorySource> {
     }
   };
 
-  public loadContract = <ContractName extends keyof T>(
-    contract: ContractName,
-    name: string,
-  ) => {
+  public loadContract = <ContractName extends keyof T>(contract: ContractName, name: string) => {
     this._loadMigrationLog();
 
     if (this.migrationLog[name] !== undefined) {
@@ -58,10 +55,7 @@ export class Migration<T extends FactorySource> {
     }
   };
 
-  public store = <T extends { address: Address }>(
-    contract: T,
-    name: string,
-  ): void => {
+  public store = <T extends { address: Address }>(contract: T, name: string): void => {
     this.migrationLog = {
       ...this.migrationLog,
       [name]: contract.address.toString(),
@@ -82,38 +76,38 @@ export const Constants: {
 } = {
   tokens: {
     foo: {
-      name: 'Foo',
-      symbol: 'Foo',
+      name: "Foo",
+      symbol: "Foo",
       decimals: 18,
       upgradeable: true,
     },
     bar: {
-      name: 'Bar',
-      symbol: 'Bar',
+      name: "Bar",
+      symbol: "Bar",
       decimals: 18,
       upgradeable: true,
     },
     qwe: {
-      name: 'QWE',
-      symbol: 'Qwe',
+      name: "QWE",
+      symbol: "Qwe",
       decimals: 18,
       upgradeable: true,
     },
     tst: {
-      name: 'Tst',
-      symbol: 'Tst',
+      name: "Tst",
+      symbol: "Tst",
       decimals: 18,
       upgradeable: true,
     },
     coin: {
-      name: 'Coin',
-      symbol: 'Coin',
+      name: "Coin",
+      symbol: "Coin",
       decimals: 9,
       upgradeable: true,
     },
     wever: {
-      name: 'Wrapped EVER',
-      symbol: 'WEVER',
+      name: "Wrapped EVER",
+      symbol: "WEVER",
       decimals: 9,
       upgradeable: true,
     },
