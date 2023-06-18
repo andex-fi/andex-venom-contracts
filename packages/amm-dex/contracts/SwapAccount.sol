@@ -26,7 +26,7 @@ import "./abstract/ContractBase.sol";
 
 import "./Platform.sol";
 
-contract Account is
+contract SwapAccount is
     ContractBase,
     IAccount,
     IAcceptTokensTransferCallback,
@@ -822,7 +822,7 @@ contract Account is
             .deployWallet{
                 value: Constants.DEPLOY_EMPTY_WALLET_VALUE,
                 flag: MsgFlag.SENDER_PAYS_FEES,
-                callback: Account.onTokenWallet
+                callback: SwapAccount.onTokenWallet
             }(
                 address(this),
                 Constants.DEPLOY_EMPTY_WALLET_GRAMS
