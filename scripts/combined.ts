@@ -19,8 +19,8 @@ async function main() {
     publicKey: signer.publicKey,
     initParams: {
       randomNonce_: getRandomNonce(),
-      weverRoot: zeroAddress, //TODO: replace with WVENOM root address
-      weverVault: zeroAddress, //TODO: replace with WVENOM vault address
+      wvenomRoot: zeroAddress, //TODO: replace with WVENOM root address
+      wvenomVault: zeroAddress, //TODO: replace with WVENOM vault address
     },
     constructorParams: {},
     value: toNano(2),
@@ -35,8 +35,8 @@ async function main() {
     publicKey: signer.publicKey,
     initParams: {
       randomNonce_: getRandomNonce(),
-      weverRoot: zeroAddress, //TODO: replace with WVENOM root address
-      weverVault: zeroAddress, //TODO: replace with WVENOM vault address
+      wvenomRoot: zeroAddress, //TODO: replace with WVENOM root address
+      wvenomVault: zeroAddress, //TODO: replace with WVENOM vault address
     },
     constructorParams: {},
     value: toNano(2),
@@ -51,9 +51,9 @@ async function main() {
     publicKey: signer.publicKey,
     initParams: {
       randomNonce_: getRandomNonce(),
-      weverRoot: zeroAddress, //TODO: replace with WVENOM root address
-      weverVault: zeroAddress, //TODO: replace with WVENOM vault address
-      everToTip3: VenomToTip3.address, //TODO: replace with venomToTip3 address
+      wvenomRoot: zeroAddress, //TODO: replace with WVENOM root address
+      wvenomVault: zeroAddress, //TODO: replace with WVENOM vault address
+      venomToTip3: VenomToTip3.address, //TODO: replace with venomToTip3 address
     },
     constructorParams: {},
     value: toNano(2),

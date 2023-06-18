@@ -8,7 +8,7 @@ import "../structures/IExchangeStepStructure.sol";
 
 library VenomToTip3Payloads {
 
-    // Payload constructor swap Ever -> Tip-3
+    // Payload constructor swap Venom -> Tip-3
     function buildExchangePayload(
         address pair,
         uint64 id,
@@ -57,7 +57,7 @@ library VenomToTip3Payloads {
         uint32[] nextStepIndices;
     }
 
-    // Payload constructor swap Ever -> Tip-3 via split-cross-pool
+    // Payload constructor swap Venom -> Tip-3 via split-cross-pool
     function buildCrossPairExchangePayload(
         address pool,
         uint64 id,

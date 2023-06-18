@@ -19,9 +19,9 @@ async function main() {
     publicKey: signer?.publicKey ?? "",
     initParams: {
       randomNonce_: getRandomNonce(),
-      weverRoot: migration.getAddress("WVENOMRoot"),
-      weverVault: migration.getAddress("WVENOMVault"),
-      everToTip3: migration.getAddress("VenomToTip3"),
+      wvenomRoot: migration.getAddress("WVENOMRoot"),
+      wvenomVault: migration.getAddress("WVENOMVault"),
+      venomToTip3: migration.getAddress("VenomToTip3"),
     },
     constructorParams: {},
     value: toNano(2),

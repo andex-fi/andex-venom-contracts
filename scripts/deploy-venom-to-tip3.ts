@@ -14,8 +14,8 @@ async function main() {
     // @ts-ignore
     initParams: {
       randomNonce_: getRandomNonce(),
-      weverRoot: migration.getAddress("WVENOMRoot"),
-      weverVault: migration.getAddress("WVENOMVault"),
+      wvenomRoot: migration.getAddress("WVENOMRoot"),
+      wvenomVault: migration.getAddress("WVENOMVault"),
     },
     publicKey: signer?.publicKey ?? "",
     value: toNano(2),

@@ -55,7 +55,7 @@ contract Tip3ToVenom is IAcceptTokensTransferCallback, IAcceptTokensBurnCallback
         wvenomWallet.transfer(0, false, MsgFlag.REMAINING_GAS + MsgFlag.IGNORE_ERRORS);
     }
 
-    // Payload constructor swap TIP-3 -> Ever
+    // Payload constructor swap TIP-3 -> Venom
     function buildExchangePayload(
         address pair,
         uint64 id,
@@ -99,7 +99,7 @@ contract Tip3ToVenom is IAcceptTokensTransferCallback, IAcceptTokensBurnCallback
         uint32[] nextStepIndices;
     }
 
-    // Payload constructor swap TIP-3 -> Ever via split-cross-pool
+    // Payload constructor swap TIP-3 -> Venom via split-cross-pool
     function buildCrossPairExchangePayload(
         address pool,
         uint64 id,
@@ -208,7 +208,7 @@ contract Tip3ToVenom is IAcceptTokensTransferCallback, IAcceptTokensBurnCallback
                 TvmBuilder payloadID;
                 payloadID.store(id_);
 
-                emit SwapTip3EverCancelTransfer(user, id_, amount, tokenRoot);
+                emit SwapTip3VenomCancelTransfer(user, id_, amount, tokenRoot);
                 IVenomTip3SwapCallbacks(user).onSwapTip3ToVenomCancel{
                     value: VenomToTip3Gas.OPERATION_CALLBACK_BASE,
                     flag: MsgFlag.SENDER_PAYS_FEES,
@@ -274,7 +274,7 @@ contract Tip3ToVenom is IAcceptTokensTransferCallback, IAcceptTokensBurnCallback
         TvmSlice payloadSlice =  payload.toSlice();
         uint64 id = payloadSlice.decode(uint64);
 
-        emit SwapTip3EverSuccessTransfer(user, id, amount);
+        emit SwapTip3VenomSuccessTransfer(user, id, amount);
         IVenomTip3SwapCallbacks(user).onSwapTip3ToVenomSuccess{ value: VenomToTip3Gas.OPERATION_CALLBACK_BASE, flag: MsgFlag.ALL_NOT_RESERVED, bounce: false }(id, amount);
     }
 

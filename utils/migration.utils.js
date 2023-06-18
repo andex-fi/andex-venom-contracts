@@ -5,8 +5,8 @@ const logger = require('mocha-logger');
 const migration = new Migration();
 
 /**
- * Deploys a new Wallet contract with specified amount of evers
- * @param amount amount of evers to deposit
+ * Deploys a new Wallet contract with specified amount of venoms
+ * @param amount amount of venoms to deposit
  * @return Account contract with address for interaction
  */
 const accountMigration = async (amount) => {

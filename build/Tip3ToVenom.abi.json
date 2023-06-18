@@ -147,7 +147,7 @@
 			]
 		},
 		{
-			"name": "SwapTip3EverSuccessTransfer",
+			"name": "SwapTip3VenomSuccessTransfer",
 			"inputs": [
 				{"name":"user","type":"address"},
 				{"name":"id","type":"uint64"},
@@ -157,7 +157,7 @@
 			]
 		},
 		{
-			"name": "SwapTip3EverCancelTransfer",
+			"name": "SwapTip3VenomCancelTransfer",
 			"inputs": [
 				{"name":"user","type":"address"},
 				{"name":"id","type":"uint64"},

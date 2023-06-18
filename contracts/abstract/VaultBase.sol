@@ -2,16 +2,14 @@ pragma ever-solidity >= 0.62.0;
 pragma AbiHeader expire;
 pragma AbiHeader pubkey;
 
-import "tip3/contracts/interfaces/ITokenRoot.tsol";
-import "tip3/contracts/interfaces/IBurnableTokenWallet.tsol";
-import "tip3/contracts/interfaces/IAcceptTokensTransferCallback.tsol";
+import "tip3/contracts/interfaces/ITokenRoot.sol";
+import "tip3/contracts/interfaces/IBurnableTokenWallet.sol";
+import "tip3/contracts/interfaces/IAcceptTokensTransferCallback.sol";
 
-import "@broxus/contracts/contracts/utils/RandomNonce.sol";
-import "@broxus/contracts/contracts/utils/CheckPubKey.sol";
-import "@broxus/contracts/contracts/access/InternalOwner.sol";
-
-
-import "./ErrorCodes.sol";
+import "../external/RandomNonce.sol";
+import "../external/CheckPubKey.sol";
+import "../external/InternalOwner.sol";
+import "../external/ErrorCodes.sol";
 
 
 /**
@@ -20,7 +18,7 @@ import "./ErrorCodes.sol";
     Receives VENOMS and mints wVENOMs.
     Receives wVENOMs, burns it and releases VENOMS
 */
-abstract contract Vault is
+abstract contract VaultBase is
     IAcceptTokensTransferCallback,
     RandomNonce,
     CheckPubKey,
@@ -68,7 +66,7 @@ abstract contract Vault is
         // Deploy vault's token wallet
         ITokenRoot(configuration.root).deployWallet{
             value: 1 ever,
-            callback: Vault.receiveTokenWalletAddress
+            callback: VaultBase.receiveTokenWalletAddress
         }(
             address(this),
             configuration.settings_deploy_wallet_grams

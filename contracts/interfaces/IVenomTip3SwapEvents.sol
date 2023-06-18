@@ -14,8 +14,8 @@ interface IVenomTip3SwapEvents {
     event SwapVenomToTip3Cancel(address user, uint64 id, uint128 amount);
 
     // Tip3ToEvent contract events
-    event SwapTip3EverSuccessTransfer(address user, uint64 id, uint128 amount);
-    event SwapTip3EverCancelTransfer(address user, uint64 id, uint128 amount, address tokenRoot);
+    event SwapTip3VenomSuccessTransfer(address user, uint64 id, uint128 amount);
+    event SwapTip3VenomCancelTransfer(address user, uint64 id, uint128 amount, address tokenRoot);
 
     // VenomWvenomToTip3 contract events
     event SwapVenomWvenomToTip3Unwrap(address user, uint64 id);

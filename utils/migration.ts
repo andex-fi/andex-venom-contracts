@@ -105,7 +105,7 @@ export const Constants: {
       decimals: 9,
       upgradeable: true,
     },
-    wever: {
+    wvenom: {
       name: "Wrapped VENOM",
       symbol: "WVENOM",
       decimals: 9,

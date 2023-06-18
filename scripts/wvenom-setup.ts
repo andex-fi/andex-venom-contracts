@@ -46,10 +46,10 @@ async function main() {
 
   console.log(`Deploying tunnel`);
 
-  // const Tunnel = await locklift.factory.getContractArtifacts("TestWeverTunnel");
+  // const Tunnel = await locklift.factory.getContractArtifacts("TestWvenomTunnel");
 
   const { contract: tunnel } = await locklift.factory.deployContract({
-    contract: "TestWeverTunnel",
+    contract: "WvenomTunnel",
     constructorParams: {
       sources: [],
       destinations: [],
@@ -105,10 +105,10 @@ async function main() {
 
   console.log(`Deploying vault`);
 
-  // const WrappedVENOMVault = await locklift.factory.getContractArtifacts("TestWeverVault");
+  // const WrappedVENOMVault = await locklift.factory.getContractArtifacts("TestWvenomVault");
 
   const { contract: vault } = await locklift.factory.deployContract({
-    contract: "TestWeverVault",
+    contract: "WvenomVault",
     constructorParams: {
       owner_: Account2.address,
       root_tunnel: tunnel.address,

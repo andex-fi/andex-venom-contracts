@@ -313,7 +313,7 @@ async function main() {
   console.log(`Deploying Tunnel`);
 
   const { contract: tunnel } = await locklift.factory.deployContract({
-    contract: "TestWeverTunnel",
+    contract: "WvenomTunnel",
     constructorParams: {
       sources: [],
       destinations: [],
@@ -362,7 +362,7 @@ async function main() {
   console.log(`Deploying Vault`);
 
   const { contract: vault } = await locklift.factory.deployContract({
-    contract: "TestWeverVault",
+    contract: "WvenomVault",
     constructorParams: {
       owner_: account2.address,
       root_tunnel: tunnel.address,
@@ -415,8 +415,8 @@ async function main() {
     publicKey: signer!.publicKey,
     initParams: {
       randomNonce_: getRandomNonce(),
-      weverRoot: root.address,
-      weverVault: vault.address,
+      wvenomRoot: root.address,
+      wvenomVault: vault.address,
     },
     constructorParams: {},
     value: toNano(2),
@@ -430,8 +430,8 @@ async function main() {
     constructorParams: {},
     initParams: {
       randomNonce_: getRandomNonce(),
-      weverRoot: root.address,
-      weverVault: vault.address,
+      wvenomRoot: root.address,
+      wvenomVault: vault.address,
     },
     publicKey: signer?.publicKey ?? "",
     value: toNano(2),
@@ -448,9 +448,9 @@ async function main() {
     publicKey: signer?.publicKey ?? "",
     initParams: {
       randomNonce_: getRandomNonce(),
-      weverRoot: root.address,
-      weverVault: vault.address,
-      everToTip3: venomTip3.address,
+      wvenomRoot: root.address,
+      wvenomVault: vault.address,
+      venomToTip3: venomTip3.address,
     },
     constructorParams: {},
     value: toNano(2),

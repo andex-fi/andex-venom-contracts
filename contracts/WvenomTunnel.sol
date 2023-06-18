@@ -3,10 +3,10 @@ pragma ever-solidity >= 0.62.0;
 pragma AbiHeader expire;
 pragma AbiHeader pubkey;
 
-import "../external/Tunnel.sol";
+import "./external/Tunnel.sol";
 
 
-contract TestWeverTunnel is Tunnels {
+contract WvenomTunnel is Tunnels {
     constructor(
         address[] sources,
         address[] destinations,
