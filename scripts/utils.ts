@@ -208,7 +208,7 @@ export class Migration {
     if (diff) {
       console.log(`### GAS STATS ###`);
       for (const alias in diff) {
-        console.log(`${alias}: ${diff[alias].gt(0) ? "+" : ""}${diff[alias].toFixed(9)} EVER`);
+        console.log(`${alias}: ${diff[alias].gt(0) ? "+" : ""}${diff[alias].toFixed(9)} VENOM`);
       }
     }
   }

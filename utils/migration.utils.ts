@@ -6,9 +6,9 @@ import { Account } from "everscale-standalone-client/nodejs";
 import { logMigrationParams, logMigrationProcess, logMigrationSuccess } from "./log.utils";
 
 /**
- * Deploys new account with specified amount of EVER and saves migration
+ * Deploys new account with specified amount of VENOM and saves migration
  * @param name name of the wallet for migration
- * @param amount how much EVER to draw for deployed account
+ * @param amount how much VENOM to draw for deployed account
  * @param signerId ID of the key pair from mnemonic phrase
  */
 export const accountMigration = async (amount: BigNumber.Value, name = "Account", signerId = "0"): Promise<Account> => {

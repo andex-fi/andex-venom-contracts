@@ -50,9 +50,9 @@ contract VenomToTip3 is IAcceptTokensMintCallback, IAcceptTokensTransferCallback
         msg.sender.transfer(0, false, MsgFlag.ALL_NOT_RESERVED + MsgFlag.IGNORE_ERRORS);
     }
 
-    // Callback deploy WEVER wallet for contract
+    // Callback deploy WVENOM wallet for contract
     function onWvenomWallet(address _wvenomWallet) external {
-        require(msg.sender.value != 0 && msg.sender == wvenomRoot, VenomToTip3Errors.NOT_WEVER_ROOT);
+        require(msg.sender.value != 0 && msg.sender == wvenomRoot, VenomToTip3Errors.NOT_WVENOM_ROOT);
         wvenomWallet = _wvenomWallet;
         wvenomWallet.transfer(0, false, MsgFlag.REMAINING_GAS + MsgFlag.IGNORE_ERRORS);
     }
@@ -148,7 +148,7 @@ contract VenomToTip3 is IAcceptTokensMintCallback, IAcceptTokensTransferCallback
         address user,
         TvmCell payload
     ) override external {
-        require(msg.sender.value != 0 && msg.sender == wvenomWallet, VenomToTip3Errors.NOT_WEVER_WALLET);
+        require(msg.sender.value != 0 && msg.sender == wvenomWallet, VenomToTip3Errors.NOT_WVENOM_WALLET);
         tvm.rawReserve(VenomToTip3Gas.TARGET_BALANCE, 0);
 
         optional(DecodedMintPayload) decodedOpt = _decodeMintPayload(payload);
@@ -219,7 +219,7 @@ contract VenomToTip3 is IAcceptTokensMintCallback, IAcceptTokensTransferCallback
         payloadID_.store(id);
 
         if (msg.sender == wvenomWallet) {
-            // Burn WEVER for user
+            // Burn WVENOM for user
             ITokenWallet(msg.sender).transfer{ value: 0, flag: MsgFlag.ALL_NOT_RESERVED, bounce: false }(
                 amount,
                 wvenomVault,
@@ -283,7 +283,7 @@ contract VenomToTip3 is IAcceptTokensMintCallback, IAcceptTokensTransferCallback
         address user,
         TvmCell payload
     ) override external {
-        require(msg.sender.value != 0 && msg.sender == wvenomRoot, VenomToTip3Errors.NOT_WEVER_ROOT);
+        require(msg.sender.value != 0 && msg.sender == wvenomRoot, VenomToTip3Errors.NOT_WVENOM_ROOT);
         tvm.rawReserve(VenomToTip3Gas.TARGET_BALANCE, 0);
 
         uint64 id = 404;

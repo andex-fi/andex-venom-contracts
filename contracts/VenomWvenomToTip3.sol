@@ -44,9 +44,9 @@ contract VenomWvenomToTip3 is IAcceptTokensTransferCallback, IAcceptTokensBurnCa
         msg.sender.transfer(0, false, MsgFlag.ALL_NOT_RESERVED + MsgFlag.IGNORE_ERRORS);
     }
 
-    // Callback deploy WEVER wallet for contract
+    // Callback deploy WVENOM wallet for contract
     function onWvenomWallet(address _wvenomWallet) external {
-        require(msg.sender.value != 0 && msg.sender == wvenomRoot, VenomToTip3Errors.NOT_WEVER_ROOT);
+        require(msg.sender.value != 0 && msg.sender == wvenomRoot, VenomToTip3Errors.NOT_WVENOM_ROOT);
         wvenomWallet = _wvenomWallet;
         wvenomWallet.transfer(0, false, MsgFlag.REMAINING_GAS + MsgFlag.IGNORE_ERRORS);
     }
@@ -116,7 +116,7 @@ contract VenomWvenomToTip3 is IAcceptTokensTransferCallback, IAcceptTokensBurnCa
         tvm.rawReserve(VenomToTip3Gas.TARGET_BALANCE, 0);
         if (payloadSlice.bits() == 395 && msg.sender == wvenomWallet) {
             (, uint128 amount_) = payloadSlice.decode(address, uint128);
-            if ((amount + msg.value - VenomToTip3Gas.SWAP_EVER_TO_TIP3_MIN_VALUE) >= amount_) {
+            if ((amount + msg.value - VenomToTip3Gas.SWAP_VENOM_TO_TIP3_MIN_VALUE) >= amount_) {
                 ITokenWallet(msg.sender).transfer{ value: 0, flag: MsgFlag.ALL_NOT_RESERVED, bounce: false }(
                     amount,
                     wvenomVault,
@@ -156,7 +156,7 @@ contract VenomWvenomToTip3 is IAcceptTokensTransferCallback, IAcceptTokensBurnCa
         override
         external
     {
-        require(msg.sender.value != 0 && msg.sender == wvenomRoot, VenomToTip3Errors.NOT_WEVER_ROOT);
+        require(msg.sender.value != 0 && msg.sender == wvenomRoot, VenomToTip3Errors.NOT_WVENOM_ROOT);
         tvm.rawReserve(VenomToTip3Gas.TARGET_BALANCE, 0);
 
         TvmSlice payloadSlice =  payload.toSlice();

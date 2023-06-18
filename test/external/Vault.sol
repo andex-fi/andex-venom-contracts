@@ -15,10 +15,10 @@ import "./ErrorCodes.sol";
 
 
 /**
-    @title For for Wrapped EVER.
-    Stores EVERS. Exchanges EVERs for WEVERs 1:1 and backwards.
-    Receives EVERS and mints wEVERs.
-    Receives wEVERs, burns it and releases EVERS
+    @title For for Wrapped VENOM.
+    Stores VENOMS. Exchanges VENOMs for WVENOMs 1:1 and backwards.
+    Receives VENOMS and mints wVENOMs.
+    Receives wVENOMs, burns it and releases VENOMS
 */
 abstract contract Vault is
     IAcceptTokensTransferCallback,
@@ -89,9 +89,9 @@ abstract contract Vault is
     }
 
     /**
-        @notice Drain odd EVERs
+        @notice Drain odd VENOMs
         @dev Can be called only by owner
-        @param receiver Address to send odd EVERs to
+        @param receiver Address to send odd VENOMs to
     */
     function drain(
         address receiver
@@ -119,10 +119,10 @@ abstract contract Vault is
     }
 
     /**
-        @notice Withdraw EVERs from the vault
+        @notice Withdraw VENOMs from the vault
         @dev Can be called only by owner
-        @dev EVERs are send to the owner wallet
-        @param amount How much EVERs to withdraw
+        @dev VENOMs are send to the owner wallet
+        @param amount How much VENOMs to withdraw
     */
     function withdraw(
         uint128 amount
@@ -135,10 +135,10 @@ abstract contract Vault is
     }
 
     /**
-        @notice Send EVERs to the vault without issuing EVERs
+        @notice Send VENOMs to the vault without issuing VENOMs
         @dev Increases initial balance value
-        so the granted EVERs won't be withdrawn on the wrapping / unwrapping
-        @dev Be careful! Since you don't have WEVER tokens, you can't redeem granted EVERs
+        so the granted VENOMs won't be withdrawn on the wrapping / unwrapping
+        @dev Be careful! Since you don't have WVENOM tokens, you can't redeem granted VENOMs
     */
     function grant(
         uint128 amount
@@ -154,11 +154,11 @@ abstract contract Vault is
 
 
     /**
-        @notice Receive EVERs to wrap them into wTON.
-        Allows to simply mint wEVERs by sending them directly to vault.
+        @notice Receive VENOMs to wrap them into wTON.
+        Allows to simply mint wVENOMs by sending them directly to vault.
         @dev msg.value should be > receive_safe_fee
         @dev Amount of minted tokens = msg.value - receive_safe_fee
-        @dev Rest of the EVERs will be sent back
+        @dev Rest of the VENOMs will be sent back
     */
     receive() external {
         require(msg.value > configuration.receive_safe_fee, ErrorCodes.MSG_VALUE_TOO_LOW);
@@ -190,7 +190,7 @@ abstract contract Vault is
     }
 
     /**
-        @notice Internal function for minting wEVERs
+        @notice Internal function for minting wVENOMs
         @dev Works since Vault is authorized for minting tokens
         @param tokens How much tokens to mint
         @param owner_address Token wallet owner address
@@ -223,9 +223,9 @@ abstract contract Vault is
     }
 
     /**
-        @notice Receive wEVERs to burn them and release EVERs
+        @notice Receive wVENOMs to burn them and release VENOMs
         @dev Callback function from vault token wallet
-        @dev EVERs will be sent to tokens sender
+        @dev VENOMs will be sent to tokens sender
     */
     function onAcceptTokensTransfer(
         address tokenRoot,
@@ -242,7 +242,7 @@ abstract contract Vault is
 
         tvm.rawReserve(total_wrapped + configuration.initial_balance, 2);
 
-        // Burn wEVERs
+        // Burn wVENOMs
         IBurnableTokenWallet(token_wallet).burn{value: 0, flag: 128}(
             amount,
             remainingGasTo,

@@ -30,7 +30,7 @@ interface IConstantProductPair is
     /**
      * @notice Build payload for TIP-3 token transfer with exchange operation
      * @param id ID of the call
-     * @param deploy_wallet_grams Amount of EVER for a new TIP-3 wallet deploy
+     * @param deploy_wallet_grams Amount of VENOM for a new TIP-3 wallet deploy
      * @param expected_amount Minimum token amount after swap
      * @return TvmCell Encoded payload for transfer
      */
@@ -43,7 +43,7 @@ interface IConstantProductPair is
     /**
      * @notice Build payload for TIP-3 token transfer with exchange operation
      * @param _id ID of the call
-     * @param _deployWalletGrams Amount of EVER for a new TIP-3 wallet deploy
+     * @param _deployWalletGrams Amount of VENOM for a new TIP-3 wallet deploy
      * @param _expectedAmount Minimum token amount after swap
      * @param _recipient Address of the receiver
      * @return TvmCell Encoded payload for transfer
@@ -61,7 +61,7 @@ interface IConstantProductPair is
     /**
      * @notice Build payload for TIP-3 token transfer with liquidity deposit operation
      * @param id ID of the call
-     * @param deploy_wallet_grams Amount of EVER for a new TIP-3 wallet deploy
+     * @param deploy_wallet_grams Amount of VENOM for a new TIP-3 wallet deploy
      * @return TvmCell Encoded payload for transfer
      */
     function buildDepositLiquidityPayload(
@@ -72,7 +72,7 @@ interface IConstantProductPair is
     /**
      * @notice Build payload for TIP-3 token transfer with liquidity deposit operation
      * @param _id ID of the call
-     * @param _deployWalletGrams Amount of EVER for a new TIP-3 wallet deploy
+     * @param _deployWalletGrams Amount of VENOM for a new TIP-3 wallet deploy
      * @param _expectedAmount Minimum LP token amount after deposit
      * @param _recipient Address of the receiver
      * @return TvmCell Encoded payload for transfer
@@ -90,7 +90,7 @@ interface IConstantProductPair is
     /**
      * @notice Build payload for TIP-3 token transfer with liquidity withdrawal operation
      * @param id ID of the call
-     * @param deploy_wallet_grams Amount of EVER for a new TIP-3 wallet deploy
+     * @param deploy_wallet_grams Amount of VENOM for a new TIP-3 wallet deploy
      * @return TvmCell Encoded payload for transfer
      */
     function buildWithdrawLiquidityPayload(
@@ -101,7 +101,7 @@ interface IConstantProductPair is
     /**
      * @notice Build payload for TIP-3 token transfer with liquidity withdrawal operation
      * @param _id ID of the call
-     * @param _deployWalletGrams Amount of EVER for a new TIP-3 wallet deploy
+     * @param _deployWalletGrams Amount of VENOM for a new TIP-3 wallet deploy
      * @param _expectedLeftAmount Minimum pair's left token amount after withdrawal
      * @param _expectedRightAmount Minimum pair's right token amount after withdrawal
      * @param _recipient Address of the receiver
@@ -121,7 +121,7 @@ interface IConstantProductPair is
     /**
      * @notice Build payload for TIP-3 token transfer with cross-pair exchange operation
      * @param id ID of the call
-     * @param deploy_wallet_grams Amount of EVER for a new TIP-3 wallet deploy
+     * @param deploy_wallet_grams Amount of VENOM for a new TIP-3 wallet deploy
      * @param expected_amount Minimum token amount after the first swap
      * @param steps Next pairs' root and expected amount
      * @return TvmCell Encoded payload for transfer

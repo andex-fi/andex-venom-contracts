@@ -16043,6 +16043,46 @@ PUSHCONT {
 IF
 THROW 0
 
+.globl	PairPayload_with_obj_buildExchangePayload_bc51ab8c
+.type	PairPayload_with_obj_buildExchangePayload_bc51ab8c, @function
+CALL $PairPayload_with_obj_buildExchangePayload_bc51ab8c_macro$
+
+.macro PairPayload_with_obj_buildExchangePayload_bc51ab8c_macro
+.loc ../contracts/libraries/PairPayload.sol, 30
+NEWC
+STSLICECONST x01
+.loc ../contracts/libraries/PairPayload.sol, 31
+PUSH S3
+STUR 64
+.loc ../contracts/libraries/PairPayload.sol, 32
+XCHG S1, S2
+STU 128
+.loc ../contracts/libraries/PairPayload.sol, 33
+STU 128
+.loc ../contracts/libraries/PairPayload.sol, 35
+ENDC
+.loc ../contracts/libraries/PairPayload.sol, 0
+
+.globl	PairPayload_no_obj_buildExchangePayload_bc51ab8c
+.type	PairPayload_no_obj_buildExchangePayload_bc51ab8c, @function
+CALL $PairPayload_no_obj_buildExchangePayload_bc51ab8c_macro$
+
+.macro PairPayload_no_obj_buildExchangePayload_bc51ab8c_macro
+.loc ../contracts/libraries/PairPayload.sol, 30
+NEWC
+STSLICECONST x01
+.loc ../contracts/libraries/PairPayload.sol, 31
+ROLL 3
+STUR 64
+.loc ../contracts/libraries/PairPayload.sol, 32
+XCHG S1, S2
+STU 128
+.loc ../contracts/libraries/PairPayload.sol, 33
+STU 128
+.loc ../contracts/libraries/PairPayload.sol, 35
+ENDC
+.loc ../contracts/libraries/PairPayload.sol, 0
+
 .globl	PairPayload_with_obj_buildExchangePayloadV2_d2029fe7
 .type	PairPayload_with_obj_buildExchangePayloadV2_d2029fe7, @function
 CALL $PairPayload_with_obj_buildExchangePayloadV2_d2029fe7_macro$
@@ -19093,46 +19133,6 @@ ENDC
 SWAP
 STREF
 .loc ../contracts/libraries/PairPayload.sol, 737
-ENDC
-.loc ../contracts/libraries/PairPayload.sol, 0
-
-.globl	PairPayload_with_obj_buildExchangePayload_bc51ab8c
-.type	PairPayload_with_obj_buildExchangePayload_bc51ab8c, @function
-CALL $PairPayload_with_obj_buildExchangePayload_bc51ab8c_macro$
-
-.macro PairPayload_with_obj_buildExchangePayload_bc51ab8c_macro
-.loc ../contracts/libraries/PairPayload.sol, 30
-NEWC
-STSLICECONST x01
-.loc ../contracts/libraries/PairPayload.sol, 31
-PUSH S3
-STUR 64
-.loc ../contracts/libraries/PairPayload.sol, 32
-XCHG S1, S2
-STU 128
-.loc ../contracts/libraries/PairPayload.sol, 33
-STU 128
-.loc ../contracts/libraries/PairPayload.sol, 35
-ENDC
-.loc ../contracts/libraries/PairPayload.sol, 0
-
-.globl	PairPayload_no_obj_buildExchangePayload_bc51ab8c
-.type	PairPayload_no_obj_buildExchangePayload_bc51ab8c, @function
-CALL $PairPayload_no_obj_buildExchangePayload_bc51ab8c_macro$
-
-.macro PairPayload_no_obj_buildExchangePayload_bc51ab8c_macro
-.loc ../contracts/libraries/PairPayload.sol, 30
-NEWC
-STSLICECONST x01
-.loc ../contracts/libraries/PairPayload.sol, 31
-ROLL 3
-STUR 64
-.loc ../contracts/libraries/PairPayload.sol, 32
-XCHG S1, S2
-STU 128
-.loc ../contracts/libraries/PairPayload.sol, 33
-STU 128
-.loc ../contracts/libraries/PairPayload.sol, 35
 ENDC
 .loc ../contracts/libraries/PairPayload.sol, 0
 
