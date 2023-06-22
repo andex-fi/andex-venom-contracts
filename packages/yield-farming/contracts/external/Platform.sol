@@ -1,6 +1,6 @@
 pragma ever-solidity >= 0.62.0;
 
-import "./libraries/MsgFlag.sol";
+import "../libraries/MsgFlag.sol";
 
 
 contract Platform {

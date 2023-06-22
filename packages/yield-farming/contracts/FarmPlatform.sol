@@ -1,6 +1,6 @@
 pragma ever-solidity >= 0.57.0;
 
-import "./Platform.sol";
+import "./external/Platform.sol";
 
 contract FarmPlatform is Platform {
     constructor(

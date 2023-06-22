@@ -24,19 +24,19 @@ PUSHCONT {
 IFELSE
 LDMSGADDR
 ENDS
-.loc ../contracts/Platform.sol, 13
+.loc ../contracts/external/Platform.sol, 13
 GETGLOB 9
 GETGLOB 10
 SDEQ
 PUSHCONT {
-	.loc ../contracts/Platform.sol, 16
+	.loc ../contracts/external/Platform.sol, 16
 	BLKPUSH 3, 2
 	CALLREF {
 		CALL $initialize_4c288c12_internal_macro$
 	}
 }
 PUSHCONT {
-	.loc ../contracts/Platform.sol, 14
+	.loc ../contracts/external/Platform.sol, 14
 	GETGLOB 9
 	NEWC
 	STSLICECONST x42_
@@ -50,7 +50,7 @@ PUSHCONT {
 	SENDRAWMSG
 }
 IFELSE
-.loc ../contracts/Platform.sol, 0
+.loc ../contracts/external/Platform.sol, 0
 BLKDROP 3
 CALLREF {
 	CALL $c7_to_c4$
@@ -62,29 +62,29 @@ THROW 0
 CALL $initialize_4c288c12_internal_macro$
 
 .macro initialize_4c288c12_internal_macro
-.loc ../contracts/Platform.sol, 24
+.loc ../contracts/external/Platform.sol, 24
 GETGLOB 10
 NEWC
 STSLICE
-.loc ../contracts/Platform.sol, 25
+.loc ../contracts/external/Platform.sol, 25
 GETGLOB 11
 STUR 8
-.loc ../contracts/Platform.sol, 26
+.loc ../contracts/external/Platform.sol, 26
 STSLICE
-.loc ../contracts/Platform.sol, 28
+.loc ../contracts/external/Platform.sol, 28
 GETGLOB 13
 SWAP
 STREF
-.loc ../contracts/Platform.sol, 29
+.loc ../contracts/external/Platform.sol, 29
 GETGLOB 12
 SWAP
 STREF
-.loc ../contracts/Platform.sol, 30
+.loc ../contracts/external/Platform.sol, 30
 STREF
-.loc ../contracts/Platform.sol, 32
+.loc ../contracts/external/Platform.sol, 32
 OVER
 SETCODE
-.loc ../contracts/Platform.sol, 33
+.loc ../contracts/external/Platform.sol, 33
 SWAP
 CTOS
 DUP
@@ -99,17 +99,17 @@ PLDREF
 CTOS
 BLESS
 POP C3
-.loc ../contracts/Platform.sol, 35
+.loc ../contracts/external/Platform.sol, 35
 ENDC
 CALLREF {
 	CALL $:onCodeUpgrade$
 }
-.loc ../contracts/Platform.sol, 0
+.loc ../contracts/external/Platform.sol, 0
 
 .internal-alias :onCodeUpgrade, 2
 .internal :onCodeUpgrade
 DROP
-.loc ../contracts/Platform.sol, 0
+.loc ../contracts/external/Platform.sol, 0
 CALLREF {
 	CALL $c7_to_c4$
 }
