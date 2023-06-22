@@ -1,7 +1,7 @@
 pragma ton-solidity ^0.62.0;
 pragma AbiHeader expire;
 
-interface IVenomFarmPool {
+interface IFarmPool {
     struct RewardRound {
         uint32 startTime;
         uint128[] rewardPerSecond;

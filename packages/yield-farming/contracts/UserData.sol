@@ -2,7 +2,7 @@ pragma ever-solidity ^0.62.0;
 pragma AbiHeader expire;
 
 import "./interfaces/IUserData.sol";
-import "./interfaces/IVenomFarmPool.sol";
+import "./interfaces/IFarmPool.sol";
 import "./libraries/MsgFlag.sol";
 
 contract UserData is IUserData {
@@ -270,7 +270,7 @@ contract UserData is IUserData {
             pool_debt[i] = 0;
         }
 
-        IVenomFarmPool(msg.sender).finishDeposit{value: 0, flag: MsgFlag.ALL_NOT_RESERVED}(nonce, _vested);
+        IFarmPool(msg.sender).finishDeposit{value: 0, flag: MsgFlag.ALL_NOT_RESERVED}(nonce, _vested);
     }
 
     function _withdraw(uint128 _amount, uint256[] _accRewardPerShare, uint32 poolLastRewardTime, uint32 farmEndTime, address send_gas_to, uint32 nonce) internal {
@@ -303,7 +303,7 @@ contract UserData is IUserData {
             pool_debt[i] = 0;
         }
 
-        IVenomFarmPool(msg.sender).finishWithdraw{value: 0, flag: MsgFlag.ALL_NOT_RESERVED}(user, _amount, _vested, send_gas_to, nonce);
+        IFarmPool(msg.sender).finishWithdraw{value: 0, flag: MsgFlag.ALL_NOT_RESERVED}(user, _amount, _vested, send_gas_to, nonce);
     }
 
     function processWithdraw(
@@ -344,7 +344,7 @@ contract UserData is IUserData {
         for (uint i = 0; i < rewardDebt.length; i++) {
             rewardDebt[i] = 0;
         }
-        IVenomFarmPool(msg.sender).finishSafeWithdraw{value: 0, flag: MsgFlag.ALL_NOT_RESERVED}(user, prevAmount, send_gas_to);
+        IFarmPool(msg.sender).finishSafeWithdraw{value: 0, flag: MsgFlag.ALL_NOT_RESERVED}(user, prevAmount, send_gas_to);
     }
 
     function upgrade(TvmCell new_code, uint32 new_version, address send_gas_to) external virtual override {
