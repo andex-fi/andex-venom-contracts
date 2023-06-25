@@ -1,0 +1,5 @@
+pragma ever-solidity >= 0.62.0;
+
+interface IUpgradeableContract {
+    function upgradeContractCode(TvmCell code, TvmCell updateParams, uint32 codeVersion) external;
+}

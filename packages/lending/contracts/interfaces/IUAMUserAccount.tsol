@@ -1,0 +1,222 @@
+pragma ever-solidity >= 0.62.0;
+
+import './IUserAccount.tsol';
+
+interface IUAMUserAccount {
+    /*=================Supply operation,starts at wallet controller=================*/
+
+    function writeSupplyInfo(
+        address venomWallet, 
+        uint32 marketId, 
+        uint256 tokensToSupply, 
+        fraction index
+    ) external view;
+
+    /*===========Repay operation,starts at wallet controller====================*/
+
+    function requestRepayInfo(
+        address venomWallet, 
+        address userTip3Wallet, 
+        uint256 tokensForRepay, 
+        uint32 marketId, 
+        mapping(uint32 => fraction) updatedIndexes
+    ) external view;
+
+    function receiveRepayInfo(
+        address venomWallet, 
+        address userTip3Wallet, 
+        uint256 tokensForRepay, 
+        uint32 marketId, 
+        BorrowInfo borrowInfo
+    ) external view;
+
+    function writeRepayInformation(
+        address venomWallet, 
+        address userTip3Wallet, 
+        uint32 marketId, 
+        uint256 tokensToReturn, 
+        BorrowInfo borrowInfo
+    ) external view;
+
+    /*===========Withdraw operation,starts at wallet controller==================*/
+
+    function requestWithdraw(
+        address venomWallet, 
+        address userTip3Wallet, 
+        uint32 marketId, 
+        uint256 tokensToWithdraw
+    ) external view;
+
+    function requestWithdrawInfo(
+        address venomWallet, 
+        address userTip3Wallet, 
+        uint256 tokensToWithdraw, 
+        uint32 marketId, 
+        mapping(uint32 => fraction) updatedIndexes
+    ) external view;
+
+    function receiveWithdrawInfo(
+        address venomWallet, 
+        address userTip3Wallet, 
+        uint256 tokensToWithdraw, 
+        uint32 marketId, 
+        mapping(uint32 => uint256) supplyInfo, 
+        mapping(uint32 => BorrowInfo) borrowInfo
+    ) external view;
+
+    function writeWithdrawInfo(
+        address venomWallet, 
+        address userTip3Wallet, 
+        uint32 marketId, 
+        uint256 tokensToWithdraw, 
+        uint256 tokensToSend
+    ) external view;
+
+    /*===============Borrow operation, initializes from user account============*/
+
+    function requestIndexUpdate(
+        address venomWallet, 
+        uint32 market, 
+        TvmCell args
+    ) external view;
+
+    function updateUserIndexes(
+        address venomWallet, 
+        address userTip3Wallet, 
+        uint256 tokensToBorrow, 
+        uint32 marketId, 
+        mapping(uint32 => fraction) updatedIndexes
+    ) external view;
+
+    function passBorrowInformation(
+        address venomWallet, 
+        address userTip3Wallet, 
+        uint32 marketId, 
+        uint256 tokensToBorrow, 
+        mapping(uint32 => uint256) supplyInfo, 
+        mapping(uint32 => BorrowInfo) borrowInfo
+    ) external view;
+
+    function writeBorrowInformation(
+        address venomWallet, 
+        address userTip3Wallet, 
+        uint256 tokensToBorrow, 
+        uint32 marketId, 
+        fraction index
+    ) external view;
+
+    /*======================Liquidation operation============================*/
+    function requestLiquidationInformation(
+        address venomWallet, 
+        address targetUser, 
+        address tip3UserWallet, 
+        uint32 marketId, 
+        uint32 marketToLiquidate, 
+        uint256 tokensProvided, 
+        mapping(uint32 => fraction) updatedIndexes
+    ) external view;
+
+    function receiveLiquidationInformation(
+        address venomWallet,
+        address targetUser, 
+        address tip3UserWallet, 
+        uint32 marketId, 
+        uint32 marketToLiquidate, 
+        uint256 tokensProvided, 
+        mapping(uint32 => uint256) supplyInfo, 
+        mapping(uint32 => BorrowInfo) borrowInfo
+    ) external view;
+
+    function seizeTokens(
+        address venomWallet, 
+        address targetUser, 
+        address tip3UserWallet, 
+        uint32 marketId, 
+        uint32 marketToLiquidate, 
+        uint256 tokensToSeize, 
+        uint256 tokensToReturn, BorrowInfo borrowInfo
+    ) external view;
+
+    function grantVTokens(
+        address venomWallet, 
+        address targetUser, 
+        address tip3UserWallet, 
+        uint32 marketId, 
+        uint32 marketToLiquidate, 
+        uint256 vTokensToGrant, 
+        uint256 tokensToReturn
+    ) external view;
+
+    function abortLiquidation(
+        address venomWallet, 
+        address targetUser, 
+        address tip3UserWallet, 
+        uint32 marketId, 
+        uint256 tokensProvided
+    ) external view;
+
+    function returnAndSupply(
+        address venomWallet, 
+        address tip3UserWallet, 
+        address userToUnlock, 
+        uint32 marketId, 
+        uint256 tokensToReturn
+    ) external view;
+
+    /*==========================Conversion operations=======================*/
+    function requestVTokensConversion(
+        address owner, 
+        uint256 amount, 
+        uint32 marketId
+    ) external view;
+
+    function requestConversionInfo(
+        address _user, 
+        uint256 _amount, 
+        uint32 _marketId
+    ) external view;
+
+    function receiveConversionInfo(
+        address _user, 
+        uint256 _amount, 
+        uint32 marketId, 
+        mapping (uint32 => uint256) supplyInfo, 
+        mapping (uint32 => BorrowInfo) borrowInfo
+    ) external view;
+
+    function writeConversionInfo(
+        address _user, 
+        uint256 _amount, 
+        bool positive, 
+        uint32 marketId
+    ) external view;
+
+    function unlockAfterConversion(address _user) external view;
+
+    /*============= Check user account health operation ===================*/
+    function requestUserAccountHealthCalculation(address venomWallet) external view;
+
+    function calculateUserAccountHealth(
+        address venomWallet, 
+        address gasTo, 
+        mapping(uint32 => uint256) supplyInfo, 
+        mapping(uint32 => BorrowInfo) borrowInfo, 
+        TvmCell dataToTransfer
+    ) external view;
+
+    function updateUserAccountHealth(
+        address venomWallet, 
+        address gasTo, 
+        fraction accountHealth, 
+        mapping(uint32 => fraction) updatedIndexes, 
+        TvmCell dataToTransfer
+    ) external view;
+
+    /* ==================Service operations ===============================*/
+    function requestTokenPayout(
+        address venomWallet, 
+        address userTip3Wallet, 
+        uint32 marketId, 
+        uint256 tokensToSend
+    ) external view;
+}
