@@ -1,0 +1,20 @@
+pragma ever-solidity >= 0.62.0;
+
+import '../libraries/FloatingPointOperations.tsol';
+
+struct BorrowInfo {
+    uint256 tokensBorrowed;
+    fraction index;
+}
+
+struct UserMarketInfo {
+    bool exists;
+    uint32 _marketId;
+    uint256 suppliedTokens;
+    fraction accountHealth;
+    BorrowInfo borrowInfo;
+}
+
+interface IUserAccount {
+    
+}

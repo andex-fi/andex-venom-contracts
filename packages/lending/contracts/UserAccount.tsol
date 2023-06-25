@@ -1,0 +1,11 @@
+pragma ever-solidity >= 0.62.0;
+pragma AbiHeader pubkey;
+pragma AbiHeader expire;
+pragma AbiHeader time;
+
+import './interfaces/IUserAccount.tsol';
+
+contract UserAccount is IUserAccount {
+    using UFO for uint256;
+    using FPO for fraction;
+}
