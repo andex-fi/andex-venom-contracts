@@ -1,9 +1,10 @@
-pragma ever-solidity ^0.62.0;
+pragma ever-solidity >= 0.62.0;
 pragma AbiHeader expire;
 
-import "./interfaces/IUserData.sol";
-import "./interfaces/IFarmPool.sol";
-import "./libraries/MsgFlag.sol";
+import './interfaces/IUserData.tsol';
+import './interfaces/IFarmPool.tsol';
+
+import '@broxus/contracts/contracts/libraries/MsgFlag.tsol';
 
 contract UserData is IUserData {
     uint32 current_version;
@@ -11,6 +12,7 @@ contract UserData is IUserData {
 
     uint32 lastRewardTime;
     uint32 vestingPeriod;
+    
     uint32 vestingRatio; // number from 0 to 1000 (0% to 100%). 0 means vesting is disabled
 
     uint128 amount;
@@ -18,10 +20,8 @@ contract UserData is IUserData {
     uint128[] rewardDebt;
     uint128[] entitled;
     uint128[] pool_debt;
-
     address farmPool;
     address user; // setup from initData
-
     uint8 constant NOT_FARM_POOL = 101;
     uint128 constant CONTRACT_MIN_BALANCE = 0.1 ever;
     uint32 constant MAX_VESTING_RATIO = 1000;
@@ -57,7 +57,14 @@ contract UserData is IUserData {
             bounce: false,
             flag: MsgFlag.REMAINING_GAS
         } UserDataDetails (
-            pool_debt, entitled, vestingTime, amount, rewardDebt, farmPool, user, current_version
+            pool_debt,
+            entitled,
+            vestingTime,
+            amount,
+            rewardDebt,
+            farmPool,
+            user,
+            current_version
         );
     }
 
@@ -211,21 +218,33 @@ contract UserData is IUserData {
         uint256[] _accRewardPerShare,
         uint32 poolLastRewardTime,
         uint32 farmEndTime
-    ) external view returns (uint128[] _entitled, uint128[] _vested, uint128[] _pool_debt, uint32[] _vesting_time) {
+    ) external view returns (
+        uint128[] _entitled,
+        uint128[] _vested,
+        uint128[] _pool_debt,
+        uint32[] _vesting_time
+    ) {
         (
             _entitled,
             _vested,
             _vesting_time
-        ) = _computeVesting(amount, rewardDebt, _accRewardPerShare, poolLastRewardTime, farmEndTime);
+        ) = _computeVesting(
+            amount,
+            rewardDebt,
+            _accRewardPerShare,
+            poolLastRewardTime,
+            farmEndTime
+        );
 
         return (_entitled, _vested, pool_debt, _vesting_time);
     }
 
     function increasePoolDebt(
         uint128[] _pool_debt,
-        address send_gas_to,
+        address send_gas_to, 
         uint32 code_version
     ) external override {
+        code_version;
         require(msg.sender == farmPool, NOT_FARM_POOL);
         tvm.rawReserve(_reserve(), 0);
 
@@ -244,6 +263,7 @@ contract UserData is IUserData {
         uint32 farmEndTime,
         uint32 code_version
     ) external override {
+        code_version;
         require(msg.sender == farmPool, NOT_FARM_POOL);
         tvm.rawReserve(_reserve(), 0);
 
@@ -260,7 +280,13 @@ contract UserData is IUserData {
             uint128[] _entitled,
             uint128[] _vested,
             uint32[] _vestingTime
-        ) = _computeVesting(prevAmount, prevRewardDebt, _accRewardPerShare, poolLastRewardTime, farmEndTime);
+        ) = _computeVesting(
+            prevAmount,
+            prevRewardDebt, 
+            _accRewardPerShare, 
+            poolLastRewardTime, 
+            farmEndTime
+        );
         entitled = _entitled;
         vestingTime = _vestingTime;
         lastRewardTime = poolLastRewardTime;
@@ -270,10 +296,20 @@ contract UserData is IUserData {
             pool_debt[i] = 0;
         }
 
-        IFarmPool(msg.sender).finishDeposit{value: 0, flag: MsgFlag.ALL_NOT_RESERVED}(nonce, _vested);
+        IFarmPool(msg.sender).finishDeposit{
+            value: 0, 
+            flag: MsgFlag.ALL_NOT_RESERVED
+        }(nonce, _vested);
     }
 
-    function _withdraw(uint128 _amount, uint256[] _accRewardPerShare, uint32 poolLastRewardTime, uint32 farmEndTime, address send_gas_to, uint32 nonce) internal {
+    function _withdraw(
+        uint128 _amount, 
+        uint256[] _accRewardPerShare, 
+        uint32 poolLastRewardTime, 
+        uint32 farmEndTime, 
+        address send_gas_to, 
+        uint32 nonce
+    ) internal {
         // bad input. User does not have enough staked balance. At least we can return some gas
         if (_amount > amount) {
             send_gas_to.transfer(0, false, MsgFlag.ALL_NOT_RESERVED);
@@ -293,7 +329,13 @@ contract UserData is IUserData {
             uint128[] _entitled,
             uint128[] _vested,
             uint32[] _vestingTime
-        ) = _computeVesting(prevAmount, prevRewardDebt, _accRewardPerShare, poolLastRewardTime, farmEndTime);
+        ) = _computeVesting(
+            prevAmount, 
+            prevRewardDebt, 
+            _accRewardPerShare, 
+            poolLastRewardTime, 
+            farmEndTime
+        );
         entitled = _entitled;
         vestingTime = _vestingTime;
         lastRewardTime = poolLastRewardTime;
@@ -303,7 +345,10 @@ contract UserData is IUserData {
             pool_debt[i] = 0;
         }
 
-        IFarmPool(msg.sender).finishWithdraw{value: 0, flag: MsgFlag.ALL_NOT_RESERVED}(user, _amount, _vested, send_gas_to, nonce);
+        IFarmPool(msg.sender).finishWithdraw{
+            value: 0, 
+            flag: MsgFlag.ALL_NOT_RESERVED
+        }(user, _amount, _vested, send_gas_to, nonce);
     }
 
     function processWithdraw(
@@ -315,27 +360,69 @@ contract UserData is IUserData {
         uint32 nonce,
         uint32 code_version
     ) public override {
+        code_version;
         require (msg.sender == farmPool, NOT_FARM_POOL);
         tvm.rawReserve(_reserve(), 0);
 
-        _withdraw(_amount, _accRewardPerShare, poolLastRewardTime, farmEndTime, send_gas_to, nonce);
+        _withdraw(
+            _amount, 
+            _accRewardPerShare, 
+            poolLastRewardTime, 
+            farmEndTime, 
+            send_gas_to, 
+            nonce
+        );
     }
 
-    function processWithdrawAll(uint256[] _accRewardPerShare, uint32 poolLastRewardTime, uint32 farmEndTime, address send_gas_to, uint32 nonce, uint32 code_version) external override {
+    function processWithdrawAll(
+        uint256[] _accRewardPerShare, 
+        uint32 poolLastRewardTime, 
+        uint32 farmEndTime, 
+        address send_gas_to, 
+        uint32 nonce, 
+        uint32 code_version
+    ) external override {
+        code_version;
         require (msg.sender == farmPool, NOT_FARM_POOL);
         tvm.rawReserve(_reserve(), 0);
 
-        _withdraw(amount, _accRewardPerShare, poolLastRewardTime, farmEndTime, send_gas_to, nonce);
+        _withdraw(
+            amount, 
+            _accRewardPerShare, 
+            poolLastRewardTime, 
+            farmEndTime, 
+            send_gas_to, 
+            nonce
+        );
     }
 
-    function processClaimReward(uint256[] _accRewardPerShare, uint32 poolLastRewardTime, uint32 farmEndTime, address send_gas_to, uint32 nonce, uint32 code_version) external override {
+    function processClaimReward(
+        uint256[] _accRewardPerShare, 
+        uint32 poolLastRewardTime, 
+        uint32 farmEndTime, 
+        address send_gas_to, 
+        uint32 nonce, 
+        uint32 code_version
+    ) external override {
+        code_version;
         require (msg.sender == farmPool, NOT_FARM_POOL);
         tvm.rawReserve(_reserve(), 0);
 
-        _withdraw(0, _accRewardPerShare, poolLastRewardTime, farmEndTime, send_gas_to, nonce);
+        _withdraw(
+            0, 
+            _accRewardPerShare, 
+            poolLastRewardTime, 
+            farmEndTime, 
+            send_gas_to, 
+            nonce
+        );
     }
 
-    function processSafeWithdraw(address send_gas_to, uint32 code_version) external override {
+    function processSafeWithdraw(
+        address send_gas_to,
+        uint32 code_version
+    ) external override {
+        code_version;
         require (msg.sender == farmPool, NOT_FARM_POOL);
         tvm.rawReserve(_reserve(), 0);
 
@@ -347,7 +434,11 @@ contract UserData is IUserData {
         IFarmPool(msg.sender).finishSafeWithdraw{value: 0, flag: MsgFlag.ALL_NOT_RESERVED}(user, prevAmount, send_gas_to);
     }
 
-    function upgrade(TvmCell new_code, uint32 new_version, address send_gas_to) external virtual override {
+    function upgrade(
+        TvmCell new_code, 
+        uint32 new_version, 
+        address send_gas_to
+    ) external virtual override {
         require (msg.sender == farmPool, NOT_FARM_POOL);
 
         if (new_version == current_version) {
@@ -434,7 +525,4 @@ contract UserData is IUserData {
         }
         send_gas_to.transfer({ value: 0, bounce: false, flag: MsgFlag.ALL_NOT_RESERVED });
     }
-
-
-
 }

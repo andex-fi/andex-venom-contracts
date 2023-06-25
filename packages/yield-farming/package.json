@@ -21,6 +21,6 @@
   },
   "dependencies": {
     "@broxus/contracts": "^1.1.1",
-    "tip3": "^1.0.3"
+    "@broxus/tip3": "^1.0.2"
   }
 }

@@ -1,15 +1,16 @@
-pragma ever-solidity ^0.62.0;
+pragma ever-solidity >=0.62.0;
 pragma AbiHeader expire;
 
-import "tip3/contracts/interfaces/ITokenRoot.sol";
-import "tip3/contracts/interfaces/ITokenWallet.sol";
-import "tip3/contracts/interfaces/IAcceptTokensTransferCallback.sol";
+import '@broxus/tip3/contracts/interfaces/ITokenRoot.tsol';
+import '@broxus/tip3/contracts/interfaces/ITokenWallet.tsol';
+import '@broxus/tip3/contracts/interfaces/IAcceptTokensTransferCallback.tsol';
 
-import "../interfaces/IFarmPool.sol";
-import "../interfaces/IManager.sol";
-import "../interfaces/IUserData.sol";
+import '../interfaces/IFarmPool.tsol';
+import '../interfaces/IUserData.tsol';
+import '../interfaces/IMasterChef.tsol';
+import '../UserData.tsol';
 
-import "../libraries/MsgFlag.sol";
+import '@broxus/contracts/contracts/libraries/MsgFlag.tsol';
 
 abstract contract FarmPoolStorage is IFarmPool, IAcceptTokensTransferCallback {
     // ERRORS
@@ -24,7 +25,7 @@ abstract contract FarmPoolStorage is IFarmPool, IAcceptTokensTransferCallback {
     uint8 constant FARMING_NOT_ENDED = 109;
     uint8 constant WRONG_INTERVAL = 110;
     uint8 constant BAD_REWARD_TOKENS_INPUT = 111;
-    uint8 constant NOT_MANAGER = 112;
+    uint8 constant NOT_MASTERCHEF = 112;
     uint8 constant LOW_CLAIM_REWARD_MSG_VALUE = 113;
     uint8 constant BAD_REWARD_ROUNDS_INPUT = 114;
     uint8 constant BAD_FARM_END_TIME = 115;
@@ -40,7 +41,7 @@ abstract contract FarmPoolStorage is IFarmPool, IAcceptTokensTransferCallback {
     uint128 constant USER_DATA_UPGRADE_VALUE = 1 ever;
     uint128 constant REQUEST_UPGRADE_VALUE = 1.5 ever;
     uint128 constant TOKEN_TRANSFER_VALUE = 1 ever;
-    uint128 constant MANAGER_DEPLOY_CALLBACK_VALUE = 0.1 ever;
+    uint128 constant MASTERCHEF_DEPLOY_CALLBACK_VALUE = 0.1 ever;
     uint128 constant ADD_REWARD_ROUND_VALUE = 0.5 ever;
     uint128 constant SET_END_TIME_VALUE = 0.5 ever;
     uint128 constant INCREASE_DEBT_VALUE = 0.3 ever;
@@ -98,7 +99,7 @@ abstract contract FarmPoolStorage is IFarmPool, IAcceptTokensTransferCallback {
 
     TvmCell static userDataCode;
 
-    address static manager;
+    address static masterchef;
 
     uint64 static deploy_nonce;
 

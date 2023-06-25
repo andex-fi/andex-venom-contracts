@@ -1,4 +1,4 @@
-pragma ever-solidity ^0.62.0;
+pragma ever-solidity >= 0.62.0;
 pragma AbiHeader expire;
 
 interface IFarmPool {
@@ -6,16 +6,6 @@ interface IFarmPool {
         uint32 startTime;
         uint128[] rewardPerSecond;
     }
-    // Events
-    event Deposit(address user, uint128 amount, uint128[] reward, uint128[] reward_debt);
-    event Withdraw(address user, uint128 amount, uint128[] reward, uint128[] reward_debt);
-    event Claim(address user, uint128[] reward, uint128[] reward_debt);
-
-    event RewardDeposit(address token_root, uint128 amount);
-    event RewardRoundAdded(RewardRound reward_round);
-    event farmEndSet(uint32 time);
-    event UserDataCodeUpdated(uint32 prev_version, uint32 new_version);
-    event PoolUpdated(uint32 prev_version, uint32 new_version);
 
     struct Details {
         uint32 lastRewardTime;
@@ -33,10 +23,20 @@ interface IFarmPool {
         uint128[] rewardTokenBalanceCumulative;
         uint128[] unclaimedReward;
         address owner;
-        address fabric;
+        address masterchef;
         uint32 user_data_version;
         uint32 pool_version;
     }
+    // Events
+    event Deposit(address user, uint128 amount, uint128[] reward, uint128[] reward_debt);
+    event Withdraw(address user, uint128 amount, uint128[] reward, uint128[] reward_debt);
+    event Claim(address user, uint128[] reward, uint128[] reward_debt);
+
+    event RewardDeposit(address token_root, uint128 amount);
+    event RewardRoundAdded(RewardRound reward_round);
+    event farmEndSet(uint32 time);
+    event UserDataCodeUpdated(uint32 prev_version, uint32 new_version);
+    event PoolUpdated(uint32 prev_version, uint32 new_version);
 
     function finishDeposit(
         uint64 _nonce,
@@ -51,26 +51,26 @@ interface IFarmPool {
         uint32 nonce
     ) external;
 
-    function forceUpgradeUserData(
-        address user,
+    function finishSafeWithdraw(
+        address user, 
+        uint128 amount, 
         address send_gas_to
     ) external;
 
-    function finishSafeWithdraw(
-        address user,
-        uint128 amount,
+    function forceUpgradeUserData(
+        address user, 
         address send_gas_to
     ) external;
 
     function upgrade(
-        TvmCell new_code,
-        uint32 new_version,
+        TvmCell new_code, 
+        uint32 new_version, 
         address send_gas_to
     ) external;
 
     function updateUserDataCode(
-        TvmCell new_code,
-        uint32 new_version,
+        TvmCell new_code, 
+        uint32 new_version, 
         address send_gas_to
     ) external;
 }

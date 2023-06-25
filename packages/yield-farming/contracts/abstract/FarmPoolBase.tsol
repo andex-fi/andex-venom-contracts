@@ -1,16 +1,14 @@
-pragma ever-solidity ^0.62.0;
+pragma ever-solidity >= 0.62.0;
 pragma AbiHeader expire;
 
-import "../interfaces/IUserData.sol";
-import "../interfaces/IFarmPool.sol";
-import "../interfaces/IManager.sol";
+import '../interfaces/IFarmPool.tsol';
+import '../interfaces/IUserData.tsol';
+import '../interfaces/IMasterChef.tsol';
+import './FarmPoolStorage.tsol';
+import '../UserData.tsol';
 
-import "./FarmPoolStorage.sol";
-import "../UserData.sol";
-
-import "../libraries/MsgFlag.sol";
-
-import "../external/Platform.sol";
+import '@broxus/contracts/contracts/libraries/MsgFlag.tsol';
+import '@broxus/contracts/contracts/platform/Platform.tsol';
 
 abstract contract FarmPoolBase is FarmPoolStorage {
     function _initialize_reward_arrays() internal virtual {
@@ -29,24 +27,39 @@ abstract contract FarmPoolBase is FarmPoolStorage {
 
     function getDetails() external virtual view responsible returns (Details) {
         return {
-            value: 0,
-            bounce: false,
-            flag: MsgFlag.REMAINING_GAS
+            value: 0, 
+            bounce: false, 
+            flag: MsgFlag.REMAINING_GAS 
         } Details (
-            lastRewardTime, farmEndTime, vestingPeriod, vestingRatio, tokenRoot, tokenWallet, tokenBalance,
-            rewardRounds, accRewardPerShare, rewardTokenRoot, rewardTokenWallet, rewardTokenBalance,
-            rewardTokenBalanceCumulative, unclaimedReward, owner, manager, user_data_version, pool_version
+            lastRewardTime,
+            farmEndTime, 
+            vestingPeriod, 
+            vestingRatio, 
+            tokenRoot, 
+            tokenWallet, 
+            tokenBalance,
+            rewardRounds, 
+            accRewardPerShare, 
+            rewardTokenRoot, 
+            rewardTokenWallet, 
+            rewardTokenBalance,
+            rewardTokenBalanceCumulative, 
+            unclaimedReward, 
+            owner, 
+            masterchef, 
+            user_data_version, 
+            pool_version
         );
     }
 
     /*
-        @notice Creates token wallet for configured root token, initialize arrays and send callback to fabric
+        @notice Creates token wallet for configured root token, initialize arrays and send callback to masterchef
     */
     function setUp() internal virtual {
         _initialize_reward_arrays();
         // Deploy vault's token wallet
         ITokenRoot(tokenRoot).deployWallet{
-            value: TOKEN_WALLET_DEPLOY_VALUE,
+            value: TOKEN_WALLET_DEPLOY_VALUE, 
             callback: FarmPoolBase.receiveTokenWalletAddress
         }(
             address(this), // owner
@@ -55,7 +68,7 @@ abstract contract FarmPoolBase is FarmPoolStorage {
 
         for (uint i = 0; i < rewardTokenRoot.length; i++) {
             ITokenRoot(rewardTokenRoot[i]).deployWallet{
-                value: TOKEN_WALLET_DEPLOY_VALUE,
+                value: TOKEN_WALLET_DEPLOY_VALUE, 
                 callback: FarmPoolBase.receiveTokenWalletAddress
             }(
                 address(this), // owner address
@@ -64,26 +77,38 @@ abstract contract FarmPoolBase is FarmPoolStorage {
         }
     }
 
-    function requestUpdateUserDataCode(address send_gas_to) external virtual onlyOwner {
+    function requestUpdateUserDataCode(address send_gas_to) external virtual onlyOwner view {
         require (msg.value >= REQUEST_UPGRADE_VALUE, LOW_MSG_VALUE);
         tvm.rawReserve(_reserve(), 0);
 
-        IManager(manager).processUpdatePoolUserDataRequest{value: 0, flag: MsgFlag.ALL_NOT_RESERVED}(send_gas_to);
+        IMasterChef(masterchef).processUpdatePoolUserDataRequest{
+            value: 0, 
+            flag: MsgFlag.ALL_NOT_RESERVED
+        }(send_gas_to);
     }
 
-    function requestUpgradePool(address send_gas_to) external virtual onlyOwner {
+    function requestUpgradePool(address send_gas_to) external virtual onlyOwner view {
         require (msg.value >= REQUEST_UPGRADE_VALUE, LOW_MSG_VALUE);
         tvm.rawReserve(_reserve(), 0);
 
-        IManager(manager).processUpgradePoolRequest{value: 0, flag: MsgFlag.ALL_NOT_RESERVED}(send_gas_to);
+        IMasterChef(masterchef).processUpgradePoolRequest{
+            value: 0, 
+            flag: MsgFlag.ALL_NOT_RESERVED
+        }(send_gas_to);
     }
 
-    function updateUserDataCode(TvmCell new_code, uint32 new_version, address send_gas_to) external virtual override {
-        require (msg.sender == manager, NOT_MANAGER);
+    function updateUserDataCode(
+        TvmCell new_code, 
+        uint32 new_version, 
+        address send_gas_to
+    ) external virtual override {
+        require (msg.sender == masterchef, NOT_MASTERCHEF);
         tvm.rawReserve(_reserve(), 0);
 
         if (new_version == user_data_version) {
-            send_gas_to.transfer({ value: 0, bounce: false, flag: MsgFlag.ALL_NOT_RESERVED });
+            send_gas_to.transfer(
+                { value: 0, bounce: false, flag: MsgFlag.ALL_NOT_RESERVED }
+            );
             return;
         }
 
@@ -94,23 +119,35 @@ abstract contract FarmPoolBase is FarmPoolStorage {
         send_gas_to.transfer(0, false, MsgFlag.ALL_NOT_RESERVED);
     }
 
-    function forceUpgradeUserData(address user, address send_gas_to) external virtual override {
-        require (msg.sender == manager, NOT_MANAGER);
+    function forceUpgradeUserData(
+        address user, 
+        address send_gas_to
+    ) external virtual override {
+        require (msg.sender == masterchef, NOT_MASTERCHEF);
         tvm.rawReserve(_reserve(), 0);
 
         address user_data = getUserDataAddress(user);
-        IUserData(user_data).upgrade{value: 0, flag: MsgFlag.ALL_NOT_RESERVED}(userDataCode, user_data_version, send_gas_to);
+        IUserData(user_data).upgrade{
+            value: 0, 
+            flag: MsgFlag.ALL_NOT_RESERVED
+        }(userDataCode, user_data_version, send_gas_to);
     }
 
-    function upgradeUserData(address send_gas_to) external virtual {
+    function upgradeUserData(address send_gas_to) external virtual view {
         require (msg.value >= USER_DATA_UPGRADE_VALUE, LOW_MSG_VALUE);
         tvm.rawReserve(_reserve(), 0);
 
         address user_data = getUserDataAddress(msg.sender);
-        IUserData(user_data).upgrade{value: 0, flag: MsgFlag.ALL_NOT_RESERVED}(userDataCode, user_data_version, send_gas_to);
+        IUserData(user_data).upgrade{
+            value: 0, 
+            flag: MsgFlag.ALL_NOT_RESERVED
+        }(userDataCode, user_data_version, send_gas_to);
     }
 
-    function dummy(address user_wallet) external virtual { tvm.rawReserve(_reserve(), 0); }
+    function dummy(address user_wallet) external pure virtual {
+        user_wallet; 
+        tvm.rawReserve(_reserve(), 0); 
+    }
 
     /*
         @notice Store vault's token wallet address
@@ -156,7 +193,10 @@ abstract contract FarmPoolBase is FarmPoolStorage {
         if (user_data_addr != address.makeAddrNone()) {
             for (uint i = 0; i < _reward_debt.length; i++) {
                 if (_reward_debt[i] > 0) {
-                    IUserData(user_data_addr).increasePoolDebt{value: INCREASE_DEBT_VALUE, flag: 0}(_reward_debt, send_gas_to, user_data_version);
+                    IUserData(user_data_addr).increasePoolDebt{
+                        value: INCREASE_DEBT_VALUE, 
+                        flag: 0
+                    }(_reward_debt, send_gas_to, user_data_version);
                     break;
                 }
             }
@@ -188,7 +228,7 @@ abstract contract FarmPoolBase is FarmPoolStorage {
     }
 
     // try to decode deposit payload
-    function decodeDepositPayload(TvmCell payload) public virtual view returns (address deposit_owner, uint32 nonce, bool correct) {
+    function decodeDepositPayload(TvmCell payload) public virtual pure returns (address deposit_owner, uint32 nonce, bool correct) {
         // check if payload assembled correctly
         TvmSlice slice = payload.toSlice();
         // 1 address and 1 cell
@@ -211,6 +251,8 @@ abstract contract FarmPoolBase is FarmPoolStorage {
         address remainingGasTo,
         TvmCell payload
     ) external override virtual {
+        tokenRoot;
+        senderWallet;
         tvm.rawReserve(_reserve(), 0);
 
         if (msg.sender == tokenWallet) {
@@ -239,7 +281,17 @@ abstract contract FarmPoolBase is FarmPoolStorage {
             deposits[deposit_nonce] = PendingDeposit(deposit_owner, amount, remainingGasTo, nonce);
 
             address userDataAddr = getUserDataAddress(deposit_owner);
-            IUserData(userDataAddr).processDeposit{value: 0, flag: MsgFlag.ALL_NOT_RESERVED}(deposit_nonce, amount, accRewardPerShare, lastRewardTime, farmEndTime, user_data_version);
+            IUserData(userDataAddr).processDeposit{
+                value: 0, 
+                flag: MsgFlag.ALL_NOT_RESERVED
+            }(
+                deposit_nonce, 
+                amount, 
+                accRewardPerShare, 
+                lastRewardTime, 
+                farmEndTime, 
+                user_data_version
+            );
         } else {
             for (uint i = 0; i < rewardTokenWallet.length; i++) {
                 if (msg.sender == rewardTokenWallet[i]) {
@@ -264,7 +316,13 @@ abstract contract FarmPoolBase is FarmPoolStorage {
         (
             uint128[] _reward,
             uint128[] _reward_debt
-        ) = transferReward(expectedAddr, deposit.user, _vested, deposit.send_gas_to, deposit.nonce);
+        ) = transferReward(
+            expectedAddr, 
+            deposit.user, 
+            _vested, 
+            deposit.send_gas_to, 
+            deposit.nonce
+        );
 
         emit Deposit(deposit.user, deposit.amount, _reward, _reward_debt);
         delete deposits[_deposit_nonce];
@@ -272,7 +330,11 @@ abstract contract FarmPoolBase is FarmPoolStorage {
         deposit.send_gas_to.transfer(0, false, MsgFlag.ALL_NOT_RESERVED);
     }
 
-    function withdraw(uint128 amount, address send_gas_to, uint32 nonce) external virtual {
+    function withdraw(
+        uint128 amount, 
+        address send_gas_to, 
+        uint32 nonce
+    ) external virtual {
         require (amount > 0, ZERO_AMOUNT_INPUT);
         require (msg.value >= MIN_CALL_MSG_VALUE + TOKEN_TRANSFER_VALUE * rewardTokenRoot.length, LOW_WITHDRAW_MSG_VALUE);
         tvm.rawReserve(_reserve(), 0);
@@ -281,7 +343,18 @@ abstract contract FarmPoolBase is FarmPoolStorage {
 
         address userDataAddr = getUserDataAddress(msg.sender);
         // we cant check if user has any balance here, delegate it to UserData
-        IUserData(userDataAddr).processWithdraw{value: 0, flag: MsgFlag.ALL_NOT_RESERVED}(amount, accRewardPerShare, lastRewardTime, farmEndTime, send_gas_to, nonce, user_data_version);
+        IUserData(userDataAddr).processWithdraw{
+            value: 0, 
+            flag: MsgFlag.ALL_NOT_RESERVED
+        }(
+            amount, 
+            accRewardPerShare, 
+            lastRewardTime, 
+            farmEndTime, 
+            send_gas_to, 
+            nonce, 
+            user_data_version
+        );
     }
 
     function withdrawAll(address send_gas_to, uint32 nonce) external virtual {
@@ -292,10 +365,24 @@ abstract contract FarmPoolBase is FarmPoolStorage {
 
         address userDataAddr = getUserDataAddress(msg.sender);
         // we cant check if user has any balance here, delegate it to UserData
-        IUserData(userDataAddr).processWithdrawAll{value: 0, flag: MsgFlag.ALL_NOT_RESERVED}(accRewardPerShare, lastRewardTime, farmEndTime, send_gas_to, nonce, user_data_version);
+        IUserData(userDataAddr).processWithdrawAll{
+            value: 0, 
+            flag: MsgFlag.ALL_NOT_RESERVED
+        }(
+            accRewardPerShare, 
+            lastRewardTime, 
+            farmEndTime, 
+            send_gas_to, 
+            nonce, 
+            user_data_version
+        );
     }
 
-    function claimRewardForUser(address user, address send_gas_to, uint32 nonce) external {
+    function claimRewardForUser(
+        address user, 
+        address send_gas_to, 
+        uint32 nonce
+    ) external {
         require (msg.value >= MIN_CALL_MSG_VALUE + TOKEN_TRANSFER_VALUE * rewardTokenRoot.length, LOW_WITHDRAW_MSG_VALUE);
         tvm.rawReserve(_reserve(), 0);
 
@@ -306,7 +393,10 @@ abstract contract FarmPoolBase is FarmPoolStorage {
         IUserData(userDataAddr).processClaimReward{value: 0, flag: MsgFlag.ALL_NOT_RESERVED}(accRewardPerShare, lastRewardTime, farmEndTime, send_gas_to, nonce, user_data_version);
     }
 
-    function claimReward(address send_gas_to, uint32 nonce) external virtual {
+    function claimReward(
+        address send_gas_to, 
+        uint32 nonce
+    ) external virtual {
         require (msg.value >= MIN_CALL_MSG_VALUE + TOKEN_TRANSFER_VALUE * rewardTokenRoot.length, LOW_WITHDRAW_MSG_VALUE);
         tvm.rawReserve(_reserve(), 0);
 
@@ -314,7 +404,17 @@ abstract contract FarmPoolBase is FarmPoolStorage {
 
         address userDataAddr = getUserDataAddress(msg.sender);
         // we cant check if user has any balance here, delegate it to UserData
-        IUserData(userDataAddr).processClaimReward{value: 0, flag: MsgFlag.ALL_NOT_RESERVED}(accRewardPerShare, lastRewardTime, farmEndTime, send_gas_to, nonce, user_data_version);
+        IUserData(userDataAddr).processClaimReward{
+            value: 0, 
+            flag: MsgFlag.ALL_NOT_RESERVED
+        }(
+            accRewardPerShare, 
+            lastRewardTime, 
+            farmEndTime, 
+            send_gas_to, 
+            nonce, 
+            user_data_version
+        );
     }
 
     function finishWithdraw(
@@ -340,7 +440,10 @@ abstract contract FarmPoolBase is FarmPoolStorage {
             emit Withdraw(user, _withdrawAmount, _reward, _reward_debt);
             TvmBuilder builder;
             builder.store(nonce);
-            ITokenWallet(tokenWallet).transfer{value: 0, flag: MsgFlag.ALL_NOT_RESERVED}(
+            ITokenWallet(tokenWallet).transfer{
+                value: 0, 
+                flag: MsgFlag.ALL_NOT_RESERVED
+            }(
                 _withdrawAmount,
                 user,
                 0,
@@ -355,7 +458,11 @@ abstract contract FarmPoolBase is FarmPoolStorage {
         }
     }
 
-    function withdrawUnclaimed(address to, address send_gas_to, uint32 nonce) external virtual onlyOwner {
+    function withdrawUnclaimed(
+        address to, 
+        address send_gas_to, 
+        uint32 nonce
+    ) external virtual onlyOwner {
         require (msg.value >= MIN_CALL_MSG_VALUE + TOKEN_TRANSFER_VALUE * rewardTokenRoot.length, LOW_WITHDRAW_MSG_VALUE);
         // minimum value that should remain on contract
         tvm.rawReserve(_reserve(), 0);
@@ -368,14 +475,24 @@ abstract contract FarmPoolBase is FarmPoolStorage {
         send_gas_to.transfer(0, false, MsgFlag.ALL_NOT_RESERVED);
     }
 
-    function withdrawUnclaimedAll(address to, address send_gas_to, uint32 nonce) external virtual onlyOwner {
+    function withdrawUnclaimedAll(
+        address to, 
+        address send_gas_to, 
+        uint32 nonce
+    ) external virtual onlyOwner {
         require (msg.value >= MIN_CALL_MSG_VALUE + TOKEN_TRANSFER_VALUE * rewardTokenRoot.length, LOW_WITHDRAW_MSG_VALUE);
         require (farmEndTime > 0, CANT_WITHDRAW_UNCLAIMED_ALL);
         require (now >= farmEndTime + vestingPeriod + withdrawAllLockPeriod, CANT_WITHDRAW_UNCLAIMED_ALL);
         // minimum value that should remain on contract
         tvm.rawReserve(_reserve(), 0);
 
-        transferReward(address.makeAddrNone(), to, rewardTokenBalance, send_gas_to, nonce);
+        transferReward(
+            address.makeAddrNone(), 
+            to, 
+            rewardTokenBalance, 
+            send_gas_to, 
+            nonce
+        );
         for (uint i = 0; i < unclaimedReward.length; i++) {
             unclaimedReward[i] = 0;
         }
@@ -408,7 +525,7 @@ abstract contract FarmPoolBase is FarmPoolStorage {
         send_gas_to.transfer(0, false, MsgFlag.ALL_NOT_RESERVED);
     }
 
-    // withdraw all staked tokens without reward in case of some critical logic error / insufficient VENOMs on FarmPool balance
+    // withdraw all staked tokens without reward in case of some critical logic error / insufficient tons on FarmPool balance
     function safeWithdraw(address send_gas_to) external virtual view {
         require (msg.value >= MIN_CALL_MSG_VALUE, LOW_WITHDRAW_MSG_VALUE);
         tvm.rawReserve(_reserve(), 0);
@@ -440,7 +557,12 @@ abstract contract FarmPoolBase is FarmPoolStorage {
         );
     }
 
-    function _getMultiplier(uint32 _farmStartTime, uint32 _farmEndTime, uint32 from, uint32 to) internal virtual view returns(uint32) {
+    function _getMultiplier(
+        uint32 _farmStartTime, 
+        uint32 _farmEndTime, 
+        uint32 from, 
+        uint32 to
+    ) internal virtual pure returns(uint32) {
         require (from <= to, WRONG_INTERVAL);
 
         if ((from > _farmEndTime) || (to < _farmStartTime)) {
@@ -539,13 +661,18 @@ abstract contract FarmPoolBase is FarmPoolStorage {
     }
 
     function updatePoolInfo() internal virtual {
-        (uint32 _lastRewardTime, uint256[] _accRewardPerShare, uint128[] _unclaimedReward) = calculateRewardData();
+        (
+            uint32 _lastRewardTime, 
+            uint256[] _accRewardPerShare, 
+            uint128[] 
+            _unclaimedReward
+        ) = calculateRewardData();
         lastRewardTime = _lastRewardTime;
         accRewardPerShare = _accRewardPerShare;
         unclaimedReward = _unclaimedReward;
     }
 
-    function _buildUserDataParams(address user) internal virtual view returns (TvmCell) {
+    function _buildUserDataParams(address user) internal virtual pure returns (TvmCell) {
         TvmBuilder builder;
         builder.store(user);
         return builder.toCell();
@@ -565,7 +692,7 @@ abstract contract FarmPoolBase is FarmPoolStorage {
         });
     }
 
-    function deployUserData(address user_data_owner) internal virtual returns (address) {
+    function deployUserData(address user_data_owner) internal virtual view returns (address) {
         TvmBuilder constructor_params;
         constructor_params.store(user_data_version);
         constructor_params.store(user_data_version);
@@ -581,10 +708,14 @@ abstract contract FarmPoolBase is FarmPoolStorage {
     }
 
     function getUserDataAddress(address user) public virtual view responsible returns (address) {
-        return { value: 0, flag: MsgFlag.REMAINING_GAS, bounce: false } address(tvm.hash(_buildInitData(_buildUserDataParams(user))));
+        return { 
+            value: 0, 
+            flag: MsgFlag.REMAINING_GAS, 
+            bounce: false 
+        } address(tvm.hash(_buildInitData(_buildUserDataParams(user))));
     }
 
-    onBounce(TvmSlice slice) external virtual {
+    onBounce(TvmSlice slice) external virtual view {
         tvm.accept();
 
         uint32 functionId = slice.decode(uint32);
@@ -597,17 +728,28 @@ abstract contract FarmPoolBase is FarmPoolStorage {
             address user_data_addr = deployUserData(deposit.user);
             for (uint i = 0; i < rewardTokenRoot.length; i++) {
                 // user first deposit? try deploy wallet for him
-                ITokenRoot(rewardTokenRoot[i]).deployWallet{value: TOKEN_WALLET_DEPLOY_VALUE, callback: FarmPoolBase.dummy}(
+                ITokenRoot(rewardTokenRoot[i]).deployWallet{
+                    value: TOKEN_WALLET_DEPLOY_VALUE,
+                    callback: FarmPoolBase.dummy}(
                     deposit.user,
                     TOKEN_WALLET_DEPLOY_GRAMS_VALUE // deploy grams
                 );
             }
             // try again
-            IUserData(user_data_addr).processDeposit{value: 0, flag: MsgFlag.ALL_NOT_RESERVED}(_deposit_nonce, deposit.amount, accRewardPerShare, lastRewardTime, farmEndTime, user_data_version);
+            IUserData(user_data_addr).processDeposit{
+                value: 0, 
+                flag: MsgFlag.ALL_NOT_RESERVED
+            }(
+                _deposit_nonce, 
+                deposit.amount, 
+                accRewardPerShare, 
+                lastRewardTime, 
+                farmEndTime ,
+                user_data_version
+            );
 
         }
     }
-
 
     modifier onlyOwner() {
         require(msg.sender == owner, NOT_OWNER);
