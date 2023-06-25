@@ -387,17 +387,17 @@ CALLREF {
 THROW 0
 
 .macro upgradeContractCode_344c0b3a_internal_macro
-.loc ../contracts/UserAccount.tsol, 485
+.loc ../contracts/UserAccount.tsol, 577
 GETGLOB 9
 GETGLOB 13
 SDEQ
 THROWIFNOT 100
-.loc ../contracts/UserAccount.tsol, 64
+.loc ../contracts/UserAccount.tsol, 68
 GETGLOB 10
 PUSHCONT {
-	.loc ../contracts/UserAccount.tsol, 65
+	.loc ../contracts/UserAccount.tsol, 69
 	ACCEPT
-	.loc ../contracts/UserAccount.tsol, 66
+	.loc ../contracts/UserAccount.tsol, 70
 	GETGLOB 12
 	NEWC
 	STSLICECONST x62_
@@ -409,17 +409,17 @@ PUSHCONT {
 	SENDRAWMSG
 }
 PUSHCONT {
-	.loc ../contracts/UserAccount.tsol, 68
+	.loc ../contracts/UserAccount.tsol, 72
 	ACCEPT
-	.loc ../contracts/UserAccount.tsol, 69
+	.loc ../contracts/UserAccount.tsol, 73
 	DUP
 	GETGLOB 14
 	GREATER
 	PUSHCONT {
-		.loc ../contracts/UserAccount.tsol, 78
+		.loc ../contracts/UserAccount.tsol, 82
 		PUSH S2
 		SETCODE
-		.loc ../contracts/UserAccount.tsol, 79
+		.loc ../contracts/UserAccount.tsol, 83
 		PUSH S2
 		CTOS
 		DUP
@@ -434,7 +434,7 @@ PUSHCONT {
 		CTOS
 		BLESS
 		POP C3
-		.loc ../contracts/UserAccount.tsol, 81
+		.loc ../contracts/UserAccount.tsol, 85
 		GETGLOB 10
 		GETGLOB 11
 		GETGLOB 12
@@ -456,7 +456,7 @@ BLKDROP 3
 
 .internal-alias :onCodeUpgrade, 2
 .internal :onCodeUpgrade
-.loc ../contracts/UserAccount.tsol, 108
+.loc ../contracts/UserAccount.tsol, 112
 PUSHINT 0
 SETGLOB 10
 PUSHINT 0
@@ -479,28 +479,28 @@ NEWDICT
 SETGLOB 16
 NEWDICT
 SETGLOB 17
-.loc ../contracts/UserAccount.tsol, 109
+.loc ../contracts/UserAccount.tsol, 113
 ROLL 8
 SETGLOB 10
-.loc ../contracts/UserAccount.tsol, 110
+.loc ../contracts/UserAccount.tsol, 114
 ROLL 7
 SETGLOB 11
-.loc ../contracts/UserAccount.tsol, 111
+.loc ../contracts/UserAccount.tsol, 115
 ROLL 6
 SETGLOB 12
-.loc ../contracts/UserAccount.tsol, 112
+.loc ../contracts/UserAccount.tsol, 116
 ROLL 5
 SETGLOB 13
-.loc ../contracts/UserAccount.tsol, 113
+.loc ../contracts/UserAccount.tsol, 117
 ROLL 4
 SETGLOB 16
-.loc ../contracts/UserAccount.tsol, 114
+.loc ../contracts/UserAccount.tsol, 118
 ROLL 3
 SETGLOB 17
-.loc ../contracts/UserAccount.tsol, 115
+.loc ../contracts/UserAccount.tsol, 119
 ROT
 SETGLOB 15
-.loc ../contracts/UserAccount.tsol, 117
+.loc ../contracts/UserAccount.tsol, 121
 SETGLOB 14
 .loc ../contracts/UserAccount.tsol, 0
 DROP
@@ -519,7 +519,7 @@ ISNULL
 IFREF {
 	CALL $c4_to_c7$
 }
-.loc ../contracts/UserAccount.tsol, 120
+.loc ../contracts/UserAccount.tsol, 124
 LDU 32
 GETGLOB 4
 ROT
@@ -589,7 +589,7 @@ IFREF {
 THROW 0
 
 .macro getOwner_893d20e8_internal_macro
-.loc ../contracts/UserAccount.tsol, 121
+.loc ../contracts/UserAccount.tsol, 125
 GETGLOB 4
 PUSHINT 0
 SETINDEXQ 2
@@ -610,7 +610,7 @@ ISNULL
 IFREF {
 	CALL $c4_to_c7$
 }
-.loc ../contracts/UserAccount.tsol, 127
+.loc ../contracts/UserAccount.tsol, 131
 OVER
 PUSHCONT {
 	LDU 32
@@ -640,18 +640,18 @@ CALLREF {
 THROW 0
 
 .macro writeSupplyInfo_0d3add04_internal_macro
-.loc ../contracts/UserAccount.tsol, 485
+.loc ../contracts/UserAccount.tsol, 577
 GETGLOB 9
 GETGLOB 13
 SDEQ
 THROWIFNOT 100
-.loc ../contracts/UserAccount.tsol, 128
+.loc ../contracts/UserAccount.tsol, 136
 DEPTH
 ADDCONST -2
 PICK
 PUSHINT 2
 RAWRESERVE
-.loc ../contracts/UserAccount.tsol, 129
+.loc ../contracts/UserAccount.tsol, 137
 XCPU S1, S2
 GETGLOB 17
 DUP2
@@ -728,11 +728,11 @@ ROTREV
 PUSHINT 32
 DICTUSETREF
 SETGLOB 17
-.loc ../contracts/UserAccount.tsol, 130
+.loc ../contracts/UserAccount.tsol, 138
 CALLREF {
 	CALL $_updateMarketInfo_69802a24_internal_macro$
 }
-.loc ../contracts/UserAccount.tsol, 132
+.loc ../contracts/UserAccount.tsol, 140
 GETGLOB 12
 CALLREF {
 	CALL $_createNoOpPayload_7fadc82a_internal_macro$
@@ -751,7 +751,7 @@ ISNULL
 IFREF {
 	CALL $c4_to_c7$
 }
-.loc ../contracts/UserAccount.tsol, 138
+.loc ../contracts/UserAccount.tsol, 146
 OVER
 PUSHCONT {
 	LDREF
@@ -773,12 +773,12 @@ IFREF {
 THROW 0
 
 .macro withdraw_11272570_internal_macro
-.loc ../contracts/UserAccount.tsol, 480
+.loc ../contracts/UserAccount.tsol, 572
 GETGLOB 9
 GETGLOB 12
 SDEQ
 THROWIFNOT 100
-.loc ../contracts/UserAccount.tsol, 139
+.loc ../contracts/UserAccount.tsol, 151
 GETGLOB 11
 NOT
 DUP
@@ -830,13 +830,13 @@ PUSHCONT {
 }
 IF
 PUSHCONT {
-	.loc ../contracts/UserAccount.tsol, 143
+	.loc ../contracts/UserAccount.tsol, 155
 	DEPTH
 	ADDCONST -2
 	PICK
 	PUSHINT 2
 	RAWRESERVE
-	.loc ../contracts/UserAccount.tsol, 145
+	.loc ../contracts/UserAccount.tsol, 157
 	PUSH3 S0, S1, S2
 	GETGLOB 12
 	GETGLOB 13
@@ -858,7 +858,7 @@ PUSHCONT {
 	STBREFR
 }
 PUSHCONT {
-	.loc ../contracts/UserAccount.tsol, 149
+	.loc ../contracts/UserAccount.tsol, 161
 	GETGLOB 12
 	NEWC
 	STSLICECONST x62_
@@ -882,7 +882,7 @@ ISNULL
 IFREF {
 	CALL $c4_to_c7$
 }
-.loc ../contracts/UserAccount.tsol, 153
+.loc ../contracts/UserAccount.tsol, 165
 OVER
 PUSHCONT {
 	LDREF
@@ -906,25 +906,25 @@ CALLREF {
 THROW 0
 
 .macro requestWithdrawInfo_7fa7ec94_internal_macro
-.loc ../contracts/UserAccount.tsol, 485
+.loc ../contracts/UserAccount.tsol, 577
 GETGLOB 9
 GETGLOB 13
 SDEQ
 THROWIFNOT 100
-.loc ../contracts/UserAccount.tsol, 154
+.loc ../contracts/UserAccount.tsol, 171
 DEPTH
 ADDCONST -2
 PICK
 PUSHINT 2
 RAWRESERVE
-.loc ../contracts/UserAccount.tsol, 155
+.loc ../contracts/UserAccount.tsol, 172
 GETGLOB 15
 FIRST
 GETGLOB 15
 SECOND
 GREATER
 PUSHCONT {
-	.loc ../contracts/UserAccount.tsol, 158
+	.loc ../contracts/UserAccount.tsol, 175
 	BLKPUSH 2, 0
 	PUSHINT 32
 	DICTUMIN
@@ -946,7 +946,7 @@ IFREFELSE {
 		NOT
 	}
 	PUSHCONT {
-		.loc ../contracts/UserAccount.tsol, 159
+		.loc ../contracts/UserAccount.tsol, 176
 		DUP2
 		CALLREF {
 			CALL $_updateMarketInfo_69802a24_internal_macro$
@@ -971,11 +971,11 @@ IFREFELSE {
 	}
 	WHILE
 	BLKDROP 4
-	.loc ../contracts/UserAccount.tsol, 165
+	.loc ../contracts/UserAccount.tsol, 182
 	CALLREF {
 		CALL $_getBorrowSupplyInfo_30d1b742_internal_macro$
 	}
-	.loc ../contracts/UserAccount.tsol, 167
+	.loc ../contracts/UserAccount.tsol, 184
 	BLKPUSH 2, 4
 	PUSH S7
 	GETGLOB 12
@@ -1000,7 +1000,7 @@ IFREFELSE {
 	STBREFR
 }
 PUSHCONT {
-	.loc ../contracts/UserAccount.tsol, 171
+	.loc ../contracts/UserAccount.tsol, 188
 	GETGLOB 12
 	NEWC
 	STSLICECONST x62_
@@ -1024,7 +1024,7 @@ ISNULL
 IFREF {
 	CALL $c4_to_c7$
 }
-.loc ../contracts/UserAccount.tsol, 175
+.loc ../contracts/UserAccount.tsol, 192
 OVER
 PUSHCONT {
 	LDREF
@@ -1051,18 +1051,18 @@ CALLREF {
 THROW 0
 
 .macro writeWithdrawInfo_f16201eb_internal_macro
-.loc ../contracts/UserAccount.tsol, 485
+.loc ../contracts/UserAccount.tsol, 577
 GETGLOB 9
 GETGLOB 13
 SDEQ
 THROWIFNOT 100
-.loc ../contracts/UserAccount.tsol, 176
+.loc ../contracts/UserAccount.tsol, 198
 DEPTH
 ADDCONST -2
 PICK
 PUSHINT 2
 RAWRESERVE
-.loc ../contracts/UserAccount.tsol, 177
+.loc ../contracts/UserAccount.tsol, 199
 XCPU S1, S2
 GETGLOB 17
 DUP2
@@ -1140,7 +1140,7 @@ ROTREV
 PUSHINT 32
 DICTUSETREF
 SETGLOB 17
-.loc ../contracts/UserAccount.tsol, 178
+.loc ../contracts/UserAccount.tsol, 200
 GETGLOB 12
 DUP
 BLKSWAP 3, 2
@@ -1161,7 +1161,7 @@ ISNULL
 IFREF {
 	CALL $c4_to_c7$
 }
-.loc ../contracts/UserAccount.tsol, 184
+.loc ../contracts/UserAccount.tsol, 206
 OVER
 PUSHCONT {
 	LDU 32
@@ -1187,18 +1187,18 @@ CALLREF {
 THROW 0
 
 .macro borrow_b57e4688_internal_macro
-.loc ../contracts/UserAccount.tsol, 480
+.loc ../contracts/UserAccount.tsol, 572
 GETGLOB 9
 GETGLOB 12
 SDEQ
 THROWIFNOT 100
-.loc ../contracts/UserAccount.tsol, 185
+.loc ../contracts/UserAccount.tsol, 211
 DEPTH
 ADDCONST -2
 PICK
 PUSHINT 2
 RAWRESERVE
-.loc ../contracts/UserAccount.tsol, 186
+.loc ../contracts/UserAccount.tsol, 212
 GETGLOB 10
 NOT
 GETGLOB 15
@@ -1211,20 +1211,20 @@ NOT
 AND
 AND
 PUSHCONT {
-	.loc ../contracts/UserAccount.tsol, 191
+	.loc ../contracts/UserAccount.tsol, 217
 	TRUE
 	SETGLOB 10
-	.loc ../contracts/UserAccount.tsol, 193
+	.loc ../contracts/UserAccount.tsol, 219
 	GETGLOB 12
 	NEWC
 	STSLICE
-	.loc ../contracts/UserAccount.tsol, 194
+	.loc ../contracts/UserAccount.tsol, 220
 	OVER
 	STSLICER
-	.loc ../contracts/UserAccount.tsol, 195
+	.loc ../contracts/UserAccount.tsol, 221
 	PUSH S2
 	STUR 256
-	.loc ../contracts/UserAccount.tsol, 196
+	.loc ../contracts/UserAccount.tsol, 222
 	ENDC
 	PUSH S3
 	GETGLOB 12
@@ -1243,7 +1243,7 @@ PUSHCONT {
 	STBREFR
 }
 PUSHCONT {
-	.loc ../contracts/UserAccount.tsol, 200
+	.loc ../contracts/UserAccount.tsol, 226
 	GETGLOB 9
 	NEWC
 	STSLICECONST x62_
@@ -1267,7 +1267,7 @@ ISNULL
 IFREF {
 	CALL $c4_to_c7$
 }
-.loc ../contracts/UserAccount.tsol, 204
+.loc ../contracts/UserAccount.tsol, 230
 OVER
 PUSHCONT {
 	LDU 32
@@ -1295,27 +1295,27 @@ CALLREF {
 THROW 0
 
 .macro borrowUpdateIndexes_8f221ddf_internal_macro
-.loc ../contracts/UserAccount.tsol, 485
+.loc ../contracts/UserAccount.tsol, 577
 GETGLOB 9
 GETGLOB 13
 SDEQ
 THROWIFNOT 100
-.loc ../contracts/UserAccount.tsol, 205
+.loc ../contracts/UserAccount.tsol, 236
 DEPTH
 ADDCONST -2
 PICK
 PUSHINT 2
 RAWRESERVE
-.loc ../contracts/UserAccount.tsol, 207
+.loc ../contracts/UserAccount.tsol, 238
 ROT
 CALLREF {
 	CALL $_updateIndexes_1d3486d6_internal_macro$
 }
-.loc ../contracts/UserAccount.tsol, 212
+.loc ../contracts/UserAccount.tsol, 243
 CALLREF {
 	CALL $_getBorrowSupplyInfo_30d1b742_internal_macro$
 }
-.loc ../contracts/UserAccount.tsol, 214
+.loc ../contracts/UserAccount.tsol, 245
 ROT
 BLKSWAP 2, 3
 GETGLOB 12
@@ -1352,7 +1352,7 @@ ISNULL
 IFREF {
 	CALL $c4_to_c7$
 }
-.loc ../contracts/UserAccount.tsol, 219
+.loc ../contracts/UserAccount.tsol, 250
 OVER
 PUSHCONT {
 	LDU 32
@@ -1386,27 +1386,27 @@ CALLREF {
 THROW 0
 
 .macro writeBorrowInformation_f5db9e46_internal_macro
-.loc ../contracts/UserAccount.tsol, 485
+.loc ../contracts/UserAccount.tsol, 577
 GETGLOB 9
 GETGLOB 13
 SDEQ
 THROWIFNOT 100
-.loc ../contracts/UserAccount.tsol, 220
+.loc ../contracts/UserAccount.tsol, 256
 DEPTH
 ADDCONST -2
 PICK
 PUSHINT 2
 RAWRESERVE
-.loc ../contracts/UserAccount.tsol, 221
+.loc ../contracts/UserAccount.tsol, 257
 PUSH S2
 GTINT 0
 PUSHCONT {
-	.loc ../contracts/UserAccount.tsol, 222
+	.loc ../contracts/UserAccount.tsol, 258
 	PUSH2 S3, S0
 	CALLREF {
 		CALL $_updateMarketInfo_69802a24_internal_macro$
 	}
-	.loc ../contracts/UserAccount.tsol, 223
+	.loc ../contracts/UserAccount.tsol, 259
 	PUSH2 S2, S3
 	GETGLOB 17
 	DUP2
@@ -1489,15 +1489,15 @@ PUSHCONT {
 	.loc ../contracts/UserAccount.tsol, 0
 }
 IF
-.loc ../contracts/UserAccount.tsol, 226
+.loc ../contracts/UserAccount.tsol, 262
 DROP
 FALSE
 SETGLOB 10
-.loc ../contracts/UserAccount.tsol, 228
+.loc ../contracts/UserAccount.tsol, 264
 OVER
 GTINT 0
 PUSHCONT {
-	.loc ../contracts/UserAccount.tsol, 229
+	.loc ../contracts/UserAccount.tsol, 265
 	GETGLOB 12
 	PUSH3 S0, S1, S3
 	PUSH S5
@@ -1506,7 +1506,7 @@ PUSHCONT {
 	}
 }
 PUSHCONT {
-	.loc ../contracts/UserAccount.tsol, 231
+	.loc ../contracts/UserAccount.tsol, 267
 	GETGLOB 12
 	CALLREF {
 		CALL $_createNoOpPayload_7fadc82a_internal_macro$
@@ -1528,7 +1528,7 @@ ISNULL
 IFREF {
 	CALL $c4_to_c7$
 }
-.loc ../contracts/UserAccount.tsol, 238
+.loc ../contracts/UserAccount.tsol, 274
 OVER
 PUSHCONT {
 	LDREF
@@ -1552,18 +1552,18 @@ CALLREF {
 THROW 0
 
 .macro sendRepayInfo_3b094685_internal_macro
-.loc ../contracts/UserAccount.tsol, 485
+.loc ../contracts/UserAccount.tsol, 577
 GETGLOB 9
 GETGLOB 13
 SDEQ
 THROWIFNOT 100
-.loc ../contracts/UserAccount.tsol, 239
+.loc ../contracts/UserAccount.tsol, 280
 DEPTH
 ADDCONST -2
 PICK
 PUSHINT 2
 RAWRESERVE
-.loc ../contracts/UserAccount.tsol, 240
+.loc ../contracts/UserAccount.tsol, 281
 DUP
 PUSHINT 32
 DICTUMIN
@@ -1585,7 +1585,7 @@ PUSHCONT {
 	NOT
 }
 PUSHCONT {
-	.loc ../contracts/UserAccount.tsol, 241
+	.loc ../contracts/UserAccount.tsol, 282
 	DUP2
 	CALLREF {
 		CALL $_updateMarketInfo_69802a24_internal_macro$
@@ -1610,7 +1610,7 @@ IFREFELSE {
 }
 WHILE
 BLKDROP 4
-.loc ../contracts/UserAccount.tsol, 244
+.loc ../contracts/UserAccount.tsol, 285
 OVER
 GETGLOB 17
 PUSHINT 32
@@ -1697,7 +1697,7 @@ ISNULL
 IFREF {
 	CALL $c4_to_c7$
 }
-.loc ../contracts/UserAccount.tsol, 249
+.loc ../contracts/UserAccount.tsol, 290
 OVER
 PUSHCONT {
 	LDREF
@@ -1731,18 +1731,18 @@ CALLREF {
 THROW 0
 
 .macro writeRepayInformation_771debad_internal_macro
-.loc ../contracts/UserAccount.tsol, 485
+.loc ../contracts/UserAccount.tsol, 577
 GETGLOB 9
 GETGLOB 13
 SDEQ
 THROWIFNOT 100
-.loc ../contracts/UserAccount.tsol, 250
+.loc ../contracts/UserAccount.tsol, 296
 DEPTH
 ADDCONST -2
 PICK
 PUSHINT 2
 RAWRESERVE
-.loc ../contracts/UserAccount.tsol, 252
+.loc ../contracts/UserAccount.tsol, 298
 PUSH S2
 GETGLOB 17
 DUP2
@@ -1816,10 +1816,10 @@ ROTREV
 PUSHINT 32
 DICTUSETREF
 SETGLOB 17
-.loc ../contracts/UserAccount.tsol, 254
+.loc ../contracts/UserAccount.tsol, 300
 DUP
 PUSHCONT {
-	.loc ../contracts/UserAccount.tsol, 255
+	.loc ../contracts/UserAccount.tsol, 301
 	GETGLOB 12
 	PUSH3 S0, S3, S2
 	PUSH S4
@@ -1828,7 +1828,7 @@ PUSHCONT {
 	}
 }
 PUSHCONT {
-	.loc ../contracts/UserAccount.tsol, 257
+	.loc ../contracts/UserAccount.tsol, 303
 	GETGLOB 12
 	CALLREF {
 		CALL $_createNoOpPayload_7fadc82a_internal_macro$
@@ -1850,7 +1850,7 @@ ISNULL
 IFREF {
 	CALL $c4_to_c7$
 }
-.loc ../contracts/UserAccount.tsol, 264
+.loc ../contracts/UserAccount.tsol, 310
 OVER
 PUSHCONT {
 	LDREF
@@ -1871,12 +1871,12 @@ IFREF {
 THROW 0
 
 .macro convertVTokens_34f3038b_internal_macro
-.loc ../contracts/UserAccount.tsol, 480
+.loc ../contracts/UserAccount.tsol, 572
 GETGLOB 9
 GETGLOB 12
 SDEQ
 THROWIFNOT 100
-.loc ../contracts/UserAccount.tsol, 265
+.loc ../contracts/UserAccount.tsol, 314
 SWAP
 GETGLOB 12
 GETGLOB 13
@@ -1906,7 +1906,7 @@ ISNULL
 IFREF {
 	CALL $c4_to_c7$
 }
-.loc ../contracts/UserAccount.tsol, 270
+.loc ../contracts/UserAccount.tsol, 319
 OVER
 PUSHCONT {
 	LDREF
@@ -1927,16 +1927,16 @@ IFREF {
 THROW 0
 
 .macro requestConversionInfo_38778974_internal_macro
-.loc ../contracts/UserAccount.tsol, 485
+.loc ../contracts/UserAccount.tsol, 577
 GETGLOB 9
 GETGLOB 13
 SDEQ
 THROWIFNOT 100
-.loc ../contracts/UserAccount.tsol, 274
+.loc ../contracts/UserAccount.tsol, 326
 CALLREF {
 	CALL $_getBorrowSupplyInfo_30d1b742_internal_macro$
 }
-.loc ../contracts/UserAccount.tsol, 275
+.loc ../contracts/UserAccount.tsol, 327
 SWAP2
 SWAP
 GETGLOB 12
@@ -1969,7 +1969,7 @@ ISNULL
 IFREF {
 	CALL $c4_to_c7$
 }
-.loc ../contracts/UserAccount.tsol, 280
+.loc ../contracts/UserAccount.tsol, 332
 OVER
 PUSHCONT {
 	LDREF
@@ -1992,15 +1992,15 @@ CALLREF {
 THROW 0
 
 .macro writeConversionInfo_823f56ca_internal_macro
-.loc ../contracts/UserAccount.tsol, 485
+.loc ../contracts/UserAccount.tsol, 577
 GETGLOB 9
 GETGLOB 13
 SDEQ
 THROWIFNOT 100
-.loc ../contracts/UserAccount.tsol, 281
+.loc ../contracts/UserAccount.tsol, 337
 SWAP
 PUSHCONT {
-	.loc ../contracts/UserAccount.tsol, 282
+	.loc ../contracts/UserAccount.tsol, 338
 	DUP2
 	GETGLOB 17
 	DUP2
@@ -2049,7 +2049,7 @@ PUSHCONT {
 	ADD
 }
 PUSHCONT {
-	.loc ../contracts/UserAccount.tsol, 284
+	.loc ../contracts/UserAccount.tsol, 340
 	DUP2
 	GETGLOB 17
 	DUP2
@@ -2129,7 +2129,7 @@ ROTREV
 PUSHINT 32
 DICTUSETREF
 SETGLOB 17
-.loc ../contracts/UserAccount.tsol, 286
+.loc ../contracts/UserAccount.tsol, 342
 DROP2
 GETGLOB 12
 CALLREF {
@@ -2149,7 +2149,7 @@ ISNULL
 IFREF {
 	CALL $c4_to_c7$
 }
-.loc ../contracts/UserAccount.tsol, 292
+.loc ../contracts/UserAccount.tsol, 348
 OVER
 PUSHCONT {
 	LDREF
@@ -2170,7 +2170,7 @@ CALLREF {
 THROW 0
 
 .macro checkUserAccountHealth_de867414_internal_macro
-.loc ../contracts/UserAccount.tsol, 495
+.loc ../contracts/UserAccount.tsol, 587
 GETGLOB 9
 GETGLOB 13
 SDEQ
@@ -2183,17 +2183,17 @@ SDEQ
 OR
 OR
 THROWIFNOT 100
-.loc ../contracts/UserAccount.tsol, 293
+.loc ../contracts/UserAccount.tsol, 349
 DEPTH
 ADDCONST -2
 PICK
 PUSHINT 2
 RAWRESERVE
-.loc ../contracts/UserAccount.tsol, 295
+.loc ../contracts/UserAccount.tsol, 351
 PUSHREF {
 	.blob xff
 }
-.loc ../contracts/UserAccount.tsol, 297
+.loc ../contracts/UserAccount.tsol, 353
 CALLREF {
 	CALL $_checkUserAccountHealth_366a007c_internal_macro$
 }
@@ -2204,14 +2204,14 @@ CALLREF {
 CALL $_checkUserAccountHealth_366a007c_internal_macro$
 
 .macro _checkUserAccountHealth_366a007c_internal_macro
-.loc ../contracts/UserAccount.tsol, 301
+.loc ../contracts/UserAccount.tsol, 357
 NEWDICT
-.loc ../contracts/UserAccount.tsol, 303
+.loc ../contracts/UserAccount.tsol, 359
 CALLREF {
 	CALL $_getBorrowSupplyInfo_30d1b742_internal_macro$
 }
 POP S2
-.loc ../contracts/UserAccount.tsol, 304
+.loc ../contracts/UserAccount.tsol, 360
 SWAP
 ROLL 3
 GETGLOB 12
@@ -2247,7 +2247,7 @@ ISNULL
 IFREF {
 	CALL $c4_to_c7$
 }
-.loc ../contracts/UserAccount.tsol, 309
+.loc ../contracts/UserAccount.tsol, 365
 OVER
 PUSHCONT {
 	LDREF
@@ -2278,50 +2278,50 @@ CALLREF {
 THROW 0
 
 .macro updateUserAccountHealth_87815bdf_internal_macro
-.loc ../contracts/UserAccount.tsol, 485
+.loc ../contracts/UserAccount.tsol, 577
 GETGLOB 9
 GETGLOB 13
 SDEQ
 THROWIFNOT 100
-.loc ../contracts/UserAccount.tsol, 310
+.loc ../contracts/UserAccount.tsol, 371
 DEPTH
 ADDCONST -2
 PICK
 PUSHINT 2
 RAWRESERVE
-.loc ../contracts/UserAccount.tsol, 311
+.loc ../contracts/UserAccount.tsol, 372
 ROT
 DUP
 SETGLOB 15
-.loc ../contracts/UserAccount.tsol, 312
+.loc ../contracts/UserAccount.tsol, 373
 SECOND
 GETGLOB 15
 FIRST
 GREATER
 SETGLOB 11
-.loc ../contracts/UserAccount.tsol, 313
+.loc ../contracts/UserAccount.tsol, 374
 SWAP
 CALLREF {
 	CALL $_updateIndexes_1d3486d6_internal_macro$
 }
-.loc ../contracts/UserAccount.tsol, 314
+.loc ../contracts/UserAccount.tsol, 375
 CTOS
-.loc ../contracts/UserAccount.tsol, 315
+.loc ../contracts/UserAccount.tsol, 376
 DUP
 LDU 8
 POP S2
-.loc ../contracts/UserAccount.tsol, 316
+.loc ../contracts/UserAccount.tsol, 377
 DUP
 EQINT 100
 PUSHCONT {
-	.loc ../contracts/UserAccount.tsol, 317
+	.loc ../contracts/UserAccount.tsol, 378
 	OVER
 	LDMSGADDR
 	LDMSGADDR
 	LDU 32
 	LDU 256
 	POP S6
-	.loc ../contracts/UserAccount.tsol, 318
+	.loc ../contracts/UserAccount.tsol, 379
 	REVERSE 4, 0
 	GETGLOB 13
 	NEWC
@@ -2346,22 +2346,22 @@ PUSHCONT {
 	PUSHINT 200
 	EQUAL
 	PUSHCONT {
-		.loc ../contracts/UserAccount.tsol, 322
+		.loc ../contracts/UserAccount.tsol, 383
 		OVER
 		LDMSGADDR
 		LDMSGADDR
 		LDU 32
 		LDU 256
 		POP S6
-		.loc ../contracts/UserAccount.tsol, 323
+		.loc ../contracts/UserAccount.tsol, 384
 		PUSH S5
 		LDREFRTOS
 		SWAP
 		POP S7
-		.loc ../contracts/UserAccount.tsol, 324
+		.loc ../contracts/UserAccount.tsol, 385
 		LDMSGADDR
 		DROP
-		.loc ../contracts/UserAccount.tsol, 325
+		.loc ../contracts/UserAccount.tsol, 386
 		ROTREV
 		REVERSE 5, 0
 		GETGLOB 13
@@ -2391,7 +2391,7 @@ PUSHCONT {
 		PUSHINT 201
 		EQUAL
 		PUSHCONT {
-			.loc ../contracts/UserAccount.tsol, 329
+			.loc ../contracts/UserAccount.tsol, 390
 			GETGLOB 13
 			NEWC
 			STSLICECONST x62_
@@ -2405,7 +2405,7 @@ PUSHCONT {
 			STBREFR
 		}
 		PUSHCONT {
-			.loc ../contracts/UserAccount.tsol, 333
+			.loc ../contracts/UserAccount.tsol, 394
 			PUSH S2
 			NEWC
 			STSLICECONST x62_
@@ -2433,7 +2433,7 @@ ISNULL
 IFREF {
 	CALL $c4_to_c7$
 }
-.loc ../contracts/UserAccount.tsol, 337
+.loc ../contracts/UserAccount.tsol, 398
 LDU 32
 ENDS
 .loc ../contracts/UserAccount.tsol, 0
@@ -2447,31 +2447,31 @@ CALLREF {
 THROW 0
 
 .macro removeMarket_38dcf98f_internal_macro
-.loc ../contracts/UserAccount.tsol, 485
+.loc ../contracts/UserAccount.tsol, 577
 GETGLOB 9
 GETGLOB 13
 SDEQ
 THROWIFNOT 100
-.loc ../contracts/UserAccount.tsol, 338
+.loc ../contracts/UserAccount.tsol, 399
 DEPTH
 ADDCONST -2
 PICK
 PUSHINT 2
 RAWRESERVE
-.loc ../contracts/UserAccount.tsol, 339
+.loc ../contracts/UserAccount.tsol, 400
 DUP
 GETGLOB 17
 PUSHINT 32
 DICTUDEL
 DROP
 SETGLOB 17
-.loc ../contracts/UserAccount.tsol, 340
+.loc ../contracts/UserAccount.tsol, 401
 GETGLOB 16
 PUSHINT 32
 DICTUDEL
 DROP
 SETGLOB 16
-.loc ../contracts/UserAccount.tsol, 341
+.loc ../contracts/UserAccount.tsol, 402
 GETGLOB 13
 NEWC
 STSLICECONST x62_
@@ -2492,7 +2492,7 @@ ISNULL
 IFREF {
 	CALL $c4_to_c7$
 }
-.loc ../contracts/UserAccount.tsol, 348
+.loc ../contracts/UserAccount.tsol, 409
 OVER
 PUSHCONT {
 	LDREF
@@ -2521,20 +2521,20 @@ CALLREF {
 THROW 0
 
 .macro requestLiquidationInformation_5b0bb9a7_internal_macro
-.loc ../contracts/UserAccount.tsol, 485
+.loc ../contracts/UserAccount.tsol, 577
 GETGLOB 9
 GETGLOB 13
 SDEQ
 THROWIFNOT 100
-.loc ../contracts/UserAccount.tsol, 356
+.loc ../contracts/UserAccount.tsol, 417
 CALLREF {
 	CALL $_updateIndexes_1d3486d6_internal_macro$
 }
-.loc ../contracts/UserAccount.tsol, 358
+.loc ../contracts/UserAccount.tsol, 419
 CALLREF {
 	CALL $_getBorrowSupplyInfo_30d1b742_internal_macro$
 }
-.loc ../contracts/UserAccount.tsol, 360
+.loc ../contracts/UserAccount.tsol, 421
 BLKSWAP 4, 2
 REVERSE 4, 0
 GETGLOB 12
@@ -2577,7 +2577,7 @@ ISNULL
 IFREF {
 	CALL $c4_to_c7$
 }
-.loc ../contracts/UserAccount.tsol, 365
+.loc ../contracts/UserAccount.tsol, 426
 OVER
 PUSHCONT {
 	LDREF
@@ -2620,12 +2620,12 @@ CALLREF {
 THROW 0
 
 .macro liquidateVTokens_f4bb32e4_internal_macro
-.loc ../contracts/UserAccount.tsol, 485
+.loc ../contracts/UserAccount.tsol, 577
 GETGLOB 9
 GETGLOB 13
 SDEQ
 THROWIFNOT 100
-.loc ../contracts/UserAccount.tsol, 366
+.loc ../contracts/UserAccount.tsol, 435
 PUSH2 S2, S3
 GETGLOB 17
 DUP2
@@ -2704,7 +2704,7 @@ PUSHINT 32
 DICTUSETREF
 DUP
 SETGLOB 17
-.loc ../contracts/UserAccount.tsol, 367
+.loc ../contracts/UserAccount.tsol, 436
 PUXC S5, S-1
 DUP2
 PUSHINT 32
@@ -2777,7 +2777,7 @@ ROTREV
 PUSHINT 32
 DICTUSETREF
 SETGLOB 17
-.loc ../contracts/UserAccount.tsol, 369
+.loc ../contracts/UserAccount.tsol, 438
 REVERSE 5, 0
 GETGLOB 12
 ROLL 6
@@ -2821,7 +2821,7 @@ ISNULL
 IFREF {
 	CALL $c4_to_c7$
 }
-.loc ../contracts/UserAccount.tsol, 374
+.loc ../contracts/UserAccount.tsol, 443
 OVER
 PUSHCONT {
 	LDREF
@@ -2853,12 +2853,12 @@ CALLREF {
 THROW 0
 
 .macro grantVTokens_5a14f693_internal_macro
-.loc ../contracts/UserAccount.tsol, 485
+.loc ../contracts/UserAccount.tsol, 577
 GETGLOB 9
 GETGLOB 13
 SDEQ
 THROWIFNOT 100
-.loc ../contracts/UserAccount.tsol, 375
+.loc ../contracts/UserAccount.tsol, 451
 SWAP
 GETGLOB 17
 ROLL 3
@@ -2937,7 +2937,7 @@ ROTREV
 PUSHINT 32
 DICTUSETREF
 SETGLOB 17
-.loc ../contracts/UserAccount.tsol, 376
+.loc ../contracts/UserAccount.tsol, 452
 GETGLOB 12
 DUP
 ROLL 4
@@ -2959,7 +2959,7 @@ ISNULL
 IFREF {
 	CALL $c4_to_c7$
 }
-.loc ../contracts/UserAccount.tsol, 379
+.loc ../contracts/UserAccount.tsol, 455
 OVER
 PUSHCONT {
 	LDREF
@@ -2986,12 +2986,12 @@ CALLREF {
 THROW 0
 
 .macro abortLiquidation_e9f1034e_internal_macro
-.loc ../contracts/UserAccount.tsol, 485
+.loc ../contracts/UserAccount.tsol, 577
 GETGLOB 9
 GETGLOB 13
 SDEQ
 THROWIFNOT 100
-.loc ../contracts/UserAccount.tsol, 380
+.loc ../contracts/UserAccount.tsol, 461
 GETGLOB 12
 BLKSWAP 2, 3
 GETGLOB 12
@@ -3009,7 +3009,7 @@ CALLREF {
 CALL $_updateIndexes_1d3486d6_internal_macro$
 
 .macro _updateIndexes_1d3486d6_internal_macro
-.loc ../contracts/UserAccount.tsol, 387
+.loc ../contracts/UserAccount.tsol, 468
 DUP
 PUSHINT 32
 DICTUMIN
@@ -3031,7 +3031,7 @@ PUSHCONT {
 	NOT
 }
 PUSHCONT {
-	.loc ../contracts/UserAccount.tsol, 388
+	.loc ../contracts/UserAccount.tsol, 469
 	DUP2
 	CALLREF {
 		CALL $_updateMarketInfo_69802a24_internal_macro$
@@ -3063,11 +3063,11 @@ BLKDROP 4
 CALL $_updateMarketInfo_69802a24_internal_macro$
 
 .macro _updateMarketInfo_69802a24_internal_macro
-.loc ../contracts/UserAccount.tsol, 393
+.loc ../contracts/UserAccount.tsol, 474
 PUSHINT 0
 DUP
 PAIR
-.loc ../contracts/UserAccount.tsol, 394
+.loc ../contracts/UserAccount.tsol, 475
 PUSH S2
 GETGLOB 17
 PUSHINT 32
@@ -3110,7 +3110,7 @@ PUSHCONT {
 }
 IFELSE
 INDEX 4
-.loc ../contracts/UserAccount.tsol, 395
+.loc ../contracts/UserAccount.tsol, 476
 PUSH S3
 GETGLOB 17
 PUSHINT 32
@@ -3155,7 +3155,7 @@ IFELSE
 INDEX 4
 FIRST
 PUSHCONT {
-	.loc ../contracts/UserAccount.tsol, 396
+	.loc ../contracts/UserAccount.tsol, 477
 	BLKPUSH 2, 0
 	FIRST
 	PUSH S4
@@ -3165,7 +3165,7 @@ PUSHCONT {
 	ROTREV
 	SETINDEX 0
 	BLKDROP2 2, 2
-	.loc ../contracts/UserAccount.tsol, 397
+	.loc ../contracts/UserAccount.tsol, 478
 	DUP2
 	SECOND
 	CALLREF {
@@ -3174,14 +3174,14 @@ PUSHCONT {
 	NIP
 }
 PUSHCONT {
-	.loc ../contracts/UserAccount.tsol, 399
+	.loc ../contracts/UserAccount.tsol, 480
 	PUSHINT 0
 	PUSHINT 1
 	PAIR
 }
 IFELSE
 BLKDROP2 2, 1
-.loc ../contracts/UserAccount.tsol, 401
+.loc ../contracts/UserAccount.tsol, 482
 CALLREF {
 	CALL $FPO_with_obj_toNum_c455ee7d_macro$
 }
@@ -3268,10 +3268,10 @@ SETGLOB 17
 CALL $_getBorrowSupplyInfo_30d1b742_internal_macro$
 
 .macro _getBorrowSupplyInfo_30d1b742_internal_macro
-.loc ../contracts/UserAccount.tsol, 404
+.loc ../contracts/UserAccount.tsol, 485
 NEWDICT
 DUP
-.loc ../contracts/UserAccount.tsol, 405
+.loc ../contracts/UserAccount.tsol, 486
 GETGLOB 17
 DUP
 PUSHINT 32
@@ -3314,7 +3314,7 @@ PUSHCONT {
 	NOT
 }
 PUSHCONT {
-	.loc ../contracts/UserAccount.tsol, 406
+	.loc ../contracts/UserAccount.tsol, 487
 	DUP
 	THIRD
 	PUSH2 S2, S5
@@ -3325,7 +3325,7 @@ PUSHCONT {
 	PUSHINT 32
 	DICTUSETB
 	POP S5
-	.loc ../contracts/UserAccount.tsol, 407
+	.loc ../contracts/UserAccount.tsol, 488
 	INDEX 4
 	PUSH2 S1, S5
 	ROT
@@ -3392,21 +3392,21 @@ BLKDROP 4
 CALL $_createTokenPayoutPayload_ed6137aa_internal_macro$
 
 .macro _createTokenPayoutPayload_ed6137aa_internal_macro
-.loc ../contracts/UserAccount.tsol, 413
+.loc ../contracts/UserAccount.tsol, 499
 NEWC
 STSLICECONST x64
-.loc ../contracts/UserAccount.tsol, 414
+.loc ../contracts/UserAccount.tsol, 500
 ROLL 4
 STSLICER
-.loc ../contracts/UserAccount.tsol, 415
+.loc ../contracts/UserAccount.tsol, 501
 ROLL 3
 STSLICER
-.loc ../contracts/UserAccount.tsol, 416
+.loc ../contracts/UserAccount.tsol, 502
 XCHG S1, S2
 STU 32
-.loc ../contracts/UserAccount.tsol, 417
+.loc ../contracts/UserAccount.tsol, 503
 STU 256
-.loc ../contracts/UserAccount.tsol, 418
+.loc ../contracts/UserAccount.tsol, 504
 ENDC
 .loc ../contracts/UserAccount.tsol, 0
 
@@ -3415,7 +3415,7 @@ ENDC
 CALL $_createConversionUnlockPayload_92f9a4f5_internal_macro$
 
 .macro _createConversionUnlockPayload_92f9a4f5_internal_macro
-.loc ../contracts/UserAccount.tsol, 423
+.loc ../contracts/UserAccount.tsol, 509
 PUSHREF {
 	.blob xc9
 }
@@ -3426,7 +3426,7 @@ PUSHREF {
 CALL $_createNoOpPayload_7fadc82a_internal_macro$
 
 .macro _createNoOpPayload_7fadc82a_internal_macro
-.loc ../contracts/UserAccount.tsol, 429
+.loc ../contracts/UserAccount.tsol, 515
 PUSHREF {
 	.blob xff
 }
@@ -3437,29 +3437,29 @@ PUSHREF {
 CALL $_createReturnAndUnlockPayload_b4975dce_internal_macro$
 
 .macro _createReturnAndUnlockPayload_b4975dce_internal_macro
-.loc ../contracts/UserAccount.tsol, 436
+.loc ../contracts/UserAccount.tsol, 528
 NEWC
 STSLICECONST xc8
-.loc ../contracts/UserAccount.tsol, 437
+.loc ../contracts/UserAccount.tsol, 529
 ROLL 5
 STSLICER
-.loc ../contracts/UserAccount.tsol, 438
+.loc ../contracts/UserAccount.tsol, 530
 ROLL 4
 STSLICER
-.loc ../contracts/UserAccount.tsol, 439
+.loc ../contracts/UserAccount.tsol, 531
 XCHG S1, S2
 STU 32
-.loc ../contracts/UserAccount.tsol, 440
+.loc ../contracts/UserAccount.tsol, 532
 STU 256
-.loc ../contracts/UserAccount.tsol, 441
+.loc ../contracts/UserAccount.tsol, 533
 SWAP
 NEWC
 STSLICE
-.loc ../contracts/UserAccount.tsol, 442
+.loc ../contracts/UserAccount.tsol, 534
 ENDC
 SWAP
 STREF
-.loc ../contracts/UserAccount.tsol, 443
+.loc ../contracts/UserAccount.tsol, 535
 ENDC
 .loc ../contracts/UserAccount.tsol, 0
 
@@ -3472,7 +3472,7 @@ ISNULL
 IFREF {
 	CALL $c4_to_c7$
 }
-.loc ../contracts/UserAccount.tsol, 446
+.loc ../contracts/UserAccount.tsol, 538
 ENDS
 .loc ../contracts/UserAccount.tsol, 0
 CALLREF {
@@ -3485,21 +3485,21 @@ CALLREF {
 THROW 0
 
 .macro disableBorrowLock_ae042071_internal_macro
-.loc ../contracts/UserAccount.tsol, 485
+.loc ../contracts/UserAccount.tsol, 577
 GETGLOB 9
 GETGLOB 13
 SDEQ
 THROWIFNOT 100
-.loc ../contracts/UserAccount.tsol, 447
+.loc ../contracts/UserAccount.tsol, 539
 DEPTH
 ADDCONST -2
 PICK
 PUSHINT 2
 RAWRESERVE
-.loc ../contracts/UserAccount.tsol, 448
+.loc ../contracts/UserAccount.tsol, 540
 FALSE
 SETGLOB 10
-.loc ../contracts/UserAccount.tsol, 449
+.loc ../contracts/UserAccount.tsol, 541
 GETGLOB 13
 NEWC
 STSLICECONST x62_
@@ -3520,7 +3520,7 @@ ISNULL
 IFREF {
 	CALL $c4_to_c7$
 }
-.loc ../contracts/UserAccount.tsol, 458
+.loc ../contracts/UserAccount.tsol, 550
 LDU 32
 ENDS
 .loc ../contracts/UserAccount.tsol, 0
@@ -3534,18 +3534,18 @@ CALLREF {
 THROW 0
 
 .macro enterMarket_b129ee63_internal_macro
-.loc ../contracts/UserAccount.tsol, 480
+.loc ../contracts/UserAccount.tsol, 572
 GETGLOB 9
 GETGLOB 12
 SDEQ
 THROWIFNOT 100
-.loc ../contracts/UserAccount.tsol, 459
+.loc ../contracts/UserAccount.tsol, 551
 DEPTH
 ADDCONST -2
 PICK
 PUSHINT 2
 RAWRESERVE
-.loc ../contracts/UserAccount.tsol, 460
+.loc ../contracts/UserAccount.tsol, 552
 DUP
 GETGLOB 16
 PUSHINT 32
@@ -3556,7 +3556,7 @@ PUSHCONT {
 }
 IF
 PUSHCONT {
-	.loc ../contracts/UserAccount.tsol, 461
+	.loc ../contracts/UserAccount.tsol, 553
 	DUP
 	GETGLOB 16
 	NEWC
@@ -3565,7 +3565,7 @@ PUSHCONT {
 	PUSHINT 32
 	DICTUSETB
 	SETGLOB 16
-	.loc ../contracts/UserAccount.tsol, 463
+	.loc ../contracts/UserAccount.tsol, 555
 	DUP
 	GETGLOB 17
 	DUP2
@@ -3639,7 +3639,7 @@ PUSHCONT {
 	PUSHINT 32
 	DICTUSETREF
 	SETGLOB 17
-	.loc ../contracts/UserAccount.tsol, 464
+	.loc ../contracts/UserAccount.tsol, 556
 	PUSH2 S0, S0
 	GETGLOB 17
 	DUP2
@@ -3714,7 +3714,7 @@ PUSHCONT {
 	DICTUSETREF
 	DUP
 	SETGLOB 17
-	.loc ../contracts/UserAccount.tsol, 465
+	.loc ../contracts/UserAccount.tsol, 557
 	PUXC S1, S-1
 	DUP2
 	PUSHINT 32
@@ -3790,7 +3790,7 @@ PUSHCONT {
 	.loc ../contracts/UserAccount.tsol, 0
 }
 IFNOT
-.loc ../contracts/UserAccount.tsol, 467
+.loc ../contracts/UserAccount.tsol, 559
 DROP
 GETGLOB 12
 NEWC
@@ -3812,7 +3812,7 @@ ISNULL
 IFREF {
 	CALL $c4_to_c7$
 }
-.loc ../contracts/UserAccount.tsol, 473
+.loc ../contracts/UserAccount.tsol, 565
 ENDS
 .loc ../contracts/UserAccount.tsol, 0
 CALLREF {
@@ -3824,12 +3824,12 @@ IFREF {
 THROW 0
 
 .macro withdrawExtraVenoms_251c5f2a_internal_macro
-.loc ../contracts/UserAccount.tsol, 480
+.loc ../contracts/UserAccount.tsol, 572
 GETGLOB 9
 GETGLOB 12
 SDEQ
 THROWIFNOT 100
-.loc ../contracts/UserAccount.tsol, 474
+.loc ../contracts/UserAccount.tsol, 566
 GETGLOB 12
 NEWC
 STSLICECONST x42_
@@ -4207,44 +4207,6 @@ PUSHCONT {
 IF
 THROW 0
 
-.globl	FPO_with_obj_fDiv_495e0304
-.type	FPO_with_obj_fDiv_495e0304, @function
-CALL $FPO_with_obj_fDiv_495e0304_macro$
-
-.macro FPO_with_obj_fDiv_495e0304_macro
-.loc ../contracts/libraries/FloatingPointOperations.tsol, 30
-OVER
-FIRST
-OVER
-SECOND
-MUL
-PUSH S2
-SECOND
-ROT
-FIRST
-MUL
-PAIR
-.loc ../contracts/libraries/FloatingPointOperations.tsol, 0
-
-.globl	FPO_no_obj_fDiv_495e0304
-.type	FPO_no_obj_fDiv_495e0304, @function
-CALL $FPO_no_obj_fDiv_495e0304_macro$
-
-.macro FPO_no_obj_fDiv_495e0304_macro
-.loc ../contracts/libraries/FloatingPointOperations.tsol, 30
-OVER
-FIRST
-OVER
-SECOND
-MUL
-ROT
-SECOND
-ROT
-FIRST
-MUL
-PAIR
-.loc ../contracts/libraries/FloatingPointOperations.tsol, 0
-
 .globl	FPO_with_obj_toNum_c455ee7d
 .type	FPO_with_obj_toNum_c455ee7d, @function
 CALL $FPO_with_obj_toNum_c455ee7d_macro$
@@ -4296,6 +4258,44 @@ FIRST
 MUL
 SWAP
 SECOND
+PAIR
+.loc ../contracts/libraries/FloatingPointOperations.tsol, 0
+
+.globl	FPO_with_obj_fDiv_495e0304
+.type	FPO_with_obj_fDiv_495e0304, @function
+CALL $FPO_with_obj_fDiv_495e0304_macro$
+
+.macro FPO_with_obj_fDiv_495e0304_macro
+.loc ../contracts/libraries/FloatingPointOperations.tsol, 30
+OVER
+FIRST
+OVER
+SECOND
+MUL
+PUSH S2
+SECOND
+ROT
+FIRST
+MUL
+PAIR
+.loc ../contracts/libraries/FloatingPointOperations.tsol, 0
+
+.globl	FPO_no_obj_fDiv_495e0304
+.type	FPO_no_obj_fDiv_495e0304, @function
+CALL $FPO_no_obj_fDiv_495e0304_macro$
+
+.macro FPO_no_obj_fDiv_495e0304_macro
+.loc ../contracts/libraries/FloatingPointOperations.tsol, 30
+OVER
+FIRST
+OVER
+SECOND
+MUL
+ROT
+SECOND
+ROT
+FIRST
+MUL
 PAIR
 .loc ../contracts/libraries/FloatingPointOperations.tsol, 0
 
