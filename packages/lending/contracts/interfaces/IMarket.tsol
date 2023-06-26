@@ -1,0 +1,35 @@
+pragma ever-solidity >= 0.62.0;
+
+import '../structures/MarketInfo.tsol';
+
+import '../interfaces/IUserAccount.tsol';
+
+interface IMarket {
+    /*========================Market Operations=================================*/
+    function performOperationWalletController(
+        uint8 operationId, 
+        address tokenRoot, 
+        TvmCell args
+    ) external view;
+
+    function performOperationUserAccountManager(
+        uint8 operationId, 
+        uint32 marketId, 
+        TvmCell args
+    ) external view;
+
+    function requestTokenPayout(
+        address venomWallet, 
+        address userTip3Wallet, 
+        uint32 marketId, 
+        uint256 toPayout
+    ) external view;
+
+    function calculateUserAccountHealth(
+        address venomWallet,
+        address gasTo, 
+        mapping(uint32 => uint256) supplyInfo, 
+        mapping(uint32 => BorrowInfo) borrowInfo, 
+        TvmCell payload
+    ) external;
+}

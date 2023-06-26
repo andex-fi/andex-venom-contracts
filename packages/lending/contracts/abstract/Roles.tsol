@@ -1,6 +1,6 @@
 pragma ever-solidity >= 0.62.0;
 
-import '../libraries/RolesErrors.tsol';
+import '../libraries/ErrorCodes.tsol';
 import '../libraries/MsgFlag.tsol';
 
 abstract contract Roles {
@@ -56,7 +56,7 @@ abstract contract Roles {
     modifier onlyOwner() {
         require(
             msg.sender == _owner,
-            RolesErrors.IS_NOT_OWNER
+            ErrorCodes.IS_NOT_OWNER
         );
         _;
     }
@@ -65,7 +65,7 @@ abstract contract Roles {
         require(
             _canUpgrade[msg.sender] ||
             msg.sender == _owner,
-            RolesErrors.CANNOT_UPGRADE
+            ErrorCodes.CANNOT_UPGRADE
         );
         _;
     }
@@ -74,7 +74,7 @@ abstract contract Roles {
         require(
             _canChangeParams[msg.sender] ||
             msg.sender == _owner,
-            RolesErrors.CANNOT_CHANGE_PARAMS
+            ErrorCodes.CANNOT_CHANGE_PARAMS
         );
         _;
     }

@@ -1,7 +1,0 @@
-pragma ever-solidity >= 0.62.0;
-
-library RolesErrors {
-    uint8 constant CANNOT_UPGRADE = 220;
-    uint8 constant CANNOT_CHANGE_PARAMS = 221;
-    uint8 constant IS_NOT_OWNER = 222;   
-}

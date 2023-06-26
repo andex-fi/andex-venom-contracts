@@ -9,12 +9,3593 @@ IFREF {
 }
 GETGLOB 6
 THROWIF 51
+OVER
+PUSHCONT {
+	LDREF
+	ENDS
+	CTOS
+}
+IF
+LDMSGADDR
 ENDS
+.loc ../contracts/UserAccountManager.tsol, 37
 ACCEPT
+.loc ../contracts/UserAccountManager.tsol, 38
+SETGLOB 10
+.loc ../contracts/UserAccountManager.tsol, 0
 CALLREF {
 	CALL $c7_to_c4$
 }
 THROW 0
+
+.macro upgradeContractCode
+DROP
+GETGLOB 6
+THROWIFNOT 76
+GETGLOB 2
+ISNULL
+IFREF {
+	CALL $c4_to_c7$
+}
+.loc ../contracts/UserAccountManager.tsol, 54
+LDREF
+LDREF
+LDU 32
+ENDS
+.loc ../contracts/UserAccountManager.tsol, 0
+CALLREF {
+	CALL $upgradeContractCode_344c0b3a_internal_macro$
+}
+DROP
+CALLREF {
+	CALL $c7_to_c4$
+}
+THROW 0
+
+.macro upgradeContractCode_344c0b3a_internal_macro
+.loc ../contracts/abstract/Roles.tsol, 65
+GETGLOB 9
+GETGLOB 11
+PUSHINT 267
+DICTGET
+ZEROSWAPIFNOT
+PUSHCONT {
+	PLDI 1
+}
+IF
+GETGLOB 9
+GETGLOB 10
+SDEQ
+OR
+THROWIFNOT 220
+.loc ../contracts/UserAccountManager.tsol, 59
+ACCEPT
+.loc ../contracts/UserAccountManager.tsol, 61
+PUSH S2
+SETCODE
+.loc ../contracts/UserAccountManager.tsol, 62
+ROT
+CTOS
+DUP
+PUSHSLICE x8adb35
+SDEQ
+PUSHCONT {
+	PLDREFIDX 1
+	CTOS
+}
+IF
+PLDREF
+CTOS
+BLESS
+POP C3
+.loc ../contracts/UserAccountManager.tsol, 64
+GETGLOB 10
+GETGLOB 14
+GETGLOB 15
+GETGLOB 16
+GETGLOB 17
+BLKSWAP 2, 5
+CALLREF {
+	CALL $:onCodeUpgrade$
+}
+.loc ../contracts/UserAccountManager.tsol, 0
+
+.internal-alias :onCodeUpgrade, 2
+.internal :onCodeUpgrade
+.loc ../contracts/UserAccountManager.tsol, 84
+ACCEPT
+.loc ../contracts/UserAccountManager.tsol, 85
+PUSHREFSLICE {
+	.blob x8000000000000000000000000000000000000000000000000000000000000000001_
+}
+SETGLOB 10
+NEWDICT
+SETGLOB 11
+NEWDICT
+SETGLOB 12
+PUSHINT 0
+SETGLOB 13
+PUSHREFSLICE {
+	.blob x8000000000000000000000000000000000000000000000000000000000000000001_
+}
+SETGLOB 14
+NEWDICT
+SETGLOB 15
+NEWDICT
+SETGLOB 16
+NEWDICT
+SETGLOB 17
+.loc ../contracts/UserAccountManager.tsol, 86
+SETGLOB 13
+.loc ../contracts/UserAccountManager.tsol, 87
+DROP
+ROLL 4
+SETGLOB 10
+.loc ../contracts/UserAccountManager.tsol, 88
+ROLL 3
+SETGLOB 14
+.loc ../contracts/UserAccountManager.tsol, 89
+ROT
+SETGLOB 15
+.loc ../contracts/UserAccountManager.tsol, 90
+SWAP
+SETGLOB 16
+.loc ../contracts/UserAccountManager.tsol, 91
+SETGLOB 17
+.loc ../contracts/UserAccountManager.tsol, 0
+CALLREF {
+	CALL $c7_to_c4$
+}
+COMMIT
+THROW 0
+
+.macro createUserAccount
+DROP
+GETGLOB 6
+THROWIFNOT 76
+GETGLOB 2
+ISNULL
+IFREF {
+	CALL $c4_to_c7$
+}
+.loc ../contracts/UserAccountManager.tsol, 99
+OVER
+PUSHCONT {
+	LDREF
+	ENDS
+	CTOS
+}
+IF
+LDMSGADDR
+ENDS
+.loc ../contracts/UserAccountManager.tsol, 0
+CALLREF {
+	CALL $createUserAccount_95fba7f6_internal_macro$
+}
+IFREF {
+	CALL $upd_only_time_in_c4$
+}
+THROW 0
+
+.macro createUserAccount_95fba7f6_internal_macro
+.loc ../contracts/UserAccountManager.tsol, 100
+PUSHINT 0
+GETGLOB 17
+PUSHINT 32
+DICTUGETREF
+PUSHCONT {
+	PUSHREF {
+	}
+}
+IFNOT
+CTOS
+.loc ../contracts/UserAccountManager.tsol, 101
+SEMPTY
+THROWIF 100
+.loc ../contracts/UserAccountManager.tsol, 103
+PUSHINT 0
+NEWC
+STU 256
+PUSHINT 0
+NEWDICT
+PUSHINT 64
+DICTUSETB
+OVER
+PUSHINT 1
+ROT
+PUSHINT 64
+DICTUSET
+NEWC
+STDICT
+ENDC
+PUSHINT 0
+GETGLOB 17
+PUSHINT 32
+DICTUGETREF
+PUSHCONT {
+	PUSHREF {
+	}
+}
+IFNOT
+NEWC
+STSLICECONST x2_
+STOPTREF
+STOPTREF
+STZERO
+ENDC
+DUP
+HASHCU
+NEWC
+STSLICECONST x801_
+STU 256
+ENDC
+CTOS
+TUCK
+NEWC
+STSLICECONST x62_
+STSLICE
+PUSHINT 2949852426645541256083542794369173188247555
+STUR 143
+OVER
+CALLREF {
+	CTOS
+	LDI 1
+	SWAP
+	PUSHCONT {
+		LDI 5
+		NIP
+	}
+	IF
+	LDI 1
+	SWAP
+	PUSHCONT {
+		LDI 2
+		NIP
+	}
+	IF
+	LDOPTREF
+	LDOPTREF
+	LDDICT
+	ENDS
+	BLKDROP 3
+}
+STREF
+STSLICECONST x345aaf9fc_
+ENDC
+PUSHINT 0
+SENDRAWMSG
+.loc ../contracts/UserAccountManager.tsol, 112
+OVER
+PUSHSLICE xc0000000000000000000000001
+NEWC
+STSLICE
+ROTREV
+NEWC
+STSLICECONST x3cf59bf0
+STSLICE
+SWAP
+NEWC
+STSLICE
+STBREFR
+STBREFR
+ENDC
+PUSHINT 0
+SENDRAWMSG
+.loc ../contracts/UserAccountManager.tsol, 114
+CALLREF {
+	CALL $_updateUserAccount_bc81b1d6_internal_macro$
+}
+.loc ../contracts/UserAccountManager.tsol, 0
+
+.macro calculateUserAccountAddress
+DROP
+GETGLOB 6
+THROWIFNOT 76
+GETGLOB 2
+ISNULL
+IFREF {
+	CALL $c4_to_c7$
+}
+.loc ../contracts/UserAccountManager.tsol, 121
+LDU 32
+GETGLOB 4
+ROT
+SETINDEXQ 5
+SETGLOB 4
+OVER
+PUSHCONT {
+	LDREF
+	ENDS
+	CTOS
+}
+IF
+LDMSGADDR
+ENDS
+.loc ../contracts/UserAccountManager.tsol, 0
+CALLREF {
+	CALL $calculateUserAccountAddress_ca001465_internal_macro$
+}
+OVER
+PUSHCONT {
+	PUSH S3
+	CTOS
+	LDU 2
+	LDMSGADDR
+	DROP
+	NIP
+	NEWC
+	STSLICECONST xc
+	STSLICE
+	PUSHINT 1
+	STUR 98
+	SWAP
+	NEWC
+	STSLICECONST xc9fcbf0b
+	STSLICE
+	STBREFR
+	ENDC
+	PUSHINT 0
+}
+PUSHCONT {
+	GETGLOB 4
+	DUP
+	INDEX 3
+	OVER
+	THIRD
+	GETGLOB 9
+	ROLL 3
+	SECOND
+	NEWC
+	STSLICECONST x2_
+	STI 1
+	STSLICECONST x1_
+	STSLICE
+	SWAP
+	STGRAMS
+	STDICT
+	PUSHINT 1
+	STUR 106
+	SWAP
+	NEWC
+	GETGLOB 4
+	INDEX 5
+	STUR 32
+	STSLICE
+	STBREFR
+	ENDC
+	GETGLOB 4
+	INDEX 4
+}
+IFELSE
+SENDRAWMSG
+IFREF {
+	CALL $upd_only_time_in_c4$
+}
+THROW 0
+
+.macro calculateUserAccountAddress_ca001465_internal_macro
+.loc ../contracts/UserAccountManager.tsol, 122
+GETGLOB 4
+PUSHINT 0
+SETINDEXQ 2
+FALSE
+SETINDEXQ 1
+PUSHPOW2 7
+SETINDEXQ 4
+SETGLOB 4
+CALLREF {
+	CALL $_calculateUserAccountAddress_3633b98b_internal_macro$
+}
+.loc ../contracts/UserAccountManager.tsol, 0
+
+.globl	_calculateUserAccountAddress_3633b98b_internal
+.type	_calculateUserAccountAddress_3633b98b_internal, @function
+CALL $_calculateUserAccountAddress_3633b98b_internal_macro$
+
+.macro _calculateUserAccountAddress_3633b98b_internal_macro
+.loc ../contracts/UserAccountManager.tsol, 129
+CALLREF {
+	CALL $_buildUserAccountData_0370235c_internal_macro$
+}
+HASHCU
+NEWC
+STSLICECONST x801_
+STU 256
+ENDC
+CTOS
+.loc ../contracts/UserAccountManager.tsol, 0
+
+.globl	_buildUserAccountData_0370235c_internal
+.type	_buildUserAccountData_0370235c_internal, @function
+CALL $_buildUserAccountData_0370235c_internal_macro$
+
+.macro _buildUserAccountData_0370235c_internal_macro
+.loc ../contracts/UserAccountManager.tsol, 136
+PUSHINT 0
+NEWC
+STU 256
+PUSHINT 0
+NEWDICT
+PUSHINT 64
+DICTUSETB
+SWAP
+PUSHINT 1
+ROT
+PUSHINT 64
+DICTUSET
+NEWC
+STDICT
+ENDC
+PUSHINT 0
+GETGLOB 17
+PUSHINT 32
+DICTUGETREF
+PUSHCONT {
+	PUSHREF {
+	}
+}
+IFNOT
+NEWC
+STSLICECONST x2_
+STOPTREF
+STOPTREF
+STZERO
+ENDC
+.loc ../contracts/UserAccountManager.tsol, 0
+
+.macro writeSupplyInfo
+DROP
+GETGLOB 6
+THROWIFNOT 76
+GETGLOB 2
+ISNULL
+IFREF {
+	CALL $c4_to_c7$
+}
+.loc ../contracts/UserAccountManager.tsol, 149
+OVER
+PUSHCONT {
+	LDREF
+	ENDS
+	CTOS
+}
+IF
+LDMSGADDR
+LDU 32
+LDU 256
+LDREF
+ENDS
+CTOS
+LDU 256
+LDU 256
+ROTREV
+PAIR
+SWAP
+ENDS
+.loc ../contracts/UserAccountManager.tsol, 0
+CALLREF {
+	CALL $writeSupplyInfo_ba73365d_internal_macro$
+}
+IFREF {
+	CALL $upd_only_time_in_c4$
+}
+THROW 0
+
+.macro writeSupplyInfo_ba73365d_internal_macro
+.loc ../contracts/UserAccountManager.tsol, 639
+GETGLOB 9
+PUSHINT 0
+GETGLOB 15
+PUSHINT 8
+DICTUGET
+PUSHCONT {
+	PUSHREFSLICE {
+		.blob x8000000000000000000000000000000000000000000000000000000000000000001_
+	}
+}
+IFNOT
+SDEQ
+THROWIFNOT 110
+.loc ../contracts/UserAccountManager.tsol, 155
+ROLL 3
+CALLREF {
+	CALL $_calculateUserAccountAddress_3633b98b_internal_macro$
+}
+.loc ../contracts/UserAccountManager.tsol, 156
+XCHG S1, S3
+NEWC
+STSLICECONST x62_
+STSLICE
+PUSHINT 9789369574394656757036770681243717074945
+STUR 135
+ROLLREV 3
+NEWC
+STSLICECONST x4d882cfc
+STU 32
+STU 256
+SWAP
+UNPAIR
+XCHG S2
+STU 256
+STU 256
+STBREFR
+ENDC
+PUSHPOW2 7
+SENDRAWMSG
+.loc ../contracts/UserAccountManager.tsol, 0
+
+.macro requestWithdraw
+DROP
+GETGLOB 6
+THROWIFNOT 76
+GETGLOB 2
+ISNULL
+IFREF {
+	CALL $c4_to_c7$
+}
+.loc ../contracts/UserAccountManager.tsol, 164
+OVER
+PUSHCONT {
+	LDREF
+	ENDS
+	CTOS
+}
+IF
+LDMSGADDR
+LDREF
+ENDS
+CTOS
+LDMSGADDR
+LDU 32
+LDU 256
+ENDS
+.loc ../contracts/UserAccountManager.tsol, 0
+CALLREF {
+	CALL $requestWithdraw_ebd50981_internal_macro$
+}
+IFREF {
+	CALL $upd_only_time_in_c4$
+}
+THROW 0
+
+.macro requestWithdraw_ebd50981_internal_macro
+.loc ../contracts/UserAccountManager.tsol, 164
+GETGLOB 9
+PUSH S4
+.loc ../contracts/UserAccountManager.tsol, 659
+CALLREF {
+	CALL $_calculateUserAccountAddress_3633b98b_internal_macro$
+}
+SDEQ
+THROWIFNOT 112
+.loc ../contracts/UserAccountManager.tsol, 171
+ROLL 3
+NEWC
+STSLICE
+.loc ../contracts/UserAccountManager.tsol, 172
+ROLL 3
+STSLICER
+.loc ../contracts/UserAccountManager.tsol, 173
+STU 256
+.loc ../contracts/UserAccountManager.tsol, 174
+ENDC
+SWAP
+PUSHINT 2
+GETGLOB 14
+NEWC
+STSLICECONST x62_
+STSLICE
+PUSHINT 42045022170482489768618347945393405442361480187549
+STUR 167
+STU 8
+STU 32
+STREF
+ENDC
+PUSHPOW2 7
+SENDRAWMSG
+.loc ../contracts/UserAccountManager.tsol, 0
+
+.macro requestWithdrawInfo
+DROP
+GETGLOB 6
+THROWIFNOT 76
+GETGLOB 2
+ISNULL
+IFREF {
+	CALL $c4_to_c7$
+}
+.loc ../contracts/UserAccountManager.tsol, 179
+OVER
+PUSHCONT {
+	LDREF
+	ENDS
+	CTOS
+}
+IF
+LDMSGADDR
+LDREF
+ENDS
+CTOS
+LDMSGADDR
+LDU 256
+LDU 32
+LDDICT
+ENDS
+.loc ../contracts/UserAccountManager.tsol, 0
+CALLREF {
+	CALL $requestWithdrawInfo_73f8ffa5_internal_macro$
+}
+IFREF {
+	CALL $upd_only_time_in_c4$
+}
+THROW 0
+
+.macro requestWithdrawInfo_73f8ffa5_internal_macro
+.loc ../contracts/UserAccountManager.tsol, 639
+GETGLOB 9
+PUSHINT 2
+GETGLOB 15
+PUSHINT 8
+DICTUGET
+PUSHCONT {
+	PUSHREFSLICE {
+		.blob x8000000000000000000000000000000000000000000000000000000000000000001_
+	}
+}
+IFNOT
+SDEQ
+THROWIFNOT 110
+.loc ../contracts/UserAccountManager.tsol, 186
+ROLL 4
+CALLREF {
+	CALL $_calculateUserAccountAddress_3633b98b_internal_macro$
+}
+.loc ../contracts/UserAccountManager.tsol, 187
+XCHG S1, S4
+NEWC
+STSLICECONST x62_
+STSLICE
+PUSHINT 9789369574394656757036770681243717074945
+STUR 135
+ROLLREV 4
+NEWC
+STSLICECONST x62a219ff
+STSLICE
+STU 32
+STU 256
+STDICT
+STBREFR
+ENDC
+PUSHPOW2 7
+SENDRAWMSG
+.loc ../contracts/UserAccountManager.tsol, 0
+
+.macro receiveWithdrawInfo
+DROP
+GETGLOB 6
+THROWIFNOT 76
+GETGLOB 2
+ISNULL
+IFREF {
+	CALL $c4_to_c7$
+}
+.loc ../contracts/UserAccountManager.tsol, 192
+OVER
+PUSHCONT {
+	LDREF
+	ENDS
+	CTOS
+}
+IF
+LDMSGADDR
+LDREF
+ENDS
+CTOS
+LDMSGADDR
+LDU 256
+LDU 32
+LDDICT
+LDDICT
+ENDS
+.loc ../contracts/UserAccountManager.tsol, 0
+CALLREF {
+	CALL $receiveWithdrawInfo_4e8b7063_internal_macro$
+}
+IFREF {
+	CALL $upd_only_time_in_c4$
+}
+THROW 0
+
+.macro receiveWithdrawInfo_4e8b7063_internal_macro
+.loc ../contracts/UserAccountManager.tsol, 192
+GETGLOB 9
+PUSH S6
+.loc ../contracts/UserAccountManager.tsol, 659
+CALLREF {
+	CALL $_calculateUserAccountAddress_3633b98b_internal_macro$
+}
+SDEQ
+THROWIFNOT 112
+.loc ../contracts/UserAccountManager.tsol, 200
+REVERSE 6, 0
+PUSHINT 2
+GETGLOB 15
+PUSHINT 8
+DICTUGET
+PUSHCONT {
+	PUSHREFSLICE {
+		.blob x8000000000000000000000000000000000000000000000000000000000000000001_
+	}
+}
+IFNOT
+NEWC
+STSLICECONST x62_
+STSLICE
+PUSHINT 9789369574394656757036770681243717074945
+STUR 135
+ROLLREV 6
+NEWC
+STSLICECONST x362109ed
+STSLICE
+ROLLREV 5
+NEWC
+STSLICE
+STU 256
+STU 32
+STDICT
+STDICT
+STBREFR
+STBREFR
+ENDC
+PUSHPOW2 7
+SENDRAWMSG
+.loc ../contracts/UserAccountManager.tsol, 0
+
+.macro writeWithdrawInfo
+DROP
+GETGLOB 6
+THROWIFNOT 76
+GETGLOB 2
+ISNULL
+IFREF {
+	CALL $c4_to_c7$
+}
+.loc ../contracts/UserAccountManager.tsol, 205
+OVER
+PUSHCONT {
+	LDREF
+	ENDS
+	CTOS
+}
+IF
+LDMSGADDR
+LDREF
+ENDS
+CTOS
+LDMSGADDR
+LDU 32
+LDU 256
+LDREF
+ENDS
+CTOS
+LDU 256
+ENDS
+.loc ../contracts/UserAccountManager.tsol, 0
+CALLREF {
+	CALL $writeWithdrawInfo_336e9d3f_internal_macro$
+}
+IFREF {
+	CALL $upd_only_time_in_c4$
+}
+THROW 0
+
+.macro writeWithdrawInfo_336e9d3f_internal_macro
+.loc ../contracts/UserAccountManager.tsol, 639
+GETGLOB 9
+PUSHINT 2
+GETGLOB 15
+PUSHINT 8
+DICTUGET
+PUSHCONT {
+	PUSHREFSLICE {
+		.blob x8000000000000000000000000000000000000000000000000000000000000000001_
+	}
+}
+IFNOT
+SDEQ
+THROWIFNOT 110
+.loc ../contracts/UserAccountManager.tsol, 212
+ROLL 4
+CALLREF {
+	CALL $_calculateUserAccountAddress_3633b98b_internal_macro$
+}
+.loc ../contracts/UserAccountManager.tsol, 213
+REVERSE 4, 1
+NEWC
+STSLICECONST x62_
+STSLICE
+PUSHINT 9789369574394656757036770681243717074945
+STUR 135
+ROLLREV 4
+NEWC
+STSLICECONST x0af39793
+STSLICE
+STU 32
+STU 256
+SWAP
+NEWC
+STU 256
+STBREFR
+STBREFR
+ENDC
+PUSHPOW2 7
+SENDRAWMSG
+.loc ../contracts/UserAccountManager.tsol, 0
+
+.macro requestIndexUpdate
+DROP
+GETGLOB 6
+THROWIFNOT 76
+GETGLOB 2
+ISNULL
+IFREF {
+	CALL $c4_to_c7$
+}
+.loc ../contracts/UserAccountManager.tsol, 221
+OVER
+PUSHCONT {
+	LDREF
+	ENDS
+	CTOS
+}
+IF
+LDMSGADDR
+LDU 32
+LDREF
+ENDS
+.loc ../contracts/UserAccountManager.tsol, 0
+CALLREF {
+	CALL $requestIndexUpdate_9e1b109b_internal_macro$
+}
+IFREF {
+	CALL $upd_only_time_in_c4$
+}
+THROW 0
+
+.macro requestIndexUpdate_9e1b109b_internal_macro
+.loc ../contracts/UserAccountManager.tsol, 221
+GETGLOB 9
+ROLL 3
+.loc ../contracts/UserAccountManager.tsol, 659
+CALLREF {
+	CALL $_calculateUserAccountAddress_3633b98b_internal_macro$
+}
+SDEQ
+THROWIFNOT 112
+.loc ../contracts/UserAccountManager.tsol, 226
+SWAP
+PUSHINT 3
+GETGLOB 14
+NEWC
+STSLICECONST x62_
+STSLICE
+PUSHINT 42045022170482489768618347945393405442361480187549
+STUR 167
+STU 8
+STU 32
+STREF
+ENDC
+PUSHPOW2 7
+SENDRAWMSG
+.loc ../contracts/UserAccountManager.tsol, 0
+
+.macro updateUserIndexes
+DROP
+GETGLOB 6
+THROWIFNOT 76
+GETGLOB 2
+ISNULL
+IFREF {
+	CALL $c4_to_c7$
+}
+.loc ../contracts/UserAccountManager.tsol, 231
+OVER
+PUSHCONT {
+	LDREF
+	ENDS
+	CTOS
+}
+IF
+LDMSGADDR
+LDREF
+ENDS
+CTOS
+LDMSGADDR
+LDU 256
+LDU 32
+LDDICT
+ENDS
+.loc ../contracts/UserAccountManager.tsol, 0
+CALLREF {
+	CALL $updateUserIndexes_9337f6e5_internal_macro$
+}
+IFREF {
+	CALL $upd_only_time_in_c4$
+}
+THROW 0
+
+.macro updateUserIndexes_9337f6e5_internal_macro
+.loc ../contracts/UserAccountManager.tsol, 639
+GETGLOB 9
+PUSHINT 3
+GETGLOB 15
+PUSHINT 8
+DICTUGET
+PUSHCONT {
+	PUSHREFSLICE {
+		.blob x8000000000000000000000000000000000000000000000000000000000000000001_
+	}
+}
+IFNOT
+SDEQ
+THROWIFNOT 110
+.loc ../contracts/UserAccountManager.tsol, 238
+ROLL 4
+CALLREF {
+	CALL $_calculateUserAccountAddress_3633b98b_internal_macro$
+}
+.loc ../contracts/UserAccountManager.tsol, 239
+XCHG S1, S2
+XCHG S3, S4
+NEWC
+STSLICECONST x62_
+STSLICE
+PUSHINT 9789369574394656757036770681243717074945
+STUR 135
+ROLLREV 4
+NEWC
+STSLICECONST x2b9e3574
+STU 32
+STDICT
+STSLICE
+STU 256
+STBREFR
+ENDC
+PUSHPOW2 7
+SENDRAWMSG
+.loc ../contracts/UserAccountManager.tsol, 0
+
+.macro passBorrowInformation
+DROP
+GETGLOB 6
+THROWIFNOT 76
+GETGLOB 2
+ISNULL
+IFREF {
+	CALL $c4_to_c7$
+}
+.loc ../contracts/UserAccountManager.tsol, 244
+OVER
+PUSHCONT {
+	LDREF
+	ENDS
+	CTOS
+}
+IF
+LDMSGADDR
+LDREF
+ENDS
+CTOS
+LDMSGADDR
+LDU 32
+LDU 256
+LDDICT
+LDDICT
+ENDS
+.loc ../contracts/UserAccountManager.tsol, 0
+CALLREF {
+	CALL $passBorrowInformation_6d1ebc4a_internal_macro$
+}
+IFREF {
+	CALL $upd_only_time_in_c4$
+}
+THROW 0
+
+.macro passBorrowInformation_6d1ebc4a_internal_macro
+.loc ../contracts/UserAccountManager.tsol, 244
+GETGLOB 9
+PUSH S6
+.loc ../contracts/UserAccountManager.tsol, 659
+CALLREF {
+	CALL $_calculateUserAccountAddress_3633b98b_internal_macro$
+}
+SDEQ
+THROWIFNOT 112
+.loc ../contracts/UserAccountManager.tsol, 252
+XCHG S5
+XCHG S1, S4
+PUSHINT 3
+GETGLOB 15
+PUSHINT 8
+DICTUGET
+PUSHCONT {
+	PUSHREFSLICE {
+		.blob x8000000000000000000000000000000000000000000000000000000000000000001_
+	}
+}
+IFNOT
+NEWC
+STSLICECONST x62_
+STSLICE
+PUSHINT 9789369574394656757036770681243717074945
+STUR 135
+ROLLREV 6
+NEWC
+STSLICECONST x35f27a3e
+STSLICE
+ROLLREV 5
+NEWC
+STSLICE
+STU 256
+STU 32
+STDICT
+STDICT
+STBREFR
+STBREFR
+ENDC
+PUSHPOW2 7
+SENDRAWMSG
+.loc ../contracts/UserAccountManager.tsol, 0
+
+.macro writeBorrowInformation
+DROP
+GETGLOB 6
+THROWIFNOT 76
+GETGLOB 2
+ISNULL
+IFREF {
+	CALL $c4_to_c7$
+}
+.loc ../contracts/UserAccountManager.tsol, 257
+OVER
+PUSHCONT {
+	LDREF
+	ENDS
+	CTOS
+}
+IF
+LDMSGADDR
+LDREF
+ENDS
+CTOS
+LDMSGADDR
+LDU 256
+LDU 32
+LDREF
+ENDS
+CTOS
+LDU 256
+LDU 256
+ROTREV
+PAIR
+SWAP
+ENDS
+.loc ../contracts/UserAccountManager.tsol, 0
+CALLREF {
+	CALL $writeBorrowInformation_ab637cb7_internal_macro$
+}
+IFREF {
+	CALL $upd_only_time_in_c4$
+}
+THROW 0
+
+.macro writeBorrowInformation_ab637cb7_internal_macro
+.loc ../contracts/UserAccountManager.tsol, 639
+GETGLOB 9
+PUSHINT 3
+GETGLOB 15
+PUSHINT 8
+DICTUGET
+PUSHCONT {
+	PUSHREFSLICE {
+		.blob x8000000000000000000000000000000000000000000000000000000000000000001_
+	}
+}
+IFNOT
+SDEQ
+THROWIFNOT 110
+.loc ../contracts/UserAccountManager.tsol, 264
+ROLL 4
+CALLREF {
+	CALL $_calculateUserAccountAddress_3633b98b_internal_macro$
+}
+.loc ../contracts/UserAccountManager.tsol, 265
+SWAP
+ROLLREV 4
+NEWC
+STSLICECONST x62_
+STSLICE
+PUSHINT 9789369574394656757036770681243717074945
+STUR 135
+ROLLREV 4
+NEWC
+STSLICECONST x624bd035
+STU 32
+STU 256
+STSLICE
+SWAP
+UNPAIR
+SWAP
+NEWC
+STU 256
+STU 256
+STBREFR
+STBREFR
+ENDC
+PUSHPOW2 7
+SENDRAWMSG
+.loc ../contracts/UserAccountManager.tsol, 0
+
+.macro requestRepayInfo
+DROP
+GETGLOB 6
+THROWIFNOT 76
+GETGLOB 2
+ISNULL
+IFREF {
+	CALL $c4_to_c7$
+}
+.loc ../contracts/UserAccountManager.tsol, 273
+OVER
+PUSHCONT {
+	LDREF
+	ENDS
+	CTOS
+}
+IF
+LDMSGADDR
+LDREF
+ENDS
+CTOS
+LDMSGADDR
+LDU 256
+LDU 32
+LDDICT
+ENDS
+.loc ../contracts/UserAccountManager.tsol, 0
+CALLREF {
+	CALL $requestRepayInfo_0e050540_internal_macro$
+}
+IFREF {
+	CALL $upd_only_time_in_c4$
+}
+THROW 0
+
+.macro requestRepayInfo_0e050540_internal_macro
+.loc ../contracts/UserAccountManager.tsol, 639
+GETGLOB 9
+PUSHINT 1
+GETGLOB 15
+PUSHINT 8
+DICTUGET
+PUSHCONT {
+	PUSHREFSLICE {
+		.blob x8000000000000000000000000000000000000000000000000000000000000000001_
+	}
+}
+IFNOT
+SDEQ
+THROWIFNOT 110
+.loc ../contracts/UserAccountManager.tsol, 280
+ROLL 4
+CALLREF {
+	CALL $_calculateUserAccountAddress_3633b98b_internal_macro$
+}
+.loc ../contracts/UserAccountManager.tsol, 281
+XCHG S1, S4
+NEWC
+STSLICECONST x62_
+STSLICE
+PUSHINT 9789369574394656757036770681243717074945
+STUR 135
+ROLLREV 4
+NEWC
+STSLICECONST x3a9d6636
+STSLICE
+STU 32
+STU 256
+STDICT
+STBREFR
+ENDC
+PUSHPOW2 7
+SENDRAWMSG
+.loc ../contracts/UserAccountManager.tsol, 0
+
+.macro receiveRepayInfo
+DROP
+GETGLOB 6
+THROWIFNOT 76
+GETGLOB 2
+ISNULL
+IFREF {
+	CALL $c4_to_c7$
+}
+.loc ../contracts/UserAccountManager.tsol, 286
+OVER
+PUSHCONT {
+	LDREF
+	ENDS
+	CTOS
+}
+IF
+LDMSGADDR
+LDREF
+ENDS
+CTOS
+LDMSGADDR
+LDU 256
+LDU 32
+LDREF
+ENDS
+CTOS
+LDU 256
+LDU 256
+LDU 256
+ROTREV
+PAIR
+XCHG S1, S2
+PAIR
+SWAP
+ENDS
+.loc ../contracts/UserAccountManager.tsol, 0
+CALLREF {
+	CALL $receiveRepayInfo_8955688f_internal_macro$
+}
+IFREF {
+	CALL $upd_only_time_in_c4$
+}
+THROW 0
+
+.macro receiveRepayInfo_8955688f_internal_macro
+.loc ../contracts/UserAccountManager.tsol, 286
+GETGLOB 9
+PUSH S5
+.loc ../contracts/UserAccountManager.tsol, 659
+CALLREF {
+	CALL $_calculateUserAccountAddress_3633b98b_internal_macro$
+}
+SDEQ
+THROWIFNOT 112
+.loc ../contracts/UserAccountManager.tsol, 293
+REVERSE 5, 0
+PUSHINT 1
+GETGLOB 15
+PUSHINT 8
+DICTUGET
+PUSHCONT {
+	PUSHREFSLICE {
+		.blob x8000000000000000000000000000000000000000000000000000000000000000001_
+	}
+}
+IFNOT
+NEWC
+STSLICECONST x62_
+STSLICE
+PUSHINT 9789369574394656757036770681243717074945
+STUR 135
+ROLLREV 5
+NEWC
+STSLICECONST x34c4caa3
+STSLICE
+ROLLREV 4
+NEWC
+STSLICE
+STU 256
+STU 32
+SWAP
+UNPAIR
+SWAP
+NEWC
+STU 256
+SWAP
+UNPAIR
+XCHG S2
+STU 256
+STU 256
+STBREFR
+STBREFR
+STBREFR
+ENDC
+PUSHPOW2 7
+SENDRAWMSG
+.loc ../contracts/UserAccountManager.tsol, 0
+
+.macro writeRepayInformation
+DROP
+GETGLOB 6
+THROWIFNOT 76
+GETGLOB 2
+ISNULL
+IFREF {
+	CALL $c4_to_c7$
+}
+.loc ../contracts/UserAccountManager.tsol, 298
+OVER
+PUSHCONT {
+	LDREF
+	ENDS
+	CTOS
+}
+IF
+LDMSGADDR
+LDREF
+ENDS
+CTOS
+LDMSGADDR
+LDU 32
+LDU 256
+LDREF
+ENDS
+CTOS
+LDU 256
+LDU 256
+LDU 256
+ROTREV
+PAIR
+XCHG S1, S2
+PAIR
+SWAP
+ENDS
+.loc ../contracts/UserAccountManager.tsol, 0
+CALLREF {
+	CALL $writeRepayInformation_24a553f5_internal_macro$
+}
+IFREF {
+	CALL $upd_only_time_in_c4$
+}
+THROW 0
+
+.macro writeRepayInformation_24a553f5_internal_macro
+.loc ../contracts/UserAccountManager.tsol, 639
+GETGLOB 9
+PUSHINT 1
+GETGLOB 15
+PUSHINT 8
+DICTUGET
+PUSHCONT {
+	PUSHREFSLICE {
+		.blob x8000000000000000000000000000000000000000000000000000000000000000001_
+	}
+}
+IFNOT
+SDEQ
+THROWIFNOT 110
+.loc ../contracts/UserAccountManager.tsol, 305
+ROLL 4
+CALLREF {
+	CALL $_calculateUserAccountAddress_3633b98b_internal_macro$
+}
+.loc ../contracts/UserAccountManager.tsol, 306
+REVERSE 4, 1
+NEWC
+STSLICECONST x62_
+STSLICE
+PUSHINT 9789369574394656757036770681243717074945
+STUR 135
+ROLLREV 4
+NEWC
+STSLICECONST x5fb7454c
+STSLICE
+STU 32
+STU 256
+SWAP
+UNPAIR
+SWAP
+NEWC
+STU 256
+SWAP
+UNPAIR
+XCHG S2
+STU 256
+STU 256
+STBREFR
+STBREFR
+ENDC
+PUSHPOW2 7
+SENDRAWMSG
+.loc ../contracts/UserAccountManager.tsol, 0
+
+.macro requestLiquidationInformation
+DROP
+GETGLOB 6
+THROWIFNOT 76
+GETGLOB 2
+ISNULL
+IFREF {
+	CALL $c4_to_c7$
+}
+.loc ../contracts/UserAccountManager.tsol, 314
+OVER
+PUSHCONT {
+	LDREF
+	ENDS
+	CTOS
+}
+IF
+LDMSGADDR
+LDREF
+ENDS
+CTOS
+LDMSGADDR
+LDREF
+ENDS
+CTOS
+LDMSGADDR
+LDU 32
+LDU 32
+LDU 256
+LDDICT
+ENDS
+.loc ../contracts/UserAccountManager.tsol, 0
+CALLREF {
+	CALL $requestLiquidationInformation_bf7568dd_internal_macro$
+}
+IFREF {
+	CALL $upd_only_time_in_c4$
+}
+THROW 0
+
+.macro requestLiquidationInformation_bf7568dd_internal_macro
+.loc ../contracts/UserAccountManager.tsol, 639
+GETGLOB 9
+PUSHINT 4
+GETGLOB 15
+PUSHINT 8
+DICTUGET
+PUSHCONT {
+	PUSHREFSLICE {
+		.blob x8000000000000000000000000000000000000000000000000000000000000000001_
+	}
+}
+IFNOT
+SDEQ
+THROWIFNOT 110
+.loc ../contracts/UserAccountManager.tsol, 323
+ROLL 5
+CALLREF {
+	CALL $_calculateUserAccountAddress_3633b98b_internal_macro$
+}
+.loc ../contracts/UserAccountManager.tsol, 324
+REVERSE 6, 1
+NEWC
+STSLICECONST x62_
+STSLICE
+PUSHINT 9789369574394656757036770681243717074945
+STUR 135
+ROLLREV 6
+NEWC
+STSLICECONST x5dc460bf
+STSLICE
+ROLLREV 5
+NEWC
+STSLICE
+STU 32
+STU 32
+STU 256
+STDICT
+STBREFR
+STBREFR
+ENDC
+PUSHPOW2 7
+SENDRAWMSG
+.loc ../contracts/UserAccountManager.tsol, 0
+
+.macro receiveLiquidationInformation
+DROP
+GETGLOB 6
+THROWIFNOT 76
+GETGLOB 2
+ISNULL
+IFREF {
+	CALL $c4_to_c7$
+}
+.loc ../contracts/UserAccountManager.tsol, 329
+OVER
+PUSHCONT {
+	LDREF
+	ENDS
+	CTOS
+}
+IF
+LDMSGADDR
+LDREF
+ENDS
+CTOS
+LDMSGADDR
+LDREF
+ENDS
+CTOS
+LDMSGADDR
+LDU 32
+LDU 32
+LDU 256
+LDDICT
+LDDICT
+ENDS
+.loc ../contracts/UserAccountManager.tsol, 0
+CALLREF {
+	CALL $receiveLiquidationInformation_52a1e387_internal_macro$
+}
+IFREF {
+	CALL $upd_only_time_in_c4$
+}
+THROW 0
+
+.macro receiveLiquidationInformation_52a1e387_internal_macro
+.loc ../contracts/UserAccountManager.tsol, 329
+GETGLOB 9
+PUSH S7
+.loc ../contracts/UserAccountManager.tsol, 659
+CALLREF {
+	CALL $_calculateUserAccountAddress_3633b98b_internal_macro$
+}
+SDEQ
+THROWIFNOT 112
+.loc ../contracts/UserAccountManager.tsol, 339
+REVERSE 8, 0
+PUSHINT 4
+GETGLOB 15
+PUSHINT 8
+DICTUGET
+PUSHCONT {
+	PUSHREFSLICE {
+		.blob x8000000000000000000000000000000000000000000000000000000000000000001_
+	}
+}
+IFNOT
+NEWC
+STSLICECONST x62_
+STSLICE
+PUSHINT 9789369574394656757036770681243717074945
+STUR 135
+ROLLREV 8
+NEWC
+STSLICECONST x3894291a
+STSLICE
+ROLLREV 7
+NEWC
+STSLICE
+ROLLREV 6
+NEWC
+STSLICE
+STU 32
+STU 32
+STU 256
+STDICT
+STDICT
+STBREFR
+STBREFR
+STBREFR
+ENDC
+PUSHPOW2 7
+SENDRAWMSG
+.loc ../contracts/UserAccountManager.tsol, 0
+
+.macro seizeTokens
+DROP
+GETGLOB 6
+THROWIFNOT 76
+GETGLOB 2
+ISNULL
+IFREF {
+	CALL $c4_to_c7$
+}
+.loc ../contracts/UserAccountManager.tsol, 344
+OVER
+PUSHCONT {
+	LDREF
+	ENDS
+	CTOS
+}
+IF
+LDMSGADDR
+LDREF
+ENDS
+CTOS
+LDMSGADDR
+LDREF
+ENDS
+CTOS
+LDMSGADDR
+LDU 32
+LDU 32
+LDU 256
+LDREF
+ENDS
+CTOS
+LDU 256
+LDU 256
+LDU 256
+LDREF
+ENDS
+CTOS
+LDU 256
+ROTREV
+PAIR
+XCHG S1, S2
+PAIR
+SWAP
+ENDS
+.loc ../contracts/UserAccountManager.tsol, 0
+CALLREF {
+	CALL $seizeTokens_67f6f7fb_internal_macro$
+}
+IFREF {
+	CALL $upd_only_time_in_c4$
+}
+THROW 0
+
+.macro seizeTokens_67f6f7fb_internal_macro
+.loc ../contracts/UserAccountManager.tsol, 639
+GETGLOB 9
+PUSHINT 4
+GETGLOB 15
+PUSHINT 8
+DICTUGET
+PUSHCONT {
+	PUSHREFSLICE {
+		.blob x8000000000000000000000000000000000000000000000000000000000000000001_
+	}
+}
+IFNOT
+SDEQ
+THROWIFNOT 110
+.loc ../contracts/UserAccountManager.tsol, 354
+ROLL 6
+CALLREF {
+	CALL $_calculateUserAccountAddress_3633b98b_internal_macro$
+}
+.loc ../contracts/UserAccountManager.tsol, 355
+REVERSE 7, 1
+NEWC
+STSLICECONST x62_
+STSLICE
+PUSHINT 9789369574394656757036770681243717074945
+STUR 135
+ROLLREV 7
+NEWC
+STSLICECONST x7e7cc177
+STSLICE
+ROLLREV 6
+NEWC
+STSLICE
+STU 32
+STU 32
+STU 256
+ROTREV
+NEWC
+STU 256
+SWAP
+UNPAIR
+XCHG S2
+STU 256
+SWAP
+UNPAIR
+XCHG S2
+STU 256
+SWAP
+NEWC
+STU 256
+STBREFR
+STBREFR
+STBREFR
+STBREFR
+ENDC
+PUSHPOW2 7
+SENDRAWMSG
+.loc ../contracts/UserAccountManager.tsol, 0
+
+.macro grantVTokens
+DROP
+GETGLOB 6
+THROWIFNOT 76
+GETGLOB 2
+ISNULL
+IFREF {
+	CALL $c4_to_c7$
+}
+.loc ../contracts/UserAccountManager.tsol, 360
+OVER
+PUSHCONT {
+	LDREF
+	ENDS
+	CTOS
+}
+IF
+LDMSGADDR
+LDREF
+ENDS
+CTOS
+LDMSGADDR
+LDREF
+ENDS
+CTOS
+LDMSGADDR
+LDU 32
+LDU 32
+LDU 256
+LDREF
+ENDS
+CTOS
+LDU 256
+ENDS
+.loc ../contracts/UserAccountManager.tsol, 0
+CALLREF {
+	CALL $grantVTokens_b9a424ad_internal_macro$
+}
+IFREF {
+	CALL $upd_only_time_in_c4$
+}
+THROW 0
+
+.macro grantVTokens_b9a424ad_internal_macro
+.loc ../contracts/UserAccountManager.tsol, 360
+GETGLOB 9
+PUSH S6
+.loc ../contracts/UserAccountManager.tsol, 667
+CALLREF {
+	CALL $_calculateUserAccountAddress_3633b98b_internal_macro$
+}
+SDEQ
+THROWIFNOT 112
+.loc ../contracts/UserAccountManager.tsol, 370
+PUSH S5
+CALLREF {
+	CALL $_calculateUserAccountAddress_3633b98b_internal_macro$
+}
+.loc ../contracts/UserAccountManager.tsol, 371
+PUXC S7, S-1
+NEWC
+STSLICECONST x62_
+STSLICE
+PUSHINT 2949852426645541256083542794369173188247553
+STUR 143
+SWAP
+NEWC
+STSLICECONST x078a026d
+STSLICE
+STBREFR
+ENDC
+PUSHINT 0
+SENDRAWMSG
+.loc ../contracts/UserAccountManager.tsol, 375
+ROLL 6
+CALLREF {
+	CALL $_calculateUserAccountAddress_3633b98b_internal_macro$
+}
+.loc ../contracts/UserAccountManager.tsol, 376
+REVERSE 6, 1
+NEWC
+STSLICECONST x62_
+STSLICE
+PUSHINT 9789369574394656757036770681243717074945
+STUR 135
+ROLLREV 6
+NEWC
+STSLICECONST x751ce33b
+STSLICE
+ROLLREV 5
+NEWC
+STSLICE
+STU 32
+STU 32
+STU 256
+SWAP
+NEWC
+STU 256
+STBREFR
+STBREFR
+STBREFR
+ENDC
+PUSHPOW2 7
+SENDRAWMSG
+.loc ../contracts/UserAccountManager.tsol, 0
+
+.macro abortLiquidation
+DROP
+GETGLOB 6
+THROWIFNOT 76
+GETGLOB 2
+ISNULL
+IFREF {
+	CALL $c4_to_c7$
+}
+.loc ../contracts/UserAccountManager.tsol, 381
+OVER
+PUSHCONT {
+	LDREF
+	ENDS
+	CTOS
+}
+IF
+LDMSGADDR
+LDREF
+ENDS
+CTOS
+LDMSGADDR
+LDREF
+ENDS
+CTOS
+LDMSGADDR
+LDU 32
+LDU 256
+ENDS
+.loc ../contracts/UserAccountManager.tsol, 0
+CALLREF {
+	CALL $abortLiquidation_fbafc727_internal_macro$
+}
+IFREF {
+	CALL $upd_only_time_in_c4$
+}
+THROW 0
+
+.macro abortLiquidation_fbafc727_internal_macro
+.loc ../contracts/UserAccountManager.tsol, 639
+GETGLOB 9
+PUSHINT 4
+GETGLOB 15
+PUSHINT 8
+DICTUGET
+PUSHCONT {
+	PUSHREFSLICE {
+		.blob x8000000000000000000000000000000000000000000000000000000000000000001_
+	}
+}
+IFNOT
+SDEQ
+THROWIFNOT 110
+.loc ../contracts/UserAccountManager.tsol, 388
+ROLL 3
+CALLREF {
+	CALL $_calculateUserAccountAddress_3633b98b_internal_macro$
+}
+.loc ../contracts/UserAccountManager.tsol, 389
+REVERSE 4, 1
+NEWC
+STSLICECONST x62_
+STSLICE
+PUSHINT 9789369574394656757036770681243717074945
+STUR 135
+ROLLREV 4
+NEWC
+STSLICECONST x2a4749f8
+STSLICE
+ROLLREV 3
+NEWC
+STSLICE
+STU 32
+STU 256
+STBREFR
+STBREFR
+ENDC
+PUSHPOW2 7
+SENDRAWMSG
+.loc ../contracts/UserAccountManager.tsol, 0
+
+.macro returnAndSupply
+DROP
+GETGLOB 6
+THROWIFNOT 76
+GETGLOB 2
+ISNULL
+IFREF {
+	CALL $c4_to_c7$
+}
+.loc ../contracts/UserAccountManager.tsol, 394
+OVER
+PUSHCONT {
+	LDREF
+	ENDS
+	CTOS
+}
+IF
+LDMSGADDR
+LDREF
+ENDS
+CTOS
+LDMSGADDR
+LDREF
+ENDS
+CTOS
+LDMSGADDR
+LDU 32
+LDU 256
+ENDS
+.loc ../contracts/UserAccountManager.tsol, 0
+CALLREF {
+	CALL $returnAndSupply_9464be19_internal_macro$
+}
+IFREF {
+	CALL $upd_only_time_in_c4$
+}
+THROW 0
+
+.macro returnAndSupply_9464be19_internal_macro
+.loc ../contracts/UserAccountManager.tsol, 394
+GETGLOB 9
+PUSH S5
+.loc ../contracts/UserAccountManager.tsol, 667
+CALLREF {
+	CALL $_calculateUserAccountAddress_3633b98b_internal_macro$
+}
+SDEQ
+THROWIFNOT 112
+.loc ../contracts/UserAccountManager.tsol, 401
+DUP
+PUSHCONT {
+	.loc ../contracts/UserAccountManager.tsol, 402
+	DEPTH
+	ADDCONST -2
+	PICK
+	RSHIFT 2
+	.loc ../contracts/UserAccountManager.tsol, 404
+	PUSH3 S1, S2, S4
+	PUSH S8
+	ROLL 4
+	MULCONST 3
+	UFITS 128
+	GETGLOB 14
+	NEWC
+	STSLICECONST x62_
+	STSLICE
+	SWAP
+	STGRAMS
+	PUSHINT 1
+	STUR 107
+	ROLLREV 4
+	NEWC
+	STSLICECONST x06f3ebb4
+	STSLICE
+	ROLLREV 3
+	NEWC
+	STSLICE
+	STU 32
+	STU 256
+	STBREFR
+	STBREFR
+	ENDC
+	PUSHINT 0
+	SENDRAWMSG
+	.loc ../contracts/UserAccountManager.tsol, 0
+}
+IF
+.loc ../contracts/UserAccountManager.tsol, 409
+DROP2
+.loc ../contracts/UserAccountManager.tsol, 410
+ROT
+NEWC
+STSLICE
+.loc ../contracts/UserAccountManager.tsol, 411
+ENDC
+SWAP
+PUSHINT 4
+GETGLOB 15
+PUSHINT 8
+DICTUGET
+PUSHCONT {
+	PUSHREFSLICE {
+		.blob x8000000000000000000000000000000000000000000000000000000000000000001_
+	}
+}
+IFNOT
+NEWC
+STSLICECONST x62_
+STSLICE
+PUSHINT 9789369574394656757036770681243717074945
+STUR 135
+ROTREV
+NEWC
+STSLICECONST x6c5029f9
+STSLICE
+STREF
+STBREFR
+ENDC
+PUSHPOW2 7
+SENDRAWMSG
+.loc ../contracts/UserAccountManager.tsol, 0
+DROP
+
+.macro requestVTokensConversion
+DROP
+GETGLOB 6
+THROWIFNOT 76
+GETGLOB 2
+ISNULL
+IFREF {
+	CALL $c4_to_c7$
+}
+.loc ../contracts/UserAccountManager.tsol, 419
+OVER
+PUSHCONT {
+	LDREF
+	ENDS
+	CTOS
+}
+IF
+LDMSGADDR
+LDU 256
+LDU 32
+ENDS
+.loc ../contracts/UserAccountManager.tsol, 0
+CALLREF {
+	CALL $requestVTokensConversion_20dbedb3_internal_macro$
+}
+IFREF {
+	CALL $upd_only_time_in_c4$
+}
+THROW 0
+
+.macro requestVTokensConversion_20dbedb3_internal_macro
+.loc ../contracts/UserAccountManager.tsol, 419
+GETGLOB 9
+PUSH S3
+.loc ../contracts/UserAccountManager.tsol, 667
+CALLREF {
+	CALL $_calculateUserAccountAddress_3633b98b_internal_macro$
+}
+SDEQ
+THROWIFNOT 112
+.loc ../contracts/UserAccountManager.tsol, 425
+ROT
+NEWC
+STSLICE
+.loc ../contracts/UserAccountManager.tsol, 426
+XCHG S1, S2
+STU 256
+.loc ../contracts/UserAccountManager.tsol, 427
+OVER
+STUR 32
+.loc ../contracts/UserAccountManager.tsol, 428
+ENDC
+SWAP
+PUSHINT 5
+GETGLOB 14
+NEWC
+STSLICECONST x62_
+STSLICE
+PUSHINT 42045022170482489768618347945393405442361480187549
+STUR 167
+STU 8
+STU 32
+STREF
+ENDC
+PUSHPOW2 7
+SENDRAWMSG
+.loc ../contracts/UserAccountManager.tsol, 0
+
+.macro requestConversionInfo
+DROP
+GETGLOB 6
+THROWIFNOT 76
+GETGLOB 2
+ISNULL
+IFREF {
+	CALL $c4_to_c7$
+}
+.loc ../contracts/UserAccountManager.tsol, 433
+OVER
+PUSHCONT {
+	LDREF
+	ENDS
+	CTOS
+}
+IF
+LDMSGADDR
+LDU 256
+LDU 32
+ENDS
+.loc ../contracts/UserAccountManager.tsol, 0
+CALLREF {
+	CALL $requestConversionInfo_c288a990_internal_macro$
+}
+IFREF {
+	CALL $upd_only_time_in_c4$
+}
+THROW 0
+
+.macro requestConversionInfo_c288a990_internal_macro
+.loc ../contracts/UserAccountManager.tsol, 639
+GETGLOB 9
+PUSHINT 5
+GETGLOB 15
+PUSHINT 8
+DICTUGET
+PUSHCONT {
+	PUSHREFSLICE {
+		.blob x8000000000000000000000000000000000000000000000000000000000000000001_
+	}
+}
+IFNOT
+SDEQ
+THROWIFNOT 110
+.loc ../contracts/UserAccountManager.tsol, 438
+ROT
+CALLREF {
+	CALL $_calculateUserAccountAddress_3633b98b_internal_macro$
+}
+.loc ../contracts/UserAccountManager.tsol, 439
+XCHG S1, S2
+NEWC
+STSLICECONST x62_
+STSLICE
+PUSHINT 9789369574394656757036770681243717074945
+STUR 135
+ROTREV
+NEWC
+STSLICECONST x7d9f7e65
+STU 256
+STU 32
+STBREFR
+ENDC
+PUSHPOW2 7
+SENDRAWMSG
+.loc ../contracts/UserAccountManager.tsol, 0
+
+.macro receiveConversionInfo
+DROP
+GETGLOB 6
+THROWIFNOT 76
+GETGLOB 2
+ISNULL
+IFREF {
+	CALL $c4_to_c7$
+}
+.loc ../contracts/UserAccountManager.tsol, 444
+OVER
+PUSHCONT {
+	LDREF
+	ENDS
+	CTOS
+}
+IF
+LDMSGADDR
+LDU 256
+LDU 32
+LDDICT
+LDDICT
+ENDS
+.loc ../contracts/UserAccountManager.tsol, 0
+CALLREF {
+	CALL $receiveConversionInfo_bd1e4d51_internal_macro$
+}
+IFREF {
+	CALL $upd_only_time_in_c4$
+}
+THROW 0
+
+.macro receiveConversionInfo_bd1e4d51_internal_macro
+.loc ../contracts/UserAccountManager.tsol, 444
+GETGLOB 9
+PUSH S5
+.loc ../contracts/UserAccountManager.tsol, 667
+CALLREF {
+	CALL $_calculateUserAccountAddress_3633b98b_internal_macro$
+}
+SDEQ
+THROWIFNOT 112
+.loc ../contracts/UserAccountManager.tsol, 451
+REVERSE 5, 0
+PUSHINT 5
+GETGLOB 15
+PUSHINT 8
+DICTUGET
+PUSHCONT {
+	PUSHREFSLICE {
+		.blob x8000000000000000000000000000000000000000000000000000000000000000001_
+	}
+}
+IFNOT
+NEWC
+STSLICECONST x62_
+STSLICE
+PUSHINT 9789369574394656757036770681243717074945
+STUR 135
+ROLLREV 5
+NEWC
+STSLICECONST x0830dbbb
+STSLICE
+STU 256
+STU 32
+STDICT
+STDICT
+STBREFR
+ENDC
+PUSHPOW2 7
+SENDRAWMSG
+.loc ../contracts/UserAccountManager.tsol, 0
+
+.macro writeConversionInfo
+DROP
+GETGLOB 6
+THROWIFNOT 76
+GETGLOB 2
+ISNULL
+IFREF {
+	CALL $c4_to_c7$
+}
+.loc ../contracts/UserAccountManager.tsol, 456
+OVER
+PUSHCONT {
+	LDREF
+	ENDS
+	CTOS
+}
+IF
+LDMSGADDR
+LDU 256
+LDI 1
+LDU 32
+ENDS
+.loc ../contracts/UserAccountManager.tsol, 0
+CALLREF {
+	CALL $writeConversionInfo_4b0d5145_internal_macro$
+}
+IFREF {
+	CALL $upd_only_time_in_c4$
+}
+THROW 0
+
+.macro writeConversionInfo_4b0d5145_internal_macro
+.loc ../contracts/UserAccountManager.tsol, 456
+GETGLOB 9
+PUSH S4
+.loc ../contracts/UserAccountManager.tsol, 667
+CALLREF {
+	CALL $_calculateUserAccountAddress_3633b98b_internal_macro$
+}
+SDEQ
+THROWIFNOT 112
+.loc ../contracts/UserAccountManager.tsol, 462
+ROLL 3
+CALLREF {
+	CALL $_calculateUserAccountAddress_3633b98b_internal_macro$
+}
+.loc ../contracts/UserAccountManager.tsol, 463
+XCHG S1, S3
+NEWC
+STSLICECONST x62_
+STSLICE
+PUSHINT 9789369574394656757036770681243717074945
+STUR 135
+ROLLREV 3
+NEWC
+STSLICECONST x7c6093cd
+STU 256
+STI 1
+STU 32
+STBREFR
+ENDC
+PUSHPOW2 7
+SENDRAWMSG
+.loc ../contracts/UserAccountManager.tsol, 0
+
+.macro unlockAfterConversion
+DROP
+GETGLOB 6
+THROWIFNOT 76
+GETGLOB 2
+ISNULL
+IFREF {
+	CALL $c4_to_c7$
+}
+.loc ../contracts/UserAccountManager.tsol, 468
+OVER
+PUSHCONT {
+	LDREF
+	ENDS
+	CTOS
+}
+IF
+LDMSGADDR
+ENDS
+.loc ../contracts/UserAccountManager.tsol, 0
+CALLREF {
+	CALL $unlockAfterConversion_f611acb3_internal_macro$
+}
+IFREF {
+	CALL $upd_only_time_in_c4$
+}
+THROW 0
+
+.macro unlockAfterConversion_f611acb3_internal_macro
+.loc ../contracts/UserAccountManager.tsol, 468
+GETGLOB 9
+OVER
+.loc ../contracts/UserAccountManager.tsol, 667
+CALLREF {
+	CALL $_calculateUserAccountAddress_3633b98b_internal_macro$
+}
+SDEQ
+THROWIFNOT 112
+.loc ../contracts/UserAccountManager.tsol, 471
+PUSHREF {
+}
+.loc ../contracts/UserAccountManager.tsol, 472
+SWAP
+PUSHINT 5
+GETGLOB 15
+PUSHINT 8
+DICTUGET
+PUSHCONT {
+	PUSHREFSLICE {
+		.blob x8000000000000000000000000000000000000000000000000000000000000000001_
+	}
+}
+IFNOT
+NEWC
+STSLICECONST x62_
+STSLICE
+PUSHINT 9789369574394656757036770681243717074945
+STUR 135
+ROTREV
+NEWC
+STSLICECONST x6c5029f9
+STSLICE
+STREF
+STBREFR
+ENDC
+PUSHPOW2 7
+SENDRAWMSG
+.loc ../contracts/UserAccountManager.tsol, 0
+
+.macro requestUserAccountHealthCalculation
+DROP
+GETGLOB 6
+THROWIFNOT 76
+GETGLOB 2
+ISNULL
+IFREF {
+	CALL $c4_to_c7$
+}
+.loc ../contracts/UserAccountManager.tsol, 480
+OVER
+PUSHCONT {
+	LDREF
+	ENDS
+	CTOS
+}
+IF
+LDMSGADDR
+ENDS
+.loc ../contracts/UserAccountManager.tsol, 0
+CALLREF {
+	CALL $requestUserAccountHealthCalculation_b94d78ce_internal_macro$
+}
+IFREF {
+	CALL $upd_only_time_in_c4$
+}
+THROW 0
+
+.macro requestUserAccountHealthCalculation_b94d78ce_internal_macro
+.loc ../contracts/UserAccountManager.tsol, 629
+GETGLOB 9
+GETGLOB 10
+SDEQ
+GETGLOB 9
+GETGLOB 14
+SDEQ
+OR
+DUP
+PUSHCONT {
+	DROP
+	GETGLOB 9
+	GETGLOB 16
+	PUSHINT 267
+	DICTGET
+	NULLSWAPIFNOT
+	NIP
+}
+IFNOT
+THROWIFNOT 109
+.loc ../contracts/UserAccountManager.tsol, 481
+DUP
+CALLREF {
+	CALL $_calculateUserAccountAddress_3633b98b_internal_macro$
+}
+.loc ../contracts/UserAccountManager.tsol, 482
+NEWC
+STSLICECONST x62_
+STSLICE
+PUSHINT 9789369574394656757036770681243717074945
+STUR 135
+SWAP
+NEWC
+STSLICECONST x078a026d
+STSLICE
+STBREFR
+ENDC
+PUSHPOW2 7
+SENDRAWMSG
+.loc ../contracts/UserAccountManager.tsol, 0
+
+.macro calculateUserAccountHealth
+DROP
+GETGLOB 6
+THROWIFNOT 76
+GETGLOB 2
+ISNULL
+IFREF {
+	CALL $c4_to_c7$
+}
+.loc ../contracts/UserAccountManager.tsol, 487
+OVER
+PUSHCONT {
+	LDREF
+	ENDS
+	CTOS
+}
+IF
+LDMSGADDR
+LDREF
+ENDS
+CTOS
+LDMSGADDR
+LDDICT
+LDDICT
+LDREF
+ENDS
+.loc ../contracts/UserAccountManager.tsol, 0
+CALLREF {
+	CALL $calculateUserAccountHealth_3af700f9_internal_macro$
+}
+IFREF {
+	CALL $upd_only_time_in_c4$
+}
+THROW 0
+
+.macro calculateUserAccountHealth_3af700f9_internal_macro
+.loc ../contracts/UserAccountManager.tsol, 487
+GETGLOB 9
+PUSH S5
+.loc ../contracts/UserAccountManager.tsol, 659
+CALLREF {
+	CALL $_calculateUserAccountAddress_3633b98b_internal_macro$
+}
+SDEQ
+THROWIFNOT 112
+.loc ../contracts/UserAccountManager.tsol, 494
+REVERSE 5, 0
+GETGLOB 14
+NEWC
+STSLICECONST x62_
+STSLICE
+PUSHINT 9789369574394656757036770681243717074945
+STUR 135
+ROLLREV 5
+NEWC
+STSLICECONST x672d2d9e
+STSLICE
+ROLLREV 4
+NEWC
+STSLICE
+STDICT
+STDICT
+STREF
+STBREFR
+STBREFR
+ENDC
+PUSHPOW2 7
+SENDRAWMSG
+.loc ../contracts/UserAccountManager.tsol, 0
+
+.macro updateUserAccountHealth
+DROP
+GETGLOB 6
+THROWIFNOT 76
+GETGLOB 2
+ISNULL
+IFREF {
+	CALL $c4_to_c7$
+}
+.loc ../contracts/UserAccountManager.tsol, 499
+OVER
+PUSHCONT {
+	LDREF
+	ENDS
+	CTOS
+}
+IF
+LDMSGADDR
+LDREF
+ENDS
+CTOS
+LDMSGADDR
+LDU 256
+LDREF
+ENDS
+CTOS
+LDU 256
+ROTREV
+PAIR
+SWAP
+LDDICT
+LDREF
+ENDS
+.loc ../contracts/UserAccountManager.tsol, 0
+CALLREF {
+	CALL $updateUserAccountHealth_750f4cba_internal_macro$
+}
+IFREF {
+	CALL $upd_only_time_in_c4$
+}
+THROW 0
+
+.macro updateUserAccountHealth_750f4cba_internal_macro
+.loc ../contracts/UserAccountManager.tsol, 603
+GETGLOB 9
+GETGLOB 14
+SDEQ
+THROWIFNOT 108
+.loc ../contracts/UserAccountManager.tsol, 506
+ROLL 4
+CALLREF {
+	CALL $_calculateUserAccountAddress_3633b98b_internal_macro$
+}
+.loc ../contracts/UserAccountManager.tsol, 507
+REVERSE 4, 1
+NEWC
+STSLICECONST x62_
+STSLICE
+PUSHINT 9789369574394656757036770681243717074945
+STUR 135
+ROLLREV 4
+NEWC
+STSLICECONST x5371799d
+STSLICE
+SWAP
+UNPAIR
+XCHG S2
+STU 256
+ROLLREV 3
+NEWC
+STU 256
+STDICT
+STREF
+STBREFR
+STBREFR
+ENDC
+PUSHPOW2 7
+SENDRAWMSG
+.loc ../contracts/UserAccountManager.tsol, 0
+
+.macro requestTokenPayout
+DROP
+GETGLOB 6
+THROWIFNOT 76
+GETGLOB 2
+ISNULL
+IFREF {
+	CALL $c4_to_c7$
+}
+.loc ../contracts/UserAccountManager.tsol, 515
+OVER
+PUSHCONT {
+	LDREF
+	ENDS
+	CTOS
+}
+IF
+LDMSGADDR
+LDREF
+ENDS
+CTOS
+LDMSGADDR
+LDU 32
+LDU 256
+ENDS
+.loc ../contracts/UserAccountManager.tsol, 0
+CALLREF {
+	CALL $requestTokenPayout_934f08b0_internal_macro$
+}
+IFREF {
+	CALL $upd_only_time_in_c4$
+}
+THROW 0
+
+.macro requestTokenPayout_934f08b0_internal_macro
+.loc ../contracts/UserAccountManager.tsol, 515
+PUSH S3
+.loc ../contracts/UserAccountManager.tsol, 647
+GETGLOB 9
+PUSHINT 4
+GETGLOB 15
+PUSHINT 8
+DICTUGET
+PUSHCONT {
+	PUSHREFSLICE {
+		.blob x8000000000000000000000000000000000000000000000000000000000000000001_
+	}
+}
+IFNOT
+SDEQ
+DUP
+PUSHCONT {
+	DROP
+	GETGLOB 9
+	OVER
+	CALLREF {
+		CALL $_calculateUserAccountAddress_3633b98b_internal_macro$
+	}
+	SDEQ
+}
+IFNOT
+THROWIFNOT 111
+.loc ../contracts/UserAccountManager.tsol, 652
+DROP
+.loc ../contracts/UserAccountManager.tsol, 516
+REVERSE 4, 0
+GETGLOB 14
+NEWC
+STSLICECONST x62_
+STSLICE
+PUSHINT 9789369574394656757036770681243717074945
+STUR 135
+ROLLREV 4
+NEWC
+STSLICECONST x06f3ebb4
+STSLICE
+ROLLREV 3
+NEWC
+STSLICE
+STU 32
+STU 256
+STBREFR
+STBREFR
+ENDC
+PUSHPOW2 7
+SENDRAWMSG
+.loc ../contracts/UserAccountManager.tsol, 0
+
+.macro withdrawExtraTons
+DROP
+GETGLOB 6
+THROWIFNOT 76
+GETGLOB 2
+ISNULL
+IFREF {
+	CALL $c4_to_c7$
+}
+.loc ../contracts/UserAccountManager.tsol, 521
+OVER
+PUSHCONT {
+	LDREF
+	ENDS
+	CTOS
+}
+IF
+LDMSGADDR
+ENDS
+.loc ../contracts/UserAccountManager.tsol, 0
+CALLREF {
+	CALL $withdrawExtraTons_2653cbbd_internal_macro$
+}
+IFREF {
+	CALL $upd_only_time_in_c4$
+}
+THROW 0
+
+.macro withdrawExtraTons_2653cbbd_internal_macro
+.loc ../contracts/abstract/Roles.tsol, 57
+GETGLOB 9
+GETGLOB 10
+SDEQ
+THROWIFNOT 222
+.loc ../contracts/UserAccountManager.tsol, 522
+ACCEPT
+.loc ../contracts/UserAccountManager.tsol, 523
+NEWC
+STSLICECONST x62_
+STSLICE
+PUSHINT 111
+STZEROES
+ENDC
+PUSHPOW2 7
+SENDRAWMSG
+.loc ../contracts/UserAccountManager.tsol, 0
+
+.macro setMarketAddress
+DROP
+GETGLOB 6
+THROWIFNOT 76
+GETGLOB 2
+ISNULL
+IFREF {
+	CALL $c4_to_c7$
+}
+.loc ../contracts/UserAccountManager.tsol, 532
+OVER
+PUSHCONT {
+	LDREF
+	ENDS
+	CTOS
+}
+IF
+LDMSGADDR
+ENDS
+.loc ../contracts/UserAccountManager.tsol, 0
+CALLREF {
+	CALL $setMarketAddress_fae92612_internal_macro$
+}
+DROP
+CALLREF {
+	CALL $c7_to_c4$
+}
+THROW 0
+
+.macro setMarketAddress_fae92612_internal_macro
+.loc ../contracts/abstract/Roles.tsol, 74
+GETGLOB 9
+GETGLOB 12
+PUSHINT 267
+DICTGET
+ZEROSWAPIFNOT
+PUSHCONT {
+	PLDI 1
+}
+IF
+GETGLOB 9
+GETGLOB 10
+SDEQ
+OR
+THROWIFNOT 221
+.loc ../contracts/UserAccountManager.tsol, 533
+ACCEPT
+.loc ../contracts/UserAccountManager.tsol, 534
+SETGLOB 14
+.loc ../contracts/UserAccountManager.tsol, 535
+GETGLOB 10
+NEWC
+STSLICECONST x62_
+STSLICE
+PUSHINT 111
+STZEROES
+ENDC
+PUSHPOW2 7
+SENDRAWMSG
+.loc ../contracts/UserAccountManager.tsol, 0
+
+.macro uploadUserAccountCode
+DROP
+GETGLOB 6
+THROWIFNOT 76
+GETGLOB 2
+ISNULL
+IFREF {
+	CALL $c4_to_c7$
+}
+.loc ../contracts/UserAccountManager.tsol, 540
+LDU 32
+LDREF
+ENDS
+.loc ../contracts/UserAccountManager.tsol, 0
+CALLREF {
+	CALL $uploadUserAccountCode_0b065795_internal_macro$
+}
+DROP
+CALLREF {
+	CALL $c7_to_c4$
+}
+THROW 0
+
+.macro uploadUserAccountCode_0b065795_internal_macro
+.loc ../contracts/abstract/Roles.tsol, 74
+GETGLOB 9
+GETGLOB 12
+PUSHINT 267
+DICTGET
+ZEROSWAPIFNOT
+PUSHCONT {
+	PLDI 1
+}
+IF
+GETGLOB 9
+GETGLOB 10
+SDEQ
+OR
+THROWIFNOT 221
+.loc ../contracts/UserAccountManager.tsol, 541
+SWAP
+GETGLOB 17
+PUSHINT 32
+DICTUSETREF
+SETGLOB 17
+.loc ../contracts/UserAccountManager.tsol, 543
+GETGLOB 9
+NEWC
+STSLICECONST x62_
+STSLICE
+PUSHINT 111
+STZEROES
+ENDC
+PUSHPOW2 7
+SENDRAWMSG
+.loc ../contracts/UserAccountManager.tsol, 0
+
+.globl	_updateUserAccount_bc81b1d6_internal
+.type	_updateUserAccount_bc81b1d6_internal, @function
+CALL $_updateUserAccount_bc81b1d6_internal_macro$
+
+.macro _updateUserAccount_bc81b1d6_internal_macro
+.loc ../contracts/UserAccountManager.tsol, 547
+CALLREF {
+	CALL $_calculateUserAccountAddress_3633b98b_internal_macro$
+}
+.loc ../contracts/UserAccountManager.tsol, 548
+GETGLOB 17
+PUSHINT 32
+DICTUMAXREF
+NULLSWAPIFNOT
+PUSHCONT {
+	SWAP
+	PAIR
+}
+IF
+.loc ../contracts/UserAccountManager.tsol, 549
+DUP
+ISNULL
+PUSHCONT {
+	.loc ../contracts/UserAccountManager.tsol, 556
+	OVER
+	NEWC
+	STSLICECONST x62_
+	STSLICE
+	PUSHINT 111
+	STZEROES
+}
+PUSHCONT {
+	.loc ../contracts/UserAccountManager.tsol, 551
+	BLKPUSH 2, 0
+	ISNULL
+	THROWIF 63
+	UNPAIR
+	.loc ../contracts/UserAccountManager.tsol, 552
+	SWAP
+	PUSHREF {
+	}
+	ROT
+	PUSH S4
+	NEWC
+	STSLICECONST x62_
+	STSLICE
+	PUSHINT 42045022170482489768618347945393405442362655065328
+	STUR 167
+	STREF
+	STREF
+	STU 32
+}
+IFELSE
+ENDC
+PUSHPOW2 7
+SENDRAWMSG
+.loc ../contracts/UserAccountManager.tsol, 0
+DROP2
+
+.macro updateUserAccount
+DROP
+GETGLOB 6
+THROWIFNOT 76
+GETGLOB 2
+ISNULL
+IFREF {
+	CALL $c4_to_c7$
+}
+.loc ../contracts/UserAccountManager.tsol, 560
+OVER
+PUSHCONT {
+	LDREF
+	ENDS
+	CTOS
+}
+IF
+LDMSGADDR
+ENDS
+.loc ../contracts/UserAccountManager.tsol, 0
+CALLREF {
+	CALL $updateUserAccount_3f4473e4_internal_macro$
+}
+DROP
+CALLREF {
+	CALL $c7_to_c4$
+}
+THROW 0
+
+.macro updateUserAccount_3f4473e4_internal_macro
+.loc ../contracts/UserAccountManager.tsol, 561
+CALLREF {
+	CALL $_updateUserAccount_bc81b1d6_internal_macro$
+}
+.loc ../contracts/UserAccountManager.tsol, 0
+
+.macro getUserAccountCode
+DROP
+GETGLOB 6
+THROWIFNOT 76
+GETGLOB 2
+ISNULL
+IFREF {
+	CALL $c4_to_c7$
+}
+.loc ../contracts/UserAccountManager.tsol, 564
+LDU 32
+GETGLOB 4
+ROT
+SETINDEXQ 5
+SETGLOB 4
+LDU 32
+ENDS
+.loc ../contracts/UserAccountManager.tsol, 0
+CALLREF {
+	CALL $getUserAccountCode_01713376_internal_macro$
+}
+OVER
+PUSHCONT {
+	PUSH S3
+	CTOS
+	LDU 2
+	LDMSGADDR
+	DROP
+	NIP
+	NEWC
+	STSLICECONST xc
+	STSLICE
+	PUSHINT 3969755707
+	STUR 130
+	STREF
+	ENDC
+	PUSHINT 0
+}
+PUSHCONT {
+	GETGLOB 4
+	DUP
+	INDEX 3
+	OVER
+	THIRD
+	GETGLOB 9
+	ROLL 3
+	SECOND
+	NEWC
+	STSLICECONST x2_
+	STI 1
+	STSLICECONST x1_
+	STSLICE
+	SWAP
+	STGRAMS
+	STDICT
+	PUSHINT 106
+	STZEROES
+	GETGLOB 4
+	INDEX 5
+	STUR 32
+	STREF
+	ENDC
+	GETGLOB 4
+	INDEX 4
+}
+IFELSE
+SENDRAWMSG
+IFREF {
+	CALL $upd_only_time_in_c4$
+}
+THROW 0
+
+.macro getUserAccountCode_01713376_internal_macro
+.loc ../contracts/UserAccountManager.tsol, 569
+GETGLOB 4
+PUSHINT 0
+SETINDEXQ 2
+FALSE
+SETINDEXQ 1
+PUSHPOW2 7
+SETINDEXQ 4
+SETGLOB 4
+GETGLOB 17
+PUSHINT 32
+DICTUGETREF
+PUSHCONT {
+	PUSHREF {
+	}
+}
+IFNOT
+.loc ../contracts/UserAccountManager.tsol, 0
+
+.macro disableUserAccountLock
+DROP
+GETGLOB 6
+THROWIFNOT 76
+GETGLOB 2
+ISNULL
+IFREF {
+	CALL $c4_to_c7$
+}
+.loc ../contracts/UserAccountManager.tsol, 572
+OVER
+PUSHCONT {
+	LDREF
+	ENDS
+	CTOS
+}
+IF
+LDMSGADDR
+ENDS
+.loc ../contracts/UserAccountManager.tsol, 0
+CALLREF {
+	CALL $disableUserAccountLock_77325592_internal_macro$
+}
+IFREF {
+	CALL $upd_only_time_in_c4$
+}
+THROW 0
+
+.macro disableUserAccountLock_77325592_internal_macro
+.loc ../contracts/abstract/Roles.tsol, 57
+GETGLOB 9
+GETGLOB 10
+SDEQ
+THROWIFNOT 222
+.loc ../contracts/UserAccountManager.tsol, 573
+CALLREF {
+	CALL $_calculateUserAccountAddress_3633b98b_internal_macro$
+}
+.loc ../contracts/UserAccountManager.tsol, 574
+NEWC
+STSLICECONST x62_
+STSLICE
+PUSHINT 42045022170482489768618347945393405442363075061092
+STUR 167
+ENDC
+PUSHPOW2 7
+SENDRAWMSG
+.loc ../contracts/UserAccountManager.tsol, 0
+
+.macro removeMarket
+DROP
+GETGLOB 6
+THROWIFNOT 76
+GETGLOB 2
+ISNULL
+IFREF {
+	CALL $c4_to_c7$
+}
+.loc ../contracts/UserAccountManager.tsol, 579
+OVER
+PUSHCONT {
+	LDREF
+	ENDS
+	CTOS
+}
+IF
+LDMSGADDR
+LDU 32
+ENDS
+.loc ../contracts/UserAccountManager.tsol, 0
+CALLREF {
+	CALL $removeMarket_e034f747_internal_macro$
+}
+IFREF {
+	CALL $upd_only_time_in_c4$
+}
+THROW 0
+
+.macro removeMarket_e034f747_internal_macro
+.loc ../contracts/abstract/Roles.tsol, 74
+GETGLOB 9
+GETGLOB 12
+PUSHINT 267
+DICTGET
+ZEROSWAPIFNOT
+PUSHCONT {
+	PLDI 1
+}
+IF
+GETGLOB 9
+GETGLOB 10
+SDEQ
+OR
+THROWIFNOT 221
+.loc ../contracts/UserAccountManager.tsol, 580
+SWAP
+CALLREF {
+	CALL $_calculateUserAccountAddress_3633b98b_internal_macro$
+}
+.loc ../contracts/UserAccountManager.tsol, 581
+NEWC
+STSLICECONST x62_
+STSLICE
+PUSHINT 42045022170482489768618347945393405442363373999828
+STUR 167
+STU 32
+ENDC
+PUSHPOW2 7
+SENDRAWMSG
+.loc ../contracts/UserAccountManager.tsol, 0
+
+.macro addModule
+DROP
+GETGLOB 6
+THROWIFNOT 76
+GETGLOB 2
+ISNULL
+IFREF {
+	CALL $c4_to_c7$
+}
+.loc ../contracts/UserAccountManager.tsol, 588
+OVER
+PUSHCONT {
+	LDU 8
+	LDREF
+	ENDS
+	CTOS
+}
+PUSHCONT {
+	LDU 8
+}
+IFELSE
+LDMSGADDR
+ENDS
+.loc ../contracts/UserAccountManager.tsol, 0
+CALLREF {
+	CALL $addModule_c6634649_internal_macro$
+}
+DROP
+CALLREF {
+	CALL $c7_to_c4$
+}
+THROW 0
+
+.macro addModule_c6634649_internal_macro
+.loc ../contracts/UserAccountManager.tsol, 611
+GETGLOB 9
+GETGLOB 10
+SDEQ
+GETGLOB 9
+GETGLOB 14
+SDEQ
+OR
+DUP
+PUSHCONT {
+	DROP
+	GETGLOB 9
+	GETGLOB 12
+	PUSHINT 267
+	DICTGET
+	ZEROSWAPIFNOT
+	PUSHCONT {
+		PLDI 1
+	}
+	IF
+}
+IFNOT
+THROWIFNOT 113
+.loc ../contracts/UserAccountManager.tsol, 589
+DUP
+GETGLOB 16
+PUSHINT 267
+DICTDEL
+DROP
+SETGLOB 16
+.loc ../contracts/UserAccountManager.tsol, 590
+DUP
+ROT
+GETGLOB 15
+PUSHINT 8
+DICTUSET
+SETGLOB 15
+.loc ../contracts/UserAccountManager.tsol, 591
+GETGLOB 16
+NEWC
+STONE
+ROTREV
+PUSHINT 267
+DICTSETB
+SETGLOB 16
+.loc ../contracts/UserAccountManager.tsol, 0
+
+.macro removeModule
+DROP
+GETGLOB 6
+THROWIFNOT 76
+GETGLOB 2
+ISNULL
+IFREF {
+	CALL $c4_to_c7$
+}
+.loc ../contracts/UserAccountManager.tsol, 594
+LDU 8
+ENDS
+.loc ../contracts/UserAccountManager.tsol, 0
+CALLREF {
+	CALL $removeModule_0a30aff7_internal_macro$
+}
+DROP
+CALLREF {
+	CALL $c7_to_c4$
+}
+THROW 0
+
+.macro removeModule_0a30aff7_internal_macro
+.loc ../contracts/UserAccountManager.tsol, 611
+GETGLOB 9
+GETGLOB 10
+SDEQ
+GETGLOB 9
+GETGLOB 14
+SDEQ
+OR
+DUP
+PUSHCONT {
+	DROP
+	GETGLOB 9
+	GETGLOB 12
+	PUSHINT 267
+	DICTGET
+	ZEROSWAPIFNOT
+	PUSHCONT {
+		PLDI 1
+	}
+	IF
+}
+IFNOT
+THROWIFNOT 113
+.loc ../contracts/UserAccountManager.tsol, 595
+GETGLOB 16
+OVER
+GETGLOB 15
+PUSHINT 8
+DICTUGET
+PUSHCONT {
+	PUSHREFSLICE {
+		.blob x8000000000000000000000000000000000000000000000000000000000000000001_
+	}
+}
+IFNOT
+SWAP
+PUSHINT 267
+DICTDEL
+DROP
+SETGLOB 16
+.loc ../contracts/UserAccountManager.tsol, 596
+GETGLOB 15
+PUSHINT 8
+DICTUDEL
+DROP
+SETGLOB 15
+.loc ../contracts/UserAccountManager.tsol, 0
+
+.macro setUpgrader
+DROP
+GETGLOB 6
+THROWIFNOT 76
+GETGLOB 2
+ISNULL
+IFREF {
+	CALL $c4_to_c7$
+}
+.loc ../contracts/abstract/Roles.tsol, 11
+OVER
+PUSHCONT {
+	LDREF
+	ENDS
+	CTOS
+}
+IF
+LDMSGADDR
+LDI 1
+ENDS
+.loc ../contracts/abstract/Roles.tsol, 0
+CALLREF {
+	CALL $setUpgrader_07eddd47_internal_macro$
+}
+DROP
+CALLREF {
+	CALL $c7_to_c4$
+}
+THROW 0
+
+.macro setUpgrader_07eddd47_internal_macro
+.loc ../contracts/abstract/Roles.tsol, 57
+GETGLOB 9
+GETGLOB 10
+SDEQ
+THROWIFNOT 222
+.loc ../contracts/abstract/Roles.tsol, 12
+DEPTH
+ADDCONST -2
+PICK
+PUSHINT 2
+RAWRESERVE
+.loc ../contracts/abstract/Roles.tsol, 14
+GETGLOB 11
+SWAP
+NEWC
+STI 1
+ROTREV
+PUSHINT 267
+DICTSETB
+SETGLOB 11
+.loc ../contracts/abstract/Roles.tsol, 16
+GETGLOB 9
+NEWC
+STSLICECONST x62_
+STSLICE
+PUSHINT 111
+STZEROES
+ENDC
+PUSHINT 64
+SENDRAWMSG
+.loc ../contracts/abstract/Roles.tsol, 0
+
+.macro setParamChanger
+DROP
+GETGLOB 6
+THROWIFNOT 76
+GETGLOB 2
+ISNULL
+IFREF {
+	CALL $c4_to_c7$
+}
+.loc ../contracts/abstract/Roles.tsol, 22
+OVER
+PUSHCONT {
+	LDREF
+	ENDS
+	CTOS
+}
+IF
+LDMSGADDR
+LDI 1
+ENDS
+.loc ../contracts/abstract/Roles.tsol, 0
+CALLREF {
+	CALL $setParamChanger_b446a585_internal_macro$
+}
+DROP
+CALLREF {
+	CALL $c7_to_c4$
+}
+THROW 0
+
+.macro setParamChanger_b446a585_internal_macro
+.loc ../contracts/abstract/Roles.tsol, 57
+GETGLOB 9
+GETGLOB 10
+SDEQ
+THROWIFNOT 222
+.loc ../contracts/abstract/Roles.tsol, 23
+DEPTH
+ADDCONST -2
+PICK
+PUSHINT 2
+RAWRESERVE
+.loc ../contracts/abstract/Roles.tsol, 25
+GETGLOB 12
+SWAP
+NEWC
+STI 1
+ROTREV
+PUSHINT 267
+DICTSETB
+SETGLOB 12
+.loc ../contracts/abstract/Roles.tsol, 27
+GETGLOB 9
+NEWC
+STSLICECONST x62_
+STSLICE
+PUSHINT 111
+STZEROES
+ENDC
+PUSHINT 64
+SENDRAWMSG
+.loc ../contracts/abstract/Roles.tsol, 0
+
+.macro changeOwner
+DROP
+GETGLOB 6
+THROWIFNOT 76
+GETGLOB 2
+ISNULL
+IFREF {
+	CALL $c4_to_c7$
+}
+.loc ../contracts/abstract/Roles.tsol, 33
+OVER
+PUSHCONT {
+	LDREF
+	ENDS
+	CTOS
+}
+IF
+LDMSGADDR
+ENDS
+.loc ../contracts/abstract/Roles.tsol, 0
+CALLREF {
+	CALL $changeOwner_a6f9dae1_internal_macro$
+}
+DROP
+CALLREF {
+	CALL $c7_to_c4$
+}
+THROW 0
+
+.macro changeOwner_a6f9dae1_internal_macro
+.loc ../contracts/abstract/Roles.tsol, 57
+GETGLOB 9
+GETGLOB 10
+SDEQ
+THROWIFNOT 222
+.loc ../contracts/abstract/Roles.tsol, 34
+DEPTH
+ADDCONST -2
+PICK
+PUSHINT 2
+RAWRESERVE
+.loc ../contracts/abstract/Roles.tsol, 36
+SETGLOB 10
+.loc ../contracts/abstract/Roles.tsol, 38
+GETGLOB 9
+NEWC
+STSLICECONST x62_
+STSLICE
+PUSHINT 111
+STZEROES
+ENDC
+PUSHINT 64
+SENDRAWMSG
+.loc ../contracts/abstract/Roles.tsol, 0
+
+.macro getOwner
+DROP
+GETGLOB 6
+THROWIFNOT 76
+GETGLOB 2
+ISNULL
+IFREF {
+	CALL $c4_to_c7$
+}
+.loc ../contracts/abstract/Roles.tsol, 44
+ENDS
+.loc ../contracts/abstract/Roles.tsol, 0
+CALLREF {
+	CALL $getOwner_893d20e8_internal_macro$
+}
+OVER
+PUSHCONT {
+	PUSH S3
+	CTOS
+	LDU 2
+	LDMSGADDR
+	DROP
+	NIP
+	NEWC
+	STSLICECONST xc
+	STSLICE
+	PUSHINT 1
+	STUR 98
+	SWAP
+	NEWC
+	STSLICECONST x9ea5175d
+	STSLICE
+	STBREFR
+	ENDC
+	PUSHINT 0
+	SENDRAWMSG
+}
+PUSHCONT {
+	DROP
+}
+IFELSE
+IFREF {
+	CALL $upd_only_time_in_c4$
+}
+THROW 0
+
+.macro getOwner_893d20e8_internal_macro
+.loc ../contracts/abstract/Roles.tsol, 45
+GETGLOB 10
+.loc ../contracts/abstract/Roles.tsol, 0
+
+.macro getUpgraders
+DROP
+GETGLOB 6
+THROWIFNOT 76
+GETGLOB 2
+ISNULL
+IFREF {
+	CALL $c4_to_c7$
+}
+.loc ../contracts/abstract/Roles.tsol, 48
+ENDS
+.loc ../contracts/abstract/Roles.tsol, 0
+CALLREF {
+	CALL $getUpgraders_2ba16026_internal_macro$
+}
+OVER
+PUSHCONT {
+	PUSH S3
+	CTOS
+	LDU 2
+	LDMSGADDR
+	DROP
+	NIP
+	NEWC
+	STSLICECONST xc
+	STSLICE
+	PUSHINT 3095416491
+	STUR 130
+	STDICT
+	ENDC
+	PUSHINT 0
+	SENDRAWMSG
+}
+PUSHCONT {
+	DROP
+}
+IFELSE
+IFREF {
+	CALL $upd_only_time_in_c4$
+}
+THROW 0
+
+.macro getUpgraders_2ba16026_internal_macro
+.loc ../contracts/abstract/Roles.tsol, 49
+GETGLOB 11
+.loc ../contracts/abstract/Roles.tsol, 0
+
+.macro getParamChangers
+DROP
+GETGLOB 6
+THROWIFNOT 76
+GETGLOB 2
+ISNULL
+IFREF {
+	CALL $c4_to_c7$
+}
+.loc ../contracts/abstract/Roles.tsol, 52
+ENDS
+.loc ../contracts/abstract/Roles.tsol, 0
+CALLREF {
+	CALL $getParamChangers_61c2c76b_internal_macro$
+}
+OVER
+PUSHCONT {
+	PUSH S3
+	CTOS
+	LDU 2
+	LDMSGADDR
+	DROP
+	NIP
+	NEWC
+	STSLICECONST xc
+	STSLICE
+	PUSHINT 2248669321
+	STUR 130
+	STDICT
+	ENDC
+	PUSHINT 0
+	SENDRAWMSG
+}
+PUSHCONT {
+	DROP
+}
+IFELSE
+IFREF {
+	CALL $upd_only_time_in_c4$
+}
+THROW 0
+
+.macro getParamChangers_61c2c76b_internal_macro
+.loc ../contracts/abstract/Roles.tsol, 53
+GETGLOB 12
+.loc ../contracts/abstract/Roles.tsol, 0
 
 .macro c4_to_c7
 PUSHROOT
@@ -23,12 +3604,21 @@ LDU 256 ; pubkey c4
 LDU 64 ; pubkey timestamp c4
 LDU 1 ; ctor flag
 NIP
+LDMSGADDR
+LDDICT
+LDDICT
 LDU 32
+LDREF
+ENDS
+CTOS
 LDMSGADDR
 LDDICT
 LDDICT
 LDDICT
 ENDS
+SETGLOB 17
+SETGLOB 16
+SETGLOB 15
 SETGLOB 14
 SETGLOB 13
 SETGLOB 12
@@ -47,10 +3637,20 @@ PUSHCONT {
 	PUSHROOT
 	CTOS
 	PLDDICT ; D
+	PUSHREFSLICE {
+		.blob x8000000000000000000000000000000000000000000000000000000000000000001_
+	}
+	NEWDICT
+	DUP
 	PUSHINT 0
-	PUSHSLICE x8000000000000000000000000000000000000000000000000000000000000000001_
+	PUSHREFSLICE {
+		.blob x8000000000000000000000000000000000000000000000000000000000000000001_
+	}
 	NEWDICT
 	BLKPUSH 2, 0
+	SETGLOB 17
+	SETGLOB 16
+	SETGLOB 15
 	SETGLOB 14
 	SETGLOB 13
 	SETGLOB 12
@@ -69,6 +3669,9 @@ IFREFELSE {
 }
 
 .macro c7_to_c4
+GETGLOB 17
+GETGLOB 16
+GETGLOB 15
 GETGLOB 14
 GETGLOB 13
 GETGLOB 12
@@ -80,11 +3683,17 @@ NEWC
 STU 256
 STU 64
 STONE
+STSLICE
+STDICT
+STDICT
 STU 32
+ROLLREV 4
+NEWC
 STSLICE
 STDICT
 STDICT
 STDICT
+STBREFR
 ENDC
 POPROOT
 
@@ -112,8 +3721,21 @@ NEQINT 1
 SETGLOB 6
 PUSH S2
 CTOS
-PLDU 4
+LDU 4 ; bounced tail
+LDMSGADDR ; bounced src tail
+DROP
+SETGLOB 9
 MODPOW2 1
+GETGLOB 4
+TRUE
+SETINDEXQ 1
+PUSHINT 10000000
+SETINDEXQ 2
+NULL
+SETINDEXQ 3
+PUSHINT 0
+SETINDEXQ 4
+SETGLOB 4
 IFRET
 OVER
 SEMPTY ; isEmpty
@@ -142,6 +3764,10 @@ CTOS
 SBITS
 NEQINT 1
 SETGLOB 6
+PUSHREFSLICE {
+	.blob x8000000000000000000000000000000000000000000000000000000000000000001_
+}
+SETGLOB 9
 OVER
 CALLREF {
 	CALL $c4_to_c7_with_init_storage$
@@ -196,7 +3822,7 @@ ENDS
 CALLREF {
 	CALL $c4_to_c7$
 }
-GETGLOB 10
+GETGLOB 13
 OVER
 PUSHCONT {
 	PUSHSLICE xc0000000000000000000000000ee0ee011
@@ -216,7 +3842,7 @@ ENDS
 CALLREF {
 	CALL $c4_to_c7$
 }
-GETGLOB 11
+GETGLOB 14
 OVER
 PUSHCONT {
 	PUSHSLICE xc0000000000000000000000000eae7080a
@@ -236,7 +3862,7 @@ ENDS
 CALLREF {
 	CALL $c4_to_c7$
 }
-GETGLOB 12
+GETGLOB 15
 OVER
 PUSHCONT {
 	PUSHSLICE xc00000000000000000000000008b121da9
@@ -256,7 +3882,7 @@ ENDS
 CALLREF {
 	CALL $c4_to_c7$
 }
-GETGLOB 13
+GETGLOB 16
 OVER
 PUSHCONT {
 	PUSHSLICE xc0000000000000000000000000c2c6b8fb
@@ -276,7 +3902,7 @@ ENDS
 CALLREF {
 	CALL $c4_to_c7$
 }
-GETGLOB 14
+GETGLOB 17
 OVER
 PUSHCONT {
 	PUSHSLICE xc0000000000000000000000000e71a20fd
@@ -292,49 +3918,389 @@ THROW 0
 
 .macro public_function_selector
 DUP
-PUSHINT 1756716863
+PUSHINT 721955330
 LEQ
 IFJMPREF {
 	DUP
-	PUSHINT 185736617
-	EQUAL
+	PUSHINT 131712536
+	LEQ
 	IFJMPREF {
-		CALL $modules$
+		DUP
+		PUSHINT 4286149
+		EQUAL
+		IFJMPREF {
+			CALL $requestWithdraw$
+		}
+		DUP
+		PUSHINT 101185673
+		EQUAL
+		IFJMPREF {
+			CALL $getParamChangers$
+		}
+		DUP
+		PUSHINT 116648884
+		EQUAL
+		IFJMPREF {
+			CALL $requestTokenPayout$
+		}
+		DUP
+		PUSHINT 131712536
+		EQUAL
+		IFJMPREF {
+			CALL $writeBorrowInformation$
+		}
 	}
 	DUP
-	PUSHINT 1120319739
-	EQUAL
+	PUSHINT 327795694
+	LEQ
 	IFJMPREF {
-		CALL $existingModules$
+		DUP
+		PUSHINT 185736617
+		EQUAL
+		IFJMPREF {
+			CALL $modules$
+		}
+		DUP
+		PUSHINT 260054822
+		EQUAL
+		IFJMPREF {
+			CALL $requestConversionInfo$
+		}
+		DUP
+		PUSHINT 291456250
+		EQUAL
+		IFJMPREF {
+			CALL $createUserAccount$
+		}
+		DUP
+		PUSHINT 327795694
+		EQUAL
+		IFJMPREF {
+			CALL $requestWithdrawInfo$
+		}
 	}
 	DUP
-	PUSHINT 1729765629
-	EQUAL
+	PUSHINT 549579553
+	LEQ
 	IFJMPREF {
-		CALL $userAccountCodes$
+		DUP
+		PUSHINT 380868760
+		EQUAL
+		IFJMPREF {
+			CALL $abortLiquidation$
+		}
+		DUP
+		PUSHINT 415898712
+		EQUAL
+		IFJMPREF {
+			CALL $unlockAfterConversion$
+		}
+		DUP
+		PUSHINT 514135901
+		EQUAL
+		IFJMPREF {
+			CALL $getOwner$
+		}
+		DUP
+		PUSHINT 549579553
+		EQUAL
+		IFJMPREF {
+			CALL $writeConversionInfo$
+		}
 	}
 	DUP
-	PUSHINT 1756716863
-	EQUAL
+	PUSHINT 721955330
+	LEQ
 	IFJMPREF {
-		CALL $constructor$
+		DUP
+		PUSHINT 561722120
+		EQUAL
+		IFJMPREF {
+			CALL $changeOwner$
+		}
+		DUP
+		PUSHINT 657454101
+		EQUAL
+		IFJMPREF {
+			CALL $requestVTokensConversion$
+		}
+		DUP
+		PUSHINT 720228453
+		EQUAL
+		IFJMPREF {
+			CALL $removeMarket$
+		}
+		DUP
+		PUSHINT 721955330
+		EQUAL
+		IFJMPREF {
+			CALL $requestRepayInfo$
+		}
 	}
 }
 DUP
-PUSHINT 1846468625
+PUSHINT 1241300747
 LEQ
 IFJMPREF {
 	DUP
-	PUSHINT 1793525770
-	EQUAL
+	PUSHINT 792155818
+	LEQ
 	IFJMPREF {
-		CALL $marketAddress$
+		DUP
+		PUSHINT 739185995
+		EQUAL
+		IFJMPREF {
+			CALL $writeRepayInformation$
+		}
+		DUP
+		PUSHINT 749194025
+		EQUAL
+		IFJMPREF {
+			CALL $disableUserAccountLock$
+		}
+		DUP
+		PUSHINT 750503793
+		EQUAL
+		IFJMPREF {
+			CALL $requestIndexUpdate$
+		}
+		DUP
+		PUSHINT 792155818
+		EQUAL
+		IFJMPREF {
+			CALL $updateUserAccount$
+		}
 	}
 	DUP
-	PUSHINT 1846468625
+	PUSHINT 947932843
+	LEQ
+	IFJMPREF {
+		DUP
+		PUSHINT 836217662
+		EQUAL
+		IFJMPREF {
+			CALL $receiveRepayInfo$
+		}
+		DUP
+		PUSHINT 838213693
+		EQUAL
+		IFJMPREF {
+			CALL $setUpgrader$
+		}
+		DUP
+		PUSHINT 882169032
+		EQUAL
+		IFJMPREF {
+			CALL $removeModule$
+		}
+		DUP
+		PUSHINT 947932843
+		EQUAL
+		IFJMPREF {
+			CALL $getUpgraders$
+		}
+	}
+	DUP
+	PUSHINT 1120319739
+	LEQ
+	IFJMPREF {
+		DUP
+		PUSHINT 949047839
+		EQUAL
+		IFJMPREF {
+			CALL $withdrawExtraTons$
+		}
+		DUP
+		PUSHINT 964347994
+		EQUAL
+		IFJMPREF {
+			CALL $grantVTokens$
+		}
+		DUP
+		PUSHINT 1007808698
+		EQUAL
+		IFJMPREF {
+			CALL $seizeTokens$
+		}
+		DUP
+		PUSHINT 1120319739
+		EQUAL
+		IFJMPREF {
+			CALL $existingModules$
+		}
+	}
+	DUP
+	PUSHINT 1241300747
+	LEQ
+	IFJMPREF {
+		DUP
+		PUSHINT 1193983778
+		EQUAL
+		IFJMPREF {
+			CALL $returnAndSupply$
+		}
+		DUP
+		PUSHINT 1196840156
+		EQUAL
+		IFJMPREF {
+			CALL $constructor$
+		}
+		DUP
+		PUSHINT 1240795541
+		EQUAL
+		IFJMPREF {
+			CALL $writeSupplyInfo$
+		}
+		DUP
+		PUSHINT 1241300747
+		EQUAL
+		IFJMPREF {
+			CALL $calculateUserAccountAddress$
+		}
+	}
+}
+DUP
+PUSHINT 1993043941
+LEQ
+IFJMPREF {
+	DUP
+	PUSHINT 1367788622
+	LEQ
+	IFJMPREF {
+		DUP
+		PUSHINT 1241558316
+		EQUAL
+		IFJMPREF {
+			CALL $requestLiquidationInformation$
+		}
+		DUP
+		PUSHINT 1254603927
+		EQUAL
+		IFJMPREF {
+			CALL $setMarketAddress$
+		}
+		DUP
+		PUSHINT 1259899084
+		EQUAL
+		IFJMPREF {
+			CALL $passBorrowInformation$
+		}
+		DUP
+		PUSHINT 1367788622
+		EQUAL
+		IFJMPREF {
+			CALL $writeWithdrawInfo$
+		}
+	}
+	DUP
+	PUSHINT 1601439192
+	LEQ
+	IFJMPREF {
+		DUP
+		PUSHINT 1394033904
+		EQUAL
+		IFJMPREF {
+			CALL $upgradeContractCode$
+		}
+		DUP
+		PUSHINT 1444357835
+		EQUAL
+		IFJMPREF {
+			CALL $requestUserAccountHealthCalculation$
+		}
+		DUP
+		PUSHINT 1462725602
+		EQUAL
+		IFJMPREF {
+			CALL $uploadUserAccountCode$
+		}
+		DUP
+		PUSHINT 1601439192
+		EQUAL
+		IFJMPREF {
+			CALL $receiveLiquidationInformation$
+		}
+	}
+	DUP
+	PUSHINT 1822272059
+	LEQ
+	IFJMPREF {
+		DUP
+		PUSHINT 1729765629
+		EQUAL
+		IFJMPREF {
+			CALL $userAccountCodes$
+		}
+		DUP
+		PUSHINT 1731014046
+		EQUAL
+		IFJMPREF {
+			CALL $calculateUserAccountHealth$
+		}
+		DUP
+		PUSHINT 1793525770
+		EQUAL
+		IFJMPREF {
+			CALL $marketAddress$
+		}
+		DUP
+		PUSHINT 1822272059
+		EQUAL
+		IFJMPREF {
+			CALL $getUserAccountCode$
+		}
+	}
+	DUP
+	PUSHINT 1993043941
+	LEQ
+	IFJMPREF {
+		DUP
+		PUSHINT 1846468625
+		EQUAL
+		IFJMPREF {
+			CALL $contractCodeVersion$
+		}
+		DUP
+		PUSHINT 1904385813
+		EQUAL
+		IFJMPREF {
+			CALL $receiveWithdrawInfo$
+		}
+		DUP
+		PUSHINT 1992399946
+		EQUAL
+		IFJMPREF {
+			CALL $setParamChanger$
+		}
+		DUP
+		PUSHINT 1993043941
+		EQUAL
+		IFJMPREF {
+			CALL $updateUserAccountHealth$
+		}
+	}
+}
+DUP
+PUSHINT 2114711734
+LEQ
+IFJMPREF {
+	DUP
+	PUSHINT 1994340248
 	EQUAL
 	IFJMPREF {
-		CALL $contractCodeVersion$
+		CALL $addModule$
+	}
+	DUP
+	PUSHINT 2003354329
+	EQUAL
+	IFJMPREF {
+		CALL $updateUserIndexes$
+	}
+	DUP
+	PUSHINT 2114711734
+	EQUAL
+	IFJMPREF {
+		CALL $receiveConversionInfo$
 	}
 }
 

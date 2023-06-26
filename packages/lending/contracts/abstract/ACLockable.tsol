@@ -1,0 +1,24 @@
+pragma ever-solidity >= 0.62.0;
+
+import '../interfaces/ILockable.tsol';
+
+abstract contract ACLockable is ILockable {
+    bool _lock;
+    mapping(address => bool) _userLocks;
+    
+    function _lockUser(address _user, bool _locked) internal {
+        _userLocks[_user] = _locked;
+    }
+
+    function _generalLock(bool _locked) internal {
+        _lock = _locked;
+    }
+
+    function _isLocked() internal view returns (bool) {
+        return _lock;
+    }
+
+    function _isUserLocked(address _user) internal view returns (bool) {
+        return _userLocks[_user];
+    }
+}

@@ -1,0 +1,52 @@
+pragma ever-solidity >= 0.62.0;
+
+import './ILockable.tsol';
+import './IUAMUserAccount.tsol';
+import '../abstract/ACLockable.tsol';
+
+interface IModule {
+    function withdrawTokensFromMarket(
+        address venomWallet, 
+        address userTip3Wallet,
+        uint256 tokensToWithdraw, 
+        uint32 marketId, 
+        mapping(uint32 => uint256) supplyInfo,
+        mapping (uint32 => BorrowInfo) borrowInfo
+    ) external;
+
+    function borrowTokensFromMarket(
+        address venomWallet,
+        address userTip3Wallet,
+        uint256 tokensToBorrow,
+        uint32 marketId,
+        mapping (uint32 => uint256) supplyInfo,
+        mapping (uint32 => BorrowInfo) borrowInfo
+    ) external;
+
+    function repayLoan(
+        address venomWallet,
+        address userTip3Wallet,
+        uint256 tokensForRepay,
+        uint32 marketId,
+        BorrowInfo borrowInfo
+    ) external;
+
+    function liquidate(
+        address venomWallet, 
+        address targetUser, 
+        address tip3UserWallet, 
+        uint32 marketId, 
+        uint32 marketToLiquidate,
+        uint256 tokensProvided, 
+        mapping(uint32 => uint256) supplyInfo, 
+        mapping(uint32 => BorrowInfo) borrowInfo
+    ) external;
+
+    function performConversion(
+        address _user, 
+        uint256 _amount, 
+        uint32 marketId, 
+        mapping (uint32 => uint256) supplyInfo,
+        mapping (uint32 => BorrowInfo) borrowInfo
+    ) external;
+}

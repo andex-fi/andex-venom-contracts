@@ -1,0 +1,77 @@
+{
+	"ABI version": 2,
+	"version": "2.2",
+	"header": ["pubkey", "time", "expire"],
+	"functions": [
+		{
+			"name": "constructor",
+			"inputs": [
+			],
+			"outputs": [
+			]
+		},
+		{
+			"name": "contractCodeVersion",
+			"inputs": [
+			],
+			"outputs": [
+				{"name":"contractCodeVersion","type":"uint32"}
+			]
+		},
+		{
+			"name": "marketAddress",
+			"inputs": [
+			],
+			"outputs": [
+				{"name":"marketAddress","type":"address"}
+			]
+		},
+		{
+			"name": "wallets",
+			"inputs": [
+			],
+			"outputs": [
+				{"name":"wallets","type":"map(address,address)"}
+			]
+		},
+		{
+			"name": "realTokenRoots",
+			"inputs": [
+			],
+			"outputs": [
+				{"name":"realTokenRoots","type":"map(address,bool)"}
+			]
+		},
+		{
+			"name": "tokensToMarkets",
+			"inputs": [
+			],
+			"outputs": [
+				{"name":"tokensToMarkets","type":"map(address,uint32)"}
+			]
+		},
+		{
+			"name": "marketTIP3Info",
+			"inputs": [
+			],
+			"outputs": [
+				{"components":[{"name":"realToken","type":"address"},{"name":"realTokenWallet","type":"address"}],"name":"marketTIP3Info","type":"map(uint32,tuple)"}
+			]
+		}
+	],
+	"data": [
+	],
+	"events": [
+	],
+	"fields": [
+		{"name":"_pubkey","type":"uint256"},
+		{"name":"_timestamp","type":"uint64"},
+		{"name":"_constructorFlag","type":"bool"},
+		{"name":"contractCodeVersion","type":"uint32"},
+		{"name":"marketAddress","type":"address"},
+		{"name":"wallets","type":"map(address,address)"},
+		{"name":"realTokenRoots","type":"map(address,bool)"},
+		{"name":"tokensToMarkets","type":"map(address,uint32)"},
+		{"components":[{"name":"realToken","type":"address"},{"name":"realTokenWallet","type":"address"}],"name":"marketTIP3Info","type":"map(uint32,tuple)"}
+	]
+}

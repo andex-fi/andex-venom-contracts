@@ -1,6 +1,16 @@
 pragma ever-solidity >= 0.62.0;
 
-library UserAccountCostConstants {
-    uint128 constant useForUADeploy = 1 ever;
-    uint128 constant updateHealthCost = 1 ever;
+library CostConstants {
+    uint128 constant USE_FOR_UA_DEPLOY = 1 ever;
+    uint128 constant UPDATE_HEALTH_COST = 1 ever;
+
+    uint128 constant FETCH_TIP3_ROOT_INFORMATION = 0.2 ever;
+    uint128 constant SEND_TO_TIP3_DEPLOYER = 1.5 ever;
+    uint128 constant USE_TO_DEPLOY_TIP3_ROOT = 1 ever;
+    uint128 constant NOTIFY_CONTRACT_CONTROLLER = 0.2 ever;
+
+    uint128 constant WALLET_DEPLOY_COST = 2 ever;
+    uint128 constant WALLET_DEPLOY_GRAMS = 1.5 ever;
+    uint128 constant GET_WALLET_ADDRESS = 1 ever;
+    uint128 constant SET_RECEIVE_CALLBACK = 0.5 ever;    
 }
