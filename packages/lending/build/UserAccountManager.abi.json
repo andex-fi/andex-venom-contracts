@@ -9,15 +9,69 @@
 			],
 			"outputs": [
 			]
+		},
+		{
+			"name": "contractCodeVersion",
+			"inputs": [
+			],
+			"outputs": [
+				{"name":"contractCodeVersion","type":"uint32"}
+			]
+		},
+		{
+			"name": "marketAddress",
+			"inputs": [
+			],
+			"outputs": [
+				{"name":"marketAddress","type":"address"}
+			]
+		},
+		{
+			"name": "modules",
+			"inputs": [
+			],
+			"outputs": [
+				{"name":"modules","type":"map(uint8,address)"}
+			]
+		},
+		{
+			"name": "existingModules",
+			"inputs": [
+			],
+			"outputs": [
+				{"name":"existingModules","type":"map(address,bool)"}
+			]
+		},
+		{
+			"name": "userAccountCodes",
+			"inputs": [
+			],
+			"outputs": [
+				{"name":"userAccountCodes","type":"map(uint32,cell)"}
+			]
 		}
 	],
 	"data": [
 	],
 	"events": [
+		{
+			"name": "AccountCreated",
+			"inputs": [
+				{"name":"tonWallet","type":"address"},
+				{"name":"userAddress","type":"address"}
+			],
+			"outputs": [
+			]
+		}
 	],
 	"fields": [
 		{"name":"_pubkey","type":"uint256"},
 		{"name":"_timestamp","type":"uint64"},
-		{"name":"_constructorFlag","type":"bool"}
+		{"name":"_constructorFlag","type":"bool"},
+		{"name":"contractCodeVersion","type":"uint32"},
+		{"name":"marketAddress","type":"address"},
+		{"name":"modules","type":"map(uint8,address)"},
+		{"name":"existingModules","type":"map(address,bool)"},
+		{"name":"userAccountCodes","type":"map(uint32,cell)"}
 	]
 }

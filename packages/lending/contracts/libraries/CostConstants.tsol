@@ -1,0 +1,6 @@
+pragma ever-solidity >= 0.62.0;
+
+library UserAccountCostConstants {
+    uint128 constant useForUADeploy = 1 ever;
+    uint128 constant updateHealthCost = 1 ever;
+}

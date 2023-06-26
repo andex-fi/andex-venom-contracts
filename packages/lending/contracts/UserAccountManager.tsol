@@ -3,4 +3,26 @@ pragma AbiHeader pubkey;
 pragma AbiHeader expire;
 pragma AbiHeader time;
 
-contract UserAccountManager {}
+import './interfaces/IUserAccountManager.tsol';
+import './interfaces/IUAMUserAccount.tsol';
+import './interfaces/IUAMMarket.tsol';
+import "./interfaces/IUpgradeableContract.tsol";
+
+import "./libraries/UserAccountErrorCodes.tsol";
+import './libraries/CostConstants.tsol';
+import "./libraries/MsgFlag.tsol";
+import "./libraries/OperationCodes.tsol";
+
+import './UserAccount.tsol';
+
+contract UserAccountManager {
+    // Information for update
+    uint32 public contractCodeVersion;
+
+    address public marketAddress;
+    mapping(uint8 => address) public modules;
+    mapping(address => bool) public existingModules;
+    mapping(uint32 => TvmCell) public userAccountCodes;
+
+    event AccountCreated(address tonWallet, address userAddress);
+}
