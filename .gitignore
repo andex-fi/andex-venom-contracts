@@ -2,3 +2,4 @@ locklift.config.ts
 node_modules
 .env
 .temp
+.DS_Store
