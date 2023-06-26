@@ -1,0 +1,5 @@
+pragma ever-solidity >= 0.62.0;
+
+interface IWCMInteractions {
+    function transferTokensToWallet(address venomWallet, address tokenRoot, address userTip3Wallet, uint256 toPayout) external view;
+}

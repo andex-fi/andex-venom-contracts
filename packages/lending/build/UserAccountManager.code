@@ -67,13 +67,13 @@ GETGLOB 9
 GETGLOB 10
 SDEQ
 OR
-THROWIFNOT 220
-.loc ../contracts/UserAccountManager.tsol, 59
+THROWIFNOT 115
+.loc ../contracts/UserAccountManager.tsol, 55
 ACCEPT
-.loc ../contracts/UserAccountManager.tsol, 61
+.loc ../contracts/UserAccountManager.tsol, 57
 PUSH S2
 SETCODE
-.loc ../contracts/UserAccountManager.tsol, 62
+.loc ../contracts/UserAccountManager.tsol, 58
 ROT
 CTOS
 DUP
@@ -88,7 +88,7 @@ PLDREF
 CTOS
 BLESS
 POP C3
-.loc ../contracts/UserAccountManager.tsol, 64
+.loc ../contracts/UserAccountManager.tsol, 60
 GETGLOB 10
 GETGLOB 14
 GETGLOB 15
@@ -102,9 +102,9 @@ CALLREF {
 
 .internal-alias :onCodeUpgrade, 2
 .internal :onCodeUpgrade
-.loc ../contracts/UserAccountManager.tsol, 84
+.loc ../contracts/UserAccountManager.tsol, 80
 ACCEPT
-.loc ../contracts/UserAccountManager.tsol, 85
+.loc ../contracts/UserAccountManager.tsol, 81
 PUSHREFSLICE {
 	.blob x8000000000000000000000000000000000000000000000000000000000000000001_
 }
@@ -125,22 +125,22 @@ NEWDICT
 SETGLOB 16
 NEWDICT
 SETGLOB 17
-.loc ../contracts/UserAccountManager.tsol, 86
+.loc ../contracts/UserAccountManager.tsol, 82
 SETGLOB 13
-.loc ../contracts/UserAccountManager.tsol, 87
+.loc ../contracts/UserAccountManager.tsol, 83
 DROP
 ROLL 4
 SETGLOB 10
-.loc ../contracts/UserAccountManager.tsol, 88
+.loc ../contracts/UserAccountManager.tsol, 84
 ROLL 3
 SETGLOB 14
-.loc ../contracts/UserAccountManager.tsol, 89
+.loc ../contracts/UserAccountManager.tsol, 85
 ROT
 SETGLOB 15
-.loc ../contracts/UserAccountManager.tsol, 90
+.loc ../contracts/UserAccountManager.tsol, 86
 SWAP
 SETGLOB 16
-.loc ../contracts/UserAccountManager.tsol, 91
+.loc ../contracts/UserAccountManager.tsol, 87
 SETGLOB 17
 .loc ../contracts/UserAccountManager.tsol, 0
 CALLREF {
@@ -158,7 +158,7 @@ ISNULL
 IFREF {
 	CALL $c4_to_c7$
 }
-.loc ../contracts/UserAccountManager.tsol, 99
+.loc ../contracts/UserAccountManager.tsol, 95
 OVER
 PUSHCONT {
 	LDREF
@@ -178,7 +178,7 @@ IFREF {
 THROW 0
 
 .macro createUserAccount_95fba7f6_internal_macro
-.loc ../contracts/UserAccountManager.tsol, 100
+.loc ../contracts/UserAccountManager.tsol, 96
 PUSHINT 0
 GETGLOB 17
 PUSHINT 32
@@ -189,10 +189,10 @@ PUSHCONT {
 }
 IFNOT
 CTOS
-.loc ../contracts/UserAccountManager.tsol, 101
+.loc ../contracts/UserAccountManager.tsol, 97
 SEMPTY
 THROWIF 100
-.loc ../contracts/UserAccountManager.tsol, 103
+.loc ../contracts/UserAccountManager.tsol, 99
 PUSHINT 0
 NEWC
 STU 256
@@ -264,7 +264,7 @@ STSLICECONST x345aaf9fc_
 ENDC
 PUSHINT 0
 SENDRAWMSG
-.loc ../contracts/UserAccountManager.tsol, 112
+.loc ../contracts/UserAccountManager.tsol, 108
 OVER
 PUSHSLICE xc0000000000000000000000001
 NEWC
@@ -281,7 +281,7 @@ STBREFR
 ENDC
 PUSHINT 0
 SENDRAWMSG
-.loc ../contracts/UserAccountManager.tsol, 114
+.loc ../contracts/UserAccountManager.tsol, 110
 CALLREF {
 	CALL $_updateUserAccount_bc81b1d6_internal_macro$
 }
@@ -296,7 +296,7 @@ ISNULL
 IFREF {
 	CALL $c4_to_c7$
 }
-.loc ../contracts/UserAccountManager.tsol, 121
+.loc ../contracts/UserAccountManager.tsol, 117
 LDU 32
 GETGLOB 4
 ROT
@@ -374,7 +374,7 @@ IFREF {
 THROW 0
 
 .macro calculateUserAccountAddress_ca001465_internal_macro
-.loc ../contracts/UserAccountManager.tsol, 122
+.loc ../contracts/UserAccountManager.tsol, 118
 GETGLOB 4
 PUSHINT 0
 SETINDEXQ 2
@@ -393,7 +393,7 @@ CALLREF {
 CALL $_calculateUserAccountAddress_3633b98b_internal_macro$
 
 .macro _calculateUserAccountAddress_3633b98b_internal_macro
-.loc ../contracts/UserAccountManager.tsol, 129
+.loc ../contracts/UserAccountManager.tsol, 125
 CALLREF {
 	CALL $_buildUserAccountData_0370235c_internal_macro$
 }
@@ -410,7 +410,7 @@ CTOS
 CALL $_buildUserAccountData_0370235c_internal_macro$
 
 .macro _buildUserAccountData_0370235c_internal_macro
-.loc ../contracts/UserAccountManager.tsol, 136
+.loc ../contracts/UserAccountManager.tsol, 132
 PUSHINT 0
 NEWC
 STU 256
@@ -452,7 +452,7 @@ ISNULL
 IFREF {
 	CALL $c4_to_c7$
 }
-.loc ../contracts/UserAccountManager.tsol, 149
+.loc ../contracts/UserAccountManager.tsol, 145
 OVER
 PUSHCONT {
 	LDREF
@@ -482,7 +482,7 @@ IFREF {
 THROW 0
 
 .macro writeSupplyInfo_ba73365d_internal_macro
-.loc ../contracts/UserAccountManager.tsol, 639
+.loc ../contracts/UserAccountManager.tsol, 635
 GETGLOB 9
 PUSHINT 0
 GETGLOB 15
@@ -496,12 +496,12 @@ PUSHCONT {
 IFNOT
 SDEQ
 THROWIFNOT 110
-.loc ../contracts/UserAccountManager.tsol, 155
+.loc ../contracts/UserAccountManager.tsol, 151
 ROLL 3
 CALLREF {
 	CALL $_calculateUserAccountAddress_3633b98b_internal_macro$
 }
-.loc ../contracts/UserAccountManager.tsol, 156
+.loc ../contracts/UserAccountManager.tsol, 152
 XCHG S1, S3
 NEWC
 STSLICECONST x62_
@@ -533,7 +533,7 @@ ISNULL
 IFREF {
 	CALL $c4_to_c7$
 }
-.loc ../contracts/UserAccountManager.tsol, 164
+.loc ../contracts/UserAccountManager.tsol, 160
 OVER
 PUSHCONT {
 	LDREF
@@ -559,25 +559,25 @@ IFREF {
 THROW 0
 
 .macro requestWithdraw_ebd50981_internal_macro
-.loc ../contracts/UserAccountManager.tsol, 164
+.loc ../contracts/UserAccountManager.tsol, 160
 GETGLOB 9
 PUSH S4
-.loc ../contracts/UserAccountManager.tsol, 659
+.loc ../contracts/UserAccountManager.tsol, 655
 CALLREF {
 	CALL $_calculateUserAccountAddress_3633b98b_internal_macro$
 }
 SDEQ
 THROWIFNOT 112
-.loc ../contracts/UserAccountManager.tsol, 171
+.loc ../contracts/UserAccountManager.tsol, 167
 ROLL 3
 NEWC
 STSLICE
-.loc ../contracts/UserAccountManager.tsol, 172
+.loc ../contracts/UserAccountManager.tsol, 168
 ROLL 3
 STSLICER
-.loc ../contracts/UserAccountManager.tsol, 173
+.loc ../contracts/UserAccountManager.tsol, 169
 STU 256
-.loc ../contracts/UserAccountManager.tsol, 174
+.loc ../contracts/UserAccountManager.tsol, 170
 ENDC
 SWAP
 PUSHINT 2
@@ -604,7 +604,7 @@ ISNULL
 IFREF {
 	CALL $c4_to_c7$
 }
-.loc ../contracts/UserAccountManager.tsol, 179
+.loc ../contracts/UserAccountManager.tsol, 175
 OVER
 PUSHCONT {
 	LDREF
@@ -631,7 +631,7 @@ IFREF {
 THROW 0
 
 .macro requestWithdrawInfo_73f8ffa5_internal_macro
-.loc ../contracts/UserAccountManager.tsol, 639
+.loc ../contracts/UserAccountManager.tsol, 635
 GETGLOB 9
 PUSHINT 2
 GETGLOB 15
@@ -645,12 +645,12 @@ PUSHCONT {
 IFNOT
 SDEQ
 THROWIFNOT 110
-.loc ../contracts/UserAccountManager.tsol, 186
+.loc ../contracts/UserAccountManager.tsol, 182
 ROLL 4
 CALLREF {
 	CALL $_calculateUserAccountAddress_3633b98b_internal_macro$
 }
-.loc ../contracts/UserAccountManager.tsol, 187
+.loc ../contracts/UserAccountManager.tsol, 183
 XCHG S1, S4
 NEWC
 STSLICECONST x62_
@@ -679,7 +679,7 @@ ISNULL
 IFREF {
 	CALL $c4_to_c7$
 }
-.loc ../contracts/UserAccountManager.tsol, 192
+.loc ../contracts/UserAccountManager.tsol, 188
 OVER
 PUSHCONT {
 	LDREF
@@ -707,16 +707,16 @@ IFREF {
 THROW 0
 
 .macro receiveWithdrawInfo_4e8b7063_internal_macro
-.loc ../contracts/UserAccountManager.tsol, 192
+.loc ../contracts/UserAccountManager.tsol, 188
 GETGLOB 9
 PUSH S6
-.loc ../contracts/UserAccountManager.tsol, 659
+.loc ../contracts/UserAccountManager.tsol, 655
 CALLREF {
 	CALL $_calculateUserAccountAddress_3633b98b_internal_macro$
 }
 SDEQ
 THROWIFNOT 112
-.loc ../contracts/UserAccountManager.tsol, 200
+.loc ../contracts/UserAccountManager.tsol, 196
 REVERSE 6, 0
 PUSHINT 2
 GETGLOB 15
@@ -760,7 +760,7 @@ ISNULL
 IFREF {
 	CALL $c4_to_c7$
 }
-.loc ../contracts/UserAccountManager.tsol, 205
+.loc ../contracts/UserAccountManager.tsol, 201
 OVER
 PUSHCONT {
 	LDREF
@@ -790,7 +790,7 @@ IFREF {
 THROW 0
 
 .macro writeWithdrawInfo_336e9d3f_internal_macro
-.loc ../contracts/UserAccountManager.tsol, 639
+.loc ../contracts/UserAccountManager.tsol, 635
 GETGLOB 9
 PUSHINT 2
 GETGLOB 15
@@ -804,12 +804,12 @@ PUSHCONT {
 IFNOT
 SDEQ
 THROWIFNOT 110
-.loc ../contracts/UserAccountManager.tsol, 212
+.loc ../contracts/UserAccountManager.tsol, 208
 ROLL 4
 CALLREF {
 	CALL $_calculateUserAccountAddress_3633b98b_internal_macro$
 }
-.loc ../contracts/UserAccountManager.tsol, 213
+.loc ../contracts/UserAccountManager.tsol, 209
 REVERSE 4, 1
 NEWC
 STSLICECONST x62_
@@ -841,7 +841,7 @@ ISNULL
 IFREF {
 	CALL $c4_to_c7$
 }
-.loc ../contracts/UserAccountManager.tsol, 221
+.loc ../contracts/UserAccountManager.tsol, 217
 OVER
 PUSHCONT {
 	LDREF
@@ -863,16 +863,16 @@ IFREF {
 THROW 0
 
 .macro requestIndexUpdate_9e1b109b_internal_macro
-.loc ../contracts/UserAccountManager.tsol, 221
+.loc ../contracts/UserAccountManager.tsol, 217
 GETGLOB 9
 ROLL 3
-.loc ../contracts/UserAccountManager.tsol, 659
+.loc ../contracts/UserAccountManager.tsol, 655
 CALLREF {
 	CALL $_calculateUserAccountAddress_3633b98b_internal_macro$
 }
 SDEQ
 THROWIFNOT 112
-.loc ../contracts/UserAccountManager.tsol, 226
+.loc ../contracts/UserAccountManager.tsol, 222
 SWAP
 PUSHINT 3
 GETGLOB 14
@@ -898,7 +898,7 @@ ISNULL
 IFREF {
 	CALL $c4_to_c7$
 }
-.loc ../contracts/UserAccountManager.tsol, 231
+.loc ../contracts/UserAccountManager.tsol, 227
 OVER
 PUSHCONT {
 	LDREF
@@ -925,7 +925,7 @@ IFREF {
 THROW 0
 
 .macro updateUserIndexes_9337f6e5_internal_macro
-.loc ../contracts/UserAccountManager.tsol, 639
+.loc ../contracts/UserAccountManager.tsol, 635
 GETGLOB 9
 PUSHINT 3
 GETGLOB 15
@@ -939,12 +939,12 @@ PUSHCONT {
 IFNOT
 SDEQ
 THROWIFNOT 110
-.loc ../contracts/UserAccountManager.tsol, 238
+.loc ../contracts/UserAccountManager.tsol, 234
 ROLL 4
 CALLREF {
 	CALL $_calculateUserAccountAddress_3633b98b_internal_macro$
 }
-.loc ../contracts/UserAccountManager.tsol, 239
+.loc ../contracts/UserAccountManager.tsol, 235
 XCHG S1, S2
 XCHG S3, S4
 NEWC
@@ -974,7 +974,7 @@ ISNULL
 IFREF {
 	CALL $c4_to_c7$
 }
-.loc ../contracts/UserAccountManager.tsol, 244
+.loc ../contracts/UserAccountManager.tsol, 240
 OVER
 PUSHCONT {
 	LDREF
@@ -1002,16 +1002,16 @@ IFREF {
 THROW 0
 
 .macro passBorrowInformation_6d1ebc4a_internal_macro
-.loc ../contracts/UserAccountManager.tsol, 244
+.loc ../contracts/UserAccountManager.tsol, 240
 GETGLOB 9
 PUSH S6
-.loc ../contracts/UserAccountManager.tsol, 659
+.loc ../contracts/UserAccountManager.tsol, 655
 CALLREF {
 	CALL $_calculateUserAccountAddress_3633b98b_internal_macro$
 }
 SDEQ
 THROWIFNOT 112
-.loc ../contracts/UserAccountManager.tsol, 252
+.loc ../contracts/UserAccountManager.tsol, 248
 XCHG S5
 XCHG S1, S4
 PUSHINT 3
@@ -1056,7 +1056,7 @@ ISNULL
 IFREF {
 	CALL $c4_to_c7$
 }
-.loc ../contracts/UserAccountManager.tsol, 257
+.loc ../contracts/UserAccountManager.tsol, 253
 OVER
 PUSHCONT {
 	LDREF
@@ -1090,7 +1090,7 @@ IFREF {
 THROW 0
 
 .macro writeBorrowInformation_ab637cb7_internal_macro
-.loc ../contracts/UserAccountManager.tsol, 639
+.loc ../contracts/UserAccountManager.tsol, 635
 GETGLOB 9
 PUSHINT 3
 GETGLOB 15
@@ -1104,12 +1104,12 @@ PUSHCONT {
 IFNOT
 SDEQ
 THROWIFNOT 110
-.loc ../contracts/UserAccountManager.tsol, 264
+.loc ../contracts/UserAccountManager.tsol, 260
 ROLL 4
 CALLREF {
 	CALL $_calculateUserAccountAddress_3633b98b_internal_macro$
 }
-.loc ../contracts/UserAccountManager.tsol, 265
+.loc ../contracts/UserAccountManager.tsol, 261
 SWAP
 ROLLREV 4
 NEWC
@@ -1145,7 +1145,7 @@ ISNULL
 IFREF {
 	CALL $c4_to_c7$
 }
-.loc ../contracts/UserAccountManager.tsol, 273
+.loc ../contracts/UserAccountManager.tsol, 269
 OVER
 PUSHCONT {
 	LDREF
@@ -1172,7 +1172,7 @@ IFREF {
 THROW 0
 
 .macro requestRepayInfo_0e050540_internal_macro
-.loc ../contracts/UserAccountManager.tsol, 639
+.loc ../contracts/UserAccountManager.tsol, 635
 GETGLOB 9
 PUSHINT 1
 GETGLOB 15
@@ -1186,12 +1186,12 @@ PUSHCONT {
 IFNOT
 SDEQ
 THROWIFNOT 110
-.loc ../contracts/UserAccountManager.tsol, 280
+.loc ../contracts/UserAccountManager.tsol, 276
 ROLL 4
 CALLREF {
 	CALL $_calculateUserAccountAddress_3633b98b_internal_macro$
 }
-.loc ../contracts/UserAccountManager.tsol, 281
+.loc ../contracts/UserAccountManager.tsol, 277
 XCHG S1, S4
 NEWC
 STSLICECONST x62_
@@ -1220,7 +1220,7 @@ ISNULL
 IFREF {
 	CALL $c4_to_c7$
 }
-.loc ../contracts/UserAccountManager.tsol, 286
+.loc ../contracts/UserAccountManager.tsol, 282
 OVER
 PUSHCONT {
 	LDREF
@@ -1257,16 +1257,16 @@ IFREF {
 THROW 0
 
 .macro receiveRepayInfo_8955688f_internal_macro
-.loc ../contracts/UserAccountManager.tsol, 286
+.loc ../contracts/UserAccountManager.tsol, 282
 GETGLOB 9
 PUSH S5
-.loc ../contracts/UserAccountManager.tsol, 659
+.loc ../contracts/UserAccountManager.tsol, 655
 CALLREF {
 	CALL $_calculateUserAccountAddress_3633b98b_internal_macro$
 }
 SDEQ
 THROWIFNOT 112
-.loc ../contracts/UserAccountManager.tsol, 293
+.loc ../contracts/UserAccountManager.tsol, 289
 REVERSE 5, 0
 PUSHINT 1
 GETGLOB 15
@@ -1319,7 +1319,7 @@ ISNULL
 IFREF {
 	CALL $c4_to_c7$
 }
-.loc ../contracts/UserAccountManager.tsol, 298
+.loc ../contracts/UserAccountManager.tsol, 294
 OVER
 PUSHCONT {
 	LDREF
@@ -1356,7 +1356,7 @@ IFREF {
 THROW 0
 
 .macro writeRepayInformation_24a553f5_internal_macro
-.loc ../contracts/UserAccountManager.tsol, 639
+.loc ../contracts/UserAccountManager.tsol, 635
 GETGLOB 9
 PUSHINT 1
 GETGLOB 15
@@ -1370,12 +1370,12 @@ PUSHCONT {
 IFNOT
 SDEQ
 THROWIFNOT 110
-.loc ../contracts/UserAccountManager.tsol, 305
+.loc ../contracts/UserAccountManager.tsol, 301
 ROLL 4
 CALLREF {
 	CALL $_calculateUserAccountAddress_3633b98b_internal_macro$
 }
-.loc ../contracts/UserAccountManager.tsol, 306
+.loc ../contracts/UserAccountManager.tsol, 302
 REVERSE 4, 1
 NEWC
 STSLICECONST x62_
@@ -1414,7 +1414,7 @@ ISNULL
 IFREF {
 	CALL $c4_to_c7$
 }
-.loc ../contracts/UserAccountManager.tsol, 314
+.loc ../contracts/UserAccountManager.tsol, 310
 OVER
 PUSHCONT {
 	LDREF
@@ -1446,7 +1446,7 @@ IFREF {
 THROW 0
 
 .macro requestLiquidationInformation_bf7568dd_internal_macro
-.loc ../contracts/UserAccountManager.tsol, 639
+.loc ../contracts/UserAccountManager.tsol, 635
 GETGLOB 9
 PUSHINT 4
 GETGLOB 15
@@ -1460,12 +1460,12 @@ PUSHCONT {
 IFNOT
 SDEQ
 THROWIFNOT 110
-.loc ../contracts/UserAccountManager.tsol, 323
+.loc ../contracts/UserAccountManager.tsol, 319
 ROLL 5
 CALLREF {
 	CALL $_calculateUserAccountAddress_3633b98b_internal_macro$
 }
-.loc ../contracts/UserAccountManager.tsol, 324
+.loc ../contracts/UserAccountManager.tsol, 320
 REVERSE 6, 1
 NEWC
 STSLICECONST x62_
@@ -1499,7 +1499,7 @@ ISNULL
 IFREF {
 	CALL $c4_to_c7$
 }
-.loc ../contracts/UserAccountManager.tsol, 329
+.loc ../contracts/UserAccountManager.tsol, 325
 OVER
 PUSHCONT {
 	LDREF
@@ -1532,16 +1532,16 @@ IFREF {
 THROW 0
 
 .macro receiveLiquidationInformation_52a1e387_internal_macro
-.loc ../contracts/UserAccountManager.tsol, 329
+.loc ../contracts/UserAccountManager.tsol, 325
 GETGLOB 9
 PUSH S7
-.loc ../contracts/UserAccountManager.tsol, 659
+.loc ../contracts/UserAccountManager.tsol, 655
 CALLREF {
 	CALL $_calculateUserAccountAddress_3633b98b_internal_macro$
 }
 SDEQ
 THROWIFNOT 112
-.loc ../contracts/UserAccountManager.tsol, 339
+.loc ../contracts/UserAccountManager.tsol, 335
 REVERSE 8, 0
 PUSHINT 4
 GETGLOB 15
@@ -1590,7 +1590,7 @@ ISNULL
 IFREF {
 	CALL $c4_to_c7$
 }
-.loc ../contracts/UserAccountManager.tsol, 344
+.loc ../contracts/UserAccountManager.tsol, 340
 OVER
 PUSHCONT {
 	LDREF
@@ -1636,7 +1636,7 @@ IFREF {
 THROW 0
 
 .macro seizeTokens_67f6f7fb_internal_macro
-.loc ../contracts/UserAccountManager.tsol, 639
+.loc ../contracts/UserAccountManager.tsol, 635
 GETGLOB 9
 PUSHINT 4
 GETGLOB 15
@@ -1650,12 +1650,12 @@ PUSHCONT {
 IFNOT
 SDEQ
 THROWIFNOT 110
-.loc ../contracts/UserAccountManager.tsol, 354
+.loc ../contracts/UserAccountManager.tsol, 350
 ROLL 6
 CALLREF {
 	CALL $_calculateUserAccountAddress_3633b98b_internal_macro$
 }
-.loc ../contracts/UserAccountManager.tsol, 355
+.loc ../contracts/UserAccountManager.tsol, 351
 REVERSE 7, 1
 NEWC
 STSLICECONST x62_
@@ -1704,7 +1704,7 @@ ISNULL
 IFREF {
 	CALL $c4_to_c7$
 }
-.loc ../contracts/UserAccountManager.tsol, 360
+.loc ../contracts/UserAccountManager.tsol, 356
 OVER
 PUSHCONT {
 	LDREF
@@ -1739,21 +1739,21 @@ IFREF {
 THROW 0
 
 .macro grantVTokens_b9a424ad_internal_macro
-.loc ../contracts/UserAccountManager.tsol, 360
+.loc ../contracts/UserAccountManager.tsol, 356
 GETGLOB 9
 PUSH S6
-.loc ../contracts/UserAccountManager.tsol, 667
+.loc ../contracts/UserAccountManager.tsol, 663
 CALLREF {
 	CALL $_calculateUserAccountAddress_3633b98b_internal_macro$
 }
 SDEQ
 THROWIFNOT 112
-.loc ../contracts/UserAccountManager.tsol, 370
+.loc ../contracts/UserAccountManager.tsol, 366
 PUSH S5
 CALLREF {
 	CALL $_calculateUserAccountAddress_3633b98b_internal_macro$
 }
-.loc ../contracts/UserAccountManager.tsol, 371
+.loc ../contracts/UserAccountManager.tsol, 367
 PUXC S7, S-1
 NEWC
 STSLICECONST x62_
@@ -1768,12 +1768,12 @@ STBREFR
 ENDC
 PUSHINT 0
 SENDRAWMSG
-.loc ../contracts/UserAccountManager.tsol, 375
+.loc ../contracts/UserAccountManager.tsol, 371
 ROLL 6
 CALLREF {
 	CALL $_calculateUserAccountAddress_3633b98b_internal_macro$
 }
-.loc ../contracts/UserAccountManager.tsol, 376
+.loc ../contracts/UserAccountManager.tsol, 372
 REVERSE 6, 1
 NEWC
 STSLICECONST x62_
@@ -1810,7 +1810,7 @@ ISNULL
 IFREF {
 	CALL $c4_to_c7$
 }
-.loc ../contracts/UserAccountManager.tsol, 381
+.loc ../contracts/UserAccountManager.tsol, 377
 OVER
 PUSHCONT {
 	LDREF
@@ -1840,7 +1840,7 @@ IFREF {
 THROW 0
 
 .macro abortLiquidation_fbafc727_internal_macro
-.loc ../contracts/UserAccountManager.tsol, 639
+.loc ../contracts/UserAccountManager.tsol, 635
 GETGLOB 9
 PUSHINT 4
 GETGLOB 15
@@ -1854,12 +1854,12 @@ PUSHCONT {
 IFNOT
 SDEQ
 THROWIFNOT 110
-.loc ../contracts/UserAccountManager.tsol, 388
+.loc ../contracts/UserAccountManager.tsol, 384
 ROLL 3
 CALLREF {
 	CALL $_calculateUserAccountAddress_3633b98b_internal_macro$
 }
-.loc ../contracts/UserAccountManager.tsol, 389
+.loc ../contracts/UserAccountManager.tsol, 385
 REVERSE 4, 1
 NEWC
 STSLICECONST x62_
@@ -1891,7 +1891,7 @@ ISNULL
 IFREF {
 	CALL $c4_to_c7$
 }
-.loc ../contracts/UserAccountManager.tsol, 394
+.loc ../contracts/UserAccountManager.tsol, 390
 OVER
 PUSHCONT {
 	LDREF
@@ -1921,24 +1921,24 @@ IFREF {
 THROW 0
 
 .macro returnAndSupply_9464be19_internal_macro
-.loc ../contracts/UserAccountManager.tsol, 394
+.loc ../contracts/UserAccountManager.tsol, 390
 GETGLOB 9
 PUSH S5
-.loc ../contracts/UserAccountManager.tsol, 667
+.loc ../contracts/UserAccountManager.tsol, 663
 CALLREF {
 	CALL $_calculateUserAccountAddress_3633b98b_internal_macro$
 }
 SDEQ
 THROWIFNOT 112
-.loc ../contracts/UserAccountManager.tsol, 401
+.loc ../contracts/UserAccountManager.tsol, 397
 DUP
 PUSHCONT {
-	.loc ../contracts/UserAccountManager.tsol, 402
+	.loc ../contracts/UserAccountManager.tsol, 398
 	DEPTH
 	ADDCONST -2
 	PICK
 	RSHIFT 2
-	.loc ../contracts/UserAccountManager.tsol, 404
+	.loc ../contracts/UserAccountManager.tsol, 400
 	PUSH3 S1, S2, S4
 	PUSH S8
 	ROLL 4
@@ -1969,13 +1969,13 @@ PUSHCONT {
 	.loc ../contracts/UserAccountManager.tsol, 0
 }
 IF
-.loc ../contracts/UserAccountManager.tsol, 409
+.loc ../contracts/UserAccountManager.tsol, 405
 DROP2
-.loc ../contracts/UserAccountManager.tsol, 410
+.loc ../contracts/UserAccountManager.tsol, 406
 ROT
 NEWC
 STSLICE
-.loc ../contracts/UserAccountManager.tsol, 411
+.loc ../contracts/UserAccountManager.tsol, 407
 ENDC
 SWAP
 PUSHINT 4
@@ -2014,7 +2014,7 @@ ISNULL
 IFREF {
 	CALL $c4_to_c7$
 }
-.loc ../contracts/UserAccountManager.tsol, 419
+.loc ../contracts/UserAccountManager.tsol, 415
 OVER
 PUSHCONT {
 	LDREF
@@ -2036,26 +2036,26 @@ IFREF {
 THROW 0
 
 .macro requestVTokensConversion_20dbedb3_internal_macro
-.loc ../contracts/UserAccountManager.tsol, 419
+.loc ../contracts/UserAccountManager.tsol, 415
 GETGLOB 9
 PUSH S3
-.loc ../contracts/UserAccountManager.tsol, 667
+.loc ../contracts/UserAccountManager.tsol, 663
 CALLREF {
 	CALL $_calculateUserAccountAddress_3633b98b_internal_macro$
 }
 SDEQ
 THROWIFNOT 112
-.loc ../contracts/UserAccountManager.tsol, 425
+.loc ../contracts/UserAccountManager.tsol, 421
 ROT
 NEWC
 STSLICE
-.loc ../contracts/UserAccountManager.tsol, 426
+.loc ../contracts/UserAccountManager.tsol, 422
 XCHG S1, S2
 STU 256
-.loc ../contracts/UserAccountManager.tsol, 427
+.loc ../contracts/UserAccountManager.tsol, 423
 OVER
 STUR 32
-.loc ../contracts/UserAccountManager.tsol, 428
+.loc ../contracts/UserAccountManager.tsol, 424
 ENDC
 SWAP
 PUSHINT 5
@@ -2082,7 +2082,7 @@ ISNULL
 IFREF {
 	CALL $c4_to_c7$
 }
-.loc ../contracts/UserAccountManager.tsol, 433
+.loc ../contracts/UserAccountManager.tsol, 429
 OVER
 PUSHCONT {
 	LDREF
@@ -2104,7 +2104,7 @@ IFREF {
 THROW 0
 
 .macro requestConversionInfo_c288a990_internal_macro
-.loc ../contracts/UserAccountManager.tsol, 639
+.loc ../contracts/UserAccountManager.tsol, 635
 GETGLOB 9
 PUSHINT 5
 GETGLOB 15
@@ -2118,12 +2118,12 @@ PUSHCONT {
 IFNOT
 SDEQ
 THROWIFNOT 110
-.loc ../contracts/UserAccountManager.tsol, 438
+.loc ../contracts/UserAccountManager.tsol, 434
 ROT
 CALLREF {
 	CALL $_calculateUserAccountAddress_3633b98b_internal_macro$
 }
-.loc ../contracts/UserAccountManager.tsol, 439
+.loc ../contracts/UserAccountManager.tsol, 435
 XCHG S1, S2
 NEWC
 STSLICECONST x62_
@@ -2150,7 +2150,7 @@ ISNULL
 IFREF {
 	CALL $c4_to_c7$
 }
-.loc ../contracts/UserAccountManager.tsol, 444
+.loc ../contracts/UserAccountManager.tsol, 440
 OVER
 PUSHCONT {
 	LDREF
@@ -2174,16 +2174,16 @@ IFREF {
 THROW 0
 
 .macro receiveConversionInfo_bd1e4d51_internal_macro
-.loc ../contracts/UserAccountManager.tsol, 444
+.loc ../contracts/UserAccountManager.tsol, 440
 GETGLOB 9
 PUSH S5
-.loc ../contracts/UserAccountManager.tsol, 667
+.loc ../contracts/UserAccountManager.tsol, 663
 CALLREF {
 	CALL $_calculateUserAccountAddress_3633b98b_internal_macro$
 }
 SDEQ
 THROWIFNOT 112
-.loc ../contracts/UserAccountManager.tsol, 451
+.loc ../contracts/UserAccountManager.tsol, 447
 REVERSE 5, 0
 PUSHINT 5
 GETGLOB 15
@@ -2223,7 +2223,7 @@ ISNULL
 IFREF {
 	CALL $c4_to_c7$
 }
-.loc ../contracts/UserAccountManager.tsol, 456
+.loc ../contracts/UserAccountManager.tsol, 452
 OVER
 PUSHCONT {
 	LDREF
@@ -2246,21 +2246,21 @@ IFREF {
 THROW 0
 
 .macro writeConversionInfo_4b0d5145_internal_macro
-.loc ../contracts/UserAccountManager.tsol, 456
+.loc ../contracts/UserAccountManager.tsol, 452
 GETGLOB 9
 PUSH S4
-.loc ../contracts/UserAccountManager.tsol, 667
+.loc ../contracts/UserAccountManager.tsol, 663
 CALLREF {
 	CALL $_calculateUserAccountAddress_3633b98b_internal_macro$
 }
 SDEQ
 THROWIFNOT 112
-.loc ../contracts/UserAccountManager.tsol, 462
+.loc ../contracts/UserAccountManager.tsol, 458
 ROLL 3
 CALLREF {
 	CALL $_calculateUserAccountAddress_3633b98b_internal_macro$
 }
-.loc ../contracts/UserAccountManager.tsol, 463
+.loc ../contracts/UserAccountManager.tsol, 459
 XCHG S1, S3
 NEWC
 STSLICECONST x62_
@@ -2288,7 +2288,7 @@ ISNULL
 IFREF {
 	CALL $c4_to_c7$
 }
-.loc ../contracts/UserAccountManager.tsol, 468
+.loc ../contracts/UserAccountManager.tsol, 464
 OVER
 PUSHCONT {
 	LDREF
@@ -2308,19 +2308,19 @@ IFREF {
 THROW 0
 
 .macro unlockAfterConversion_f611acb3_internal_macro
-.loc ../contracts/UserAccountManager.tsol, 468
+.loc ../contracts/UserAccountManager.tsol, 464
 GETGLOB 9
 OVER
-.loc ../contracts/UserAccountManager.tsol, 667
+.loc ../contracts/UserAccountManager.tsol, 663
 CALLREF {
 	CALL $_calculateUserAccountAddress_3633b98b_internal_macro$
 }
 SDEQ
 THROWIFNOT 112
-.loc ../contracts/UserAccountManager.tsol, 471
+.loc ../contracts/UserAccountManager.tsol, 467
 PUSHREF {
 }
-.loc ../contracts/UserAccountManager.tsol, 472
+.loc ../contracts/UserAccountManager.tsol, 468
 SWAP
 PUSHINT 5
 GETGLOB 15
@@ -2357,7 +2357,7 @@ ISNULL
 IFREF {
 	CALL $c4_to_c7$
 }
-.loc ../contracts/UserAccountManager.tsol, 480
+.loc ../contracts/UserAccountManager.tsol, 476
 OVER
 PUSHCONT {
 	LDREF
@@ -2377,7 +2377,7 @@ IFREF {
 THROW 0
 
 .macro requestUserAccountHealthCalculation_b94d78ce_internal_macro
-.loc ../contracts/UserAccountManager.tsol, 629
+.loc ../contracts/UserAccountManager.tsol, 625
 GETGLOB 9
 GETGLOB 10
 SDEQ
@@ -2397,12 +2397,12 @@ PUSHCONT {
 }
 IFNOT
 THROWIFNOT 109
-.loc ../contracts/UserAccountManager.tsol, 481
+.loc ../contracts/UserAccountManager.tsol, 477
 DUP
 CALLREF {
 	CALL $_calculateUserAccountAddress_3633b98b_internal_macro$
 }
-.loc ../contracts/UserAccountManager.tsol, 482
+.loc ../contracts/UserAccountManager.tsol, 478
 NEWC
 STSLICECONST x62_
 STSLICE
@@ -2427,7 +2427,7 @@ ISNULL
 IFREF {
 	CALL $c4_to_c7$
 }
-.loc ../contracts/UserAccountManager.tsol, 487
+.loc ../contracts/UserAccountManager.tsol, 483
 OVER
 PUSHCONT {
 	LDREF
@@ -2454,16 +2454,16 @@ IFREF {
 THROW 0
 
 .macro calculateUserAccountHealth_3af700f9_internal_macro
-.loc ../contracts/UserAccountManager.tsol, 487
+.loc ../contracts/UserAccountManager.tsol, 483
 GETGLOB 9
 PUSH S5
-.loc ../contracts/UserAccountManager.tsol, 659
+.loc ../contracts/UserAccountManager.tsol, 655
 CALLREF {
 	CALL $_calculateUserAccountAddress_3633b98b_internal_macro$
 }
 SDEQ
 THROWIFNOT 112
-.loc ../contracts/UserAccountManager.tsol, 494
+.loc ../contracts/UserAccountManager.tsol, 490
 REVERSE 5, 0
 GETGLOB 14
 NEWC
@@ -2497,7 +2497,7 @@ ISNULL
 IFREF {
 	CALL $c4_to_c7$
 }
-.loc ../contracts/UserAccountManager.tsol, 499
+.loc ../contracts/UserAccountManager.tsol, 495
 OVER
 PUSHCONT {
 	LDREF
@@ -2531,17 +2531,17 @@ IFREF {
 THROW 0
 
 .macro updateUserAccountHealth_750f4cba_internal_macro
-.loc ../contracts/UserAccountManager.tsol, 603
+.loc ../contracts/UserAccountManager.tsol, 599
 GETGLOB 9
 GETGLOB 14
 SDEQ
 THROWIFNOT 108
-.loc ../contracts/UserAccountManager.tsol, 506
+.loc ../contracts/UserAccountManager.tsol, 502
 ROLL 4
 CALLREF {
 	CALL $_calculateUserAccountAddress_3633b98b_internal_macro$
 }
-.loc ../contracts/UserAccountManager.tsol, 507
+.loc ../contracts/UserAccountManager.tsol, 503
 REVERSE 4, 1
 NEWC
 STSLICECONST x62_
@@ -2577,7 +2577,7 @@ ISNULL
 IFREF {
 	CALL $c4_to_c7$
 }
-.loc ../contracts/UserAccountManager.tsol, 515
+.loc ../contracts/UserAccountManager.tsol, 511
 OVER
 PUSHCONT {
 	LDREF
@@ -2603,9 +2603,9 @@ IFREF {
 THROW 0
 
 .macro requestTokenPayout_934f08b0_internal_macro
-.loc ../contracts/UserAccountManager.tsol, 515
+.loc ../contracts/UserAccountManager.tsol, 511
 PUSH S3
-.loc ../contracts/UserAccountManager.tsol, 647
+.loc ../contracts/UserAccountManager.tsol, 643
 GETGLOB 9
 PUSHINT 4
 GETGLOB 15
@@ -2630,9 +2630,9 @@ PUSHCONT {
 }
 IFNOT
 THROWIFNOT 111
-.loc ../contracts/UserAccountManager.tsol, 652
+.loc ../contracts/UserAccountManager.tsol, 648
 DROP
-.loc ../contracts/UserAccountManager.tsol, 516
+.loc ../contracts/UserAccountManager.tsol, 512
 REVERSE 4, 0
 GETGLOB 14
 NEWC
@@ -2665,7 +2665,7 @@ ISNULL
 IFREF {
 	CALL $c4_to_c7$
 }
-.loc ../contracts/UserAccountManager.tsol, 521
+.loc ../contracts/UserAccountManager.tsol, 517
 OVER
 PUSHCONT {
 	LDREF
@@ -2689,10 +2689,10 @@ THROW 0
 GETGLOB 9
 GETGLOB 10
 SDEQ
-THROWIFNOT 222
-.loc ../contracts/UserAccountManager.tsol, 522
+THROWIFNOT 117
+.loc ../contracts/UserAccountManager.tsol, 518
 ACCEPT
-.loc ../contracts/UserAccountManager.tsol, 523
+.loc ../contracts/UserAccountManager.tsol, 519
 NEWC
 STSLICECONST x62_
 STSLICE
@@ -2712,7 +2712,7 @@ ISNULL
 IFREF {
 	CALL $c4_to_c7$
 }
-.loc ../contracts/UserAccountManager.tsol, 532
+.loc ../contracts/UserAccountManager.tsol, 528
 OVER
 PUSHCONT {
 	LDREF
@@ -2747,12 +2747,12 @@ GETGLOB 9
 GETGLOB 10
 SDEQ
 OR
-THROWIFNOT 221
-.loc ../contracts/UserAccountManager.tsol, 533
+THROWIFNOT 116
+.loc ../contracts/UserAccountManager.tsol, 529
 ACCEPT
-.loc ../contracts/UserAccountManager.tsol, 534
+.loc ../contracts/UserAccountManager.tsol, 530
 SETGLOB 14
-.loc ../contracts/UserAccountManager.tsol, 535
+.loc ../contracts/UserAccountManager.tsol, 531
 GETGLOB 10
 NEWC
 STSLICECONST x62_
@@ -2773,7 +2773,7 @@ ISNULL
 IFREF {
 	CALL $c4_to_c7$
 }
-.loc ../contracts/UserAccountManager.tsol, 540
+.loc ../contracts/UserAccountManager.tsol, 536
 LDU 32
 LDREF
 ENDS
@@ -2802,14 +2802,14 @@ GETGLOB 9
 GETGLOB 10
 SDEQ
 OR
-THROWIFNOT 221
-.loc ../contracts/UserAccountManager.tsol, 541
+THROWIFNOT 116
+.loc ../contracts/UserAccountManager.tsol, 537
 SWAP
 GETGLOB 17
 PUSHINT 32
 DICTUSETREF
 SETGLOB 17
-.loc ../contracts/UserAccountManager.tsol, 543
+.loc ../contracts/UserAccountManager.tsol, 539
 GETGLOB 9
 NEWC
 STSLICECONST x62_
@@ -2826,11 +2826,11 @@ SENDRAWMSG
 CALL $_updateUserAccount_bc81b1d6_internal_macro$
 
 .macro _updateUserAccount_bc81b1d6_internal_macro
-.loc ../contracts/UserAccountManager.tsol, 547
+.loc ../contracts/UserAccountManager.tsol, 543
 CALLREF {
 	CALL $_calculateUserAccountAddress_3633b98b_internal_macro$
 }
-.loc ../contracts/UserAccountManager.tsol, 548
+.loc ../contracts/UserAccountManager.tsol, 544
 GETGLOB 17
 PUSHINT 32
 DICTUMAXREF
@@ -2840,11 +2840,11 @@ PUSHCONT {
 	PAIR
 }
 IF
-.loc ../contracts/UserAccountManager.tsol, 549
+.loc ../contracts/UserAccountManager.tsol, 545
 DUP
 ISNULL
 PUSHCONT {
-	.loc ../contracts/UserAccountManager.tsol, 556
+	.loc ../contracts/UserAccountManager.tsol, 552
 	OVER
 	NEWC
 	STSLICECONST x62_
@@ -2853,12 +2853,12 @@ PUSHCONT {
 	STZEROES
 }
 PUSHCONT {
-	.loc ../contracts/UserAccountManager.tsol, 551
+	.loc ../contracts/UserAccountManager.tsol, 547
 	BLKPUSH 2, 0
 	ISNULL
 	THROWIF 63
 	UNPAIR
-	.loc ../contracts/UserAccountManager.tsol, 552
+	.loc ../contracts/UserAccountManager.tsol, 548
 	SWAP
 	PUSHREF {
 	}
@@ -2889,7 +2889,7 @@ ISNULL
 IFREF {
 	CALL $c4_to_c7$
 }
-.loc ../contracts/UserAccountManager.tsol, 560
+.loc ../contracts/UserAccountManager.tsol, 556
 OVER
 PUSHCONT {
 	LDREF
@@ -2910,7 +2910,7 @@ CALLREF {
 THROW 0
 
 .macro updateUserAccount_3f4473e4_internal_macro
-.loc ../contracts/UserAccountManager.tsol, 561
+.loc ../contracts/UserAccountManager.tsol, 557
 CALLREF {
 	CALL $_updateUserAccount_bc81b1d6_internal_macro$
 }
@@ -2925,7 +2925,7 @@ ISNULL
 IFREF {
 	CALL $c4_to_c7$
 }
-.loc ../contracts/UserAccountManager.tsol, 564
+.loc ../contracts/UserAccountManager.tsol, 560
 LDU 32
 GETGLOB 4
 ROT
@@ -2989,7 +2989,7 @@ IFREF {
 THROW 0
 
 .macro getUserAccountCode_01713376_internal_macro
-.loc ../contracts/UserAccountManager.tsol, 569
+.loc ../contracts/UserAccountManager.tsol, 565
 GETGLOB 4
 PUSHINT 0
 SETINDEXQ 2
@@ -3017,7 +3017,7 @@ ISNULL
 IFREF {
 	CALL $c4_to_c7$
 }
-.loc ../contracts/UserAccountManager.tsol, 572
+.loc ../contracts/UserAccountManager.tsol, 568
 OVER
 PUSHCONT {
 	LDREF
@@ -3041,12 +3041,12 @@ THROW 0
 GETGLOB 9
 GETGLOB 10
 SDEQ
-THROWIFNOT 222
-.loc ../contracts/UserAccountManager.tsol, 573
+THROWIFNOT 117
+.loc ../contracts/UserAccountManager.tsol, 569
 CALLREF {
 	CALL $_calculateUserAccountAddress_3633b98b_internal_macro$
 }
-.loc ../contracts/UserAccountManager.tsol, 574
+.loc ../contracts/UserAccountManager.tsol, 570
 NEWC
 STSLICECONST x62_
 STSLICE
@@ -3066,7 +3066,7 @@ ISNULL
 IFREF {
 	CALL $c4_to_c7$
 }
-.loc ../contracts/UserAccountManager.tsol, 579
+.loc ../contracts/UserAccountManager.tsol, 575
 OVER
 PUSHCONT {
 	LDREF
@@ -3101,13 +3101,13 @@ GETGLOB 9
 GETGLOB 10
 SDEQ
 OR
-THROWIFNOT 221
-.loc ../contracts/UserAccountManager.tsol, 580
+THROWIFNOT 116
+.loc ../contracts/UserAccountManager.tsol, 576
 SWAP
 CALLREF {
 	CALL $_calculateUserAccountAddress_3633b98b_internal_macro$
 }
-.loc ../contracts/UserAccountManager.tsol, 581
+.loc ../contracts/UserAccountManager.tsol, 577
 NEWC
 STSLICECONST x62_
 STSLICE
@@ -3128,7 +3128,7 @@ ISNULL
 IFREF {
 	CALL $c4_to_c7$
 }
-.loc ../contracts/UserAccountManager.tsol, 588
+.loc ../contracts/UserAccountManager.tsol, 584
 OVER
 PUSHCONT {
 	LDU 8
@@ -3153,7 +3153,7 @@ CALLREF {
 THROW 0
 
 .macro addModule_c6634649_internal_macro
-.loc ../contracts/UserAccountManager.tsol, 611
+.loc ../contracts/UserAccountManager.tsol, 607
 GETGLOB 9
 GETGLOB 10
 SDEQ
@@ -3176,21 +3176,21 @@ PUSHCONT {
 }
 IFNOT
 THROWIFNOT 113
-.loc ../contracts/UserAccountManager.tsol, 589
+.loc ../contracts/UserAccountManager.tsol, 585
 DUP
 GETGLOB 16
 PUSHINT 267
 DICTDEL
 DROP
 SETGLOB 16
-.loc ../contracts/UserAccountManager.tsol, 590
+.loc ../contracts/UserAccountManager.tsol, 586
 DUP
 ROT
 GETGLOB 15
 PUSHINT 8
 DICTUSET
 SETGLOB 15
-.loc ../contracts/UserAccountManager.tsol, 591
+.loc ../contracts/UserAccountManager.tsol, 587
 GETGLOB 16
 NEWC
 STONE
@@ -3209,7 +3209,7 @@ ISNULL
 IFREF {
 	CALL $c4_to_c7$
 }
-.loc ../contracts/UserAccountManager.tsol, 594
+.loc ../contracts/UserAccountManager.tsol, 590
 LDU 8
 ENDS
 .loc ../contracts/UserAccountManager.tsol, 0
@@ -3223,7 +3223,7 @@ CALLREF {
 THROW 0
 
 .macro removeModule_0a30aff7_internal_macro
-.loc ../contracts/UserAccountManager.tsol, 611
+.loc ../contracts/UserAccountManager.tsol, 607
 GETGLOB 9
 GETGLOB 10
 SDEQ
@@ -3246,7 +3246,7 @@ PUSHCONT {
 }
 IFNOT
 THROWIFNOT 113
-.loc ../contracts/UserAccountManager.tsol, 595
+.loc ../contracts/UserAccountManager.tsol, 591
 GETGLOB 16
 OVER
 GETGLOB 15
@@ -3263,7 +3263,7 @@ PUSHINT 267
 DICTDEL
 DROP
 SETGLOB 16
-.loc ../contracts/UserAccountManager.tsol, 596
+.loc ../contracts/UserAccountManager.tsol, 592
 GETGLOB 15
 PUSHINT 8
 DICTUDEL
@@ -3306,7 +3306,7 @@ THROW 0
 GETGLOB 9
 GETGLOB 10
 SDEQ
-THROWIFNOT 222
+THROWIFNOT 117
 .loc ../contracts/abstract/Roles.tsol, 12
 DEPTH
 ADDCONST -2
@@ -3369,7 +3369,7 @@ THROW 0
 GETGLOB 9
 GETGLOB 10
 SDEQ
-THROWIFNOT 222
+THROWIFNOT 117
 .loc ../contracts/abstract/Roles.tsol, 23
 DEPTH
 ADDCONST -2
@@ -3431,7 +3431,7 @@ THROW 0
 GETGLOB 9
 GETGLOB 10
 SDEQ
-THROWIFNOT 222
+THROWIFNOT 117
 .loc ../contracts/abstract/Roles.tsol, 34
 DEPTH
 ADDCONST -2

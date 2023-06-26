@@ -1,0 +1,24 @@
+{
+  "name": "andex-venom-contracts",
+  "version": "1.0.0",
+  "description": "Threaded Solidity Contracts for Andex on Venom Network",
+  "main": ".eslintrc.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/andex-fi/andex-venom-contracts.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/andex-fi/andex-venom-contracts/issues"
+  },
+  "homepage": "https://github.com/andex-fi/andex-venom-contracts#readme",
+  "dependencies": {
+    "@broxus/contracts": "^1.1.1",
+    "@broxus/tip3": "^1.0.2"
+  }
+}

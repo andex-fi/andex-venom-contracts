@@ -2,9 +2,153 @@ pragma ever-solidity >= 0.62.0;
 
 import './ILockable.tsol';
 import './IUAMUserAccount.tsol';
+import './IUpgradeableContract.tsol';
+
+import '../libraries/ErrorCodes.tsol';
+import '../libraries/MarketOperations.tsol';
+import '../libraries/OperationCodes.tsol';
+import '../libraries/MsgFlag.tsol';
+
+import '../structures/MarketInfo.tsol';
+
+import '../abstract/Roles.tsol';
 import '../abstract/ACLockable.tsol';
 
 interface IModule {
+    function performAction(uint32 marketId, TvmCell args, mapping (uint32 => MarketInfo) _marketInfo, mapping (address => fraction) _tokenPrices) external;
+    function resumeOperation(TvmCell args, mapping(uint32 => MarketInfo) _marketInfo, mapping (address => fraction) _tokenPrices) external;
+    function sendActionId() external view responsible returns(uint8);
+    function getModuleState() external view returns (mapping (uint32 => MarketInfo) _marketInfo, mapping (address => fraction) _tokenPrices);
+}
+
+interface IContractAddressSG {
+    function setMarketAddress(address _marketAddress) external;
+    function setUserAccountManager(address _userAccountManager) external;
+    function getContractAddresses() external view responsible returns(address _owner, address _marketAddress, address _userAccountManager);
+}
+
+interface IContractStateCache {
+    function updateCache(address venomWallet, mapping (uint32 => MarketInfo) _marketInfo, mapping (address => fraction) _tokenPrices) external;
+}
+
+abstract contract ACModule is ACLockable, IModule, IContractAddressSG, IContractStateCache, Roles {
+    address marketAddress;
+    address userAccountManager;
+    uint32 public contractCodeVersion;
+    uint8 internal actionId;
+
+    mapping (uint32 => MarketInfo) marketInfo;
+    mapping (address => fraction) tokenPrices;
+
+    function sendActionId() external view override responsible returns(uint8) {
+        return {
+            value: 0,
+            bounce: false,
+            flag: MsgFlag.REMAINING_GAS
+        } actionId;
+    }
+
+    function getModuleState() 
+        external 
+        view 
+        override 
+        returns (
+            mapping (uint32 => MarketInfo) _marketInfo, 
+            mapping (address => fraction) _tokenPrices
+        ) 
+    {
+        return (marketInfo, tokenPrices);
+    }
+
+    function setMarketAddress(address _marketAddress) external override onlyOwner {
+        tvm.rawReserve(msg.value, 2);
+        marketAddress = _marketAddress;
+        address(_owner).transfer({value: 0, flag: MsgFlag.REMAINING_GAS});
+    }
+
+    function setUserAccountManager(address _userAccountManager) external override onlyOwner {
+        tvm.rawReserve(msg.value, 2);
+        userAccountManager = _userAccountManager;
+        address(_owner).transfer({value: 0, flag: MsgFlag.REMAINING_GAS});
+    }
+
+    function getContractAddresses() external override view responsible returns(address owner, address _marketAddress, address _userAccountManager) {
+        return {
+            value: 0,
+            bounce: false,
+            flag: MsgFlag.REMAINING_GAS
+        } (_owner, marketAddress, userAccountManager);
+    }
+
+    function updateCache(address venomWallet, mapping (uint32 => MarketInfo) _marketInfo, mapping (address => fraction) _tokenPrices) external override onlyMarket {
+        marketInfo = _marketInfo;
+        tokenPrices = _tokenPrices;
+        venomWallet.transfer({value: 0, flag: MsgFlag.REMAINING_GAS});
+    }
+
+    function _createUpdatedIndexes() internal view returns(mapping(uint32 => fraction) updatedIndexes) {
+        for ((uint32 marketId, MarketInfo mi): marketInfo) {
+            updatedIndexes[marketId] = mi.index;
+        }
+    }
+
+    function getGeneralLock() external view returns(bool) {
+        return _isLocked();
+    }
+
+    function userLock(address user) external view returns(bool) {
+        return _isUserLocked(user);
+    }
+
+    function usersLock() external view returns(mapping(address => bool)) {
+        return _userLocks;
+    }
+
+    function ownerGeneralUnlock(bool _locked) external onlyOwner {
+        tvm.rawReserve(msg.value, 2);
+        _generalLock(_locked);
+        address(_owner).transfer({
+            value: 0,
+            flag: MsgFlag.REMAINING_GAS
+        });
+    }
+
+    function ownerUserUnlock(address _user, bool _locked) external onlyOwner {
+        tvm.rawReserve(msg.value, 2);
+        _lockUser(_user, _locked);
+        address(_owner).transfer({
+            value: 0,
+            flag: MsgFlag.REMAINING_GAS
+        });
+    }
+
+    modifier onlyUserAccountManager() {
+        require(
+            msg.sender == userAccountManager,
+            ErrorCodes.ONLY_USER_ACCOUNT_MANAGER
+        );
+        _;
+    }
+
+    modifier onlyMarket() {
+        require(
+            msg.sender == marketAddress,
+            ErrorCodes.ONLY_MARKET
+        );
+        tvm.rawReserve(msg.value, 2);
+        _;
+    }
+}
+
+interface IContractStateCacheRoot {
+    function receiveCacheDelta(mapping(uint32 => MarketDelta) marketsDelta, TvmCell args) external;
+}
+
+interface ISupplyModule {
+
+}
+
+interface IWithdrawModule {
     function withdrawTokensFromMarket(
         address venomWallet, 
         address userTip3Wallet,
@@ -13,7 +157,9 @@ interface IModule {
         mapping(uint32 => uint256) supplyInfo,
         mapping (uint32 => BorrowInfo) borrowInfo
     ) external;
+}
 
+interface IBorrowModule {
     function borrowTokensFromMarket(
         address venomWallet,
         address userTip3Wallet,
@@ -22,7 +168,9 @@ interface IModule {
         mapping (uint32 => uint256) supplyInfo,
         mapping (uint32 => BorrowInfo) borrowInfo
     ) external;
+}
 
+interface IRepayModule {
     function repayLoan(
         address venomWallet,
         address userTip3Wallet,
@@ -30,7 +178,9 @@ interface IModule {
         uint32 marketId,
         BorrowInfo borrowInfo
     ) external;
+}
 
+interface ILiquidationModule {
     function liquidate(
         address venomWallet, 
         address targetUser, 
@@ -41,7 +191,9 @@ interface IModule {
         mapping(uint32 => uint256) supplyInfo, 
         mapping(uint32 => BorrowInfo) borrowInfo
     ) external;
+}
 
+interface IConversionModule {
     function performConversion(
         address _user, 
         uint256 _amount, 
@@ -49,4 +201,56 @@ interface IModule {
         mapping (uint32 => uint256) supplyInfo,
         mapping (uint32 => BorrowInfo) borrowInfo
     ) external;
+}
+
+library Utilities {
+    using UFO for uint256;
+    using FPO for fraction;
+
+    function calculateSupplyBorrow(
+        mapping(uint32 => uint256) supplyInfo,
+        mapping(uint32 => BorrowInfo) borrowInfo,
+        mapping(uint32 => MarketInfo) marketInfo,
+        mapping(address => fraction) tokenPrices
+    ) internal returns (fraction) {
+        fraction accountHealth = fraction(0, 0);
+        fraction tmp;
+        fraction nom = fraction(0, 1);
+        fraction denom = fraction(0, 1);
+
+        // Supply:
+        // 1. Calculate real token amount: vToken*exchangeRate
+        // 2. Calculate real token amount in USD: realTokens/tokenPrice
+        // 3. Multiply by collateral factor: usdValue*collateralFactor
+        for ((uint32 marketId, uint256 supplied): supplyInfo) {
+            tmp = supplied.numFMul(marketInfo[marketId].exchangeRate);
+            tmp = tmp.fDiv(tokenPrices[marketInfo[marketId].token]);
+            tmp = tmp.fMul(marketInfo[marketId].collateralFactor);
+            nom = nom.fAdd(tmp);
+            nom = nom.simplify();
+        }
+
+        // Borrow:
+        // 1. Recalculate borrow amount according to new index
+        // 2. Calculate borrow value in USD
+        // NOTE: no conversion from vToken to real tokens required, as value is stored in real tokens
+        for ((uint32 marketId, BorrowInfo _bi): borrowInfo) {
+            if (_bi.tokensBorrowed != 0) {
+                if (!_bi.index.eq(marketInfo[marketId].index)) {
+                    tmp = borrowInfo[marketId].tokensBorrowed.numFMul(marketInfo[marketId].index);
+                    tmp = tmp.fDiv(borrowInfo[marketId].index);
+                } else {
+                    tmp = borrowInfo[marketId].tokensBorrowed.toF();
+                }
+                tmp = tmp.fDiv(tokenPrices[marketInfo[marketId].token]);
+                tmp = tmp.simplify();
+                denom = denom.fAdd(tmp);
+                denom = denom.simplify();
+            }
+        }
+
+        accountHealth = nom.fDiv(denom);
+
+        return accountHealth;
+    }
 }

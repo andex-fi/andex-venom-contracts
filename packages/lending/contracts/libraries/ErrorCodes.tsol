@@ -12,13 +12,23 @@ library ErrorCodes {
     uint8 constant ERROR_NOT_MARKET = 108;
     uint8 constant ERROR_NOT_EXECUTOR = 109;
     uint8 constant ERROR_INVALID_MODULE = 110;
-    
+
     uint8 constant ERROR_INVALID_EXECUTOR = 111;
     uint8 constant INVALID_USER_ACCOUNT = 112;
     uint8 constant ERROR_NOT_TRUSTED = 113;
     uint8 constant ERROR_NOT_MODULE = 114;
+    uint8 constant CANNOT_UPGRADE = 115;
+    uint8 constant CANNOT_CHANGE_PARAMS = 116;
+    uint8 constant IS_NOT_OWNER = 117;
+    uint8 constant ERROR_MSG_SENDER_IS_NOT_SELF = 118;
+    uint8 constant ERROR_MSG_SENDER_IS_NOT_REAL_TOKEN = 119;
+    uint8 constant ERROR_MSG_SENDER_IS_NOT_VIRTUAL_TOKEN = 120;
 
-    uint8 constant CANNOT_UPGRADE = 220;
-    uint8 constant CANNOT_CHANGE_PARAMS = 221;
-    uint8 constant IS_NOT_OWNER = 222;   
+    uint8 constant ERROR_MSG_SENDER_IS_NOT_OWNER = 121;
+    uint8 constant ERROR_MSG_SENDER_IS_NOT_ORACLE = 122;
+    uint8 constant ERROR_MSG_SENDER_IS_NOT_TIP3_DEPLOYER = 123;
+    uint8 constant ERROR_MSG_SENDER_IS_NOT_USER_ACCOUNT_MANAGER = 124;
+    uint8 constant ERROR_MSG_SENDER_IS_NOT_TIP3_WALLET_CONTROLLER = 125;
+    uint8 constant ONLY_USER_ACCOUNT_MANAGER = 126;
+    uint8 constant ONLY_MARKET = 127; 
 }

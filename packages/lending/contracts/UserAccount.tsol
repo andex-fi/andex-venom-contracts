@@ -3,14 +3,15 @@ pragma AbiHeader pubkey;
 pragma AbiHeader expire;
 pragma AbiHeader time;
 
-import './interfaces/IUAMUserAccount.tsol';
-import './interfaces/IUserAccount.tsol';
-import './interfaces/IUpgradeableContract.tsol';
+import "./interfaces/IUserAccount.tsol";
+import "./interfaces/IUAMUserAccount.tsol";
+import "./interfaces/IUpgradeableContract.tsol";
 
-import './libraries/MsgFlag.tsol';
+import "./libraries/ErrorCodes.tsol";
+import "./libraries/MsgFlag.tsol";
 import './libraries/OperationCodes.tsol';
 
-contract UserAccount is IUserAccount, IUpgradeableContract {
+contract UserAccount is IUserAccount, IUserAccountData, IUpgradeableContract, IUserAccountGetters {
     using UFO for uint256;
     using FPO for fraction;
 
@@ -18,7 +19,7 @@ contract UserAccount is IUserAccount, IUpgradeableContract {
     bool public liquidationLock;
 
     address static public owner;
-
+    
     // Used for interactions with market 
     address public userAccountManager;
 
@@ -29,12 +30,6 @@ contract UserAccount is IUserAccount, IUpgradeableContract {
 
     mapping(uint32 => bool) knownMarkets;
     mapping(uint32 => UserMarketInfo) markets;
-
-    // Contract is deployed via platform
-    constructor() public { 
-        tvm.accept();
-        userAccountManager = msg.sender;
-    }
 
     function getKnownMarkets() external override view responsible returns(mapping(uint32 => bool)) {
         return {
@@ -60,11 +55,13 @@ contract UserAccount is IUserAccount, IUpgradeableContract {
         } markets[marketId];
     }
 
-    function upgradeContractCode(
-        TvmCell code, 
-        TvmCell updateParams, 
-        uint32 codeVersion
-    ) override external onlyUserAccountManager {
+    // Contract is deployed via platform
+    constructor() public { 
+        tvm.accept();
+        userAccountManager = msg.sender;
+    }
+
+    function upgradeContractCode(TvmCell code, TvmCell updateParams, uint32 codeVersion) override external onlyUserAccountManager {
         if (borrowLock) {
             tvm.accept();
             address(owner).transfer({value: 0, flag: MsgFlag.REMAINING_GAS});
@@ -128,11 +125,7 @@ contract UserAccount is IUserAccount, IUpgradeableContract {
     /*********************************************************************************************************/
     // Supply functions
 
-    function writeSupplyInfo(
-        uint32 marketId, 
-        uint256 tokensToSupply, 
-        fraction index
-    ) external override onlyUserAccountManager {
+    function writeSupplyInfo(uint32 marketId, uint256 tokensToSupply, fraction index) external override onlyUserAccountManager {
         tvm.rawReserve(msg.value, 2);
         markets[marketId].suppliedTokens += tokensToSupply;
         _updateMarketInfo(marketId, index);
@@ -143,11 +136,7 @@ contract UserAccount is IUserAccount, IUpgradeableContract {
     /*********************************************************************************************************/
     // Withdraw functions
 
-    function withdraw(
-        address userTip3Wallet, 
-        uint32 marketId, 
-        uint256 tokensToWithdraw
-    ) external override view onlyOwner {
+    function withdraw(address userTip3Wallet, uint32 marketId, uint256 tokensToWithdraw) external override view onlyOwner {
         if (
             !liquidationLock &&
             tokensToWithdraw <= markets[marketId].suppliedTokens
@@ -162,12 +151,7 @@ contract UserAccount is IUserAccount, IUpgradeableContract {
         }
     }
 
-    function requestWithdrawInfo(
-        address userTip3Wallet, 
-        uint32 marketId, 
-        uint256 tokensToWithdraw, 
-        mapping(uint32 => fraction) updatedIndexes
-    ) external override onlyUserAccountManager {
+    function requestWithdrawInfo(address userTip3Wallet, uint32 marketId, uint256 tokensToWithdraw, mapping(uint32 => fraction) updatedIndexes) external override onlyUserAccountManager {
         tvm.rawReserve(msg.value, 2);
         if (
             accountHealth.nom > accountHealth.denom
@@ -189,12 +173,7 @@ contract UserAccount is IUserAccount, IUpgradeableContract {
         }
     }
 
-    function writeWithdrawInfo(
-        address userTip3Wallet, 
-        uint32 marketId, 
-        uint256 tokensToWithdraw, 
-        uint256 tokensToSend
-    ) external override onlyUserAccountManager{
+    function writeWithdrawInfo(address userTip3Wallet, uint32 marketId, uint256 tokensToWithdraw, uint256 tokensToSend) external override onlyUserAccountManager{
         tvm.rawReserve(msg.value, 2);
         markets[marketId].suppliedTokens -= tokensToWithdraw;
         _checkUserAccountHealth(owner, _createTokenPayoutPayload(owner, userTip3Wallet, marketId, tokensToSend));
@@ -203,11 +182,7 @@ contract UserAccount is IUserAccount, IUpgradeableContract {
     /*********************************************************************************************************/
     // Borrow functions
 
-    function borrow(
-        uint32 marketId, 
-        uint256 amountToBorrow, 
-        address userTip3Wallet
-    ) external override onlyOwner {
+    function borrow(uint32 marketId, uint256 amountToBorrow, address userTip3Wallet) external override onlyOwner {
         tvm.rawReserve(msg.value, 2);
         if (
             (!borrowLock) &&
@@ -227,12 +202,7 @@ contract UserAccount is IUserAccount, IUpgradeableContract {
         }
     }
 
-    function borrowUpdateIndexes(
-        uint32 marketId, 
-        mapping(uint32 => fraction) updatedIndexes, 
-        address userTip3Wallet, 
-        uint256 toBorrow
-    ) external override onlyUserAccountManager {
+    function borrowUpdateIndexes(uint32 marketId, mapping(uint32 => fraction) updatedIndexes, address userTip3Wallet, uint256 toBorrow) external override onlyUserAccountManager {
         tvm.rawReserve(msg.value, 2);
 
         _updateIndexes(updatedIndexes);
@@ -247,12 +217,7 @@ contract UserAccount is IUserAccount, IUpgradeableContract {
         }(owner, userTip3Wallet, marketId, toBorrow, supplyInfo, borrowInfo);
     }
 
-    function writeBorrowInformation(
-        uint32 marketId, 
-        uint256 toBorrow, 
-        address userTip3Wallet, 
-        fraction marketIndex
-    ) external override onlyUserAccountManager {
+    function writeBorrowInformation(uint32 marketId, uint256 toBorrow, address userTip3Wallet, fraction marketIndex) external override onlyUserAccountManager {
         tvm.rawReserve(msg.value, 2);
         if (toBorrow > 0) {
             _updateMarketInfo(marketId, marketIndex);
@@ -271,12 +236,7 @@ contract UserAccount is IUserAccount, IUpgradeableContract {
     /*********************************************************************************************************/
     // repay functions
 
-    function sendRepayInfo(
-        address userTip3Wallet, 
-        uint32 marketId, 
-        uint256 tokensForRepay, 
-        mapping(uint32 => fraction) updatedIndexes
-    ) external override onlyUserAccountManager {
+    function sendRepayInfo(address userTip3Wallet, uint32 marketId, uint256 tokensForRepay, mapping(uint32 => fraction) updatedIndexes) external override onlyUserAccountManager {
         tvm.rawReserve(msg.value, 2);
         for ((uint32 marketId_, fraction index): updatedIndexes) {
             _updateMarketInfo(marketId_, index);
@@ -287,12 +247,7 @@ contract UserAccount is IUserAccount, IUpgradeableContract {
         }(owner, userTip3Wallet, tokensForRepay, marketId, markets[marketId].borrowInfo);
     }
 
-    function writeRepayInformation(
-        address userTip3Wallet, 
-        uint32 marketId, 
-        uint256 tokensToReturn, 
-        BorrowInfo bi
-    ) external override onlyUserAccountManager {
+    function writeRepayInformation(address userTip3Wallet, uint32 marketId, uint256 tokensToReturn, BorrowInfo bi) external override onlyUserAccountManager {
         tvm.rawReserve(msg.value, 2);
 
         markets[marketId].borrowInfo = bi;
@@ -307,19 +262,13 @@ contract UserAccount is IUserAccount, IUpgradeableContract {
     /*********************************************************************************************************/
     // conversion functions
 
-    function convertVTokens(
-        uint256 amount, 
-        uint32 marketId
-    ) external override view onlyOwner {
+    function convertVTokens(uint256 amount, uint32 marketId) external override view onlyOwner {
         IUAMUserAccount(userAccountManager).requestVTokensConversion{
             flag: MsgFlag.REMAINING_GAS
         }(owner, amount, marketId);
     }
 
-    function requestConversionInfo(
-        uint256 _amount, 
-        uint32 _marketId
-    ) external override view onlyUserAccountManager {
+    function requestConversionInfo(uint256 _amount, uint32 _marketId) external override view onlyUserAccountManager {
         mapping(uint32 => BorrowInfo) borrowInfo;
         mapping(uint32 => uint256) supplyInfo;
 
@@ -329,11 +278,7 @@ contract UserAccount is IUserAccount, IUpgradeableContract {
         }(owner, _amount, _marketId, supplyInfo, borrowInfo);
     }
 
-    function writeConversionInfo(
-        uint256 _amount, 
-        bool positive, 
-        uint32 marketId
-    ) external override onlyUserAccountManager {
+    function writeConversionInfo(uint256 _amount, bool positive, uint32 marketId) external override onlyUserAccountManager {
         if(positive) {
             markets[marketId].suppliedTokens += _amount;
         } else {
@@ -362,12 +307,7 @@ contract UserAccount is IUserAccount, IUpgradeableContract {
         }(owner, gasTo, supplyInfo, borrowInfo, dataToTransfer);
     }
 
-    function updateUserAccountHealth(
-        address gasTo, 
-        fraction _accountHealth, 
-        mapping(uint32 => fraction) updatedIndexes, 
-        TvmCell dataToTransfer
-    ) external override onlyUserAccountManager {
+    function updateUserAccountHealth(address gasTo, fraction _accountHealth, mapping(uint32 => fraction) updatedIndexes, TvmCell dataToTransfer) external override onlyUserAccountManager {
         tvm.rawReserve(msg.value, 2);
         accountHealth = _accountHealth;
         liquidationLock = accountHealth.denom > accountHealth.nom;
@@ -402,18 +342,10 @@ contract UserAccount is IUserAccount, IUpgradeableContract {
         address(userAccountManager).transfer({value: 0, flag: MsgFlag.REMAINING_GAS});
     }
 
-
     /*********************************************************************************************************/
     // Liquidation functions
 
-    function requestLiquidationInformation(
-        address venomWallet, 
-        address tip3UserWallet, 
-        uint32 marketId, 
-        uint32 marketToLiquidate, 
-        uint256 tokensProvided, 
-        mapping(uint32 => fraction) updatedIndexes
-    ) external override onlyUserAccountManager {
+    function requestLiquidationInformation(address venomWallet, address tip3UserWallet, uint32 marketId, uint32 marketToLiquidate, uint256 tokensProvided, mapping(uint32 => fraction) updatedIndexes) external override onlyUserAccountManager {
         _updateIndexes(updatedIndexes);
 
         (mapping(uint32 => BorrowInfo) borrowInfo, mapping(uint32 => uint256) supplyInfo) = _getBorrowSupplyInfo();
@@ -423,15 +355,7 @@ contract UserAccount is IUserAccount, IUpgradeableContract {
         }(venomWallet, owner, tip3UserWallet, marketId, marketToLiquidate, tokensProvided, supplyInfo, borrowInfo);
     }
 
-    function liquidateVTokens(
-        address venomWallet, 
-        address tip3UserWallet, 
-        uint32 marketId, 
-        uint32 marketToLiquidate, 
-        uint256 tokensToSeize, 
-        uint256 tokensToReturn, 
-        BorrowInfo borrowInfo
-    ) external override onlyUserAccountManager {
+    function liquidateVTokens(address venomWallet, address tip3UserWallet, uint32 marketId, uint32 marketToLiquidate, uint256 tokensToSeize, uint256 tokensToReturn, BorrowInfo borrowInfo) external override onlyUserAccountManager {
         markets[marketToLiquidate].suppliedTokens -= tokensToSeize;
         markets[marketId].borrowInfo = borrowInfo;
 
@@ -440,24 +364,12 @@ contract UserAccount is IUserAccount, IUpgradeableContract {
         }(venomWallet, owner, tip3UserWallet, marketId, marketToLiquidate, tokensToSeize, tokensToReturn);
     }
 
-    function grantVTokens(
-        address targetUser, 
-        address tip3UserWallet, 
-        uint32 marketId, 
-        uint32 marketToLiquidate, 
-        uint256 tokensToSeize, 
-        uint256 tokensToReturn
-    ) external override onlyUserAccountManager {
+    function grantVTokens(address targetUser, address tip3UserWallet, uint32 marketId, uint32 marketToLiquidate, uint256 tokensToSeize, uint256 tokensToReturn) external override onlyUserAccountManager {
         markets[marketToLiquidate].suppliedTokens += tokensToSeize;
         _checkUserAccountHealth(owner, _createReturnAndUnlockPayload(owner, tip3UserWallet, targetUser, marketId, tokensToReturn));
     }
 
-    function abortLiquidation(
-        address venomWallet, 
-        address tip3UserWallet, 
-        uint32 marketId, 
-        uint256 tokensToReturn
-    ) external override onlyUserAccountManager {
+    function abortLiquidation(address venomWallet, address tip3UserWallet, uint32 marketId, uint256 tokensToReturn) external override onlyUserAccountManager {
         _checkUserAccountHealth(owner, _createReturnAndUnlockPayload(venomWallet, tip3UserWallet, owner, marketId, tokensToReturn));
     }
 
@@ -489,12 +401,7 @@ contract UserAccount is IUserAccount, IUpgradeableContract {
         }
     }
 
-    function _createTokenPayoutPayload(
-        address venomWallet, 
-        address userTip3Wallet, 
-        uint32 marketId, 
-        uint256 tokensToSend
-    ) internal pure returns (TvmCell) {
+    function _createTokenPayoutPayload(address venomWallet, address userTip3Wallet, uint32 marketId, uint256 tokensToSend) internal pure returns (TvmCell) {
         TvmBuilder op;
         op.store(OperationCodes.REQUEST_TOKEN_PAYOUT);
         op.store(venomWallet);
@@ -516,13 +423,7 @@ contract UserAccount is IUserAccount, IUpgradeableContract {
         return no_op.toCell();
     }
 
-    function _createReturnAndUnlockPayload(
-        address venomWallet, 
-        address userTip3Wallet, 
-        address userToUnlock, 
-        uint32 marketId, 
-        uint256 tokensToSend
-    ) internal pure returns (TvmCell) {
+    function _createReturnAndUnlockPayload(address venomWallet, address userTip3Wallet, address userToUnlock, uint32 marketId, uint256 tokensToSend) internal pure returns (TvmCell) {
         TvmBuilder op;
         TvmBuilder addition;
         op.store(OperationCodes.RETURN_AND_UNLOCK);

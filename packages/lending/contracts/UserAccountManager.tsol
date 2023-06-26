@@ -3,21 +3,21 @@ pragma AbiHeader pubkey;
 pragma AbiHeader expire;
 pragma AbiHeader time;
 
-import './interfaces/IUserAccountManager.tsol';
-import './interfaces/IUAMUserAccount.tsol';
-import './interfaces/IUAMMarket.tsol';
+import "./interfaces/IUserAccountManager.tsol";
+import "./interfaces/IUAMUserAccount.tsol";
+import "./interfaces/IUAMMarket.tsol";
+import "./interfaces/IMarket.tsol";
 import "./interfaces/IUpgradeableContract.tsol";
-import './interfaces/IMarket.tsol';
 import './interfaces/IModule.tsol';
 
 import "./libraries/ErrorCodes.tsol";
 import './libraries/CostConstants.tsol';
-import "./libraries/MsgFlag.tsol";
 import "./libraries/OperationCodes.tsol";
-
-import './abstract/Roles.tsol';
+import "./libraries/MsgFlag.tsol";
 
 import './UserAccount.tsol';
+
+
 
 contract UserAccountManager is Roles, IUpgradeableContract, IUserAccountManager, IUAMUserAccount, IUAMMarket {
     // Information for update
@@ -51,11 +51,7 @@ contract UserAccountManager is Roles, IUpgradeableContract, IUserAccountManager,
             refs:
                 1. mapping(uint32 => bool) marketIds
      */
-    function upgradeContractCode(
-        TvmCell code, 
-        TvmCell updateParams, 
-        uint32 codeVersion
-    ) override external canUpgrade {
+    function upgradeContractCode(TvmCell code, TvmCell updateParams, uint32 codeVersion) override external canUpgrade {
         tvm.accept();
 
         tvm.setcode(code);
@@ -91,7 +87,7 @@ contract UserAccountManager is Roles, IUpgradeableContract, IUserAccountManager,
         userAccountCodes = _userAccountCodes;
     }
 
-        /*********************************************************************************************************/
+    /*********************************************************************************************************/
     // Functions for user account
     /**
      * @param venomWallet Address of user's venom wallet
@@ -153,7 +149,7 @@ contract UserAccountManager is Roles, IUpgradeableContract, IUserAccountManager,
         fraction index
     ) external override view onlyModule(OperationCodes.SUPPLY_TOKENS) {
         address userAccount = _calculateUserAccountAddress(venomWallet);
-        IUserAccount(userAccount).writeSupplyInfo{
+        IUserAccountData(userAccount).writeSupplyInfo{
             flag: MsgFlag.ALL_NOT_RESERVED
         }(marketId, tokensToSupply, index);
     }
@@ -171,7 +167,7 @@ contract UserAccountManager is Roles, IUpgradeableContract, IUserAccountManager,
         tb.store(venomWallet);
         tb.store(userTip3Wallet);
         tb.store(tokensToWithdraw);
-        IMarket(marketAddress).performOperationUserAccountManager{
+        IMarketOperations(marketAddress).performOperationUserAccountManager{
             flag: MsgFlag.ALL_NOT_RESERVED
         }(OperationCodes.WITHDRAW_TOKENS, marketId, tb.toCell());
     }
@@ -184,7 +180,7 @@ contract UserAccountManager is Roles, IUpgradeableContract, IUserAccountManager,
         mapping(uint32 => fraction) updatedIndexes
     ) external override view onlyModule(OperationCodes.WITHDRAW_TOKENS) {
         address userAccount = _calculateUserAccountAddress(venomWallet);
-        IUserAccount(userAccount).requestWithdrawInfo{
+        IUserAccountData(userAccount).requestWithdrawInfo{
             flag: MsgFlag.ALL_NOT_RESERVED
         }(userTip3Wallet, marketId, tokensToWithdraw, updatedIndexes);
     }
@@ -197,7 +193,7 @@ contract UserAccountManager is Roles, IUpgradeableContract, IUserAccountManager,
         mapping(uint32 => uint256) supplyInfo,
         mapping(uint32 => BorrowInfo) borrowInfo
     ) external override view onlyValidUserAccount(venomWallet) {
-        IModule(modules[OperationCodes.WITHDRAW_TOKENS]).withdrawTokensFromMarket{
+        IWithdrawModule(modules[OperationCodes.WITHDRAW_TOKENS]).withdrawTokensFromMarket{
             flag: MsgFlag.ALL_NOT_RESERVED
         }(venomWallet, userTip3Wallet, tokensToWithdraw, marketId, supplyInfo, borrowInfo);
     }
@@ -210,7 +206,7 @@ contract UserAccountManager is Roles, IUpgradeableContract, IUserAccountManager,
         uint256 tokensToSend
     ) external override view onlyModule(OperationCodes.WITHDRAW_TOKENS) {
         address userAccount = _calculateUserAccountAddress(venomWallet); 
-        IUserAccount(userAccount).writeWithdrawInfo{
+        IUserAccountData(userAccount).writeWithdrawInfo{
             flag: MsgFlag.ALL_NOT_RESERVED
         }(userTip3Wallet, marketId, tokensToWithdraw, tokensToSend);
     }
@@ -223,7 +219,7 @@ contract UserAccountManager is Roles, IUpgradeableContract, IUserAccountManager,
         uint32 marketId, 
         TvmCell args
     ) external override view onlyValidUserAccount(venomWallet) {
-        IMarket(marketAddress).performOperationUserAccountManager{
+        IMarketOperations(marketAddress).performOperationUserAccountManager{
             flag: MsgFlag.ALL_NOT_RESERVED
         }(OperationCodes.BORROW_TOKENS, marketId, args);
     }
@@ -236,7 +232,7 @@ contract UserAccountManager is Roles, IUpgradeableContract, IUserAccountManager,
         mapping(uint32 => fraction) updatedIndexes
     ) external override view onlyModule(OperationCodes.BORROW_TOKENS) {
         address userAccount = _calculateUserAccountAddress(venomWallet);
-        IUserAccount(userAccount).borrowUpdateIndexes{
+        IUserAccountData(userAccount).borrowUpdateIndexes{
             flag: MsgFlag.ALL_NOT_RESERVED
         }(marketId, updatedIndexes, userTip3Wallet, tokensToBorrow);
     }
@@ -249,7 +245,7 @@ contract UserAccountManager is Roles, IUpgradeableContract, IUserAccountManager,
         mapping(uint32 => uint256) supplyInfo, 
         mapping(uint32 => BorrowInfo) borrowInfo
     ) external override view onlyValidUserAccount(venomWallet) {
-        IModule(modules[OperationCodes.BORROW_TOKENS]).borrowTokensFromMarket{
+        IBorrowModule(modules[OperationCodes.BORROW_TOKENS]).borrowTokensFromMarket{
             flag: MsgFlag.ALL_NOT_RESERVED
         }(venomWallet, userTip3Wallet, tokensToBorrow, marketId, supplyInfo, borrowInfo);
     }
@@ -262,7 +258,7 @@ contract UserAccountManager is Roles, IUpgradeableContract, IUserAccountManager,
         fraction index
     ) external override view onlyModule(OperationCodes.BORROW_TOKENS) {
         address userAccount = _calculateUserAccountAddress(venomWallet);
-        IUserAccount(userAccount).writeBorrowInformation{
+        IUserAccountData(userAccount).writeBorrowInformation{
             flag: MsgFlag.ALL_NOT_RESERVED
         }(marketId, tokensToBorrow, userTip3Wallet, index);
     }
@@ -278,7 +274,7 @@ contract UserAccountManager is Roles, IUpgradeableContract, IUserAccountManager,
         mapping(uint32 => fraction) updatedIndexes
     ) external override view onlyModule(OperationCodes.REPAY_TOKENS) {
         address userAccount = _calculateUserAccountAddress(venomWallet);
-        IUserAccount(userAccount).sendRepayInfo{
+        IUserAccountData(userAccount).sendRepayInfo{
             flag: MsgFlag.ALL_NOT_RESERVED
         }(userTip3Wallet, marketId, tokensForRepay, updatedIndexes);
     }
@@ -290,7 +286,7 @@ contract UserAccountManager is Roles, IUpgradeableContract, IUserAccountManager,
         uint32 marketId,
         BorrowInfo borrowInfo
     ) external override view onlyValidUserAccount(venomWallet) {
-        IModule(modules[OperationCodes.REPAY_TOKENS]).repayLoan{
+        IRepayModule(modules[OperationCodes.REPAY_TOKENS]).repayLoan{
             flag: MsgFlag.ALL_NOT_RESERVED
         }(venomWallet, userTip3Wallet, tokensForRepay, marketId, borrowInfo);
     }
@@ -303,7 +299,7 @@ contract UserAccountManager is Roles, IUpgradeableContract, IUserAccountManager,
         BorrowInfo bi
     ) external override view onlyModule(OperationCodes.REPAY_TOKENS) {
         address userAccount = _calculateUserAccountAddress(venomWallet);
-        IUserAccount(userAccount).writeRepayInformation{
+        IUserAccountData(userAccount).writeRepayInformation{
             flag: MsgFlag.ALL_NOT_RESERVED
         }(userTip3Wallet, marketId, tokensToReturn, bi);
     }
@@ -321,7 +317,7 @@ contract UserAccountManager is Roles, IUpgradeableContract, IUserAccountManager,
         mapping(uint32 => fraction) updatedIndexes
     ) external override view onlyModule(OperationCodes.LIQUIDATE_TOKENS) {
         address userAccount = _calculateUserAccountAddress(targetUser);
-        IUserAccount(userAccount).requestLiquidationInformation{
+        IUserAccountData(userAccount).requestLiquidationInformation{
             flag: MsgFlag.ALL_NOT_RESERVED
         }(venomWallet, tip3UserWallet, marketId, marketToLiquidate, tokensProvided, updatedIndexes);
     }
@@ -336,7 +332,7 @@ contract UserAccountManager is Roles, IUpgradeableContract, IUserAccountManager,
         mapping(uint32 => uint256) supplyInfo, 
         mapping(uint32 => BorrowInfo) borrowInfo
     ) external override view onlyValidUserAccount(targetUser) {
-        IModule(modules[OperationCodes.LIQUIDATE_TOKENS]).liquidate{
+        ILiquidationModule(modules[OperationCodes.LIQUIDATE_TOKENS]).liquidate{
             flag: MsgFlag.ALL_NOT_RESERVED
         }(venomWallet, targetUser, tip3UserWallet, marketId, marketToLiquidate, tokensProvided, supplyInfo, borrowInfo);
     }
@@ -352,7 +348,7 @@ contract UserAccountManager is Roles, IUpgradeableContract, IUserAccountManager,
         BorrowInfo borrowInfo
     ) external override view onlyModule(OperationCodes.LIQUIDATE_TOKENS) {
         address userAccount = _calculateUserAccountAddress(targetUser);
-        IUserAccount(userAccount).liquidateVTokens{
+        IUserAccountData(userAccount).liquidateVTokens{
             flag: MsgFlag.ALL_NOT_RESERVED
         }(venomWallet, tip3UserWallet, marketId, marketToLiquidate, tokensToSeize, tokensToReturn, borrowInfo);
     }
@@ -368,12 +364,12 @@ contract UserAccountManager is Roles, IUpgradeableContract, IUserAccountManager,
     ) external override view onlyValidUserAccountNoReserve(targetUser) {
         
         address targetAccount = _calculateUserAccountAddress(targetUser);
-        IUserAccount(targetAccount).checkUserAccountHealth{
+        IUserAccountData(targetAccount).checkUserAccountHealth{
             value: CostConstants.UPDATE_HEALTH_COST
         }(venomWallet);
 
         address userAccount = _calculateUserAccountAddress(venomWallet);
-        IUserAccount(userAccount).grantVTokens{
+        IUserAccountData(userAccount).grantVTokens{
             flag: MsgFlag.ALL_NOT_RESERVED
         }(targetUser, tip3UserWallet, marketId, marketToLiquidate, vTokensToGrant, tokensToReturn);
     }
@@ -386,7 +382,7 @@ contract UserAccountManager is Roles, IUpgradeableContract, IUserAccountManager,
         uint256 tokensToReturn
     ) external override view onlyModule(OperationCodes.LIQUIDATE_TOKENS) {
         address userAccount = _calculateUserAccountAddress(targetUser);
-        IUserAccount(userAccount).abortLiquidation{
+        IUserAccountData(userAccount).abortLiquidation{
             flag: MsgFlag.ALL_NOT_RESERVED
         }(venomWallet, tip3UserWallet, marketId, tokensToReturn);
     }
@@ -401,7 +397,7 @@ contract UserAccountManager is Roles, IUpgradeableContract, IUserAccountManager,
         if (tokensToReturn != 0) {
             uint128 venomsToUse = msg.value / 4;
 
-            IMarket(marketAddress).requestTokenPayout{
+            IMarketOperations(marketAddress).requestTokenPayout{
                 value: venomsToUse * 3
             }(venomWallet, tip3UserWallet, marketId, tokensToReturn);
         }
@@ -425,7 +421,7 @@ contract UserAccountManager is Roles, IUpgradeableContract, IUserAccountManager,
         tb.store(owner);
         tb.store(amount);
         tb.store(marketId);
-        IMarket(marketAddress).performOperationUserAccountManager{
+        IMarketOperations(marketAddress).performOperationUserAccountManager{
             flag: MsgFlag.ALL_NOT_RESERVED
         }(OperationCodes.CONVERT_VTOKENS, marketId, tb.toCell());
     }
@@ -436,7 +432,7 @@ contract UserAccountManager is Roles, IUpgradeableContract, IUserAccountManager,
         uint32 _marketId
     ) external override view onlyModule(OperationCodes.CONVERT_VTOKENS) {
         address userAccount = _calculateUserAccountAddress(_user); 
-        IUserAccount(userAccount).requestConversionInfo{
+        IUserAccountData(userAccount).requestConversionInfo{
             flag: MsgFlag.ALL_NOT_RESERVED
         }(_amount, _marketId);
     }
@@ -448,7 +444,7 @@ contract UserAccountManager is Roles, IUpgradeableContract, IUserAccountManager,
         mapping (uint32 => uint256) supplyInfo,
         mapping (uint32 => BorrowInfo) borrowInfo
     ) external override view onlyValidUserAccountNoReserve(_user) {
-        IModule(modules[OperationCodes.CONVERT_VTOKENS]).performConversion{
+        IConversionModule(modules[OperationCodes.CONVERT_VTOKENS]).performConversion{
             flag: MsgFlag.ALL_NOT_RESERVED
         }(_user, _amount, marketId, supplyInfo, borrowInfo);
     }
@@ -460,7 +456,7 @@ contract UserAccountManager is Roles, IUpgradeableContract, IUserAccountManager,
         uint32 marketId
     ) external override view onlyValidUserAccountNoReserve(_user) {
         address userAccount = _calculateUserAccountAddress(_user); 
-        IUserAccount(userAccount).writeConversionInfo{
+        IUserAccountData(userAccount).writeConversionInfo{
             flag: MsgFlag.ALL_NOT_RESERVED
         }(_amount, positive, marketId);
     }
@@ -479,7 +475,7 @@ contract UserAccountManager is Roles, IUpgradeableContract, IUserAccountManager,
 
     function requestUserAccountHealthCalculation(address venomWallet) external override view executor {
         address userAccount = _calculateUserAccountAddress(venomWallet);
-        IUserAccount(userAccount).checkUserAccountHealth{
+        IUserAccountData(userAccount).checkUserAccountHealth{
             flag: MsgFlag.ALL_NOT_RESERVED
         }(venomWallet);
     }
@@ -491,7 +487,7 @@ contract UserAccountManager is Roles, IUpgradeableContract, IUserAccountManager,
         mapping(uint32 => BorrowInfo) borrowInfo,
         TvmCell dataToTransfer
     ) external override view onlyValidUserAccount(venomWallet) {
-        IMarket(marketAddress).calculateUserAccountHealth{
+        IMarketOperations(marketAddress).calculateUserAccountHealth{
             flag: MsgFlag.ALL_NOT_RESERVED
         }(venomWallet, gasTo, supplyInfo, borrowInfo, dataToTransfer);
     }
@@ -504,7 +500,7 @@ contract UserAccountManager is Roles, IUpgradeableContract, IUserAccountManager,
         TvmCell dataToTransfer
     ) external override view onlyMarket {
         address userAccount = _calculateUserAccountAddress(venomWallet);
-        IUserAccount(userAccount).updateUserAccountHealth{
+        IUserAccountData(userAccount).updateUserAccountHealth{
             flag: MsgFlag.ALL_NOT_RESERVED
         }(gasTo, accountHealth, updatedIndexes, dataToTransfer);
     }
@@ -513,7 +509,7 @@ contract UserAccountManager is Roles, IUpgradeableContract, IUserAccountManager,
     // Requests from user account to market
 
     function requestTokenPayout(address venomWallet, address userTip3Wallet, uint32 marketId, uint256 toPayout) external override view onlySelectedExecutors(OperationCodes.LIQUIDATE_TOKENS, venomWallet) {
-        IMarket(marketAddress).requestTokenPayout{
+        IMarketOperations(marketAddress).requestTokenPayout{
             flag: MsgFlag.ALL_NOT_RESERVED
         }(venomWallet, userTip3Wallet, marketId, toPayout);
     }
@@ -571,14 +567,14 @@ contract UserAccountManager is Roles, IUpgradeableContract, IUserAccountManager,
 
     function disableUserAccountLock(address venomWallet) external view onlyOwner {
         address userAccount = _calculateUserAccountAddress(venomWallet);
-        IUserAccount(userAccount).disableBorrowLock{
+        IUserAccountData(userAccount).disableBorrowLock{
             flag: MsgFlag.ALL_NOT_RESERVED
         }();
     }
 
     function removeMarket(address venomWallet, uint32 marketId) external view canChangeParams {
         address userAccount = _calculateUserAccountAddress(venomWallet);
-        IUserAccount(userAccount).removeMarket{
+        IUserAccountData(userAccount).removeMarket{
             flag: MsgFlag.ALL_NOT_RESERVED
         }(marketId);
     }

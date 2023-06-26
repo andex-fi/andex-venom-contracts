@@ -6,8 +6,132 @@
 		{
 			"name": "constructor",
 			"inputs": [
+				{"name":"_newOwner","type":"address"}
 			],
 			"outputs": [
+			]
+		},
+		{
+			"name": "upgradeContractCode",
+			"inputs": [
+				{"name":"code","type":"cell"},
+				{"name":"updateParams","type":"cell"},
+				{"name":"codeVersion","type":"uint32"}
+			],
+			"outputs": [
+			]
+		},
+		{
+			"name": "getRealTokenRoots",
+			"inputs": [
+				{"name":"answerId","type":"uint32"}
+			],
+			"outputs": [
+				{"name":"value0","type":"map(address,bool)"}
+			]
+		},
+		{
+			"name": "getWallets",
+			"inputs": [
+				{"name":"answerId","type":"uint32"}
+			],
+			"outputs": [
+				{"name":"value0","type":"map(address,address)"}
+			]
+		},
+		{
+			"name": "getMarketAddresses",
+			"inputs": [
+				{"name":"answerId","type":"uint32"},
+				{"name":"marketId","type":"uint32"}
+			],
+			"outputs": [
+				{"components":[{"name":"realToken","type":"address"},{"name":"realTokenWallet","type":"address"}],"name":"value0","type":"tuple"}
+			]
+		},
+		{
+			"name": "getAllMarkets",
+			"inputs": [
+				{"name":"answerId","type":"uint32"}
+			],
+			"outputs": [
+				{"components":[{"name":"realToken","type":"address"},{"name":"realTokenWallet","type":"address"}],"name":"value0","type":"map(uint32,tuple)"}
+			]
+		},
+		{
+			"name": "createSupplyPayload",
+			"inputs": [
+			],
+			"outputs": [
+				{"name":"value0","type":"cell"}
+			]
+		},
+		{
+			"name": "createRepayPayload",
+			"inputs": [
+			],
+			"outputs": [
+				{"name":"value0","type":"cell"}
+			]
+		},
+		{
+			"name": "createLiquidationPayload",
+			"inputs": [
+				{"name":"targetUser","type":"address"},
+				{"name":"marketId","type":"uint32"}
+			],
+			"outputs": [
+				{"name":"value0","type":"cell"}
+			]
+		},
+		{
+			"name": "setUpgrader",
+			"inputs": [
+				{"name":"upgrader","type":"address"},
+				{"name":"allowed","type":"bool"}
+			],
+			"outputs": [
+			]
+		},
+		{
+			"name": "setParamChanger",
+			"inputs": [
+				{"name":"paramChanger","type":"address"},
+				{"name":"allowed","type":"bool"}
+			],
+			"outputs": [
+			]
+		},
+		{
+			"name": "changeOwner",
+			"inputs": [
+				{"name":"_newOwner","type":"address"}
+			],
+			"outputs": [
+			]
+		},
+		{
+			"name": "getOwner",
+			"inputs": [
+			],
+			"outputs": [
+				{"name":"value0","type":"address"}
+			]
+		},
+		{
+			"name": "getUpgraders",
+			"inputs": [
+			],
+			"outputs": [
+				{"name":"value0","type":"map(address,bool)"}
+			]
+		},
+		{
+			"name": "getParamChangers",
+			"inputs": [
+			],
+			"outputs": [
+				{"name":"value0","type":"map(address,bool)"}
 			]
 		},
 		{
@@ -67,6 +191,9 @@
 		{"name":"_pubkey","type":"uint256"},
 		{"name":"_timestamp","type":"uint64"},
 		{"name":"_constructorFlag","type":"bool"},
+		{"name":"_owner","type":"address"},
+		{"name":"_canUpgrade","type":"map(address,bool)"},
+		{"name":"_canChangeParams","type":"map(address,bool)"},
 		{"name":"contractCodeVersion","type":"uint32"},
 		{"name":"marketAddress","type":"address"},
 		{"name":"wallets","type":"map(address,address)"},
