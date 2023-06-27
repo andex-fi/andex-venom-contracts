@@ -1,0 +1,1930 @@
+.version sol 0.62.0
+
+.macro constructor
+DROP
+GETGLOB 2
+ISNULL
+IFREF {
+	CALL $c4_to_c7_with_init_storage$
+}
+GETGLOB 6
+THROWIF 51
+OVER
+PUSHCONT {
+	LDREF
+	ENDS
+	CTOS
+}
+IF
+LDMSGADDR
+ENDS
+.loc ../contracts/Oracle.tsol, 36
+ACCEPT
+.loc ../contracts/Oracle.tsol, 37
+SETGLOB 10
+.loc ../contracts/Oracle.tsol, 0
+CALLREF {
+	CALL $c7_to_c4$
+}
+THROW 0
+
+.macro upgradeContractCode
+DROP
+GETGLOB 6
+THROWIFNOT 76
+GETGLOB 2
+ISNULL
+IFREF {
+	CALL $c4_to_c7$
+}
+.loc ../contracts/Oracle.tsol, 61
+LDREF
+LDREF
+LDU 32
+ENDS
+.loc ../contracts/Oracle.tsol, 0
+CALLREF {
+	CALL $upgradeContractCode_344c0b3a_internal_macro$
+}
+DROP
+CALLREF {
+	CALL $c7_to_c4$
+}
+THROW 0
+
+.macro upgradeContractCode_344c0b3a_internal_macro
+.loc ../contracts/abstract/Roles.tsol, 65
+GETGLOB 9
+GETGLOB 11
+PUSHINT 267
+DICTGET
+ZEROSWAPIFNOT
+PUSHCONT {
+	PLDI 1
+}
+IF
+GETGLOB 9
+GETGLOB 10
+SDEQ
+OR
+THROWIFNOT 115
+.loc ../contracts/Oracle.tsol, 62
+ACCEPT
+.loc ../contracts/Oracle.tsol, 64
+PUSH S2
+SETCODE
+.loc ../contracts/Oracle.tsol, 65
+ROT
+CTOS
+DUP
+PUSHSLICE x8adb35
+SDEQ
+PUSHCONT {
+	PLDREFIDX 1
+	CTOS
+}
+IF
+PLDREF
+CTOS
+BLESS
+POP C3
+.loc ../contracts/Oracle.tsol, 67
+GETGLOB 13
+GETGLOB 14
+GETGLOB 15
+PUSHINT 0
+GETGLOB 10
+BLKSWAP 2, 5
+CALLREF {
+	CALL $:onCodeUpgrade$
+}
+.loc ../contracts/Oracle.tsol, 0
+
+.internal-alias :onCodeUpgrade, 2
+.internal :onCodeUpgrade
+.loc ../contracts/Oracle.tsol, 87
+ACCEPT
+.loc ../contracts/Oracle.tsol, 88
+PUSHREFSLICE {
+	.blob x8000000000000000000000000000000000000000000000000000000000000000001_
+}
+SETGLOB 10
+NEWDICT
+SETGLOB 11
+NEWDICT
+SETGLOB 12
+PUSHINT 0
+SETGLOB 13
+NEWDICT
+SETGLOB 14
+NEWDICT
+SETGLOB 15
+PUSHINT 0
+SETGLOB 16
+.loc ../contracts/Oracle.tsol, 89
+ROLL 6
+SETGLOB 13
+.loc ../contracts/Oracle.tsol, 90
+ROLL 5
+SETGLOB 14
+.loc ../contracts/Oracle.tsol, 91
+ROLL 4
+SETGLOB 15
+.loc ../contracts/Oracle.tsol, 92
+ROT
+SETGLOB 10
+.loc ../contracts/Oracle.tsol, 93
+SETGLOB 16
+.loc ../contracts/Oracle.tsol, 0
+DROP2
+CALLREF {
+	CALL $c7_to_c4$
+}
+COMMIT
+THROW 0
+
+.macro getVersion
+DROP
+GETGLOB 6
+THROWIFNOT 76
+GETGLOB 2
+ISNULL
+IFREF {
+	CALL $c4_to_c7$
+}
+.loc ../contracts/Oracle.tsol, 98
+LDU 32
+GETGLOB 4
+ROT
+SETINDEXQ 5
+SETGLOB 4
+ENDS
+.loc ../contracts/Oracle.tsol, 0
+CALLREF {
+	CALL $getVersion_0d8e6e2c_internal_macro$
+}
+OVER
+PUSHCONT {
+	PUSH S3
+	CTOS
+	LDU 2
+	LDMSGADDR
+	DROP
+	NIP
+	NEWC
+	STSLICECONST xc
+	STSLICE
+	PUSHINT 2913553711
+	STUR 130
+	STU 32
+	ENDC
+	PUSHINT 0
+}
+PUSHCONT {
+	GETGLOB 4
+	DUP
+	INDEX 3
+	OVER
+	THIRD
+	GETGLOB 9
+	ROLL 3
+	SECOND
+	NEWC
+	STSLICECONST x2_
+	STI 1
+	STSLICECONST x1_
+	STSLICE
+	SWAP
+	STGRAMS
+	STDICT
+	PUSHINT 106
+	STZEROES
+	GETGLOB 4
+	INDEX 5
+	STUR 32
+	STU 32
+	ENDC
+	GETGLOB 4
+	INDEX 4
+}
+IFELSE
+SENDRAWMSG
+IFREF {
+	CALL $upd_only_time_in_c4$
+}
+THROW 0
+
+.macro getVersion_0d8e6e2c_internal_macro
+.loc ../contracts/Oracle.tsol, 99
+DEPTH
+ADDCONST -2
+PICK
+PUSHINT 2
+RAWRESERVE
+.loc ../contracts/Oracle.tsol, 100
+GETGLOB 4
+PUSHINT 0
+SETINDEXQ 2
+FALSE
+SETINDEXQ 1
+PUSHINT 64
+SETINDEXQ 4
+SETGLOB 4
+GETGLOB 16
+.loc ../contracts/Oracle.tsol, 0
+
+.macro getDetails
+DROP
+GETGLOB 6
+THROWIFNOT 76
+GETGLOB 2
+ISNULL
+IFREF {
+	CALL $c4_to_c7$
+}
+.loc ../contracts/Oracle.tsol, 103
+LDU 32
+GETGLOB 4
+ROT
+SETINDEXQ 5
+SETGLOB 4
+ENDS
+.loc ../contracts/Oracle.tsol, 0
+CALLREF {
+	CALL $getDetails_fbbf93a0_internal_macro$
+}
+OVER
+PUSHCONT {
+	PUSH S3
+	CTOS
+	LDU 2
+	LDMSGADDR
+	DROP
+	NIP
+	NEWC
+	STSLICECONST xc
+	STSLICE
+	PUSHINT 1
+	STUR 98
+	SWAP
+	NEWC
+	STSLICECONST xab85ecdb
+	SWAP
+	UNPAIR
+	XCHG S2
+	STU 32
+	STSLICE
+	STBREFR
+	ENDC
+	PUSHINT 0
+}
+PUSHCONT {
+	GETGLOB 4
+	DUP
+	INDEX 3
+	OVER
+	THIRD
+	GETGLOB 9
+	ROLL 3
+	SECOND
+	NEWC
+	STSLICECONST x2_
+	STI 1
+	STSLICECONST x1_
+	STSLICE
+	SWAP
+	STGRAMS
+	STDICT
+	PUSHINT 1
+	STUR 106
+	SWAP
+	NEWC
+	GETGLOB 4
+	INDEX 5
+	STUR 32
+	SWAP
+	UNPAIR
+	XCHG S2
+	STU 32
+	STSLICE
+	STBREFR
+	ENDC
+	GETGLOB 4
+	INDEX 4
+}
+IFELSE
+SENDRAWMSG
+IFREF {
+	CALL $upd_only_time_in_c4$
+}
+THROW 0
+
+.macro getDetails_fbbf93a0_internal_macro
+.loc ../contracts/Oracle.tsol, 104
+DEPTH
+ADDCONST -2
+PICK
+PUSHINT 2
+RAWRESERVE
+.loc ../contracts/Oracle.tsol, 105
+GETGLOB 4
+PUSHINT 0
+SETINDEXQ 2
+FALSE
+SETINDEXQ 1
+PUSHINT 64
+SETINDEXQ 4
+SETGLOB 4
+GETGLOB 16
+GETGLOB 10
+PAIR
+.loc ../contracts/Oracle.tsol, 0
+
+.macro externalUpdatePrice
+DROP
+GETGLOB 6
+THROWIFNOT 76
+GETGLOB 2
+ISNULL
+IFREF {
+	CALL $c4_to_c7$
+}
+.loc ../contracts/Oracle.tsol, 116
+OVER
+PUSHCONT {
+	LDREF
+	ENDS
+	CTOS
+}
+IF
+LDMSGADDR
+LDU 128
+LDU 128
+ENDS
+.loc ../contracts/Oracle.tsol, 0
+CALLREF {
+	CALL $externalUpdatePrice_88b4dba2_internal_macro$
+}
+DROP
+CALLREF {
+	CALL $c7_to_c4$
+}
+THROW 0
+
+.macro externalUpdatePrice_88b4dba2_internal_macro
+.loc ../contracts/abstract/Roles.tsol, 74
+GETGLOB 9
+GETGLOB 12
+PUSHINT 267
+DICTGET
+ZEROSWAPIFNOT
+PUSHCONT {
+	PLDI 1
+}
+IF
+GETGLOB 9
+GETGLOB 10
+SDEQ
+OR
+THROWIFNOT 116
+.loc ../contracts/abstract/Roles.tsol, 79
+PUSH S2
+.loc ../contracts/Oracle.tsol, 203
+GETGLOB 14
+PUSHINT 267
+DICTGET
+NULLSWAPIFNOT
+NIP
+THROWIFNOT 130
+.loc ../contracts/Oracle.tsol, 117
+GETGLOB 9
+PARSEMSGADDR
+INDEX 3
+PLDU 256
+PUSHCONT {
+	.loc ../contracts/Oracle.tsol, 120
+	DEPTH
+	ADDCONST -2
+	PICK
+	PUSHINT 2
+	RAWRESERVE
+}
+PUSHCONT {
+	.loc ../contracts/Oracle.tsol, 118
+	ACCEPT
+}
+IFELSE
+.loc ../contracts/Oracle.tsol, 123
+XCPU S1, S2
+GETGLOB 14
+DUP2
+PUSHINT 267
+DICTGETREF
+PUSHCONT {
+	CTOS
+	CALLREF {
+		LDMSGADDR
+		LDI 1
+		LDU 128
+		LDU 128
+		ENDS
+		TUPLE 4
+	}
+}
+PUSHCONT {
+	PUSHREFSLICE {
+		.blob x8000000000000000000000000000000000000000000000000000000000000000001_
+	}
+	PUSHINT 0
+	BLKPUSH 2, 0
+	TUPLE 4
+}
+IFELSE
+ROLL 3
+SETINDEX 2
+CALLREF {
+	UNTUPLE 4
+	REVERSE 4, 0
+	NEWC
+	STSLICE
+	STI 1
+	STU 128
+	STU 128
+}
+ENDC
+ROTREV
+PUSHINT 267
+DICTSETREF
+DUP
+SETGLOB 14
+.loc ../contracts/Oracle.tsol, 124
+XCHG S1, S2
+DUP2
+PUSHINT 267
+DICTGETREF
+PUSHCONT {
+	CTOS
+	CALLREF {
+		LDMSGADDR
+		LDI 1
+		LDU 128
+		LDU 128
+		ENDS
+		TUPLE 4
+	}
+}
+PUSHCONT {
+	PUSHREFSLICE {
+		.blob x8000000000000000000000000000000000000000000000000000000000000000001_
+	}
+	PUSHINT 0
+	BLKPUSH 2, 0
+	TUPLE 4
+}
+IFELSE
+ROLL 3
+SETINDEX 3
+CALLREF {
+	UNTUPLE 4
+	REVERSE 4, 0
+	NEWC
+	STSLICE
+	STI 1
+	STU 128
+	STU 128
+}
+ENDC
+ROTREV
+PUSHINT 267
+DICTSETREF
+SETGLOB 14
+.loc ../contracts/Oracle.tsol, 126
+GETGLOB 9
+NEWC
+STSLICECONST x62_
+STSLICE
+PUSHINT 111
+STZEROES
+ENDC
+PUSHINT 64
+SENDRAWMSG
+.loc ../contracts/Oracle.tsol, 0
+
+.macro internalUpdatePrice
+DROP
+GETGLOB 6
+THROWIFNOT 76
+GETGLOB 2
+ISNULL
+IFREF {
+	CALL $c4_to_c7$
+}
+.loc ../contracts/Oracle.tsol, 132
+OVER
+PUSHCONT {
+	LDREF
+	ENDS
+	CTOS
+}
+IF
+LDMSGADDR
+ENDS
+.loc ../contracts/Oracle.tsol, 0
+CALLREF {
+	CALL $internalUpdatePrice_17b602e1_internal_macro$
+}
+DROP
+CALLREF {
+	CALL $c7_to_c4$
+}
+THROW 0
+
+.macro internalUpdatePrice_17b602e1_internal_macro
+.loc ../contracts/Oracle.tsol, 132
+DUP
+.loc ../contracts/Oracle.tsol, 203
+GETGLOB 14
+PUSHINT 267
+DICTGET
+NULLSWAPIFNOT
+NIP
+THROWIFNOT 130
+.loc ../contracts/Oracle.tsol, 133
+DEPTH
+ADDCONST -2
+PICK
+PUSHINT 2
+RAWRESERVE
+.loc ../contracts/Oracle.tsol, 134
+GETGLOB 14
+PUSHINT 267
+DICTGETREF
+PUSHCONT {
+	CTOS
+	CALLREF {
+		LDMSGADDR
+		LDI 1
+		LDU 128
+		LDU 128
+		ENDS
+		TUPLE 4
+	}
+}
+PUSHCONT {
+	PUSHREFSLICE {
+		.blob x8000000000000000000000000000000000000000000000000000000000000000001_
+	}
+	PUSHINT 0
+	BLKPUSH 2, 0
+	TUPLE 4
+}
+IFELSE
+FIRST
+TRUE
+NEWC
+STSLICECONST x6_
+STI 1
+STSLICECONST x1_
+STSLICE
+PUSHINT 6446610064774623
+STUR 175
+ENDC
+PUSHINT 64
+SENDRAWMSG
+.loc ../contracts/Oracle.tsol, 0
+
+.macro internalGetUpdatedPrice
+DROP
+GETGLOB 6
+THROWIFNOT 76
+GETGLOB 2
+ISNULL
+IFREF {
+	CALL $c4_to_c7$
+}
+.loc ../contracts/Oracle.tsol, 145
+OVER
+PUSHCONT {
+	LDREF
+	ENDS
+	CTOS
+}
+IF
+LDU 128
+LDU 128
+LDU 128
+ROLLREV 3
+TRIPLE
+SWAP
+ENDS
+.loc ../contracts/Oracle.tsol, 0
+CALLREF {
+	CALL $internalGetUpdatedPrice_089d1ee1_internal_macro$
+}
+DROP
+CALLREF {
+	CALL $c7_to_c4$
+}
+THROW 0
+
+.macro internalGetUpdatedPrice_089d1ee1_internal_macro
+.loc ../contracts/Oracle.tsol, 198
+GETGLOB 9
+GETGLOB 15
+PUSHINT 267
+DICTGET
+NULLSWAPIFNOT
+NIP
+THROWIFNOT 129
+.loc ../contracts/Oracle.tsol, 146
+DEPTH
+ADDCONST -2
+PICK
+PUSHINT 2
+RAWRESERVE
+.loc ../contracts/Oracle.tsol, 147
+GETGLOB 9
+GETGLOB 15
+PUSHINT 267
+DICTGET
+PUSHCONT {
+	PUSHREFSLICE {
+		.blob x8000000000000000000000000000000000000000000000000000000000000000001_
+	}
+}
+IFNOT
+.loc ../contracts/Oracle.tsol, 148
+DUP
+GETGLOB 14
+PUSHINT 267
+DICTGETREF
+PUSHCONT {
+	CTOS
+	CALLREF {
+		LDMSGADDR
+		LDI 1
+		LDU 128
+		LDU 128
+		ENDS
+		TUPLE 4
+	}
+}
+PUSHCONT {
+	PUSHREFSLICE {
+		.blob x8000000000000000000000000000000000000000000000000000000000000000001_
+	}
+	PUSHINT 0
+	BLKPUSH 2, 0
+	TUPLE 4
+}
+IFELSE
+SECOND
+PUSHCONT {
+	OVER
+	SECOND
+}
+PUSHCONT {
+	OVER
+	THIRD
+}
+IFELSE
+OVER
+GETGLOB 14
+DUP2
+PUSHINT 267
+DICTGETREF
+PUSHCONT {
+	CTOS
+	CALLREF {
+		LDMSGADDR
+		LDI 1
+		LDU 128
+		LDU 128
+		ENDS
+		TUPLE 4
+	}
+}
+PUSHCONT {
+	PUSHREFSLICE {
+		.blob x8000000000000000000000000000000000000000000000000000000000000000001_
+	}
+	PUSHINT 0
+	BLKPUSH 2, 0
+	TUPLE 4
+}
+IFELSE
+ROLL 3
+SETINDEX 2
+CALLREF {
+	UNTUPLE 4
+	REVERSE 4, 0
+	NEWC
+	STSLICE
+	STI 1
+	STU 128
+	STU 128
+}
+ENDC
+ROTREV
+PUSHINT 267
+DICTSETREF
+SETGLOB 14
+.loc ../contracts/Oracle.tsol, 149
+DUP
+GETGLOB 14
+PUSHINT 267
+DICTGETREF
+PUSHCONT {
+	CTOS
+	CALLREF {
+		LDMSGADDR
+		LDI 1
+		LDU 128
+		LDU 128
+		ENDS
+		TUPLE 4
+	}
+}
+PUSHCONT {
+	PUSHREFSLICE {
+		.blob x8000000000000000000000000000000000000000000000000000000000000000001_
+	}
+	PUSHINT 0
+	BLKPUSH 2, 0
+	TUPLE 4
+}
+IFELSE
+SECOND
+PUSHCONT {
+	OVER
+	THIRD
+}
+PUSHCONT {
+	OVER
+	SECOND
+}
+IFELSE
+SWAP
+GETGLOB 14
+DUP2
+PUSHINT 267
+DICTGETREF
+PUSHCONT {
+	CTOS
+	CALLREF {
+		LDMSGADDR
+		LDI 1
+		LDU 128
+		LDU 128
+		ENDS
+		TUPLE 4
+	}
+}
+PUSHCONT {
+	PUSHREFSLICE {
+		.blob x8000000000000000000000000000000000000000000000000000000000000000001_
+	}
+	PUSHINT 0
+	BLKPUSH 2, 0
+	TUPLE 4
+}
+IFELSE
+ROLL 3
+SETINDEX 3
+CALLREF {
+	UNTUPLE 4
+	REVERSE 4, 0
+	NEWC
+	STSLICE
+	STI 1
+	STU 128
+	STU 128
+}
+ENDC
+ROTREV
+PUSHINT 267
+DICTSETREF
+SETGLOB 14
+.loc ../contracts/Oracle.tsol, 0
+DROP
+
+.macro getTokenPrice
+DROP
+GETGLOB 6
+THROWIFNOT 76
+GETGLOB 2
+ISNULL
+IFREF {
+	CALL $c4_to_c7$
+}
+.loc ../contracts/Oracle.tsol, 158
+LDU 32
+GETGLOB 4
+ROT
+SETINDEXQ 5
+SETGLOB 4
+OVER
+PUSHCONT {
+	LDREF
+	ENDS
+	CTOS
+}
+IF
+LDMSGADDR
+LDREF
+ENDS
+.loc ../contracts/Oracle.tsol, 0
+CALLREF {
+	CALL $getTokenPrice_514ac272_internal_macro$
+}
+PUSH S4
+PUSHCONT {
+	PUSH S6
+	CTOS
+	LDU 2
+	LDMSGADDR
+	DROP
+	NIP
+	NEWC
+	STSLICECONST xc
+	STSLICE
+	PUSHINT 1
+	STUR 98
+	REVERSE 5, 0
+	NEWC
+	STSLICECONST x84d1f632
+	STSLICE
+	STU 128
+	STU 128
+	STREF
+	STBREFR
+	ENDC
+	PUSHINT 0
+}
+PUSHCONT {
+	GETGLOB 4
+	DUP
+	INDEX 3
+	OVER
+	THIRD
+	GETGLOB 9
+	ROLL 3
+	SECOND
+	NEWC
+	STSLICECONST x2_
+	STI 1
+	STSLICECONST x1_
+	STSLICE
+	SWAP
+	STGRAMS
+	STDICT
+	PUSHINT 1
+	STUR 106
+	REVERSE 5, 0
+	NEWC
+	GETGLOB 4
+	INDEX 5
+	STUR 32
+	STSLICE
+	STU 128
+	STU 128
+	STREF
+	STBREFR
+	ENDC
+	GETGLOB 4
+	INDEX 4
+}
+IFELSE
+SENDRAWMSG
+IFREF {
+	CALL $upd_only_time_in_c4$
+}
+THROW 0
+
+.macro getTokenPrice_514ac272_internal_macro
+.loc ../contracts/Oracle.tsol, 159
+DEPTH
+ADDCONST -2
+PICK
+PUSHINT 2
+RAWRESERVE
+.loc ../contracts/Oracle.tsol, 160
+GETGLOB 4
+PUSHINT 0
+SETINDEXQ 2
+FALSE
+SETINDEXQ 1
+PUSHINT 64
+SETINDEXQ 4
+SETGLOB 4
+PUSH2 S1, S1
+GETGLOB 14
+PUSHINT 267
+DICTGETREF
+PUSHCONT {
+	CTOS
+	CALLREF {
+		LDMSGADDR
+		LDI 1
+		LDU 128
+		LDU 128
+		ENDS
+		TUPLE 4
+	}
+}
+PUSHCONT {
+	PUSHREFSLICE {
+		.blob x8000000000000000000000000000000000000000000000000000000000000000001_
+	}
+	PUSHINT 0
+	BLKPUSH 2, 0
+	TUPLE 4
+}
+IFELSE
+THIRD
+ROLL 3
+GETGLOB 14
+PUSHINT 267
+DICTGETREF
+PUSHCONT {
+	CTOS
+	CALLREF {
+		LDMSGADDR
+		LDI 1
+		LDU 128
+		LDU 128
+		ENDS
+		TUPLE 4
+	}
+}
+PUSHCONT {
+	PUSHREFSLICE {
+		.blob x8000000000000000000000000000000000000000000000000000000000000000001_
+	}
+	PUSHINT 0
+	BLKPUSH 2, 0
+	TUPLE 4
+}
+IFELSE
+INDEX 3
+ROLL 3
+.loc ../contracts/Oracle.tsol, 0
+
+.macro getAllTokenPrices
+DROP
+GETGLOB 6
+THROWIFNOT 76
+GETGLOB 2
+ISNULL
+IFREF {
+	CALL $c4_to_c7$
+}
+.loc ../contracts/Oracle.tsol, 166
+LDU 32
+GETGLOB 4
+ROT
+SETINDEXQ 5
+SETGLOB 4
+LDREF
+ENDS
+.loc ../contracts/Oracle.tsol, 0
+CALLREF {
+	CALL $getAllTokenPrices_76499e6b_internal_macro$
+}
+PUSH S2
+PUSHCONT {
+	PUSH S4
+	CTOS
+	LDU 2
+	LDMSGADDR
+	DROP
+	NIP
+	NEWC
+	STSLICECONST xc
+	STSLICE
+	PUSHINT 98
+	STZEROES
+	REVERSE 2, 1
+	STSLICECONST x802e792c
+	STDICT
+	STREF
+	ENDC
+	PUSHINT 0
+}
+PUSHCONT {
+	GETGLOB 4
+	DUP
+	INDEX 3
+	OVER
+	THIRD
+	GETGLOB 9
+	ROLL 3
+	SECOND
+	NEWC
+	STSLICECONST x2_
+	STI 1
+	STSLICECONST x1_
+	STSLICE
+	SWAP
+	STGRAMS
+	STDICT
+	PUSHINT 106
+	STZEROES
+	REVERSE 2, 1
+	GETGLOB 4
+	INDEX 5
+	STUR 32
+	STDICT
+	STREF
+	ENDC
+	GETGLOB 4
+	INDEX 4
+}
+IFELSE
+SENDRAWMSG
+IFREF {
+	CALL $upd_only_time_in_c4$
+}
+THROW 0
+
+.macro getAllTokenPrices_76499e6b_internal_macro
+.loc ../contracts/Oracle.tsol, 167
+DEPTH
+ADDCONST -2
+PICK
+PUSHINT 2
+RAWRESERVE
+.loc ../contracts/Oracle.tsol, 168
+GETGLOB 4
+PUSHINT 0
+SETINDEXQ 2
+FALSE
+SETINDEXQ 1
+PUSHINT 64
+SETINDEXQ 4
+SETGLOB 4
+GETGLOB 14
+SWAP
+.loc ../contracts/Oracle.tsol, 0
+
+.macro addToken
+DROP
+GETGLOB 6
+THROWIFNOT 76
+GETGLOB 2
+ISNULL
+IFREF {
+	CALL $c4_to_c7$
+}
+.loc ../contracts/Oracle.tsol, 178
+OVER
+PUSHCONT {
+	LDREF
+	ENDS
+	CTOS
+}
+IF
+LDMSGADDR
+LDREF
+ENDS
+CTOS
+LDMSGADDR
+LDI 1
+ENDS
+.loc ../contracts/Oracle.tsol, 0
+CALLREF {
+	CALL $addToken_ef1c69a2_internal_macro$
+}
+DROP
+CALLREF {
+	CALL $c7_to_c4$
+}
+THROW 0
+
+.macro addToken_ef1c69a2_internal_macro
+.loc ../contracts/abstract/Roles.tsol, 74
+GETGLOB 9
+GETGLOB 12
+PUSHINT 267
+DICTGET
+ZEROSWAPIFNOT
+PUSHCONT {
+	PLDI 1
+}
+IF
+GETGLOB 9
+GETGLOB 10
+SDEQ
+OR
+THROWIFNOT 116
+.loc ../contracts/Oracle.tsol, 179
+ACCEPT
+.loc ../contracts/Oracle.tsol, 180
+BLKPUSH 2, 2
+GETGLOB 15
+PUSHINT 267
+DICTSET
+SETGLOB 15
+.loc ../contracts/Oracle.tsol, 181
+PUSHINT 0
+DUP
+TUPLE 4
+OVER
+GETGLOB 14
+ROT
+CALLREF {
+	UNTUPLE 4
+	REVERSE 4, 0
+	NEWC
+	STSLICE
+	STI 1
+	STU 128
+	STU 128
+}
+ENDC
+ROTREV
+PUSHINT 267
+DICTSETREF
+SETGLOB 14
+.loc ../contracts/Oracle.tsol, 182
+MYADDR
+FALSE
+NEWC
+STSLICECONST x6_
+STI 1
+STSLICECONST x1_
+STSLICE
+PUSHINT 2820045005182170565370280386138670788247553
+STUR 143
+SWAP
+NEWC
+STSLICECONST x6e9a5812
+STSLICE
+STBREFR
+ENDC
+PUSHINT 0
+SENDRAWMSG
+.loc ../contracts/Oracle.tsol, 0
+
+.macro removeToken
+DROP
+GETGLOB 6
+THROWIFNOT 76
+GETGLOB 2
+ISNULL
+IFREF {
+	CALL $c4_to_c7$
+}
+.loc ../contracts/Oracle.tsol, 188
+OVER
+PUSHCONT {
+	LDREF
+	ENDS
+	CTOS
+}
+IF
+LDMSGADDR
+ENDS
+.loc ../contracts/Oracle.tsol, 0
+CALLREF {
+	CALL $removeToken_5fa7b584_internal_macro$
+}
+DROP
+CALLREF {
+	CALL $c7_to_c4$
+}
+THROW 0
+
+.macro removeToken_5fa7b584_internal_macro
+.loc ../contracts/abstract/Roles.tsol, 74
+GETGLOB 9
+GETGLOB 12
+PUSHINT 267
+DICTGET
+ZEROSWAPIFNOT
+PUSHCONT {
+	PLDI 1
+}
+IF
+GETGLOB 9
+GETGLOB 10
+SDEQ
+OR
+THROWIFNOT 116
+.loc ../contracts/Oracle.tsol, 189
+ACCEPT
+.loc ../contracts/Oracle.tsol, 190
+GETGLOB 15
+OVER
+GETGLOB 14
+PUSHINT 267
+DICTGETREF
+PUSHCONT {
+	CTOS
+	CALLREF {
+		LDMSGADDR
+		LDI 1
+		LDU 128
+		LDU 128
+		ENDS
+		TUPLE 4
+	}
+}
+PUSHCONT {
+	PUSHREFSLICE {
+		.blob x8000000000000000000000000000000000000000000000000000000000000000001_
+	}
+	PUSHINT 0
+	BLKPUSH 2, 0
+	TUPLE 4
+}
+IFELSE
+FIRST
+SWAP
+PUSHINT 267
+DICTDEL
+DROP
+SETGLOB 15
+.loc ../contracts/Oracle.tsol, 191
+GETGLOB 14
+PUSHINT 267
+DICTDEL
+DROP
+SETGLOB 14
+.loc ../contracts/Oracle.tsol, 0
+
+.macro setUpgrader
+DROP
+GETGLOB 6
+THROWIFNOT 76
+GETGLOB 2
+ISNULL
+IFREF {
+	CALL $c4_to_c7$
+}
+.loc ../contracts/abstract/Roles.tsol, 11
+OVER
+PUSHCONT {
+	LDREF
+	ENDS
+	CTOS
+}
+IF
+LDMSGADDR
+LDI 1
+ENDS
+.loc ../contracts/abstract/Roles.tsol, 0
+CALLREF {
+	CALL $setUpgrader_07eddd47_internal_macro$
+}
+DROP
+CALLREF {
+	CALL $c7_to_c4$
+}
+THROW 0
+
+.macro setUpgrader_07eddd47_internal_macro
+.loc ../contracts/abstract/Roles.tsol, 57
+GETGLOB 9
+GETGLOB 10
+SDEQ
+THROWIFNOT 117
+.loc ../contracts/abstract/Roles.tsol, 12
+DEPTH
+ADDCONST -2
+PICK
+PUSHINT 2
+RAWRESERVE
+.loc ../contracts/abstract/Roles.tsol, 14
+GETGLOB 11
+SWAP
+NEWC
+STI 1
+ROTREV
+PUSHINT 267
+DICTSETB
+SETGLOB 11
+.loc ../contracts/abstract/Roles.tsol, 16
+GETGLOB 9
+NEWC
+STSLICECONST x62_
+STSLICE
+PUSHINT 111
+STZEROES
+ENDC
+PUSHINT 64
+SENDRAWMSG
+.loc ../contracts/abstract/Roles.tsol, 0
+
+.macro setParamChanger
+DROP
+GETGLOB 6
+THROWIFNOT 76
+GETGLOB 2
+ISNULL
+IFREF {
+	CALL $c4_to_c7$
+}
+.loc ../contracts/abstract/Roles.tsol, 22
+OVER
+PUSHCONT {
+	LDREF
+	ENDS
+	CTOS
+}
+IF
+LDMSGADDR
+LDI 1
+ENDS
+.loc ../contracts/abstract/Roles.tsol, 0
+CALLREF {
+	CALL $setParamChanger_b446a585_internal_macro$
+}
+DROP
+CALLREF {
+	CALL $c7_to_c4$
+}
+THROW 0
+
+.macro setParamChanger_b446a585_internal_macro
+.loc ../contracts/abstract/Roles.tsol, 57
+GETGLOB 9
+GETGLOB 10
+SDEQ
+THROWIFNOT 117
+.loc ../contracts/abstract/Roles.tsol, 23
+DEPTH
+ADDCONST -2
+PICK
+PUSHINT 2
+RAWRESERVE
+.loc ../contracts/abstract/Roles.tsol, 25
+GETGLOB 12
+SWAP
+NEWC
+STI 1
+ROTREV
+PUSHINT 267
+DICTSETB
+SETGLOB 12
+.loc ../contracts/abstract/Roles.tsol, 27
+GETGLOB 9
+NEWC
+STSLICECONST x62_
+STSLICE
+PUSHINT 111
+STZEROES
+ENDC
+PUSHINT 64
+SENDRAWMSG
+.loc ../contracts/abstract/Roles.tsol, 0
+
+.macro changeOwner
+DROP
+GETGLOB 6
+THROWIFNOT 76
+GETGLOB 2
+ISNULL
+IFREF {
+	CALL $c4_to_c7$
+}
+.loc ../contracts/abstract/Roles.tsol, 33
+OVER
+PUSHCONT {
+	LDREF
+	ENDS
+	CTOS
+}
+IF
+LDMSGADDR
+ENDS
+.loc ../contracts/abstract/Roles.tsol, 0
+CALLREF {
+	CALL $changeOwner_a6f9dae1_internal_macro$
+}
+DROP
+CALLREF {
+	CALL $c7_to_c4$
+}
+THROW 0
+
+.macro changeOwner_a6f9dae1_internal_macro
+.loc ../contracts/abstract/Roles.tsol, 57
+GETGLOB 9
+GETGLOB 10
+SDEQ
+THROWIFNOT 117
+.loc ../contracts/abstract/Roles.tsol, 34
+DEPTH
+ADDCONST -2
+PICK
+PUSHINT 2
+RAWRESERVE
+.loc ../contracts/abstract/Roles.tsol, 36
+SETGLOB 10
+.loc ../contracts/abstract/Roles.tsol, 38
+GETGLOB 9
+NEWC
+STSLICECONST x62_
+STSLICE
+PUSHINT 111
+STZEROES
+ENDC
+PUSHINT 64
+SENDRAWMSG
+.loc ../contracts/abstract/Roles.tsol, 0
+
+.macro getOwner
+DROP
+GETGLOB 6
+THROWIFNOT 76
+GETGLOB 2
+ISNULL
+IFREF {
+	CALL $c4_to_c7$
+}
+.loc ../contracts/abstract/Roles.tsol, 44
+ENDS
+.loc ../contracts/abstract/Roles.tsol, 0
+CALLREF {
+	CALL $getOwner_893d20e8_internal_macro$
+}
+OVER
+PUSHCONT {
+	PUSH S3
+	CTOS
+	LDU 2
+	LDMSGADDR
+	DROP
+	NIP
+	NEWC
+	STSLICECONST xc
+	STSLICE
+	PUSHINT 1
+	STUR 98
+	SWAP
+	NEWC
+	STSLICECONST x9ea5175d
+	STSLICE
+	STBREFR
+	ENDC
+	PUSHINT 0
+	SENDRAWMSG
+}
+PUSHCONT {
+	DROP
+}
+IFELSE
+IFREF {
+	CALL $upd_only_time_in_c4$
+}
+THROW 0
+
+.macro getOwner_893d20e8_internal_macro
+.loc ../contracts/abstract/Roles.tsol, 45
+GETGLOB 10
+.loc ../contracts/abstract/Roles.tsol, 0
+
+.macro getUpgraders
+DROP
+GETGLOB 6
+THROWIFNOT 76
+GETGLOB 2
+ISNULL
+IFREF {
+	CALL $c4_to_c7$
+}
+.loc ../contracts/abstract/Roles.tsol, 48
+ENDS
+.loc ../contracts/abstract/Roles.tsol, 0
+CALLREF {
+	CALL $getUpgraders_2ba16026_internal_macro$
+}
+OVER
+PUSHCONT {
+	PUSH S3
+	CTOS
+	LDU 2
+	LDMSGADDR
+	DROP
+	NIP
+	NEWC
+	STSLICECONST xc
+	STSLICE
+	PUSHINT 3095416491
+	STUR 130
+	STDICT
+	ENDC
+	PUSHINT 0
+	SENDRAWMSG
+}
+PUSHCONT {
+	DROP
+}
+IFELSE
+IFREF {
+	CALL $upd_only_time_in_c4$
+}
+THROW 0
+
+.macro getUpgraders_2ba16026_internal_macro
+.loc ../contracts/abstract/Roles.tsol, 49
+GETGLOB 11
+.loc ../contracts/abstract/Roles.tsol, 0
+
+.macro getParamChangers
+DROP
+GETGLOB 6
+THROWIFNOT 76
+GETGLOB 2
+ISNULL
+IFREF {
+	CALL $c4_to_c7$
+}
+.loc ../contracts/abstract/Roles.tsol, 52
+ENDS
+.loc ../contracts/abstract/Roles.tsol, 0
+CALLREF {
+	CALL $getParamChangers_61c2c76b_internal_macro$
+}
+OVER
+PUSHCONT {
+	PUSH S3
+	CTOS
+	LDU 2
+	LDMSGADDR
+	DROP
+	NIP
+	NEWC
+	STSLICECONST xc
+	STSLICE
+	PUSHINT 2248669321
+	STUR 130
+	STDICT
+	ENDC
+	PUSHINT 0
+	SENDRAWMSG
+}
+PUSHCONT {
+	DROP
+}
+IFELSE
+IFREF {
+	CALL $upd_only_time_in_c4$
+}
+THROW 0
+
+.macro getParamChangers_61c2c76b_internal_macro
+.loc ../contracts/abstract/Roles.tsol, 53
+GETGLOB 12
+.loc ../contracts/abstract/Roles.tsol, 0
+
+.macro c4_to_c7
+PUSHROOT
+CTOS
+LDU 256 ; pubkey c4
+LDU 64 ; pubkey timestamp c4
+LDU 1 ; ctor flag
+NIP
+LDMSGADDR
+LDDICT
+LDDICT
+LDREF
+ENDS
+CTOS
+LDU 256
+LDDICT
+LDDICT
+LDU 32
+ENDS
+SETGLOB 16
+SETGLOB 15
+SETGLOB 14
+SETGLOB 13
+SETGLOB 12
+SETGLOB 11
+SETGLOB 10
+SETGLOB 3
+SETGLOB 2
+
+.macro c4_to_c7_with_init_storage
+PUSHROOT
+CTOS
+SBITS
+GTINT 1
+PUSHCONT {
+	PUSHINT 0
+	PUSHROOT
+	CTOS
+	PLDDICT ; D
+	PUSHREFSLICE {
+		.blob x8000000000000000000000000000000000000000000000000000000000000000001_
+	}
+	NEWDICT
+	DUP
+	PUSHINT 1
+	PUSH S4
+	PUSHINT 64
+	DICTUGET
+	ZEROSWAPIFNOT
+	PUSHCONT {
+		PLDU 256
+	}
+	IF
+	NEWDICT
+	DUP
+	PUSHINT 0
+	SETGLOB 16
+	SETGLOB 15
+	SETGLOB 14
+	SETGLOB 13
+	SETGLOB 12
+	SETGLOB 11
+	SETGLOB 10
+	PUSHINT 64
+	DICTUGET
+	THROWIFNOT 61
+	PLDU 256
+	SETGLOB 2
+	PUSHINT 0 ; timestamp
+	SETGLOB 3
+}
+IFREFELSE {
+	CALL $c4_to_c7$
+}
+
+.macro c7_to_c4
+GETGLOB 16
+GETGLOB 15
+GETGLOB 14
+GETGLOB 13
+GETGLOB 12
+GETGLOB 11
+GETGLOB 10
+GETGLOB 3
+GETGLOB 2
+NEWC
+STU 256
+STU 64
+STONE
+STSLICE
+STDICT
+STDICT
+ROLLREV 4
+NEWC
+STU 256
+STDICT
+STDICT
+STU 32
+STBREFR
+ENDC
+POPROOT
+
+.macro upd_only_time_in_c4
+PUSHROOT
+CTOS
+LDU 256
+LDU 64
+NIP
+GETGLOB 3
+ROT
+NEWC
+STU 256
+STU 64
+STSLICE
+ENDC
+POPROOT
+
+.internal-alias :main_internal, 0
+.internal :main_internal
+PUSHROOT
+CTOS
+SBITS
+NEQINT 1
+SETGLOB 6
+PUSH S2
+CTOS
+LDU 4 ; bounced tail
+LDMSGADDR ; bounced src tail
+DROP
+SETGLOB 9
+MODPOW2 1
+GETGLOB 4
+TRUE
+SETINDEXQ 1
+PUSHINT 10000000
+SETINDEXQ 2
+NULL
+SETINDEXQ 3
+PUSHINT 0
+SETINDEXQ 4
+SETGLOB 4
+IFRET
+OVER
+SEMPTY ; isEmpty
+IFJMPREF {
+	GETGLOB 6
+	THROWIFNOT 76
+}
+OVER
+LDUQ 32  ; [funcId] body' ok
+THROWIFNOT 60
+OVER
+IFNOTJMPREF {
+	GETGLOB 6
+	THROWIFNOT 76
+}
+SWAP
+CALLREF {
+	CALL $public_function_selector$
+}
+THROW 60
+
+.internal-alias :main_external, -1
+.internal :main_external
+PUSHROOT
+CTOS
+SBITS
+NEQINT 1
+SETGLOB 6
+PUSHREFSLICE {
+	.blob x8000000000000000000000000000000000000000000000000000000000000000001_
+}
+SETGLOB 9
+OVER
+CALLREF {
+	CALL $c4_to_c7_with_init_storage$
+}
+LDU 1 ; haveSign msgSlice
+SWAP
+PUSHCONT {
+	PUSHPOW2 9
+	LDSLICEX ; signatureSlice msgSlice
+	DUP
+	HASHSU ; signatureSlice msgSlice hashMsgSlice
+	SWAP
+	LDU 1 ; signatureSlice hashMsgSlice hasPubkey msgSlice
+	SWAP
+	PUSHCONT {
+		LDU 256 ; signatureSlice hashMsgSlice pubkey msgSlice
+		XCHG S3
+		SWAP
+	}
+	PUSHCONT {
+		XCHG S2
+		GETGLOB 2
+	}
+	IFELSE
+	CHKSIGNU ; msgSlice isSigned
+	THROWIFNOT 40
+}
+PUSHCONT {
+	LDU 1 ; hasPubkey msgSlice
+	SWAP
+	THROWIF 58
+}
+IFELSE
+LDU 64 ; timestamp msgSlice
+SWAP
+CALL $replay_protection_macro$
+LDU 32 ; expireAt msgSlice
+SWAP
+NOW ; msgSlice expireAt now
+GREATER ; msgSlice expireAt>now
+THROWIFNOT 57
+LDU 32 ; funcId body
+SWAP
+CALLREF {
+	CALL $public_function_selector$
+}
+THROW 60
+
+.macro public_function_selector
+DUP
+PUSHINT 1855608850
+LEQ
+IFJMPREF {
+	DUP
+	PUSHINT 321522419
+	LEQ
+	IFJMPREF {
+		DUP
+		PUSHINT 3045676
+		EQUAL
+		IFJMPREF {
+			CALL $getAllTokenPrices$
+		}
+		DUP
+		PUSHINT 80868914
+		EQUAL
+		IFJMPREF {
+			CALL $getTokenPrice$
+		}
+		DUP
+		PUSHINT 101185673
+		EQUAL
+		IFJMPREF {
+			CALL $getParamChangers$
+		}
+		DUP
+		PUSHINT 321522419
+		EQUAL
+		IFJMPREF {
+			CALL $externalUpdatePrice$
+		}
+	}
+	DUP
+	PUSHINT 730197211
+	LEQ
+	IFJMPREF {
+		DUP
+		PUSHINT 478023963
+		EQUAL
+		IFJMPREF {
+			CALL $addToken$
+		}
+		DUP
+		PUSHINT 514135901
+		EQUAL
+		IFJMPREF {
+			CALL $getOwner$
+		}
+		DUP
+		PUSHINT 561722120
+		EQUAL
+		IFJMPREF {
+			CALL $changeOwner$
+		}
+		DUP
+		PUSHINT 730197211
+		EQUAL
+		IFJMPREF {
+			CALL $getDetails$
+		}
+	}
+	DUP
+	PUSHINT 1196840156
+	LEQ
+	IFJMPREF {
+		DUP
+		PUSHINT 766070063
+		EQUAL
+		IFJMPREF {
+			CALL $getVersion$
+		}
+		DUP
+		PUSHINT 838213693
+		EQUAL
+		IFJMPREF {
+			CALL $setUpgrader$
+		}
+		DUP
+		PUSHINT 947932843
+		EQUAL
+		IFJMPREF {
+			CALL $getUpgraders$
+		}
+		DUP
+		PUSHINT 1196840156
+		EQUAL
+		IFJMPREF {
+			CALL $constructor$
+		}
+	}
+	DUP
+	PUSHINT 1855608850
+	LEQ
+	IFJMPREF {
+		DUP
+		PUSHINT 1394033904
+		EQUAL
+		IFJMPREF {
+			CALL $upgradeContractCode$
+		}
+		DUP
+		PUSHINT 1477726552
+		EQUAL
+		IFJMPREF {
+			CALL $removeToken$
+		}
+		DUP
+		PUSHINT 1592432095
+		EQUAL
+		IFJMPREF {
+			CALL $internalGetUpdatedPrice$
+		}
+		DUP
+		PUSHINT 1855608850
+		EQUAL
+		IFJMPREF {
+			CALL $internalUpdatePrice$
+		}
+	}
+}
+DUP
+PUSHINT 1992399946
+EQUAL
+IFJMPREF {
+	CALL $setParamChanger$
+}
+

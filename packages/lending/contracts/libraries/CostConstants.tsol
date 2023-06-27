@@ -12,5 +12,7 @@ library CostConstants {
     uint128 constant WALLET_DEPLOY_COST = 2 ever;
     uint128 constant WALLET_DEPLOY_GRAMS = 1.5 ever;
     uint128 constant GET_WALLET_ADDRESS = 1 ever;
-    uint128 constant SET_RECEIVE_CALLBACK = 0.5 ever;    
+    uint128 constant SET_RECEIVE_CALLBACK = 0.5 ever;
+
+    uint128 constant TOKEN_INITIAL_UPDATE_PRICE = 0.2 ever;    
 }

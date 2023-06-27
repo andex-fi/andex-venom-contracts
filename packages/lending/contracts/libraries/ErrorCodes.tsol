@@ -30,5 +30,8 @@ library ErrorCodes {
     uint8 constant ERROR_MSG_SENDER_IS_NOT_USER_ACCOUNT_MANAGER = 124;
     uint8 constant ERROR_MSG_SENDER_IS_NOT_TIP3_WALLET_CONTROLLER = 125;
     uint8 constant ONLY_USER_ACCOUNT_MANAGER = 126;
-    uint8 constant ONLY_MARKET = 127; 
+    uint8 constant ONLY_MARKET = 127;
+    uint8 constant ERROR_NOT_OWNER = 128;
+    uint8 constant ERROR_NOT_KNOWN_SWAP_PAIR = 129;
+    uint8 constant ERROR_NOT_KNOWN_TOKEN_ROOT = 130;
 }
