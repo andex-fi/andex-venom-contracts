@@ -18,9 +18,9 @@ PUSHCONT {
 IF
 LDMSGADDR
 ENDS
-.loc ../contracts/WalletController.tsol, 30
+.loc ../contracts/WalletController.tsol, 41
 ACCEPT
-.loc ../contracts/WalletController.tsol, 31
+.loc ../contracts/WalletController.tsol, 42
 SETGLOB 10
 .loc ../contracts/WalletController.tsol, 0
 CALLREF {
@@ -37,7 +37,7 @@ ISNULL
 IFREF {
 	CALL $c4_to_c7$
 }
-.loc ../contracts/WalletController.tsol, 38
+.loc ../contracts/WalletController.tsol, 50
 LDREF
 LDREF
 LDU 32
@@ -67,13 +67,13 @@ GETGLOB 9
 GETGLOB 10
 SDEQ
 OR
-THROWIFNOT 220
-.loc ../contracts/WalletController.tsol, 39
+THROWIFNOT 115
+.loc ../contracts/WalletController.tsol, 51
 ACCEPT
-.loc ../contracts/WalletController.tsol, 41
+.loc ../contracts/WalletController.tsol, 53
 PUSH S2
 SETCODE
-.loc ../contracts/WalletController.tsol, 42
+.loc ../contracts/WalletController.tsol, 54
 ROT
 CTOS
 DUP
@@ -88,7 +88,7 @@ PLDREF
 CTOS
 BLESS
 POP C3
-.loc ../contracts/WalletController.tsol, 44
+.loc ../contracts/WalletController.tsol, 56
 GETGLOB 10
 GETGLOB 14
 GETGLOB 15
@@ -102,7 +102,7 @@ CALLREF {
 
 .internal-alias :onCodeUpgrade, 2
 .internal :onCodeUpgrade
-.loc ../contracts/WalletController.tsol, 64
+.loc ../contracts/WalletController.tsol, 76
 PUSHREFSLICE {
 	.blob x8000000000000000000000000000000000000000000000000000000000000000001_
 }
@@ -125,22 +125,22 @@ NEWDICT
 SETGLOB 17
 NEWDICT
 SETGLOB 18
-.loc ../contracts/WalletController.tsol, 65
+.loc ../contracts/WalletController.tsol, 77
 SETGLOB 13
-.loc ../contracts/WalletController.tsol, 66
+.loc ../contracts/WalletController.tsol, 78
 DROP
 ROLL 4
 SETGLOB 10
-.loc ../contracts/WalletController.tsol, 67
+.loc ../contracts/WalletController.tsol, 79
 ROLL 3
 SETGLOB 14
-.loc ../contracts/WalletController.tsol, 68
+.loc ../contracts/WalletController.tsol, 80
 ROT
 SETGLOB 15
-.loc ../contracts/WalletController.tsol, 69
+.loc ../contracts/WalletController.tsol, 81
 SWAP
 SETGLOB 16
-.loc ../contracts/WalletController.tsol, 70
+.loc ../contracts/WalletController.tsol, 82
 SETGLOB 18
 .loc ../contracts/WalletController.tsol, 0
 CALLREF {
@@ -148,6 +148,726 @@ CALLREF {
 }
 COMMIT
 THROW 0
+
+.macro setMarketAddress
+DROP
+GETGLOB 6
+THROWIFNOT 76
+GETGLOB 2
+ISNULL
+IFREF {
+	CALL $c4_to_c7$
+}
+.loc ../contracts/WalletController.tsol, 87
+OVER
+PUSHCONT {
+	LDREF
+	ENDS
+	CTOS
+}
+IF
+LDMSGADDR
+ENDS
+.loc ../contracts/WalletController.tsol, 0
+CALLREF {
+	CALL $setMarketAddress_fae92612_internal_macro$
+}
+DROP
+CALLREF {
+	CALL $c7_to_c4$
+}
+THROW 0
+
+.macro setMarketAddress_fae92612_internal_macro
+.loc ../contracts/abstract/Roles.tsol, 74
+GETGLOB 9
+GETGLOB 12
+PUSHINT 267
+DICTGET
+ZEROSWAPIFNOT
+PUSHCONT {
+	PLDI 1
+}
+IF
+GETGLOB 9
+GETGLOB 10
+SDEQ
+OR
+THROWIFNOT 116
+.loc ../contracts/WalletController.tsol, 88
+DEPTH
+ADDCONST -2
+PICK
+PUSHINT 2
+RAWRESERVE
+.loc ../contracts/WalletController.tsol, 89
+SETGLOB 14
+.loc ../contracts/WalletController.tsol, 91
+GETGLOB 9
+NEWC
+STSLICECONST x62_
+STSLICE
+PUSHINT 111
+STZEROES
+ENDC
+PUSHINT 64
+SENDRAWMSG
+.loc ../contracts/WalletController.tsol, 0
+
+.macro addMarket
+DROP
+GETGLOB 6
+THROWIFNOT 76
+GETGLOB 2
+ISNULL
+IFREF {
+	CALL $c4_to_c7$
+}
+.loc ../contracts/WalletController.tsol, 94
+OVER
+PUSHCONT {
+	LDU 32
+	LDREF
+	ENDS
+	CTOS
+}
+PUSHCONT {
+	LDU 32
+}
+IFELSE
+LDMSGADDR
+ENDS
+.loc ../contracts/WalletController.tsol, 0
+CALLREF {
+	CALL $addMarket_5e8da87b_internal_macro$
+}
+DROP
+CALLREF {
+	CALL $c7_to_c4$
+}
+THROW 0
+
+.macro addMarket_5e8da87b_internal_macro
+.loc ../contracts/abstract/Roles.tsol, 74
+GETGLOB 9
+GETGLOB 12
+PUSHINT 267
+DICTGET
+ZEROSWAPIFNOT
+PUSHCONT {
+	PLDI 1
+}
+IF
+GETGLOB 9
+GETGLOB 10
+SDEQ
+OR
+THROWIFNOT 116
+.loc ../contracts/WalletController.tsol, 95
+ACCEPT
+.loc ../contracts/WalletController.tsol, 96
+DUP
+PUSHREFSLICE {
+	.blob x8000000000000000000000000000000000000000000000000000000000000000001_
+}
+PAIR
+PUSH S2
+GETGLOB 18
+ROT
+CALLREF {
+	UNPAIR
+	SWAP
+	NEWC
+	STSLICE
+	SWAP
+	NEWC
+	STSLICE
+	STBREFR
+}
+ENDC
+ROTREV
+PUSHINT 32
+DICTUSETREF
+SETGLOB 18
+.loc ../contracts/WalletController.tsol, 101
+DUP
+GETGLOB 16
+NEWC
+STONE
+ROTREV
+PUSHINT 267
+DICTSETB
+SETGLOB 16
+.loc ../contracts/WalletController.tsol, 103
+PUSHSLICE x8000000000000000000000000000000000000000000000000000000000000000003_
+OVER
+GETGLOB 15
+PUSHINT 267
+DICTSET
+SETGLOB 15
+.loc ../contracts/WalletController.tsol, 105
+TUCK
+GETGLOB 17
+ROT
+NEWC
+STU 32
+ROTREV
+PUSHINT 267
+DICTSETB
+SETGLOB 17
+.loc ../contracts/WalletController.tsol, 107
+CALLREF {
+	CALL $addWallet_efeb5f1f_internal_macro$
+}
+.loc ../contracts/WalletController.tsol, 0
+
+.macro removeMarket
+DROP
+GETGLOB 6
+THROWIFNOT 76
+GETGLOB 2
+ISNULL
+IFREF {
+	CALL $c4_to_c7$
+}
+.loc ../contracts/WalletController.tsol, 113
+LDU 32
+ENDS
+.loc ../contracts/WalletController.tsol, 0
+CALLREF {
+	CALL $removeMarket_38dcf98f_internal_macro$
+}
+DROP
+CALLREF {
+	CALL $c7_to_c4$
+}
+THROW 0
+
+.macro removeMarket_38dcf98f_internal_macro
+.loc ../contracts/abstract/Roles.tsol, 74
+GETGLOB 9
+GETGLOB 12
+PUSHINT 267
+DICTGET
+ZEROSWAPIFNOT
+PUSHCONT {
+	PLDI 1
+}
+IF
+GETGLOB 9
+GETGLOB 10
+SDEQ
+OR
+THROWIFNOT 116
+.loc ../contracts/WalletController.tsol, 114
+ACCEPT
+.loc ../contracts/WalletController.tsol, 115
+DUP
+GETGLOB 18
+PUSHINT 32
+DICTUGETREF
+PUSHCONT {
+	CTOS
+	CALLREF {
+		LDMSGADDR
+		LDREF
+		ENDS
+		CTOS
+		LDMSGADDR
+		ENDS
+		PAIR
+	}
+}
+PUSHCONT {
+	PUSHREFSLICE {
+		.blob x8000000000000000000000000000000000000000000000000000000000000000001_
+	}
+	DUP
+	PAIR
+}
+IFELSE
+.loc ../contracts/WalletController.tsol, 117
+GETGLOB 15
+OVER
+FIRST
+SWAP
+PUSHINT 267
+DICTDEL
+DROP
+SETGLOB 15
+.loc ../contracts/WalletController.tsol, 118
+GETGLOB 16
+OVER
+FIRST
+SWAP
+PUSHINT 267
+DICTDEL
+DROP
+SETGLOB 16
+.loc ../contracts/WalletController.tsol, 119
+GETGLOB 17
+SWAP
+FIRST
+SWAP
+PUSHINT 267
+DICTDEL
+DROP
+SETGLOB 17
+.loc ../contracts/WalletController.tsol, 120
+GETGLOB 18
+PUSHINT 32
+DICTUDEL
+DROP
+SETGLOB 18
+.loc ../contracts/WalletController.tsol, 0
+
+.macro transferTokensToWallet
+DROP
+GETGLOB 6
+THROWIFNOT 76
+GETGLOB 2
+ISNULL
+IFREF {
+	CALL $c4_to_c7$
+}
+.loc ../contracts/WalletController.tsol, 123
+OVER
+PUSHCONT {
+	LDREF
+	ENDS
+	CTOS
+}
+IF
+LDMSGADDR
+LDREF
+ENDS
+CTOS
+LDMSGADDR
+LDREF
+ENDS
+CTOS
+LDMSGADDR
+LDU 256
+ENDS
+.loc ../contracts/WalletController.tsol, 0
+CALLREF {
+	CALL $transferTokensToWallet_12593cfc_internal_macro$
+}
+IFREF {
+	CALL $upd_only_time_in_c4$
+}
+THROW 0
+
+.macro transferTokensToWallet_12593cfc_internal_macro
+.loc ../contracts/WalletController.tsol, 273
+GETGLOB 9
+GETGLOB 14
+SDEQ
+THROWIFNOT 100
+.loc ../contracts/WalletController.tsol, 125
+UFITS 128
+PUSHREF {
+}
+CALLREF {
+	CALL $_transferTokensToWallet_887b3f9c_internal_macro$
+}
+.loc ../contracts/WalletController.tsol, 0
+
+.globl	_transferTokensToWallet_887b3f9c_internal
+.type	_transferTokensToWallet_887b3f9c_internal, @function
+CALL $_transferTokensToWallet_887b3f9c_internal_macro$
+
+.macro _transferTokensToWallet_887b3f9c_internal_macro
+.loc ../contracts/WalletController.tsol, 129
+TRUE
+BLKSWAP 4, 2
+ROT
+GETGLOB 15
+PUSHINT 267
+DICTGET
+PUSHCONT {
+	PUSHREFSLICE {
+		.blob x8000000000000000000000000000000000000000000000000000000000000000001_
+	}
+}
+IFNOT
+NEWC
+STSLICECONST x62_
+STSLICE
+PUSHINT 9789369574394656757036770681243717074945
+STUR 135
+ROLLREV 5
+NEWC
+STSLICECONST x46a9d7ec
+STU 128
+STSLICE
+ROLLREV 3
+NEWC
+STSLICE
+STI 1
+STREF
+STBREFR
+STBREFR
+ENDC
+PUSHINT 64
+SENDRAWMSG
+.loc ../contracts/WalletController.tsol, 0
+
+.globl	addWallet_efeb5f1f_internal
+.type	addWallet_efeb5f1f_internal, @function
+CALL $addWallet_efeb5f1f_internal_macro$
+
+.macro addWallet_efeb5f1f_internal_macro
+.loc ../contracts/WalletController.tsol, 146
+PUSHINT 1500000000
+MYADDR
+ROT
+NEWC
+STSLICECONST x62_
+STSLICE
+PUSHINT 9789369574394656757036770681243717074945
+STUR 135
+ROTREV
+PUSHSLICE x31edd4c71fae39ee
+NEWC
+STSLICE
+STSLICE
+STU 128
+STBREFR
+ENDC
+PUSHINT 64
+SENDRAWMSG
+.loc ../contracts/WalletController.tsol, 0
+
+.macro receiveTIP3WalletAddress
+DROP
+GETGLOB 6
+THROWIFNOT 76
+GETGLOB 2
+ISNULL
+IFREF {
+	CALL $c4_to_c7$
+}
+.loc ../contracts/WalletController.tsol, 159
+OVER
+PUSHCONT {
+	LDREF
+	ENDS
+	CTOS
+}
+IF
+LDMSGADDR
+ENDS
+.loc ../contracts/WalletController.tsol, 0
+CALLREF {
+	CALL $receiveTIP3WalletAddress_2d4ae1fc_internal_macro$
+}
+DROP
+CALLREF {
+	CALL $c7_to_c4$
+}
+THROW 0
+
+.macro receiveTIP3WalletAddress_2d4ae1fc_internal_macro
+.loc ../contracts/WalletController.tsol, 159
+GETGLOB 9
+.loc ../contracts/WalletController.tsol, 292
+GETGLOB 15
+PUSHINT 267
+DICTGET
+NULLSWAPIFNOT
+NIP
+THROWIFNOT 103
+.loc ../contracts/WalletController.tsol, 160
+ACCEPT
+.loc ../contracts/WalletController.tsol, 162
+DUP
+GETGLOB 9
+GETGLOB 15
+PUSHINT 267
+DICTSET
+SETGLOB 15
+.loc ../contracts/WalletController.tsol, 163
+GETGLOB 9
+GETGLOB 17
+PUSHINT 267
+DICTGET
+ZEROSWAPIFNOT
+PUSHCONT {
+	PLDU 32
+}
+IF
+.loc ../contracts/WalletController.tsol, 164
+GETGLOB 18
+DUP2
+PUSHINT 32
+DICTUGETREF
+PUSHCONT {
+	CTOS
+	CALLREF {
+		LDMSGADDR
+		LDREF
+		ENDS
+		CTOS
+		LDMSGADDR
+		ENDS
+		PAIR
+	}
+}
+PUSHCONT {
+	PUSHREFSLICE {
+		.blob x8000000000000000000000000000000000000000000000000000000000000000001_
+	}
+	DUP
+	PAIR
+}
+IFELSE
+ROLL 3
+SETINDEX 1
+CALLREF {
+	UNPAIR
+	SWAP
+	NEWC
+	STSLICE
+	SWAP
+	NEWC
+	STSLICE
+	STBREFR
+}
+ENDC
+ROTREV
+PUSHINT 32
+DICTUSETREF
+SETGLOB 18
+.loc ../contracts/WalletController.tsol, 0
+
+.macro onAcceptTokensTransfer
+DROP
+GETGLOB 6
+THROWIFNOT 76
+GETGLOB 2
+ISNULL
+IFREF {
+	CALL $c4_to_c7$
+}
+.loc ../contracts/WalletController.tsol, 177
+OVER
+PUSHCONT {
+	LDREF
+	ENDS
+	CTOS
+}
+IF
+LDMSGADDR
+LDU 128
+LDREF
+ENDS
+CTOS
+LDMSGADDR
+LDREF
+ENDS
+CTOS
+LDMSGADDR
+LDREF
+ENDS
+CTOS
+LDMSGADDR
+LDREF
+ENDS
+.loc ../contracts/WalletController.tsol, 0
+CALLREF {
+	CALL $onAcceptTokensTransfer_e63f2284_internal_macro$
+}
+DROP
+CALLREF {
+	CALL $c7_to_c4$
+}
+THROW 0
+
+.macro onAcceptTokensTransfer_e63f2284_internal_macro
+.loc ../contracts/WalletController.tsol, 177
+PUSH S5
+.loc ../contracts/WalletController.tsol, 284
+GETGLOB 15
+PUSHINT 267
+DICTGET
+PUSHCONT {
+	PUSHREFSLICE {
+		.blob x8000000000000000000000000000000000000000000000000000000000000000001_
+	}
+}
+IFNOT
+GETGLOB 9
+SDEQ
+THROWIFNOT 102
+.loc ../contracts/WalletController.tsol, 186
+DEPTH
+ADDCONST -2
+PICK
+PUSHINT 2
+RAWRESERVE
+.loc ../contracts/WalletController.tsol, 187
+DUP
+CTOS
+.loc ../contracts/WalletController.tsol, 188
+DUP
+SBITS
+EQINT 8
+OVER
+SREFS
+EQINT 1
+AND
+PUSHCONT {
+	.loc ../contracts/WalletController.tsol, 192
+	DUP
+	LDU 8
+	POP S2
+	.loc ../contracts/WalletController.tsol, 193
+	OVER
+	LDREFRTOS
+	SWAP
+	POP S3
+	.loc ../contracts/WalletController.tsol, 194
+	OVER
+	PUSHCONT {
+		OVER
+		EQINT 1
+		PUSHCONT {
+			.loc ../contracts/WalletController.tsol, 203
+			PUSH S6
+			NEWC
+			STSLICE
+			.loc ../contracts/WalletController.tsol, 204
+			PUSH S6
+			STSLICER
+			.loc ../contracts/WalletController.tsol, 205
+			PUSH S8
+			STUR 256
+			.loc ../contracts/WalletController.tsol, 206
+			ENDC
+			PUSH2 S9, S2
+			GETGLOB 14
+			NEWC
+			STSLICECONST x62_
+			STSLICE
+			PUSHINT 9789369574394656757036770681243717074945
+			STUR 135
+			ROLLREV 3
+			NEWC
+			STSLICECONST x3eec572d
+			STU 8
+			STSLICE
+			STREF
+			STBREFR
+			ENDC
+			PUSHINT 64
+			SENDRAWMSG
+		}
+		PUSHCONT {
+			OVER
+			EQINT 4
+			PUSHCONT {
+				.loc ../contracts/WalletController.tsol, 210
+				DUP
+				LDMSGADDR
+				LDU 32
+				POP S3
+				.loc ../contracts/WalletController.tsol, 213
+				PUSH S8
+				NEWC
+				STSLICE
+				.loc ../contracts/WalletController.tsol, 214
+				XCHG S1, S2
+				STSLICE
+				.loc ../contracts/WalletController.tsol, 215
+				PUSH S7
+				STSLICER
+				.loc ../contracts/WalletController.tsol, 216
+				SWAP
+				NEWC
+				STU 32
+				.loc ../contracts/WalletController.tsol, 217
+				PUSH S9
+				STUR 256
+				.loc ../contracts/WalletController.tsol, 218
+				ENDC
+				SWAP
+				STREF
+				.loc ../contracts/WalletController.tsol, 219
+				ENDC
+				PUSH2 S9, S2
+				GETGLOB 14
+				NEWC
+				STSLICECONST x62_
+				STSLICE
+				PUSHINT 9789369574394656757036770681243717074945
+				STUR 135
+				ROLLREV 3
+				NEWC
+				STSLICECONST x3eec572d
+				STU 8
+				STSLICE
+				STREF
+				STBREFR
+				ENDC
+				PUSHINT 64
+				SENDRAWMSG
+			}
+			PUSHCONT {
+				.loc ../contracts/WalletController.tsol, 223
+				PUSH3 S6, S8, S5
+				PUSH2 S10, S6
+				CALLREF {
+					CALL $_transferTokensToWallet_887b3f9c_internal_macro$
+				}
+			}
+			IFELSE
+		}
+		IFELSE
+	}
+	PUSHCONT {
+		.loc ../contracts/WalletController.tsol, 196
+		PUSH S6
+		NEWC
+		STSLICE
+		.loc ../contracts/WalletController.tsol, 197
+		PUSH S8
+		STUR 256
+		.loc ../contracts/WalletController.tsol, 198
+		ENDC
+		PUSH2 S9, S2
+		GETGLOB 14
+		NEWC
+		STSLICECONST x62_
+		STSLICE
+		PUSHINT 9789369574394656757036770681243717074945
+		STUR 135
+		ROLLREV 3
+		NEWC
+		STSLICECONST x3eec572d
+		STU 8
+		STSLICE
+		STREF
+		STBREFR
+		ENDC
+		PUSHINT 64
+		SENDRAWMSG
+	}
+	IFELSE
+	.loc ../contracts/WalletController.tsol, 0
+	DROP2
+}
+PUSHCONT {
+	.loc ../contracts/WalletController.tsol, 226
+	PUSH3 S4, S6, S3
+	PUSH2 S8, S4
+	CALLREF {
+		CALL $_transferTokensToWallet_887b3f9c_internal_macro$
+	}
+}
+IFELSE
+.loc ../contracts/WalletController.tsol, 0
+BLKDROP 7
 
 .macro getRealTokenRoots
 DROP
@@ -158,7 +878,7 @@ ISNULL
 IFREF {
 	CALL $c4_to_c7$
 }
-.loc ../contracts/WalletController.tsol, 75
+.loc ../contracts/WalletController.tsol, 232
 LDU 32
 GETGLOB 4
 ROT
@@ -221,7 +941,7 @@ IFREF {
 THROW 0
 
 .macro getRealTokenRoots_b43010a8_internal_macro
-.loc ../contracts/WalletController.tsol, 80
+.loc ../contracts/WalletController.tsol, 237
 GETGLOB 4
 PUSHINT 0
 SETINDEXQ 2
@@ -242,7 +962,7 @@ ISNULL
 IFREF {
 	CALL $c4_to_c7$
 }
-.loc ../contracts/WalletController.tsol, 83
+.loc ../contracts/WalletController.tsol, 240
 LDU 32
 GETGLOB 4
 ROT
@@ -305,7 +1025,7 @@ IFREF {
 THROW 0
 
 .macro getWallets_db7a4605_internal_macro
-.loc ../contracts/WalletController.tsol, 88
+.loc ../contracts/WalletController.tsol, 245
 GETGLOB 4
 PUSHINT 0
 SETINDEXQ 2
@@ -326,7 +1046,7 @@ ISNULL
 IFREF {
 	CALL $c4_to_c7$
 }
-.loc ../contracts/WalletController.tsol, 91
+.loc ../contracts/WalletController.tsol, 248
 LDU 32
 GETGLOB 4
 ROT
@@ -411,7 +1131,7 @@ IFREF {
 THROW 0
 
 .macro getMarketAddresses_fa2de866_internal_macro
-.loc ../contracts/WalletController.tsol, 96
+.loc ../contracts/WalletController.tsol, 253
 GETGLOB 4
 PUSHINT 0
 SETINDEXQ 2
@@ -454,7 +1174,7 @@ ISNULL
 IFREF {
 	CALL $c4_to_c7$
 }
-.loc ../contracts/WalletController.tsol, 99
+.loc ../contracts/WalletController.tsol, 256
 LDU 32
 GETGLOB 4
 ROT
@@ -517,7 +1237,7 @@ IFREF {
 THROW 0
 
 .macro getAllMarkets_b0772d0b_internal_macro
-.loc ../contracts/WalletController.tsol, 104
+.loc ../contracts/WalletController.tsol, 261
 GETGLOB 4
 PUSHINT 0
 SETINDEXQ 2
@@ -533,7 +1253,7 @@ GETGLOB 18
 DROP
 GETGLOB 6
 THROWIFNOT 76
-.loc ../contracts/WalletController.tsol, 142
+.loc ../contracts/WalletController.tsol, 299
 ENDS
 .loc ../contracts/WalletController.tsol, 0
 CALLREF {
@@ -567,15 +1287,15 @@ IFREF {
 THROW 0
 
 .macro createSupplyPayload_931523c8_internal_macro
-.loc ../contracts/WalletController.tsol, 144
+.loc ../contracts/WalletController.tsol, 301
 NEWC
 STSLICECONST x00
-.loc ../contracts/WalletController.tsol, 146
+.loc ../contracts/WalletController.tsol, 303
 PUSHREF {
 }
 SWAP
 STREF
-.loc ../contracts/WalletController.tsol, 148
+.loc ../contracts/WalletController.tsol, 305
 ENDC
 .loc ../contracts/WalletController.tsol, 0
 
@@ -583,7 +1303,7 @@ ENDC
 DROP
 GETGLOB 6
 THROWIFNOT 76
-.loc ../contracts/WalletController.tsol, 151
+.loc ../contracts/WalletController.tsol, 308
 ENDS
 .loc ../contracts/WalletController.tsol, 0
 CALLREF {
@@ -617,15 +1337,15 @@ IFREF {
 THROW 0
 
 .macro createRepayPayload_727792a1_internal_macro
-.loc ../contracts/WalletController.tsol, 153
+.loc ../contracts/WalletController.tsol, 310
 NEWC
 STSLICECONST x01
-.loc ../contracts/WalletController.tsol, 155
+.loc ../contracts/WalletController.tsol, 312
 PUSHREF {
 }
 SWAP
 STREF
-.loc ../contracts/WalletController.tsol, 157
+.loc ../contracts/WalletController.tsol, 314
 ENDC
 .loc ../contracts/WalletController.tsol, 0
 
@@ -633,7 +1353,7 @@ ENDC
 DROP
 GETGLOB 6
 THROWIFNOT 76
-.loc ../contracts/WalletController.tsol, 160
+.loc ../contracts/WalletController.tsol, 317
 OVER
 PUSHCONT {
 	LDREF
@@ -676,21 +1396,21 @@ IFREF {
 THROW 0
 
 .macro createLiquidationPayload_5daed75b_internal_macro
-.loc ../contracts/WalletController.tsol, 162
+.loc ../contracts/WalletController.tsol, 319
 NEWC
 STSLICECONST x04
-.loc ../contracts/WalletController.tsol, 164
+.loc ../contracts/WalletController.tsol, 321
 ROT
 NEWC
 STSLICE
-.loc ../contracts/WalletController.tsol, 165
+.loc ../contracts/WalletController.tsol, 322
 XCHG S1, S2
 STU 32
-.loc ../contracts/WalletController.tsol, 166
+.loc ../contracts/WalletController.tsol, 323
 ENDC
 SWAP
 STREF
-.loc ../contracts/WalletController.tsol, 168
+.loc ../contracts/WalletController.tsol, 325
 ENDC
 .loc ../contracts/WalletController.tsol, 0
 
@@ -729,7 +1449,7 @@ THROW 0
 GETGLOB 9
 GETGLOB 10
 SDEQ
-THROWIFNOT 222
+THROWIFNOT 117
 .loc ../contracts/abstract/Roles.tsol, 12
 DEPTH
 ADDCONST -2
@@ -792,7 +1512,7 @@ THROW 0
 GETGLOB 9
 GETGLOB 10
 SDEQ
-THROWIFNOT 222
+THROWIFNOT 117
 .loc ../contracts/abstract/Roles.tsol, 23
 DEPTH
 ADDCONST -2
@@ -854,7 +1574,7 @@ THROW 0
 GETGLOB 9
 GETGLOB 10
 SDEQ
-THROWIFNOT 222
+THROWIFNOT 117
 .loc ../contracts/abstract/Roles.tsol, 34
 DEPTH
 ADDCONST -2
@@ -1366,7 +2086,7 @@ THROW 0
 
 .macro public_function_selector
 DUP
-PUSHINT 1773220348
+PUSHINT 1595063585
 LEQ
 IFJMPREF {
 	DUP
@@ -1399,9 +2119,15 @@ IFJMPREF {
 		}
 	}
 	DUP
-	PUSHINT 947932843
+	PUSHINT 838213693
 	LEQ
 	IFJMPREF {
+		DUP
+		PUSHINT 531511790
+		EQUAL
+		IFJMPREF {
+			CALL $receiveTIP3WalletAddress$
+		}
 		DUP
 		PUSHINT 561722120
 		EQUAL
@@ -1420,17 +2146,17 @@ IFJMPREF {
 		IFJMPREF {
 			CALL $setUpgrader$
 		}
+	}
+	DUP
+	PUSHINT 1340611856
+	LEQ
+	IFJMPREF {
 		DUP
 		PUSHINT 947932843
 		EQUAL
 		IFJMPREF {
 			CALL $getUpgraders$
 		}
-	}
-	DUP
-	PUSHINT 1595063585
-	LEQ
-	IFJMPREF {
 		DUP
 		PUSHINT 1196840156
 		EQUAL
@@ -1438,10 +2164,33 @@ IFJMPREF {
 			CALL $constructor$
 		}
 		DUP
+		PUSHINT 1254603927
+		EQUAL
+		IFJMPREF {
+			CALL $setMarketAddress$
+		}
+		DUP
+		PUSHINT 1340611856
+		EQUAL
+		IFJMPREF {
+			CALL $transferTokensToWallet$
+		}
+	}
+	DUP
+	PUSHINT 1595063585
+	LEQ
+	IFJMPREF {
+		DUP
 		PUSHINT 1394033904
 		EQUAL
 		IFJMPREF {
 			CALL $upgradeContractCode$
+		}
+		DUP
+		PUSHINT 1409528881
+		EQUAL
+		IFJMPREF {
+			CALL $addMarket$
 		}
 		DUP
 		PUSHINT 1463645871
@@ -1456,6 +2205,11 @@ IFJMPREF {
 			CALL $getWallets$
 		}
 	}
+}
+DUP
+PUSHINT 2112968404
+LEQ
+IFJMPREF {
 	DUP
 	PUSHINT 1773220348
 	LEQ
@@ -1485,13 +2239,8 @@ IFJMPREF {
 			CALL $wallets$
 		}
 	}
-}
-DUP
-PUSHINT 2098879539
-LEQ
-IFJMPREF {
 	DUP
-	PUSHINT 2080130467
+	PUSHINT 1992399946
 	LEQ
 	IFJMPREF {
 		DUP
@@ -1507,23 +2256,40 @@ IFJMPREF {
 			CALL $contractCodeVersion$
 		}
 		DUP
+		PUSHINT 1893244873
+		EQUAL
+		IFJMPREF {
+			CALL $onAcceptTokensTransfer$
+		}
+		DUP
 		PUSHINT 1992399946
 		EQUAL
 		IFJMPREF {
 			CALL $setParamChanger$
 		}
+	}
+	DUP
+	PUSHINT 2112968404
+	LEQ
+	IFJMPREF {
 		DUP
 		PUSHINT 2080130467
 		EQUAL
 		IFJMPREF {
 			CALL $tokensToMarkets$
 		}
-	}
-	DUP
-	PUSHINT 2098879539
-	EQUAL
-	IFJMPREF {
-		CALL $createSupplyPayload$
+		DUP
+		PUSHINT 2098879539
+		EQUAL
+		IFJMPREF {
+			CALL $createSupplyPayload$
+		}
+		DUP
+		PUSHINT 2112968404
+		EQUAL
+		IFJMPREF {
+			CALL $removeMarket$
+		}
 	}
 }
 

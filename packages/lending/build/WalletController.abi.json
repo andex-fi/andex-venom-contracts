@@ -22,6 +22,63 @@
 			]
 		},
 		{
+			"name": "setMarketAddress",
+			"inputs": [
+				{"name":"_market","type":"address"}
+			],
+			"outputs": [
+			]
+		},
+		{
+			"name": "addMarket",
+			"inputs": [
+				{"name":"marketId","type":"uint32"},
+				{"name":"realTokenRoot","type":"address"}
+			],
+			"outputs": [
+			]
+		},
+		{
+			"name": "removeMarket",
+			"inputs": [
+				{"name":"marketId","type":"uint32"}
+			],
+			"outputs": [
+			]
+		},
+		{
+			"name": "transferTokensToWallet",
+			"inputs": [
+				{"name":"venomWallet","type":"address"},
+				{"name":"tokenRoot","type":"address"},
+				{"name":"userTip3Wallet","type":"address"},
+				{"name":"toPayout","type":"uint256"}
+			],
+			"outputs": [
+			]
+		},
+		{
+			"name": "receiveTIP3WalletAddress",
+			"inputs": [
+				{"name":"_wallet","type":"address"}
+			],
+			"outputs": [
+			]
+		},
+		{
+			"name": "onAcceptTokensTransfer",
+			"inputs": [
+				{"name":"tokenRoot","type":"address"},
+				{"name":"amount","type":"uint128"},
+				{"name":"sender","type":"address"},
+				{"name":"senderWallet","type":"address"},
+				{"name":"value4","type":"address"},
+				{"name":"payload","type":"cell"}
+			],
+			"outputs": [
+			]
+		},
+		{
 			"name": "getRealTokenRoots",
 			"inputs": [
 				{"name":"answerId","type":"uint32"}
