@@ -1,0 +1,4982 @@
+.version sol 0.62.0
+
+.macro constructor
+DROP
+GETGLOB 2
+ISNULL
+IFREF {
+	CALL $c4_to_c7_with_init_storage$
+}
+GETGLOB 6
+THROWIF 51
+OVER
+PUSHCONT {
+	LDREF
+	ENDS
+	CTOS
+}
+IF
+LDMSGADDR
+ENDS
+.loc ../contracts/modules/BorrowModule.tsol, 12
+ACCEPT
+.loc ../contracts/modules/BorrowModule.tsol, 13
+SETGLOB 12
+.loc ../contracts/modules/BorrowModule.tsol, 14
+PUSHINT 3
+SETGLOB 18
+.loc ../contracts/modules/BorrowModule.tsol, 0
+CALLREF {
+	CALL $c7_to_c4$
+}
+THROW 0
+
+.macro upgradeContractCode
+DROP
+GETGLOB 6
+THROWIFNOT 76
+GETGLOB 2
+ISNULL
+IFREF {
+	CALL $c4_to_c7$
+}
+.loc ../contracts/modules/BorrowModule.tsol, 17
+LDREF
+LDREF
+LDU 32
+ENDS
+.loc ../contracts/modules/BorrowModule.tsol, 0
+CALLREF {
+	CALL $upgradeContractCode_344c0b3a_internal_macro$
+}
+DROP
+CALLREF {
+	CALL $c7_to_c4$
+}
+THROW 0
+
+.macro upgradeContractCode_344c0b3a_internal_macro
+.loc ../contracts/abstract/Roles.tsol, 65
+GETGLOB 9
+GETGLOB 13
+PUSHINT 267
+DICTGET
+ZEROSWAPIFNOT
+PUSHCONT {
+	PLDI 1
+}
+IF
+GETGLOB 9
+GETGLOB 12
+SDEQ
+OR
+THROWIFNOT 115
+.loc ../contracts/modules/BorrowModule.tsol, 18
+DEPTH
+ADDCONST -2
+PICK
+PUSHINT 2
+RAWRESERVE
+.loc ../contracts/modules/BorrowModule.tsol, 20
+PUSH S2
+SETCODE
+.loc ../contracts/modules/BorrowModule.tsol, 21
+ROT
+CTOS
+DUP
+PUSHSLICE x8adb35
+SDEQ
+PUSHCONT {
+	PLDREFIDX 1
+	CTOS
+}
+IF
+PLDREF
+CTOS
+BLESS
+POP C3
+.loc ../contracts/modules/BorrowModule.tsol, 23
+GETGLOB 12
+GETGLOB 15
+GETGLOB 16
+GETGLOB 19
+GETGLOB 20
+ROLL 5
+CALLREF {
+	CALL $:onCodeUpgrade$
+}
+.loc ../contracts/modules/BorrowModule.tsol, 0
+DROP
+
+.internal-alias :onCodeUpgrade, 2
+.internal :onCodeUpgrade
+.loc ../contracts/modules/BorrowModule.tsol, 41
+ACCEPT
+.loc ../contracts/modules/BorrowModule.tsol, 42
+PUSHINT 0
+SETGLOB 10
+NEWDICT
+SETGLOB 11
+PUSHREFSLICE {
+	.blob x8000000000000000000000000000000000000000000000000000000000000000001_
+}
+SETGLOB 12
+NEWDICT
+SETGLOB 13
+NEWDICT
+SETGLOB 14
+PUSHREFSLICE {
+	.blob x8000000000000000000000000000000000000000000000000000000000000000001_
+}
+SETGLOB 15
+PUSHREFSLICE {
+	.blob x8000000000000000000000000000000000000000000000000000000000000000001_
+}
+SETGLOB 16
+PUSHINT 0
+SETGLOB 17
+PUSHINT 0
+SETGLOB 18
+NEWDICT
+SETGLOB 19
+NEWDICT
+SETGLOB 20
+.loc ../contracts/modules/BorrowModule.tsol, 43
+PUSHINT 3
+SETGLOB 18
+.loc ../contracts/modules/BorrowModule.tsol, 44
+ROLL 5
+SETGLOB 12
+.loc ../contracts/modules/BorrowModule.tsol, 45
+ROLL 4
+SETGLOB 15
+.loc ../contracts/modules/BorrowModule.tsol, 46
+ROLL 3
+SETGLOB 16
+.loc ../contracts/modules/BorrowModule.tsol, 47
+ROT
+SETGLOB 19
+.loc ../contracts/modules/BorrowModule.tsol, 48
+SWAP
+SETGLOB 20
+.loc ../contracts/modules/BorrowModule.tsol, 49
+SETGLOB 17
+.loc ../contracts/modules/BorrowModule.tsol, 0
+CALLREF {
+	CALL $c7_to_c4$
+}
+COMMIT
+THROW 0
+
+.macro unlock
+DROP
+GETGLOB 6
+THROWIFNOT 76
+GETGLOB 2
+ISNULL
+IFREF {
+	CALL $c4_to_c7$
+}
+.loc ../contracts/modules/BorrowModule.tsol, 52
+OVER
+PUSHCONT {
+	LDREF
+	ENDS
+	CTOS
+}
+IF
+LDMSGADDR
+LDREF
+ENDS
+.loc ../contracts/modules/BorrowModule.tsol, 0
+CALLREF {
+	CALL $unlock_899456dc_internal_macro$
+}
+DROP
+CALLREF {
+	CALL $c7_to_c4$
+}
+THROW 0
+
+.macro unlock_899456dc_internal_macro
+.loc ../contracts/abstract/Roles.tsol, 57
+DROP2
+GETGLOB 9
+GETGLOB 12
+SDEQ
+THROWIFNOT 117
+.loc ../contracts/modules/BorrowModule.tsol, 0
+
+.macro performAction
+DROP
+GETGLOB 6
+THROWIFNOT 76
+GETGLOB 2
+ISNULL
+IFREF {
+	CALL $c4_to_c7$
+}
+.loc ../contracts/modules/BorrowModule.tsol, 55
+LDU 32
+LDREF
+LDDICT
+LDDICT
+ENDS
+.loc ../contracts/modules/BorrowModule.tsol, 0
+CALLREF {
+	CALL $performAction_719b98ad_internal_macro$
+}
+DROP
+CALLREF {
+	CALL $c7_to_c4$
+}
+THROW 0
+
+.macro performAction_719b98ad_internal_macro
+.loc ../contracts/interfaces/IModule.tsol, 134
+GETGLOB 9
+GETGLOB 15
+SDEQ
+THROWIFNOT 127
+.loc ../contracts/interfaces/IModule.tsol, 138
+DEPTH
+ADDCONST -2
+PICK
+PUSHINT 2
+RAWRESERVE
+.loc ../contracts/modules/BorrowModule.tsol, 56
+OVER
+SETGLOB 19
+.loc ../contracts/modules/BorrowModule.tsol, 57
+SETGLOB 20
+.loc ../contracts/modules/BorrowModule.tsol, 58
+SWAP
+CTOS
+.loc ../contracts/modules/BorrowModule.tsol, 59
+LDMSGADDR
+LDMSGADDR
+PLDU 256
+.loc ../contracts/modules/BorrowModule.tsol, 60
+CALLREF {
+	CALL $_isLocked_029d6626_internal_macro$
+}
+PUSHCONT {
+	.loc ../contracts/modules/BorrowModule.tsol, 68
+	BLKPUSH 2, 4
+	PUSHINT 32
+	DICTUGETREF
+	PUSHCONT {
+		CTOS
+		CALLREF {
+			LDMSGADDR
+			LDU 256
+			LDREF
+			ENDS
+			CTOS
+			LDU 256
+			LDU 256
+			LDU 256
+			LDREF
+			ENDS
+			CTOS
+			LDU 256
+			LDU 256
+			LDU 256
+			ROTREV
+			PAIR
+			SWAP
+			LDREF
+			ENDS
+			CTOS
+			LDU 256
+			LDU 256
+			ROTREV
+			PAIR
+			SWAP
+			LDU 256
+			LDREF
+			ENDS
+			CTOS
+			LDU 256
+			ROTREV
+			PAIR
+			SWAP
+			LDU 256
+			LDU 256
+			ROTREV
+			PAIR
+			SWAP
+			LDREF
+			ENDS
+			CTOS
+			LDU 256
+			LDU 256
+			ROTREV
+			PAIR
+			SWAP
+			LDU 256
+			LDREF
+			ENDS
+			CTOS
+			LDU 256
+			ROTREV
+			PAIR
+			SWAP
+			LDU 256
+			LDU 256
+			ROTREV
+			PAIR
+			SWAP
+			LDREF
+			ENDS
+			CTOS
+			LDU 256
+			ENDS
+			TUPLE 14
+		}
+	}
+	PUSHCONT {
+		PUSHREFSLICE {
+			.blob x8000000000000000000000000000000000000000000000000000000000000000001_
+		}
+		PUSHINT 0
+		BLKPUSH 6, 0
+		PAIR
+		BLKPUSH 6, 0
+		PUSHINT 0
+		TUPLE 14
+	}
+	IFELSE
+	INDEX 6
+	PUSH S5
+	PUSHINT 0
+	PUSH2 S4, S5
+	GETGLOB 16
+	NEWC
+	STSLICECONST x62_
+	STSLICE
+	PUSHINT 9789369574394656757036770681243717074945
+	STUR 135
+	ROLLREV 5
+	NEWC
+	STSLICECONST x07d9c618
+	STSLICE
+	ROLLREV 4
+	NEWC
+	STSLICE
+	STU 256
+	STU 32
+	SWAP
+	UNPAIR
+	SWAP
+	NEWC
+	STU 256
+	STU 256
+	STBREFR
+}
+PUSHCONT {
+	.loc ../contracts/modules/BorrowModule.tsol, 61
+	TRUE
+	CALLREF {
+		CALL $_generalLock_604c2b66_internal_macro$
+	}
+	.loc ../contracts/modules/BorrowModule.tsol, 63
+	CALLREF {
+		CALL $_createUpdatedIndexes_701a62fa_internal_macro$
+	}
+	.loc ../contracts/modules/BorrowModule.tsol, 64
+	PUSH3 S5, S1, S2
+	PUSH S6
+	GETGLOB 16
+	NEWC
+	STSLICECONST x62_
+	STSLICE
+	PUSHINT 9789369574394656757036770681243717074945
+	STUR 135
+	ROLLREV 5
+	NEWC
+	STSLICECONST x7768c2d9
+	STSLICE
+	ROLLREV 4
+	NEWC
+	STSLICE
+	STU 256
+	STU 32
+	STDICT
+}
+IFELSE
+STBREFR
+STBREFR
+ENDC
+PUSHINT 64
+SENDRAWMSG
+.loc ../contracts/modules/BorrowModule.tsol, 0
+BLKDROP 5
+
+.macro borrowTokensFromMarket
+DROP
+GETGLOB 6
+THROWIFNOT 76
+GETGLOB 2
+ISNULL
+IFREF {
+	CALL $c4_to_c7$
+}
+.loc ../contracts/modules/BorrowModule.tsol, 74
+OVER
+PUSHCONT {
+	LDREF
+	ENDS
+	CTOS
+}
+IF
+LDMSGADDR
+LDREF
+ENDS
+CTOS
+LDMSGADDR
+LDU 256
+LDU 32
+LDDICT
+LDDICT
+ENDS
+.loc ../contracts/modules/BorrowModule.tsol, 0
+CALLREF {
+	CALL $borrowTokensFromMarket_85af0383_internal_macro$
+}
+DROP
+CALLREF {
+	CALL $c7_to_c4$
+}
+THROW 0
+
+.macro borrowTokensFromMarket_85af0383_internal_macro
+.loc ../contracts/interfaces/IModule.tsol, 126
+GETGLOB 9
+GETGLOB 16
+SDEQ
+THROWIFNOT 126
+.loc ../contracts/modules/BorrowModule.tsol, 82
+DEPTH
+ADDCONST -2
+PICK
+PUSHINT 2
+RAWRESERVE
+.loc ../contracts/modules/BorrowModule.tsol, 83
+NEWDICT
+.loc ../contracts/modules/BorrowModule.tsol, 84
+PUSHINT 0
+DUP
+PAIR
+BLKPUSH 3, 0
+TUPLE 4
+.loc ../contracts/modules/BorrowModule.tsol, 93
+PUSH S4
+GETGLOB 19
+PUSHINT 32
+DICTUGETREF
+PUSHCONT {
+	CTOS
+	CALLREF {
+		LDMSGADDR
+		LDU 256
+		LDREF
+		ENDS
+		CTOS
+		LDU 256
+		LDU 256
+		LDU 256
+		LDREF
+		ENDS
+		CTOS
+		LDU 256
+		LDU 256
+		LDU 256
+		ROTREV
+		PAIR
+		SWAP
+		LDREF
+		ENDS
+		CTOS
+		LDU 256
+		LDU 256
+		ROTREV
+		PAIR
+		SWAP
+		LDU 256
+		LDREF
+		ENDS
+		CTOS
+		LDU 256
+		ROTREV
+		PAIR
+		SWAP
+		LDU 256
+		LDU 256
+		ROTREV
+		PAIR
+		SWAP
+		LDREF
+		ENDS
+		CTOS
+		LDU 256
+		LDU 256
+		ROTREV
+		PAIR
+		SWAP
+		LDU 256
+		LDREF
+		ENDS
+		CTOS
+		LDU 256
+		ROTREV
+		PAIR
+		SWAP
+		LDU 256
+		LDU 256
+		ROTREV
+		PAIR
+		SWAP
+		LDREF
+		ENDS
+		CTOS
+		LDU 256
+		ENDS
+		TUPLE 14
+	}
+}
+PUSHCONT {
+	PUSHREFSLICE {
+		.blob x8000000000000000000000000000000000000000000000000000000000000000001_
+	}
+	PUSHINT 0
+	BLKPUSH 6, 0
+	PAIR
+	BLKPUSH 6, 0
+	PUSHINT 0
+	TUPLE 14
+}
+IFELSE
+.loc ../contracts/modules/BorrowModule.tsol, 95
+PUSH2 S6, S0
+INDEX 5
+LESS
+PUSHCONT {
+	.loc ../contracts/modules/BorrowModule.tsol, 96
+	BLKPUSH 2, 4
+	GETGLOB 19
+	GETGLOB 20
+	CALLREF {
+		CALL $Utilities_no_obj_calculateSupplyBorrow_887fc295_macro$
+	}
+	.loc ../contracts/modules/BorrowModule.tsol, 97
+	DUP
+	FIRST
+	OVER
+	SECOND
+	GREATER
+	PUSHCONT {
+		.loc ../contracts/modules/BorrowModule.tsol, 98
+		DUP
+		FIRST
+		OVER
+		SECOND
+		SUB
+		UFITS 256
+		.loc ../contracts/modules/BorrowModule.tsol, 99
+		PUSH S2
+		FIRST
+		GETGLOB 20
+		PUSHINT 267
+		DICTGET
+IFREFELSEREF
+{
+			LDU 256
+			LDU 256
+			ENDS
+			PAIR
+}
+{
+			PUSHINT 0
+			DUP
+			PAIR
+}
+		CALLREF {
+			CALL $UFO_with_obj_numFMul_c05e235c_macro$
+		}
+		NIP
+		.loc ../contracts/modules/BorrowModule.tsol, 100
+		CALLREF {
+			CALL $FPO_with_obj_toNum_c455ee7d_macro$
+		}
+		NIP
+		.loc ../contracts/modules/BorrowModule.tsol, 101
+		PUSH S8
+		GEQ
+		PUSHCONT {
+			.loc ../contracts/modules/BorrowModule.tsol, 102
+			PUSH3 S7, S2, S2
+			THIRD
+			ROT
+			SETINDEX 1
+			SETINDEX 2
+			POP S3
+			.loc ../contracts/modules/BorrowModule.tsol, 103
+			PUSH2 S2, S2
+			THIRD
+			TRUE
+			SETINDEX 0
+			SETINDEX 2
+			POP S3
+			.loc ../contracts/modules/BorrowModule.tsol, 104
+			PUSH3 S7, S2, S2
+			FIRST
+			ROT
+			SETINDEX 1
+			SETINDEX 0
+			POP S3
+			.loc ../contracts/modules/BorrowModule.tsol, 105
+			PUSH2 S2, S2
+			FIRST
+			FALSE
+			SETINDEX 0
+			SETINDEX 0
+			POP S3
+			.loc ../contracts/modules/BorrowModule.tsol, 107
+			PUSH3 S6, S3, S2
+			CALLREF {
+				UNTUPLE 4
+				REVERSE 4, 0
+				NEWC
+				SWAP
+				UNPAIR
+				XCHG S2
+				STI 1
+				STU 256
+				SWAP
+				UNPAIR
+				XCHG S2
+				STI 1
+				STU 256
+				SWAP
+				UNPAIR
+				XCHG S2
+				STI 1
+				STU 256
+				SWAP
+				UNPAIR
+				XCHG S2
+				STI 1
+				SWAP
+				NEWC
+				STU 256
+				STBREFR
+			}
+			ENDC
+			ROTREV
+			PUSHINT 32
+			DICTUSETREF
+			POP S4
+			.loc ../contracts/modules/BorrowModule.tsol, 110
+			PUSH S6
+			NEWC
+			STU 32
+			.loc ../contracts/modules/BorrowModule.tsol, 111
+			PUSH S10
+			STSLICER
+			.loc ../contracts/modules/BorrowModule.tsol, 112
+			PUSH S9
+			STSLICER
+			.loc ../contracts/modules/BorrowModule.tsol, 113
+			PUSH S8
+			STUR 256
+			.loc ../contracts/modules/BorrowModule.tsol, 115
+			PUSH3 S8, S10, S3
+			PUSH S10
+			PUSHSLICE xc0000000000000000000000001
+			NEWC
+			STSLICE
+			ROLLREV 4
+			NEWC
+			STSLICECONST x67988490
+			STU 32
+			SWAP
+			UNTUPLE 4
+			REVERSE 5, 0
+			SWAP
+			UNPAIR
+			XCHG S2
+			STI 1
+			STU 256
+			SWAP
+			UNPAIR
+			XCHG S2
+			STI 1
+			STU 256
+			SWAP
+			UNPAIR
+			XCHG S2
+			STI 1
+			STU 256
+			SWAP
+			UNPAIR
+			XCHG S2
+			STI 1
+			ROLLREV 3
+			NEWC
+			STU 256
+			STSLICE
+			SWAP
+			NEWC
+			STU 256
+			STBREFR
+			STBREFR
+			STBREFR
+			ENDC
+			PUSHINT 0
+			SENDRAWMSG
+			.loc ../contracts/modules/BorrowModule.tsol, 117
+			ENDC
+			PUSH S4
+			GETGLOB 15
+			NEWC
+			STSLICECONST x62_
+			STSLICE
+			PUSHINT 42045022170482489768618347945393405442362035930703
+			STUR 167
+			STDICT
+			STREF
+		}
+		PUSHCONT {
+			.loc ../contracts/modules/BorrowModule.tsol, 121
+			FALSE
+			CALLREF {
+				CALL $_generalLock_604c2b66_internal_macro$
+			}
+			.loc ../contracts/modules/BorrowModule.tsol, 122
+			OVER
+			INDEX 6
+			PUSH S7
+			PUSHINT 0
+			PUSH2 S11, S12
+			GETGLOB 16
+			NEWC
+			STSLICECONST x62_
+			STSLICE
+			PUSHINT 9789369574394656757036770681243717074945
+			STUR 135
+			ROLLREV 5
+			NEWC
+			STSLICECONST x07d9c618
+			STSLICE
+			ROLLREV 4
+			NEWC
+			STSLICE
+			STU 256
+			STU 32
+			SWAP
+			UNPAIR
+			SWAP
+			NEWC
+			STU 256
+			STU 256
+			STBREFR
+			STBREFR
+			STBREFR
+		}
+		IFELSE
+		ENDC
+		PUSHINT 64
+		SENDRAWMSG
+		.loc ../contracts/modules/BorrowModule.tsol, 0
+	}
+	PUSHCONT {
+		.loc ../contracts/modules/BorrowModule.tsol, 127
+		FALSE
+		CALLREF {
+			CALL $_generalLock_604c2b66_internal_macro$
+		}
+		.loc ../contracts/modules/BorrowModule.tsol, 128
+		OVER
+		INDEX 6
+		PUSH S7
+		PUSHINT 0
+		PUSH2 S11, S12
+		GETGLOB 16
+		NEWC
+		STSLICECONST x62_
+		STSLICE
+		PUSHINT 9789369574394656757036770681243717074945
+		STUR 135
+		ROLLREV 5
+		NEWC
+		STSLICECONST x07d9c618
+		STSLICE
+		ROLLREV 4
+		NEWC
+		STSLICE
+		STU 256
+		STU 32
+		SWAP
+		UNPAIR
+		SWAP
+		NEWC
+		STU 256
+		STU 256
+		STBREFR
+		STBREFR
+		STBREFR
+		ENDC
+		PUSHINT 64
+		SENDRAWMSG
+	}
+	IFELSE
+	.loc ../contracts/modules/BorrowModule.tsol, 0
+	DROP
+}
+PUSHCONT {
+	.loc ../contracts/modules/BorrowModule.tsol, 133
+	FALSE
+	CALLREF {
+		CALL $_generalLock_604c2b66_internal_macro$
+	}
+	.loc ../contracts/modules/BorrowModule.tsol, 134
+	DUP
+	INDEX 6
+	PUSH S6
+	PUSHINT 0
+	PUSH2 S10, S11
+	GETGLOB 16
+	NEWC
+	STSLICECONST x62_
+	STSLICE
+	PUSHINT 9789369574394656757036770681243717074945
+	STUR 135
+	ROLLREV 5
+	NEWC
+	STSLICECONST x07d9c618
+	STSLICE
+	ROLLREV 4
+	NEWC
+	STSLICE
+	STU 256
+	STU 32
+	SWAP
+	UNPAIR
+	SWAP
+	NEWC
+	STU 256
+	STU 256
+	STBREFR
+	STBREFR
+	STBREFR
+	ENDC
+	PUSHINT 64
+	SENDRAWMSG
+}
+IFELSE
+.loc ../contracts/modules/BorrowModule.tsol, 0
+BLKDROP 9
+
+.macro resumeOperation
+DROP
+GETGLOB 6
+THROWIFNOT 76
+GETGLOB 2
+ISNULL
+IFREF {
+	CALL $c4_to_c7$
+}
+.loc ../contracts/modules/BorrowModule.tsol, 140
+LDREF
+LDDICT
+LDDICT
+ENDS
+.loc ../contracts/modules/BorrowModule.tsol, 0
+CALLREF {
+	CALL $resumeOperation_7f4ae85a_internal_macro$
+}
+DROP
+CALLREF {
+	CALL $c7_to_c4$
+}
+THROW 0
+
+.macro resumeOperation_7f4ae85a_internal_macro
+.loc ../contracts/interfaces/IModule.tsol, 134
+DROP
+GETGLOB 9
+GETGLOB 15
+SDEQ
+THROWIFNOT 127
+.loc ../contracts/interfaces/IModule.tsol, 138
+DEPTH
+ADDCONST -2
+PICK
+PUSHINT 2
+RAWRESERVE
+.loc ../contracts/modules/BorrowModule.tsol, 142
+FALSE
+CALLREF {
+	CALL $_generalLock_604c2b66_internal_macro$
+}
+.loc ../contracts/modules/BorrowModule.tsol, 143
+SWAP
+CTOS
+.loc ../contracts/modules/BorrowModule.tsol, 144
+LDU 32
+LDMSGADDR
+LDMSGADDR
+PLDU 256
+.loc ../contracts/modules/BorrowModule.tsol, 145
+PUSH S3
+ROLL 5
+PUSHINT 32
+DICTUGETREF
+PUSHCONT {
+	CTOS
+	CALLREF {
+		LDMSGADDR
+		LDU 256
+		LDREF
+		ENDS
+		CTOS
+		LDU 256
+		LDU 256
+		LDU 256
+		LDREF
+		ENDS
+		CTOS
+		LDU 256
+		LDU 256
+		LDU 256
+		ROTREV
+		PAIR
+		SWAP
+		LDREF
+		ENDS
+		CTOS
+		LDU 256
+		LDU 256
+		ROTREV
+		PAIR
+		SWAP
+		LDU 256
+		LDREF
+		ENDS
+		CTOS
+		LDU 256
+		ROTREV
+		PAIR
+		SWAP
+		LDU 256
+		LDU 256
+		ROTREV
+		PAIR
+		SWAP
+		LDREF
+		ENDS
+		CTOS
+		LDU 256
+		LDU 256
+		ROTREV
+		PAIR
+		SWAP
+		LDU 256
+		LDREF
+		ENDS
+		CTOS
+		LDU 256
+		ROTREV
+		PAIR
+		SWAP
+		LDU 256
+		LDU 256
+		ROTREV
+		PAIR
+		SWAP
+		LDREF
+		ENDS
+		CTOS
+		LDU 256
+		ENDS
+		TUPLE 14
+	}
+}
+PUSHCONT {
+	PUSHREFSLICE {
+		.blob x8000000000000000000000000000000000000000000000000000000000000000001_
+	}
+	PUSHINT 0
+	BLKPUSH 6, 0
+	PAIR
+	BLKPUSH 6, 0
+	PUSHINT 0
+	TUPLE 14
+}
+IFELSE
+INDEX 6
+ROLLREV 4
+XCHG S2
+GETGLOB 16
+NEWC
+STSLICECONST x62_
+STSLICE
+PUSHINT 9789369574394656757036770681243717074945
+STUR 135
+ROLLREV 5
+NEWC
+STSLICECONST x07d9c618
+STSLICE
+ROLLREV 4
+NEWC
+STSLICE
+STU 256
+STU 32
+SWAP
+UNPAIR
+SWAP
+NEWC
+STU 256
+STU 256
+STBREFR
+STBREFR
+STBREFR
+ENDC
+PUSHINT 64
+SENDRAWMSG
+.loc ../contracts/modules/BorrowModule.tsol, 0
+
+.macro sendActionId
+DROP
+GETGLOB 6
+THROWIFNOT 76
+GETGLOB 2
+ISNULL
+IFREF {
+	CALL $c4_to_c7$
+}
+.loc ../contracts/interfaces/IModule.tsol, 43
+LDU 32
+GETGLOB 4
+ROT
+SETINDEXQ 5
+SETGLOB 4
+ENDS
+.loc ../contracts/interfaces/IModule.tsol, 0
+CALLREF {
+	CALL $sendActionId_b4645bca_internal_macro$
+}
+OVER
+PUSHCONT {
+	PUSH S3
+	CTOS
+	LDU 2
+	LDMSGADDR
+	DROP
+	NIP
+	NEWC
+	STSLICECONST xc
+	STSLICE
+	PUSHINT 2276332778
+	STUR 130
+	STU 8
+	ENDC
+	PUSHINT 0
+}
+PUSHCONT {
+	GETGLOB 4
+	DUP
+	INDEX 3
+	OVER
+	THIRD
+	GETGLOB 9
+	ROLL 3
+	SECOND
+	NEWC
+	STSLICECONST x2_
+	STI 1
+	STSLICECONST x1_
+	STSLICE
+	SWAP
+	STGRAMS
+	STDICT
+	PUSHINT 106
+	STZEROES
+	GETGLOB 4
+	INDEX 5
+	STUR 32
+	STU 8
+	ENDC
+	GETGLOB 4
+	INDEX 4
+}
+IFELSE
+SENDRAWMSG
+IFREF {
+	CALL $upd_only_time_in_c4$
+}
+THROW 0
+
+.macro sendActionId_b4645bca_internal_macro
+.loc ../contracts/interfaces/IModule.tsol, 48
+GETGLOB 4
+PUSHINT 0
+SETINDEXQ 2
+FALSE
+SETINDEXQ 1
+PUSHINT 64
+SETINDEXQ 4
+SETGLOB 4
+GETGLOB 18
+.loc ../contracts/interfaces/IModule.tsol, 0
+
+.macro getModuleState
+DROP
+GETGLOB 6
+THROWIFNOT 76
+GETGLOB 2
+ISNULL
+IFREF {
+	CALL $c4_to_c7$
+}
+.loc ../contracts/interfaces/IModule.tsol, 51
+ENDS
+.loc ../contracts/interfaces/IModule.tsol, 0
+CALLREF {
+	CALL $getModuleState_04bc7117_internal_macro$
+}
+PUSH S2
+PUSHCONT {
+	PUSH S4
+	CTOS
+	LDU 2
+	LDMSGADDR
+	DROP
+	NIP
+	NEWC
+	STSLICECONST xc
+	STSLICE
+	PUSHINT 98
+	STZEROES
+	REVERSE 2, 1
+	STSLICECONST xd43c77e4
+	STDICT
+	STDICT
+	ENDC
+	PUSHINT 0
+	SENDRAWMSG
+}
+PUSHCONT {
+	DROP2
+}
+IFELSE
+IFREF {
+	CALL $upd_only_time_in_c4$
+}
+THROW 0
+
+.macro getModuleState_04bc7117_internal_macro
+.loc ../contracts/interfaces/IModule.tsol, 60
+GETGLOB 19
+GETGLOB 20
+.loc ../contracts/interfaces/IModule.tsol, 0
+
+.macro setMarketAddress
+DROP
+GETGLOB 6
+THROWIFNOT 76
+GETGLOB 2
+ISNULL
+IFREF {
+	CALL $c4_to_c7$
+}
+.loc ../contracts/interfaces/IModule.tsol, 63
+OVER
+PUSHCONT {
+	LDREF
+	ENDS
+	CTOS
+}
+IF
+LDMSGADDR
+ENDS
+.loc ../contracts/interfaces/IModule.tsol, 0
+CALLREF {
+	CALL $setMarketAddress_fae92612_internal_macro$
+}
+DROP
+CALLREF {
+	CALL $c7_to_c4$
+}
+THROW 0
+
+.macro setMarketAddress_fae92612_internal_macro
+.loc ../contracts/abstract/Roles.tsol, 57
+GETGLOB 9
+GETGLOB 12
+SDEQ
+THROWIFNOT 117
+.loc ../contracts/interfaces/IModule.tsol, 64
+DEPTH
+ADDCONST -2
+PICK
+PUSHINT 2
+RAWRESERVE
+.loc ../contracts/interfaces/IModule.tsol, 65
+SETGLOB 15
+.loc ../contracts/interfaces/IModule.tsol, 66
+GETGLOB 12
+NEWC
+STSLICECONST x62_
+STSLICE
+PUSHINT 111
+STZEROES
+ENDC
+PUSHINT 64
+SENDRAWMSG
+.loc ../contracts/interfaces/IModule.tsol, 0
+
+.macro setUserAccountManager
+DROP
+GETGLOB 6
+THROWIFNOT 76
+GETGLOB 2
+ISNULL
+IFREF {
+	CALL $c4_to_c7$
+}
+.loc ../contracts/interfaces/IModule.tsol, 69
+OVER
+PUSHCONT {
+	LDREF
+	ENDS
+	CTOS
+}
+IF
+LDMSGADDR
+ENDS
+.loc ../contracts/interfaces/IModule.tsol, 0
+CALLREF {
+	CALL $setUserAccountManager_47caea0f_internal_macro$
+}
+DROP
+CALLREF {
+	CALL $c7_to_c4$
+}
+THROW 0
+
+.macro setUserAccountManager_47caea0f_internal_macro
+.loc ../contracts/abstract/Roles.tsol, 57
+GETGLOB 9
+GETGLOB 12
+SDEQ
+THROWIFNOT 117
+.loc ../contracts/interfaces/IModule.tsol, 70
+DEPTH
+ADDCONST -2
+PICK
+PUSHINT 2
+RAWRESERVE
+.loc ../contracts/interfaces/IModule.tsol, 71
+SETGLOB 16
+.loc ../contracts/interfaces/IModule.tsol, 72
+GETGLOB 12
+NEWC
+STSLICECONST x62_
+STSLICE
+PUSHINT 111
+STZEROES
+ENDC
+PUSHINT 64
+SENDRAWMSG
+.loc ../contracts/interfaces/IModule.tsol, 0
+
+.macro getContractAddresses
+DROP
+GETGLOB 6
+THROWIFNOT 76
+GETGLOB 2
+ISNULL
+IFREF {
+	CALL $c4_to_c7$
+}
+.loc ../contracts/interfaces/IModule.tsol, 75
+LDU 32
+GETGLOB 4
+ROT
+SETINDEXQ 5
+SETGLOB 4
+ENDS
+.loc ../contracts/interfaces/IModule.tsol, 0
+CALLREF {
+	CALL $getContractAddresses_953874d2_internal_macro$
+}
+PUSH S3
+PUSHCONT {
+	PUSH S5
+	CTOS
+	LDU 2
+	LDMSGADDR
+	DROP
+	NIP
+	NEWC
+	STSLICECONST xc
+	STSLICE
+	PUSHINT 1
+	STUR 98
+	REVERSE 4, 0
+	NEWC
+	STSLICECONST xcf7580d3
+	STSLICE
+	ROTREV
+	NEWC
+	STSLICE
+	SWAP
+	NEWC
+	STSLICE
+	STBREFR
+	STBREFR
+	STBREFR
+	ENDC
+	PUSHINT 0
+}
+PUSHCONT {
+	GETGLOB 4
+	DUP
+	INDEX 3
+	OVER
+	THIRD
+	GETGLOB 9
+	ROLL 3
+	SECOND
+	NEWC
+	STSLICECONST x2_
+	STI 1
+	STSLICECONST x1_
+	STSLICE
+	SWAP
+	STGRAMS
+	STDICT
+	PUSHINT 1
+	STUR 106
+	REVERSE 4, 0
+	NEWC
+	GETGLOB 4
+	INDEX 5
+	STUR 32
+	STSLICE
+	ROTREV
+	NEWC
+	STSLICE
+	SWAP
+	NEWC
+	STSLICE
+	STBREFR
+	STBREFR
+	STBREFR
+	ENDC
+	GETGLOB 4
+	INDEX 4
+}
+IFELSE
+SENDRAWMSG
+IFREF {
+	CALL $upd_only_time_in_c4$
+}
+THROW 0
+
+.macro getContractAddresses_953874d2_internal_macro
+.loc ../contracts/interfaces/IModule.tsol, 80
+GETGLOB 4
+PUSHINT 0
+SETINDEXQ 2
+FALSE
+SETINDEXQ 1
+PUSHINT 64
+SETINDEXQ 4
+SETGLOB 4
+GETGLOB 12
+GETGLOB 15
+GETGLOB 16
+.loc ../contracts/interfaces/IModule.tsol, 0
+
+.macro updateCache
+DROP
+GETGLOB 6
+THROWIFNOT 76
+GETGLOB 2
+ISNULL
+IFREF {
+	CALL $c4_to_c7$
+}
+.loc ../contracts/interfaces/IModule.tsol, 83
+OVER
+PUSHCONT {
+	LDREF
+	ENDS
+	CTOS
+}
+IF
+LDMSGADDR
+LDDICT
+LDDICT
+ENDS
+.loc ../contracts/interfaces/IModule.tsol, 0
+CALLREF {
+	CALL $updateCache_12d6ccd5_internal_macro$
+}
+DROP
+CALLREF {
+	CALL $c7_to_c4$
+}
+THROW 0
+
+.macro updateCache_12d6ccd5_internal_macro
+.loc ../contracts/interfaces/IModule.tsol, 134
+GETGLOB 9
+GETGLOB 15
+SDEQ
+THROWIFNOT 127
+.loc ../contracts/interfaces/IModule.tsol, 138
+DEPTH
+ADDCONST -2
+PICK
+PUSHINT 2
+RAWRESERVE
+.loc ../contracts/interfaces/IModule.tsol, 84
+SWAP
+SETGLOB 19
+.loc ../contracts/interfaces/IModule.tsol, 85
+SETGLOB 20
+.loc ../contracts/interfaces/IModule.tsol, 86
+NEWC
+STSLICECONST x62_
+STSLICE
+PUSHINT 111
+STZEROES
+ENDC
+PUSHINT 64
+SENDRAWMSG
+.loc ../contracts/interfaces/IModule.tsol, 0
+
+.globl	_createUpdatedIndexes_701a62fa_internal
+.type	_createUpdatedIndexes_701a62fa_internal, @function
+CALL $_createUpdatedIndexes_701a62fa_internal_macro$
+
+.macro _createUpdatedIndexes_701a62fa_internal_macro
+.loc ../contracts/interfaces/IModule.tsol, 89
+NEWDICT
+.loc ../contracts/interfaces/IModule.tsol, 90
+GETGLOB 19
+DUP
+PUSHINT 32
+DICTUMINREF
+PUSHCONT {
+	NULL
+	BLKPUSH 2, 0
+}
+IFREFELSE {
+	DUP
+	ROT
+	CTOS
+	CALLREF {
+		LDMSGADDR
+		LDU 256
+		LDREF
+		ENDS
+		CTOS
+		LDU 256
+		LDU 256
+		LDU 256
+		LDREF
+		ENDS
+		CTOS
+		LDU 256
+		LDU 256
+		LDU 256
+		ROTREV
+		PAIR
+		SWAP
+		LDREF
+		ENDS
+		CTOS
+		LDU 256
+		LDU 256
+		ROTREV
+		PAIR
+		SWAP
+		LDU 256
+		LDREF
+		ENDS
+		CTOS
+		LDU 256
+		ROTREV
+		PAIR
+		SWAP
+		LDU 256
+		LDU 256
+		ROTREV
+		PAIR
+		SWAP
+		LDREF
+		ENDS
+		CTOS
+		LDU 256
+		LDU 256
+		ROTREV
+		PAIR
+		SWAP
+		LDU 256
+		LDREF
+		ENDS
+		CTOS
+		LDU 256
+		ROTREV
+		PAIR
+		SWAP
+		LDU 256
+		LDU 256
+		ROTREV
+		PAIR
+		SWAP
+		LDREF
+		ENDS
+		CTOS
+		LDU 256
+		ENDS
+		TUPLE 14
+	}
+}
+PUSHCONT {
+	PUSH S2
+	ISNULL
+	NOT
+}
+PUSHCONT {
+	.loc ../contracts/interfaces/IModule.tsol, 91
+	INDEX 6
+	PUSH2 S1, S4
+	ROT
+	CALLREF {
+		UNPAIR
+		SWAP
+		NEWC
+		STU 256
+		STU 256
+	}
+	ROTREV
+	PUSHINT 32
+	DICTUSETB
+	POP S4
+	.loc ../contracts/interfaces/IModule.tsol, 0
+	PUSH2 S1, S2
+	PUSHINT 32
+	DICTUGETNEXT
+	PUSHCONT {
+		NULL
+		BLKPUSH 2, 0
+	}
+IFREFELSE {
+		DUP
+		ROT
+		PLDREF
+		CTOS
+		CALLREF {
+			LDMSGADDR
+			LDU 256
+			LDREF
+			ENDS
+			CTOS
+			LDU 256
+			LDU 256
+			LDU 256
+			LDREF
+			ENDS
+			CTOS
+			LDU 256
+			LDU 256
+			LDU 256
+			ROTREV
+			PAIR
+			SWAP
+			LDREF
+			ENDS
+			CTOS
+			LDU 256
+			LDU 256
+			ROTREV
+			PAIR
+			SWAP
+			LDU 256
+			LDREF
+			ENDS
+			CTOS
+			LDU 256
+			ROTREV
+			PAIR
+			SWAP
+			LDU 256
+			LDU 256
+			ROTREV
+			PAIR
+			SWAP
+			LDREF
+			ENDS
+			CTOS
+			LDU 256
+			LDU 256
+			ROTREV
+			PAIR
+			SWAP
+			LDU 256
+			LDREF
+			ENDS
+			CTOS
+			LDU 256
+			ROTREV
+			PAIR
+			SWAP
+			LDU 256
+			LDU 256
+			ROTREV
+			PAIR
+			SWAP
+			LDREF
+			ENDS
+			CTOS
+			LDU 256
+			ENDS
+			TUPLE 14
+		}
+}
+	BLKDROP2 2, 3
+}
+WHILE
+BLKDROP 4
+.loc ../contracts/interfaces/IModule.tsol, 0
+
+.macro getGeneralLock
+DROP
+GETGLOB 6
+THROWIFNOT 76
+GETGLOB 2
+ISNULL
+IFREF {
+	CALL $c4_to_c7$
+}
+.loc ../contracts/interfaces/IModule.tsol, 95
+ENDS
+.loc ../contracts/interfaces/IModule.tsol, 0
+CALLREF {
+	CALL $getGeneralLock_dc4fbf73_internal_macro$
+}
+OVER
+PUSHCONT {
+	PUSH S3
+	CTOS
+	LDU 2
+	LDMSGADDR
+	DROP
+	NIP
+	NEWC
+	STSLICECONST xc
+	STSLICE
+	PUSHINT 2922993422
+	STUR 130
+	STI 1
+	ENDC
+	PUSHINT 0
+	SENDRAWMSG
+}
+PUSHCONT {
+	DROP
+}
+IFELSE
+IFREF {
+	CALL $upd_only_time_in_c4$
+}
+THROW 0
+
+.macro getGeneralLock_dc4fbf73_internal_macro
+.loc ../contracts/interfaces/IModule.tsol, 96
+CALL $_isLocked_029d6626_internal_macro$
+.loc ../contracts/interfaces/IModule.tsol, 0
+
+.macro userLock
+DROP
+GETGLOB 6
+THROWIFNOT 76
+GETGLOB 2
+ISNULL
+IFREF {
+	CALL $c4_to_c7$
+}
+.loc ../contracts/interfaces/IModule.tsol, 99
+OVER
+PUSHCONT {
+	LDREF
+	ENDS
+	CTOS
+}
+IF
+LDMSGADDR
+ENDS
+.loc ../contracts/interfaces/IModule.tsol, 0
+CALLREF {
+	CALL $userLock_5617a6e8_internal_macro$
+}
+OVER
+PUSHCONT {
+	PUSH S3
+	CTOS
+	LDU 2
+	LDMSGADDR
+	DROP
+	NIP
+	NEWC
+	STSLICECONST xc
+	STSLICE
+	PUSHINT 2380959849
+	STUR 130
+	STI 1
+	ENDC
+	PUSHINT 0
+	SENDRAWMSG
+}
+PUSHCONT {
+	DROP
+}
+IFELSE
+IFREF {
+	CALL $upd_only_time_in_c4$
+}
+THROW 0
+
+.macro userLock_5617a6e8_internal_macro
+.loc ../contracts/interfaces/IModule.tsol, 100
+CALLREF {
+	CALL $_isUserLocked_3faef9dc_internal_macro$
+}
+.loc ../contracts/interfaces/IModule.tsol, 0
+
+.macro usersLock
+DROP
+GETGLOB 6
+THROWIFNOT 76
+GETGLOB 2
+ISNULL
+IFREF {
+	CALL $c4_to_c7$
+}
+.loc ../contracts/interfaces/IModule.tsol, 103
+ENDS
+.loc ../contracts/interfaces/IModule.tsol, 0
+CALLREF {
+	CALL $usersLock_2f5eeb8b_internal_macro$
+}
+OVER
+PUSHCONT {
+	PUSH S3
+	CTOS
+	LDU 2
+	LDMSGADDR
+	DROP
+	NIP
+	NEWC
+	STSLICECONST xc
+	STSLICE
+	PUSHINT 3652389023
+	STUR 130
+	STDICT
+	ENDC
+	PUSHINT 0
+	SENDRAWMSG
+}
+PUSHCONT {
+	DROP
+}
+IFELSE
+IFREF {
+	CALL $upd_only_time_in_c4$
+}
+THROW 0
+
+.macro usersLock_2f5eeb8b_internal_macro
+.loc ../contracts/interfaces/IModule.tsol, 104
+GETGLOB 11
+.loc ../contracts/interfaces/IModule.tsol, 0
+
+.macro ownerGeneralUnlock
+DROP
+GETGLOB 6
+THROWIFNOT 76
+GETGLOB 2
+ISNULL
+IFREF {
+	CALL $c4_to_c7$
+}
+.loc ../contracts/interfaces/IModule.tsol, 107
+LDI 1
+ENDS
+.loc ../contracts/interfaces/IModule.tsol, 0
+CALLREF {
+	CALL $ownerGeneralUnlock_1ebb931d_internal_macro$
+}
+DROP
+CALLREF {
+	CALL $c7_to_c4$
+}
+THROW 0
+
+.macro ownerGeneralUnlock_1ebb931d_internal_macro
+.loc ../contracts/abstract/Roles.tsol, 57
+GETGLOB 9
+GETGLOB 12
+SDEQ
+THROWIFNOT 117
+.loc ../contracts/interfaces/IModule.tsol, 108
+DEPTH
+ADDCONST -2
+PICK
+PUSHINT 2
+RAWRESERVE
+.loc ../contracts/interfaces/IModule.tsol, 109
+CALLREF {
+	CALL $_generalLock_604c2b66_internal_macro$
+}
+.loc ../contracts/interfaces/IModule.tsol, 110
+GETGLOB 12
+NEWC
+STSLICECONST x62_
+STSLICE
+PUSHINT 111
+STZEROES
+ENDC
+PUSHINT 64
+SENDRAWMSG
+.loc ../contracts/interfaces/IModule.tsol, 0
+
+.macro ownerUserUnlock
+DROP
+GETGLOB 6
+THROWIFNOT 76
+GETGLOB 2
+ISNULL
+IFREF {
+	CALL $c4_to_c7$
+}
+.loc ../contracts/interfaces/IModule.tsol, 116
+OVER
+PUSHCONT {
+	LDREF
+	ENDS
+	CTOS
+}
+IF
+LDMSGADDR
+LDI 1
+ENDS
+.loc ../contracts/interfaces/IModule.tsol, 0
+CALLREF {
+	CALL $ownerUserUnlock_7c1849b7_internal_macro$
+}
+DROP
+CALLREF {
+	CALL $c7_to_c4$
+}
+THROW 0
+
+.macro ownerUserUnlock_7c1849b7_internal_macro
+.loc ../contracts/abstract/Roles.tsol, 57
+GETGLOB 9
+GETGLOB 12
+SDEQ
+THROWIFNOT 117
+.loc ../contracts/interfaces/IModule.tsol, 117
+DEPTH
+ADDCONST -2
+PICK
+PUSHINT 2
+RAWRESERVE
+.loc ../contracts/interfaces/IModule.tsol, 118
+CALLREF {
+	CALL $_lockUser_e1d9a30f_internal_macro$
+}
+.loc ../contracts/interfaces/IModule.tsol, 119
+GETGLOB 12
+NEWC
+STSLICECONST x62_
+STSLICE
+PUSHINT 111
+STZEROES
+ENDC
+PUSHINT 64
+SENDRAWMSG
+.loc ../contracts/interfaces/IModule.tsol, 0
+
+.macro setUpgrader
+DROP
+GETGLOB 6
+THROWIFNOT 76
+GETGLOB 2
+ISNULL
+IFREF {
+	CALL $c4_to_c7$
+}
+.loc ../contracts/abstract/Roles.tsol, 11
+OVER
+PUSHCONT {
+	LDREF
+	ENDS
+	CTOS
+}
+IF
+LDMSGADDR
+LDI 1
+ENDS
+.loc ../contracts/abstract/Roles.tsol, 0
+CALLREF {
+	CALL $setUpgrader_07eddd47_internal_macro$
+}
+DROP
+CALLREF {
+	CALL $c7_to_c4$
+}
+THROW 0
+
+.macro setUpgrader_07eddd47_internal_macro
+.loc ../contracts/abstract/Roles.tsol, 57
+GETGLOB 9
+GETGLOB 12
+SDEQ
+THROWIFNOT 117
+.loc ../contracts/abstract/Roles.tsol, 12
+DEPTH
+ADDCONST -2
+PICK
+PUSHINT 2
+RAWRESERVE
+.loc ../contracts/abstract/Roles.tsol, 14
+GETGLOB 13
+SWAP
+NEWC
+STI 1
+ROTREV
+PUSHINT 267
+DICTSETB
+SETGLOB 13
+.loc ../contracts/abstract/Roles.tsol, 16
+GETGLOB 9
+NEWC
+STSLICECONST x62_
+STSLICE
+PUSHINT 111
+STZEROES
+ENDC
+PUSHINT 64
+SENDRAWMSG
+.loc ../contracts/abstract/Roles.tsol, 0
+
+.macro setParamChanger
+DROP
+GETGLOB 6
+THROWIFNOT 76
+GETGLOB 2
+ISNULL
+IFREF {
+	CALL $c4_to_c7$
+}
+.loc ../contracts/abstract/Roles.tsol, 22
+OVER
+PUSHCONT {
+	LDREF
+	ENDS
+	CTOS
+}
+IF
+LDMSGADDR
+LDI 1
+ENDS
+.loc ../contracts/abstract/Roles.tsol, 0
+CALLREF {
+	CALL $setParamChanger_b446a585_internal_macro$
+}
+DROP
+CALLREF {
+	CALL $c7_to_c4$
+}
+THROW 0
+
+.macro setParamChanger_b446a585_internal_macro
+.loc ../contracts/abstract/Roles.tsol, 57
+GETGLOB 9
+GETGLOB 12
+SDEQ
+THROWIFNOT 117
+.loc ../contracts/abstract/Roles.tsol, 23
+DEPTH
+ADDCONST -2
+PICK
+PUSHINT 2
+RAWRESERVE
+.loc ../contracts/abstract/Roles.tsol, 25
+GETGLOB 14
+SWAP
+NEWC
+STI 1
+ROTREV
+PUSHINT 267
+DICTSETB
+SETGLOB 14
+.loc ../contracts/abstract/Roles.tsol, 27
+GETGLOB 9
+NEWC
+STSLICECONST x62_
+STSLICE
+PUSHINT 111
+STZEROES
+ENDC
+PUSHINT 64
+SENDRAWMSG
+.loc ../contracts/abstract/Roles.tsol, 0
+
+.macro changeOwner
+DROP
+GETGLOB 6
+THROWIFNOT 76
+GETGLOB 2
+ISNULL
+IFREF {
+	CALL $c4_to_c7$
+}
+.loc ../contracts/abstract/Roles.tsol, 33
+OVER
+PUSHCONT {
+	LDREF
+	ENDS
+	CTOS
+}
+IF
+LDMSGADDR
+ENDS
+.loc ../contracts/abstract/Roles.tsol, 0
+CALLREF {
+	CALL $changeOwner_a6f9dae1_internal_macro$
+}
+DROP
+CALLREF {
+	CALL $c7_to_c4$
+}
+THROW 0
+
+.macro changeOwner_a6f9dae1_internal_macro
+.loc ../contracts/abstract/Roles.tsol, 57
+GETGLOB 9
+GETGLOB 12
+SDEQ
+THROWIFNOT 117
+.loc ../contracts/abstract/Roles.tsol, 34
+DEPTH
+ADDCONST -2
+PICK
+PUSHINT 2
+RAWRESERVE
+.loc ../contracts/abstract/Roles.tsol, 36
+SETGLOB 12
+.loc ../contracts/abstract/Roles.tsol, 38
+GETGLOB 9
+NEWC
+STSLICECONST x62_
+STSLICE
+PUSHINT 111
+STZEROES
+ENDC
+PUSHINT 64
+SENDRAWMSG
+.loc ../contracts/abstract/Roles.tsol, 0
+
+.macro getOwner
+DROP
+GETGLOB 6
+THROWIFNOT 76
+GETGLOB 2
+ISNULL
+IFREF {
+	CALL $c4_to_c7$
+}
+.loc ../contracts/abstract/Roles.tsol, 44
+ENDS
+.loc ../contracts/abstract/Roles.tsol, 0
+CALLREF {
+	CALL $getOwner_893d20e8_internal_macro$
+}
+OVER
+PUSHCONT {
+	PUSH S3
+	CTOS
+	LDU 2
+	LDMSGADDR
+	DROP
+	NIP
+	NEWC
+	STSLICECONST xc
+	STSLICE
+	PUSHINT 1
+	STUR 98
+	SWAP
+	NEWC
+	STSLICECONST x9ea5175d
+	STSLICE
+	STBREFR
+	ENDC
+	PUSHINT 0
+	SENDRAWMSG
+}
+PUSHCONT {
+	DROP
+}
+IFELSE
+IFREF {
+	CALL $upd_only_time_in_c4$
+}
+THROW 0
+
+.macro getOwner_893d20e8_internal_macro
+.loc ../contracts/abstract/Roles.tsol, 45
+GETGLOB 12
+.loc ../contracts/abstract/Roles.tsol, 0
+
+.macro getUpgraders
+DROP
+GETGLOB 6
+THROWIFNOT 76
+GETGLOB 2
+ISNULL
+IFREF {
+	CALL $c4_to_c7$
+}
+.loc ../contracts/abstract/Roles.tsol, 48
+ENDS
+.loc ../contracts/abstract/Roles.tsol, 0
+CALLREF {
+	CALL $getUpgraders_2ba16026_internal_macro$
+}
+OVER
+PUSHCONT {
+	PUSH S3
+	CTOS
+	LDU 2
+	LDMSGADDR
+	DROP
+	NIP
+	NEWC
+	STSLICECONST xc
+	STSLICE
+	PUSHINT 3095416491
+	STUR 130
+	STDICT
+	ENDC
+	PUSHINT 0
+	SENDRAWMSG
+}
+PUSHCONT {
+	DROP
+}
+IFELSE
+IFREF {
+	CALL $upd_only_time_in_c4$
+}
+THROW 0
+
+.macro getUpgraders_2ba16026_internal_macro
+.loc ../contracts/abstract/Roles.tsol, 49
+GETGLOB 13
+.loc ../contracts/abstract/Roles.tsol, 0
+
+.macro getParamChangers
+DROP
+GETGLOB 6
+THROWIFNOT 76
+GETGLOB 2
+ISNULL
+IFREF {
+	CALL $c4_to_c7$
+}
+.loc ../contracts/abstract/Roles.tsol, 52
+ENDS
+.loc ../contracts/abstract/Roles.tsol, 0
+CALLREF {
+	CALL $getParamChangers_61c2c76b_internal_macro$
+}
+OVER
+PUSHCONT {
+	PUSH S3
+	CTOS
+	LDU 2
+	LDMSGADDR
+	DROP
+	NIP
+	NEWC
+	STSLICECONST xc
+	STSLICE
+	PUSHINT 2248669321
+	STUR 130
+	STDICT
+	ENDC
+	PUSHINT 0
+	SENDRAWMSG
+}
+PUSHCONT {
+	DROP
+}
+IFELSE
+IFREF {
+	CALL $upd_only_time_in_c4$
+}
+THROW 0
+
+.macro getParamChangers_61c2c76b_internal_macro
+.loc ../contracts/abstract/Roles.tsol, 53
+GETGLOB 14
+.loc ../contracts/abstract/Roles.tsol, 0
+
+.globl	_lockUser_e1d9a30f_internal
+.type	_lockUser_e1d9a30f_internal, @function
+CALL $_lockUser_e1d9a30f_internal_macro$
+
+.macro _lockUser_e1d9a30f_internal_macro
+.loc ../contracts/abstract/ACLockable.tsol, 10
+GETGLOB 11
+SWAP
+NEWC
+STI 1
+ROTREV
+PUSHINT 267
+DICTSETB
+SETGLOB 11
+.loc ../contracts/abstract/ACLockable.tsol, 0
+
+.globl	_generalLock_604c2b66_internal
+.type	_generalLock_604c2b66_internal, @function
+CALL $_generalLock_604c2b66_internal_macro$
+
+.macro _generalLock_604c2b66_internal_macro
+.loc ../contracts/abstract/ACLockable.tsol, 14
+SETGLOB 10
+.loc ../contracts/abstract/ACLockable.tsol, 0
+
+.globl	_isLocked_029d6626_internal
+.type	_isLocked_029d6626_internal, @function
+CALL $_isLocked_029d6626_internal_macro$
+
+.macro _isLocked_029d6626_internal_macro
+.loc ../contracts/abstract/ACLockable.tsol, 18
+GETGLOB 10
+.loc ../contracts/abstract/ACLockable.tsol, 0
+
+.globl	_isUserLocked_3faef9dc_internal
+.type	_isUserLocked_3faef9dc_internal, @function
+CALL $_isUserLocked_3faef9dc_internal_macro$
+
+.macro _isUserLocked_3faef9dc_internal_macro
+.loc ../contracts/abstract/ACLockable.tsol, 22
+GETGLOB 11
+PUSHINT 267
+DICTGET
+ZEROSWAPIFNOT
+PUSHCONT {
+	PLDI 1
+}
+IF
+.loc ../contracts/abstract/ACLockable.tsol, 0
+
+.macro c4_to_c7
+PUSHROOT
+CTOS
+LDU 256 ; pubkey c4
+LDU 64 ; pubkey timestamp c4
+LDU 1 ; ctor flag
+NIP
+LDI 1
+LDDICT
+LDMSGADDR
+LDDICT
+LDDICT
+LDREF
+ENDS
+CTOS
+LDMSGADDR
+LDREF
+ENDS
+CTOS
+LDMSGADDR
+LDU 32
+LDU 8
+LDDICT
+LDDICT
+ENDS
+SETGLOB 20
+SETGLOB 19
+SETGLOB 18
+SETGLOB 17
+SETGLOB 16
+SETGLOB 15
+SETGLOB 14
+SETGLOB 13
+SETGLOB 12
+SETGLOB 11
+SETGLOB 10
+SETGLOB 3
+SETGLOB 2
+
+.macro c4_to_c7_with_init_storage
+PUSHROOT
+CTOS
+SBITS
+GTINT 1
+PUSHCONT {
+	PUSHINT 0
+	PUSHROOT
+	CTOS
+	PLDDICT ; D
+	PUSHINT 0
+	NEWDICT
+	PUSHREFSLICE {
+		.blob x8000000000000000000000000000000000000000000000000000000000000000001_
+	}
+	NEWDICT
+	DUP
+	PUSHREFSLICE {
+		.blob x8000000000000000000000000000000000000000000000000000000000000000001_
+	}
+	DUP
+	PUSHINT 0
+	DUP
+	NEWDICT
+	DUP
+	SETGLOB 20
+	SETGLOB 19
+	SETGLOB 18
+	SETGLOB 17
+	SETGLOB 16
+	SETGLOB 15
+	SETGLOB 14
+	SETGLOB 13
+	SETGLOB 12
+	SETGLOB 11
+	SETGLOB 10
+	PUSHINT 64
+	DICTUGET
+	THROWIFNOT 61
+	PLDU 256
+	SETGLOB 2
+	PUSHINT 0 ; timestamp
+	SETGLOB 3
+}
+IFREFELSE {
+	CALL $c4_to_c7$
+}
+
+.macro c7_to_c4
+GETGLOB 20
+GETGLOB 19
+GETGLOB 18
+GETGLOB 17
+GETGLOB 16
+GETGLOB 15
+GETGLOB 14
+GETGLOB 13
+GETGLOB 12
+GETGLOB 11
+GETGLOB 10
+GETGLOB 3
+GETGLOB 2
+NEWC
+STU 256
+STU 64
+STONE
+STI 1
+STDICT
+STSLICE
+STDICT
+STDICT
+ROLLREV 6
+NEWC
+STSLICE
+ROLLREV 5
+NEWC
+STSLICE
+STU 32
+STU 8
+STDICT
+STDICT
+STBREFR
+STBREFR
+ENDC
+POPROOT
+
+.macro upd_only_time_in_c4
+PUSHROOT
+CTOS
+LDU 256
+LDU 64
+NIP
+GETGLOB 3
+ROT
+NEWC
+STU 256
+STU 64
+STSLICE
+ENDC
+POPROOT
+
+.internal-alias :main_internal, 0
+.internal :main_internal
+PUSHROOT
+CTOS
+SBITS
+NEQINT 1
+SETGLOB 6
+PUSH S2
+CTOS
+LDU 4 ; bounced tail
+LDMSGADDR ; bounced src tail
+DROP
+SETGLOB 9
+MODPOW2 1
+GETGLOB 4
+TRUE
+SETINDEXQ 1
+PUSHINT 10000000
+SETINDEXQ 2
+NULL
+SETINDEXQ 3
+PUSHINT 0
+SETINDEXQ 4
+SETGLOB 4
+IFRET
+OVER
+SEMPTY ; isEmpty
+IFJMPREF {
+	GETGLOB 6
+	THROWIFNOT 76
+}
+OVER
+LDUQ 32  ; [funcId] body' ok
+THROWIFNOT 60
+OVER
+IFNOTJMPREF {
+	GETGLOB 6
+	THROWIFNOT 76
+}
+SWAP
+CALLREF {
+	CALL $public_function_selector$
+}
+THROW 60
+
+.internal-alias :main_external, -1
+.internal :main_external
+PUSHROOT
+CTOS
+SBITS
+NEQINT 1
+SETGLOB 6
+PUSHREFSLICE {
+	.blob x8000000000000000000000000000000000000000000000000000000000000000001_
+}
+SETGLOB 9
+OVER
+CALLREF {
+	CALL $c4_to_c7_with_init_storage$
+}
+LDU 1 ; haveSign msgSlice
+SWAP
+PUSHCONT {
+	PUSHPOW2 9
+	LDSLICEX ; signatureSlice msgSlice
+	DUP
+	HASHSU ; signatureSlice msgSlice hashMsgSlice
+	ROT
+	GETGLOB 2
+	CHKSIGNU ; msgSlice isSigned
+	THROWIFNOT 40
+}
+IF
+LDU 64 ; timestamp msgSlice
+SWAP
+CALL $replay_protection_macro$
+LDU 32 ; funcId body
+SWAP
+CALLREF {
+	CALL $public_function_selector$
+}
+THROW 60
+
+.macro contractCodeVersion
+DROP
+ENDS
+CALLREF {
+	CALL $c4_to_c7$
+}
+GETGLOB 17
+OVER
+PUSHCONT {
+	PUSHSLICE xc0000000000000000000000000ee0ee011
+	NEWC
+	STSLICE
+	STU 32
+	ENDC
+	PUSHINT 0
+	SENDRAWMSG
+}
+IF
+THROW 0
+
+.globl	Utilities_with_obj_calculateSupplyBorrow_887fc295
+.type	Utilities_with_obj_calculateSupplyBorrow_887fc295, @function
+CALL $Utilities_with_obj_calculateSupplyBorrow_887fc295_macro$
+
+.macro Utilities_with_obj_calculateSupplyBorrow_887fc295_macro
+.loc ../contracts/interfaces/IModule.tsol, 216
+PUSHINT 0
+DUP
+PAIR
+.loc ../contracts/interfaces/IModule.tsol, 217
+DROP
+PUSHINT 0
+DUP
+PAIR
+.loc ../contracts/interfaces/IModule.tsol, 218
+PUSHINT 0
+PUSHINT 1
+PAIR
+.loc ../contracts/interfaces/IModule.tsol, 219
+PUSHINT 0
+PUSHINT 1
+PAIR
+.loc ../contracts/interfaces/IModule.tsol, 225
+PUSH2 S6, S6
+PUSHINT 32
+DICTUMIN
+PUSHCONT {
+	DUP
+	ROT
+	PLDU 256
+}
+PUSHCONT {
+	NULL
+	BLKPUSH 2, 0
+}
+IFELSE
+PUSHCONT {
+	PUSH S2
+	ISNULL
+	NOT
+}
+PUSHCONT {
+	.loc ../contracts/interfaces/IModule.tsol, 226
+	PUSH3 S0, S1, S8
+	PUSHINT 32
+	DICTUGETREF
+	PUSHCONT {
+		CTOS
+		CALLREF {
+			LDMSGADDR
+			LDU 256
+			LDREF
+			ENDS
+			CTOS
+			LDU 256
+			LDU 256
+			LDU 256
+			LDREF
+			ENDS
+			CTOS
+			LDU 256
+			LDU 256
+			LDU 256
+			ROTREV
+			PAIR
+			SWAP
+			LDREF
+			ENDS
+			CTOS
+			LDU 256
+			LDU 256
+			ROTREV
+			PAIR
+			SWAP
+			LDU 256
+			LDREF
+			ENDS
+			CTOS
+			LDU 256
+			ROTREV
+			PAIR
+			SWAP
+			LDU 256
+			LDU 256
+			ROTREV
+			PAIR
+			SWAP
+			LDREF
+			ENDS
+			CTOS
+			LDU 256
+			LDU 256
+			ROTREV
+			PAIR
+			SWAP
+			LDU 256
+			LDREF
+			ENDS
+			CTOS
+			LDU 256
+			ROTREV
+			PAIR
+			SWAP
+			LDU 256
+			LDU 256
+			ROTREV
+			PAIR
+			SWAP
+			LDREF
+			ENDS
+			CTOS
+			LDU 256
+			ENDS
+			TUPLE 14
+		}
+	}
+	PUSHCONT {
+		PUSHREFSLICE {
+			.blob x8000000000000000000000000000000000000000000000000000000000000000001_
+		}
+		PUSHINT 0
+		BLKPUSH 6, 0
+		PAIR
+		BLKPUSH 6, 0
+		PUSHINT 0
+		TUPLE 14
+	}
+	IFELSE
+	INDEX 10
+	CALLREF {
+		CALL $UFO_with_obj_numFMul_c05e235c_macro$
+	}
+	NIP
+	POP S7
+	.loc ../contracts/interfaces/IModule.tsol, 227
+	PUSH3 S6, S1, S8
+	PUSHINT 32
+	DICTUGETREF
+	PUSHCONT {
+		CTOS
+		CALLREF {
+			LDMSGADDR
+			LDU 256
+			LDREF
+			ENDS
+			CTOS
+			LDU 256
+			LDU 256
+			LDU 256
+			LDREF
+			ENDS
+			CTOS
+			LDU 256
+			LDU 256
+			LDU 256
+			ROTREV
+			PAIR
+			SWAP
+			LDREF
+			ENDS
+			CTOS
+			LDU 256
+			LDU 256
+			ROTREV
+			PAIR
+			SWAP
+			LDU 256
+			LDREF
+			ENDS
+			CTOS
+			LDU 256
+			ROTREV
+			PAIR
+			SWAP
+			LDU 256
+			LDU 256
+			ROTREV
+			PAIR
+			SWAP
+			LDREF
+			ENDS
+			CTOS
+			LDU 256
+			LDU 256
+			ROTREV
+			PAIR
+			SWAP
+			LDU 256
+			LDREF
+			ENDS
+			CTOS
+			LDU 256
+			ROTREV
+			PAIR
+			SWAP
+			LDU 256
+			LDU 256
+			ROTREV
+			PAIR
+			SWAP
+			LDREF
+			ENDS
+			CTOS
+			LDU 256
+			ENDS
+			TUPLE 14
+		}
+	}
+	PUSHCONT {
+		PUSHREFSLICE {
+			.blob x8000000000000000000000000000000000000000000000000000000000000000001_
+		}
+		PUSHINT 0
+		BLKPUSH 6, 0
+		PAIR
+		BLKPUSH 6, 0
+		PUSHINT 0
+		TUPLE 14
+	}
+	IFELSE
+	FIRST
+	PUSH S9
+	PUSHINT 267
+	DICTGET
+IFREFELSEREF
+{
+		LDU 256
+		LDU 256
+		ENDS
+		PAIR
+}
+{
+		PUSHINT 0
+		DUP
+		PAIR
+}
+	CALLREF {
+		CALL $FPO_with_obj_fDiv_495e0304_macro$
+	}
+	NIP
+	POP S7
+	.loc ../contracts/interfaces/IModule.tsol, 228
+	PUSH3 S6, S1, S8
+	PUSHINT 32
+	DICTUGETREF
+	PUSHCONT {
+		CTOS
+		CALLREF {
+			LDMSGADDR
+			LDU 256
+			LDREF
+			ENDS
+			CTOS
+			LDU 256
+			LDU 256
+			LDU 256
+			LDREF
+			ENDS
+			CTOS
+			LDU 256
+			LDU 256
+			LDU 256
+			ROTREV
+			PAIR
+			SWAP
+			LDREF
+			ENDS
+			CTOS
+			LDU 256
+			LDU 256
+			ROTREV
+			PAIR
+			SWAP
+			LDU 256
+			LDREF
+			ENDS
+			CTOS
+			LDU 256
+			ROTREV
+			PAIR
+			SWAP
+			LDU 256
+			LDU 256
+			ROTREV
+			PAIR
+			SWAP
+			LDREF
+			ENDS
+			CTOS
+			LDU 256
+			LDU 256
+			ROTREV
+			PAIR
+			SWAP
+			LDU 256
+			LDREF
+			ENDS
+			CTOS
+			LDU 256
+			ROTREV
+			PAIR
+			SWAP
+			LDU 256
+			LDU 256
+			ROTREV
+			PAIR
+			SWAP
+			LDREF
+			ENDS
+			CTOS
+			LDU 256
+			ENDS
+			TUPLE 14
+		}
+	}
+	PUSHCONT {
+		PUSHREFSLICE {
+			.blob x8000000000000000000000000000000000000000000000000000000000000000001_
+		}
+		PUSHINT 0
+		BLKPUSH 6, 0
+		PAIR
+		BLKPUSH 6, 0
+		PUSHINT 0
+		TUPLE 14
+	}
+	IFELSE
+	INDEX 11
+	CALLREF {
+		CALL $FPO_with_obj_fMul_f9a9c1bc_macro$
+	}
+	NIP
+	POP S7
+	.loc ../contracts/interfaces/IModule.tsol, 229
+	PUSH2 S5, S6
+	CALLREF {
+		CALL $FPO_with_obj_fAdd_038f6352_macro$
+	}
+	NIP
+	POP S6
+	.loc ../contracts/interfaces/IModule.tsol, 230
+	PUSH S5
+	CALLREF {
+		CALL $FPO_with_obj_simplify_60070065_macro$
+	}
+	NIP
+	POP S6
+	.loc ../contracts/interfaces/IModule.tsol, 0
+	PUSH2 S2, S3
+	PUSHINT 32
+	DICTUGETNEXT
+	PUSHCONT {
+		DUP
+		ROT
+		PLDU 256
+	}
+	PUSHCONT {
+		NULL
+		BLKPUSH 2, 0
+	}
+	IFELSE
+	BLKDROP2 3, 3
+}
+WHILE
+BLKDROP 4
+.loc ../contracts/interfaces/IModule.tsol, 237
+PUSH2 S5, S5
+PUSHINT 32
+DICTUMIN
+PUSHCONT {
+	NULL
+	BLKPUSH 2, 0
+}
+IFREFELSE {
+	DUP
+	ROT
+	LDU 256
+	LDU 256
+	LDU 256
+	ROTREV
+	PAIR
+	SWAP
+	ENDS
+	PAIR
+}
+PUSHCONT {
+	PUSH S2
+	ISNULL
+	NOT
+}
+PUSHCONT {
+	.loc ../contracts/interfaces/IModule.tsol, 238
+	DUP
+	FIRST
+	PUSHCONT {
+		.loc ../contracts/interfaces/IModule.tsol, 239
+		BLKPUSH 2, 0
+		SECOND
+		PUSH2 S3, S10
+		PUSHINT 32
+		DICTUGETREF
+		PUSHCONT {
+			CTOS
+			CALLREF {
+				LDMSGADDR
+				LDU 256
+				LDREF
+				ENDS
+				CTOS
+				LDU 256
+				LDU 256
+				LDU 256
+				LDREF
+				ENDS
+				CTOS
+				LDU 256
+				LDU 256
+				LDU 256
+				ROTREV
+				PAIR
+				SWAP
+				LDREF
+				ENDS
+				CTOS
+				LDU 256
+				LDU 256
+				ROTREV
+				PAIR
+				SWAP
+				LDU 256
+				LDREF
+				ENDS
+				CTOS
+				LDU 256
+				ROTREV
+				PAIR
+				SWAP
+				LDU 256
+				LDU 256
+				ROTREV
+				PAIR
+				SWAP
+				LDREF
+				ENDS
+				CTOS
+				LDU 256
+				LDU 256
+				ROTREV
+				PAIR
+				SWAP
+				LDU 256
+				LDREF
+				ENDS
+				CTOS
+				LDU 256
+				ROTREV
+				PAIR
+				SWAP
+				LDU 256
+				LDU 256
+				ROTREV
+				PAIR
+				SWAP
+				LDREF
+				ENDS
+				CTOS
+				LDU 256
+				ENDS
+				TUPLE 14
+			}
+		}
+		PUSHCONT {
+			PUSHREFSLICE {
+				.blob x8000000000000000000000000000000000000000000000000000000000000000001_
+			}
+			PUSHINT 0
+			BLKPUSH 6, 0
+			PAIR
+			BLKPUSH 6, 0
+			PUSHINT 0
+			TUPLE 14
+		}
+		IFELSE
+		INDEX 6
+		CALLREF {
+			CALL $FPO_with_obj_eq_02d73490_macro$
+		}
+		ROTREV
+		SETINDEX 1
+		POP S2
+		PUSHCONT {
+			.loc ../contracts/interfaces/IModule.tsol, 243
+			PUSH3 S1, S9, S1
+			OVER
+			PUSHINT 32
+			DICTUGET
+IFREFELSEREF
+{
+				LDU 256
+				LDU 256
+				LDU 256
+				ROTREV
+				PAIR
+				SWAP
+				ENDS
+				PAIR
+}
+{
+				PUSHINT 0
+				BLKPUSH 2, 0
+				PAIR
+				PAIR
+}
+			DUP
+			FIRST
+			CALLREF {
+				CALL $UFO_with_obj_toF_cf286464_macro$
+			}
+			ROLLREV 4
+			SETINDEX 0
+			CALLREF {
+				UNPAIR
+				SWAP
+				NEWC
+				STU 256
+				SWAP
+				UNPAIR
+				XCHG S2
+				STU 256
+				STU 256
+			}
+			ROTREV
+			PUSHINT 32
+			DICTUSETB
+			POP S11
+		}
+		PUSHCONT {
+			.loc ../contracts/interfaces/IModule.tsol, 240
+			PUSH3 S1, S9, S1
+			OVER
+			PUSHINT 32
+			DICTUGET
+IFREFELSEREF
+{
+				LDU 256
+				LDU 256
+				LDU 256
+				ROTREV
+				PAIR
+				SWAP
+				ENDS
+				PAIR
+}
+{
+				PUSHINT 0
+				BLKPUSH 2, 0
+				PAIR
+				PAIR
+}
+			DUP
+			FIRST
+			PUSH2 S5, S12
+			PUSHINT 32
+			DICTUGETREF
+			PUSHCONT {
+				CTOS
+				CALLREF {
+					LDMSGADDR
+					LDU 256
+					LDREF
+					ENDS
+					CTOS
+					LDU 256
+					LDU 256
+					LDU 256
+					LDREF
+					ENDS
+					CTOS
+					LDU 256
+					LDU 256
+					LDU 256
+					ROTREV
+					PAIR
+					SWAP
+					LDREF
+					ENDS
+					CTOS
+					LDU 256
+					LDU 256
+					ROTREV
+					PAIR
+					SWAP
+					LDU 256
+					LDREF
+					ENDS
+					CTOS
+					LDU 256
+					ROTREV
+					PAIR
+					SWAP
+					LDU 256
+					LDU 256
+					ROTREV
+					PAIR
+					SWAP
+					LDREF
+					ENDS
+					CTOS
+					LDU 256
+					LDU 256
+					ROTREV
+					PAIR
+					SWAP
+					LDU 256
+					LDREF
+					ENDS
+					CTOS
+					LDU 256
+					ROTREV
+					PAIR
+					SWAP
+					LDU 256
+					LDU 256
+					ROTREV
+					PAIR
+					SWAP
+					LDREF
+					ENDS
+					CTOS
+					LDU 256
+					ENDS
+					TUPLE 14
+				}
+			}
+			PUSHCONT {
+				PUSHREFSLICE {
+					.blob x8000000000000000000000000000000000000000000000000000000000000000001_
+				}
+				PUSHINT 0
+				BLKPUSH 6, 0
+				PAIR
+				BLKPUSH 6, 0
+				PUSHINT 0
+				TUPLE 14
+			}
+			IFELSE
+			INDEX 6
+			CALLREF {
+				CALL $UFO_with_obj_numFMul_c05e235c_macro$
+			}
+			ROLLREV 4
+			SETINDEX 0
+			CALLREF {
+				UNPAIR
+				SWAP
+				NEWC
+				STU 256
+				SWAP
+				UNPAIR
+				XCHG S2
+				STU 256
+				STU 256
+			}
+			ROTREV
+			PUSHINT 32
+			DICTUSETB
+			POP S11
+			POP S7
+			.loc ../contracts/interfaces/IModule.tsol, 241
+			PUSH3 S6, S1, S9
+			PUSHINT 32
+			DICTUGET
+IFREFELSEREF
+{
+				LDU 256
+				LDU 256
+				LDU 256
+				ROTREV
+				PAIR
+				SWAP
+				ENDS
+				PAIR
+}
+{
+				PUSHINT 0
+				BLKPUSH 2, 0
+				PAIR
+				PAIR
+}
+			SECOND
+			CALLREF {
+				CALL $FPO_with_obj_fDiv_495e0304_macro$
+			}
+			NIP
+		}
+		IFELSE
+		POP S7
+		.loc ../contracts/interfaces/IModule.tsol, 245
+		PUSH3 S6, S1, S8
+		PUSHINT 32
+		DICTUGETREF
+		PUSHCONT {
+			CTOS
+			CALLREF {
+				LDMSGADDR
+				LDU 256
+				LDREF
+				ENDS
+				CTOS
+				LDU 256
+				LDU 256
+				LDU 256
+				LDREF
+				ENDS
+				CTOS
+				LDU 256
+				LDU 256
+				LDU 256
+				ROTREV
+				PAIR
+				SWAP
+				LDREF
+				ENDS
+				CTOS
+				LDU 256
+				LDU 256
+				ROTREV
+				PAIR
+				SWAP
+				LDU 256
+				LDREF
+				ENDS
+				CTOS
+				LDU 256
+				ROTREV
+				PAIR
+				SWAP
+				LDU 256
+				LDU 256
+				ROTREV
+				PAIR
+				SWAP
+				LDREF
+				ENDS
+				CTOS
+				LDU 256
+				LDU 256
+				ROTREV
+				PAIR
+				SWAP
+				LDU 256
+				LDREF
+				ENDS
+				CTOS
+				LDU 256
+				ROTREV
+				PAIR
+				SWAP
+				LDU 256
+				LDU 256
+				ROTREV
+				PAIR
+				SWAP
+				LDREF
+				ENDS
+				CTOS
+				LDU 256
+				ENDS
+				TUPLE 14
+			}
+		}
+		PUSHCONT {
+			PUSHREFSLICE {
+				.blob x8000000000000000000000000000000000000000000000000000000000000000001_
+			}
+			PUSHINT 0
+			BLKPUSH 6, 0
+			PAIR
+			BLKPUSH 6, 0
+			PUSHINT 0
+			TUPLE 14
+		}
+		IFELSE
+		FIRST
+		PUSH S9
+		PUSHINT 267
+		DICTGET
+IFREFELSEREF
+{
+			LDU 256
+			LDU 256
+			ENDS
+			PAIR
+}
+{
+			PUSHINT 0
+			DUP
+			PAIR
+}
+		CALLREF {
+			CALL $FPO_with_obj_fDiv_495e0304_macro$
+		}
+		NIP
+		POP S7
+		.loc ../contracts/interfaces/IModule.tsol, 246
+		PUSH S6
+		CALLREF {
+			CALL $FPO_with_obj_simplify_60070065_macro$
+		}
+		NIP
+		POP S7
+		.loc ../contracts/interfaces/IModule.tsol, 247
+		PUSH2 S4, S6
+		CALLREF {
+			CALL $FPO_with_obj_fAdd_038f6352_macro$
+		}
+		NIP
+		POP S5
+		.loc ../contracts/interfaces/IModule.tsol, 248
+		PUSH S4
+		CALLREF {
+			CALL $FPO_with_obj_simplify_60070065_macro$
+		}
+		NIP
+		POP S5
+		.loc ../contracts/interfaces/IModule.tsol, 0
+	}
+	IF
+	.loc ../contracts/interfaces/IModule.tsol, 0
+	PUSH2 S2, S3
+	PUSHINT 32
+	DICTUGETNEXT
+	PUSHCONT {
+		NULL
+		BLKPUSH 2, 0
+	}
+IFREFELSE {
+		DUP
+		ROT
+		LDU 256
+		LDU 256
+		LDU 256
+		ROTREV
+		PAIR
+		SWAP
+		ENDS
+		PAIR
+}
+	BLKDROP2 3, 3
+}
+WHILE
+BLKDROP 4
+.loc ../contracts/interfaces/IModule.tsol, 252
+CALLREF {
+	CALL $FPO_with_obj_fDiv_495e0304_macro$
+}
+BLKDROP2 5, 1
+.loc ../contracts/interfaces/IModule.tsol, 0
+
+.globl	Utilities_no_obj_calculateSupplyBorrow_887fc295
+.type	Utilities_no_obj_calculateSupplyBorrow_887fc295, @function
+CALL $Utilities_no_obj_calculateSupplyBorrow_887fc295_macro$
+
+.macro Utilities_no_obj_calculateSupplyBorrow_887fc295_macro
+.loc ../contracts/interfaces/IModule.tsol, 216
+PUSHINT 0
+DUP
+PAIR
+.loc ../contracts/interfaces/IModule.tsol, 217
+DROP
+PUSHINT 0
+DUP
+PAIR
+.loc ../contracts/interfaces/IModule.tsol, 218
+PUSHINT 0
+PUSHINT 1
+PAIR
+.loc ../contracts/interfaces/IModule.tsol, 219
+PUSHINT 0
+PUSHINT 1
+PAIR
+.loc ../contracts/interfaces/IModule.tsol, 225
+ROLL 6
+DUP
+PUSHINT 32
+DICTUMIN
+PUSHCONT {
+	DUP
+	ROT
+	PLDU 256
+}
+PUSHCONT {
+	NULL
+	BLKPUSH 2, 0
+}
+IFELSE
+PUSHCONT {
+	PUSH S2
+	ISNULL
+	NOT
+}
+PUSHCONT {
+	.loc ../contracts/interfaces/IModule.tsol, 226
+	PUSH3 S0, S1, S8
+	PUSHINT 32
+	DICTUGETREF
+	PUSHCONT {
+		CTOS
+		CALLREF {
+			LDMSGADDR
+			LDU 256
+			LDREF
+			ENDS
+			CTOS
+			LDU 256
+			LDU 256
+			LDU 256
+			LDREF
+			ENDS
+			CTOS
+			LDU 256
+			LDU 256
+			LDU 256
+			ROTREV
+			PAIR
+			SWAP
+			LDREF
+			ENDS
+			CTOS
+			LDU 256
+			LDU 256
+			ROTREV
+			PAIR
+			SWAP
+			LDU 256
+			LDREF
+			ENDS
+			CTOS
+			LDU 256
+			ROTREV
+			PAIR
+			SWAP
+			LDU 256
+			LDU 256
+			ROTREV
+			PAIR
+			SWAP
+			LDREF
+			ENDS
+			CTOS
+			LDU 256
+			LDU 256
+			ROTREV
+			PAIR
+			SWAP
+			LDU 256
+			LDREF
+			ENDS
+			CTOS
+			LDU 256
+			ROTREV
+			PAIR
+			SWAP
+			LDU 256
+			LDU 256
+			ROTREV
+			PAIR
+			SWAP
+			LDREF
+			ENDS
+			CTOS
+			LDU 256
+			ENDS
+			TUPLE 14
+		}
+	}
+	PUSHCONT {
+		PUSHREFSLICE {
+			.blob x8000000000000000000000000000000000000000000000000000000000000000001_
+		}
+		PUSHINT 0
+		BLKPUSH 6, 0
+		PAIR
+		BLKPUSH 6, 0
+		PUSHINT 0
+		TUPLE 14
+	}
+	IFELSE
+	INDEX 10
+	CALLREF {
+		CALL $UFO_with_obj_numFMul_c05e235c_macro$
+	}
+	NIP
+	POP S7
+	.loc ../contracts/interfaces/IModule.tsol, 227
+	PUSH3 S6, S1, S8
+	PUSHINT 32
+	DICTUGETREF
+	PUSHCONT {
+		CTOS
+		CALLREF {
+			LDMSGADDR
+			LDU 256
+			LDREF
+			ENDS
+			CTOS
+			LDU 256
+			LDU 256
+			LDU 256
+			LDREF
+			ENDS
+			CTOS
+			LDU 256
+			LDU 256
+			LDU 256
+			ROTREV
+			PAIR
+			SWAP
+			LDREF
+			ENDS
+			CTOS
+			LDU 256
+			LDU 256
+			ROTREV
+			PAIR
+			SWAP
+			LDU 256
+			LDREF
+			ENDS
+			CTOS
+			LDU 256
+			ROTREV
+			PAIR
+			SWAP
+			LDU 256
+			LDU 256
+			ROTREV
+			PAIR
+			SWAP
+			LDREF
+			ENDS
+			CTOS
+			LDU 256
+			LDU 256
+			ROTREV
+			PAIR
+			SWAP
+			LDU 256
+			LDREF
+			ENDS
+			CTOS
+			LDU 256
+			ROTREV
+			PAIR
+			SWAP
+			LDU 256
+			LDU 256
+			ROTREV
+			PAIR
+			SWAP
+			LDREF
+			ENDS
+			CTOS
+			LDU 256
+			ENDS
+			TUPLE 14
+		}
+	}
+	PUSHCONT {
+		PUSHREFSLICE {
+			.blob x8000000000000000000000000000000000000000000000000000000000000000001_
+		}
+		PUSHINT 0
+		BLKPUSH 6, 0
+		PAIR
+		BLKPUSH 6, 0
+		PUSHINT 0
+		TUPLE 14
+	}
+	IFELSE
+	FIRST
+	PUSH S9
+	PUSHINT 267
+	DICTGET
+IFREFELSEREF
+{
+		LDU 256
+		LDU 256
+		ENDS
+		PAIR
+}
+{
+		PUSHINT 0
+		DUP
+		PAIR
+}
+	CALLREF {
+		CALL $FPO_with_obj_fDiv_495e0304_macro$
+	}
+	NIP
+	POP S7
+	.loc ../contracts/interfaces/IModule.tsol, 228
+	PUSH3 S6, S1, S8
+	PUSHINT 32
+	DICTUGETREF
+	PUSHCONT {
+		CTOS
+		CALLREF {
+			LDMSGADDR
+			LDU 256
+			LDREF
+			ENDS
+			CTOS
+			LDU 256
+			LDU 256
+			LDU 256
+			LDREF
+			ENDS
+			CTOS
+			LDU 256
+			LDU 256
+			LDU 256
+			ROTREV
+			PAIR
+			SWAP
+			LDREF
+			ENDS
+			CTOS
+			LDU 256
+			LDU 256
+			ROTREV
+			PAIR
+			SWAP
+			LDU 256
+			LDREF
+			ENDS
+			CTOS
+			LDU 256
+			ROTREV
+			PAIR
+			SWAP
+			LDU 256
+			LDU 256
+			ROTREV
+			PAIR
+			SWAP
+			LDREF
+			ENDS
+			CTOS
+			LDU 256
+			LDU 256
+			ROTREV
+			PAIR
+			SWAP
+			LDU 256
+			LDREF
+			ENDS
+			CTOS
+			LDU 256
+			ROTREV
+			PAIR
+			SWAP
+			LDU 256
+			LDU 256
+			ROTREV
+			PAIR
+			SWAP
+			LDREF
+			ENDS
+			CTOS
+			LDU 256
+			ENDS
+			TUPLE 14
+		}
+	}
+	PUSHCONT {
+		PUSHREFSLICE {
+			.blob x8000000000000000000000000000000000000000000000000000000000000000001_
+		}
+		PUSHINT 0
+		BLKPUSH 6, 0
+		PAIR
+		BLKPUSH 6, 0
+		PUSHINT 0
+		TUPLE 14
+	}
+	IFELSE
+	INDEX 11
+	CALLREF {
+		CALL $FPO_with_obj_fMul_f9a9c1bc_macro$
+	}
+	NIP
+	POP S7
+	.loc ../contracts/interfaces/IModule.tsol, 229
+	PUSH2 S5, S6
+	CALLREF {
+		CALL $FPO_with_obj_fAdd_038f6352_macro$
+	}
+	NIP
+	POP S6
+	.loc ../contracts/interfaces/IModule.tsol, 230
+	PUSH S5
+	CALLREF {
+		CALL $FPO_with_obj_simplify_60070065_macro$
+	}
+	NIP
+	POP S6
+	.loc ../contracts/interfaces/IModule.tsol, 0
+	PUSH2 S2, S3
+	PUSHINT 32
+	DICTUGETNEXT
+	PUSHCONT {
+		DUP
+		ROT
+		PLDU 256
+	}
+	PUSHCONT {
+		NULL
+		BLKPUSH 2, 0
+	}
+	IFELSE
+	BLKDROP2 3, 3
+}
+WHILE
+BLKDROP 4
+.loc ../contracts/interfaces/IModule.tsol, 237
+PUSH2 S5, S5
+PUSHINT 32
+DICTUMIN
+PUSHCONT {
+	NULL
+	BLKPUSH 2, 0
+}
+IFREFELSE {
+	DUP
+	ROT
+	LDU 256
+	LDU 256
+	LDU 256
+	ROTREV
+	PAIR
+	SWAP
+	ENDS
+	PAIR
+}
+PUSHCONT {
+	PUSH S2
+	ISNULL
+	NOT
+}
+PUSHCONT {
+	.loc ../contracts/interfaces/IModule.tsol, 238
+	DUP
+	FIRST
+	PUSHCONT {
+		.loc ../contracts/interfaces/IModule.tsol, 239
+		BLKPUSH 2, 0
+		SECOND
+		PUSH2 S3, S10
+		PUSHINT 32
+		DICTUGETREF
+		PUSHCONT {
+			CTOS
+			CALLREF {
+				LDMSGADDR
+				LDU 256
+				LDREF
+				ENDS
+				CTOS
+				LDU 256
+				LDU 256
+				LDU 256
+				LDREF
+				ENDS
+				CTOS
+				LDU 256
+				LDU 256
+				LDU 256
+				ROTREV
+				PAIR
+				SWAP
+				LDREF
+				ENDS
+				CTOS
+				LDU 256
+				LDU 256
+				ROTREV
+				PAIR
+				SWAP
+				LDU 256
+				LDREF
+				ENDS
+				CTOS
+				LDU 256
+				ROTREV
+				PAIR
+				SWAP
+				LDU 256
+				LDU 256
+				ROTREV
+				PAIR
+				SWAP
+				LDREF
+				ENDS
+				CTOS
+				LDU 256
+				LDU 256
+				ROTREV
+				PAIR
+				SWAP
+				LDU 256
+				LDREF
+				ENDS
+				CTOS
+				LDU 256
+				ROTREV
+				PAIR
+				SWAP
+				LDU 256
+				LDU 256
+				ROTREV
+				PAIR
+				SWAP
+				LDREF
+				ENDS
+				CTOS
+				LDU 256
+				ENDS
+				TUPLE 14
+			}
+		}
+		PUSHCONT {
+			PUSHREFSLICE {
+				.blob x8000000000000000000000000000000000000000000000000000000000000000001_
+			}
+			PUSHINT 0
+			BLKPUSH 6, 0
+			PAIR
+			BLKPUSH 6, 0
+			PUSHINT 0
+			TUPLE 14
+		}
+		IFELSE
+		INDEX 6
+		CALLREF {
+			CALL $FPO_with_obj_eq_02d73490_macro$
+		}
+		ROTREV
+		SETINDEX 1
+		POP S2
+		PUSHCONT {
+			.loc ../contracts/interfaces/IModule.tsol, 243
+			PUSH3 S1, S9, S1
+			OVER
+			PUSHINT 32
+			DICTUGET
+IFREFELSEREF
+{
+				LDU 256
+				LDU 256
+				LDU 256
+				ROTREV
+				PAIR
+				SWAP
+				ENDS
+				PAIR
+}
+{
+				PUSHINT 0
+				BLKPUSH 2, 0
+				PAIR
+				PAIR
+}
+			DUP
+			FIRST
+			CALLREF {
+				CALL $UFO_with_obj_toF_cf286464_macro$
+			}
+			ROLLREV 4
+			SETINDEX 0
+			CALLREF {
+				UNPAIR
+				SWAP
+				NEWC
+				STU 256
+				SWAP
+				UNPAIR
+				XCHG S2
+				STU 256
+				STU 256
+			}
+			ROTREV
+			PUSHINT 32
+			DICTUSETB
+			POP S11
+		}
+		PUSHCONT {
+			.loc ../contracts/interfaces/IModule.tsol, 240
+			PUSH3 S1, S9, S1
+			OVER
+			PUSHINT 32
+			DICTUGET
+IFREFELSEREF
+{
+				LDU 256
+				LDU 256
+				LDU 256
+				ROTREV
+				PAIR
+				SWAP
+				ENDS
+				PAIR
+}
+{
+				PUSHINT 0
+				BLKPUSH 2, 0
+				PAIR
+				PAIR
+}
+			DUP
+			FIRST
+			PUSH2 S5, S12
+			PUSHINT 32
+			DICTUGETREF
+			PUSHCONT {
+				CTOS
+				CALLREF {
+					LDMSGADDR
+					LDU 256
+					LDREF
+					ENDS
+					CTOS
+					LDU 256
+					LDU 256
+					LDU 256
+					LDREF
+					ENDS
+					CTOS
+					LDU 256
+					LDU 256
+					LDU 256
+					ROTREV
+					PAIR
+					SWAP
+					LDREF
+					ENDS
+					CTOS
+					LDU 256
+					LDU 256
+					ROTREV
+					PAIR
+					SWAP
+					LDU 256
+					LDREF
+					ENDS
+					CTOS
+					LDU 256
+					ROTREV
+					PAIR
+					SWAP
+					LDU 256
+					LDU 256
+					ROTREV
+					PAIR
+					SWAP
+					LDREF
+					ENDS
+					CTOS
+					LDU 256
+					LDU 256
+					ROTREV
+					PAIR
+					SWAP
+					LDU 256
+					LDREF
+					ENDS
+					CTOS
+					LDU 256
+					ROTREV
+					PAIR
+					SWAP
+					LDU 256
+					LDU 256
+					ROTREV
+					PAIR
+					SWAP
+					LDREF
+					ENDS
+					CTOS
+					LDU 256
+					ENDS
+					TUPLE 14
+				}
+			}
+			PUSHCONT {
+				PUSHREFSLICE {
+					.blob x8000000000000000000000000000000000000000000000000000000000000000001_
+				}
+				PUSHINT 0
+				BLKPUSH 6, 0
+				PAIR
+				BLKPUSH 6, 0
+				PUSHINT 0
+				TUPLE 14
+			}
+			IFELSE
+			INDEX 6
+			CALLREF {
+				CALL $UFO_with_obj_numFMul_c05e235c_macro$
+			}
+			ROLLREV 4
+			SETINDEX 0
+			CALLREF {
+				UNPAIR
+				SWAP
+				NEWC
+				STU 256
+				SWAP
+				UNPAIR
+				XCHG S2
+				STU 256
+				STU 256
+			}
+			ROTREV
+			PUSHINT 32
+			DICTUSETB
+			POP S11
+			POP S7
+			.loc ../contracts/interfaces/IModule.tsol, 241
+			PUSH3 S6, S1, S9
+			PUSHINT 32
+			DICTUGET
+IFREFELSEREF
+{
+				LDU 256
+				LDU 256
+				LDU 256
+				ROTREV
+				PAIR
+				SWAP
+				ENDS
+				PAIR
+}
+{
+				PUSHINT 0
+				BLKPUSH 2, 0
+				PAIR
+				PAIR
+}
+			SECOND
+			CALLREF {
+				CALL $FPO_with_obj_fDiv_495e0304_macro$
+			}
+			NIP
+		}
+		IFELSE
+		POP S7
+		.loc ../contracts/interfaces/IModule.tsol, 245
+		PUSH3 S6, S1, S8
+		PUSHINT 32
+		DICTUGETREF
+		PUSHCONT {
+			CTOS
+			CALLREF {
+				LDMSGADDR
+				LDU 256
+				LDREF
+				ENDS
+				CTOS
+				LDU 256
+				LDU 256
+				LDU 256
+				LDREF
+				ENDS
+				CTOS
+				LDU 256
+				LDU 256
+				LDU 256
+				ROTREV
+				PAIR
+				SWAP
+				LDREF
+				ENDS
+				CTOS
+				LDU 256
+				LDU 256
+				ROTREV
+				PAIR
+				SWAP
+				LDU 256
+				LDREF
+				ENDS
+				CTOS
+				LDU 256
+				ROTREV
+				PAIR
+				SWAP
+				LDU 256
+				LDU 256
+				ROTREV
+				PAIR
+				SWAP
+				LDREF
+				ENDS
+				CTOS
+				LDU 256
+				LDU 256
+				ROTREV
+				PAIR
+				SWAP
+				LDU 256
+				LDREF
+				ENDS
+				CTOS
+				LDU 256
+				ROTREV
+				PAIR
+				SWAP
+				LDU 256
+				LDU 256
+				ROTREV
+				PAIR
+				SWAP
+				LDREF
+				ENDS
+				CTOS
+				LDU 256
+				ENDS
+				TUPLE 14
+			}
+		}
+		PUSHCONT {
+			PUSHREFSLICE {
+				.blob x8000000000000000000000000000000000000000000000000000000000000000001_
+			}
+			PUSHINT 0
+			BLKPUSH 6, 0
+			PAIR
+			BLKPUSH 6, 0
+			PUSHINT 0
+			TUPLE 14
+		}
+		IFELSE
+		FIRST
+		PUSH S9
+		PUSHINT 267
+		DICTGET
+IFREFELSEREF
+{
+			LDU 256
+			LDU 256
+			ENDS
+			PAIR
+}
+{
+			PUSHINT 0
+			DUP
+			PAIR
+}
+		CALLREF {
+			CALL $FPO_with_obj_fDiv_495e0304_macro$
+		}
+		NIP
+		POP S7
+		.loc ../contracts/interfaces/IModule.tsol, 246
+		PUSH S6
+		CALLREF {
+			CALL $FPO_with_obj_simplify_60070065_macro$
+		}
+		NIP
+		POP S7
+		.loc ../contracts/interfaces/IModule.tsol, 247
+		PUSH2 S4, S6
+		CALLREF {
+			CALL $FPO_with_obj_fAdd_038f6352_macro$
+		}
+		NIP
+		POP S5
+		.loc ../contracts/interfaces/IModule.tsol, 248
+		PUSH S4
+		CALLREF {
+			CALL $FPO_with_obj_simplify_60070065_macro$
+		}
+		NIP
+		POP S5
+		.loc ../contracts/interfaces/IModule.tsol, 0
+	}
+	IF
+	.loc ../contracts/interfaces/IModule.tsol, 0
+	PUSH2 S2, S3
+	PUSHINT 32
+	DICTUGETNEXT
+	PUSHCONT {
+		NULL
+		BLKPUSH 2, 0
+	}
+IFREFELSE {
+		DUP
+		ROT
+		LDU 256
+		LDU 256
+		LDU 256
+		ROTREV
+		PAIR
+		SWAP
+		ENDS
+		PAIR
+}
+	BLKDROP2 3, 3
+}
+WHILE
+BLKDROP 4
+.loc ../contracts/interfaces/IModule.tsol, 252
+CALLREF {
+	CALL $FPO_with_obj_fDiv_495e0304_macro$
+}
+BLKDROP2 5, 1
+.loc ../contracts/interfaces/IModule.tsol, 0
+
+.globl	FPO_with_obj_fMul_f9a9c1bc
+.type	FPO_with_obj_fMul_f9a9c1bc, @function
+CALL $FPO_with_obj_fMul_f9a9c1bc_macro$
+
+.macro FPO_with_obj_fMul_f9a9c1bc_macro
+.loc ../contracts/libraries/FloatingPointOperations.tsol, 18
+OVER
+FIRST
+OVER
+FIRST
+MUL
+PUSH S2
+SECOND
+ROT
+SECOND
+MUL
+PAIR
+.loc ../contracts/libraries/FloatingPointOperations.tsol, 0
+
+.globl	FPO_no_obj_fMul_f9a9c1bc
+.type	FPO_no_obj_fMul_f9a9c1bc, @function
+CALL $FPO_no_obj_fMul_f9a9c1bc_macro$
+
+.macro FPO_no_obj_fMul_f9a9c1bc_macro
+.loc ../contracts/libraries/FloatingPointOperations.tsol, 18
+OVER
+FIRST
+OVER
+FIRST
+MUL
+ROT
+SECOND
+ROT
+SECOND
+MUL
+PAIR
+.loc ../contracts/libraries/FloatingPointOperations.tsol, 0
+
+.globl	FPO_with_obj_fDiv_495e0304
+.type	FPO_with_obj_fDiv_495e0304, @function
+CALL $FPO_with_obj_fDiv_495e0304_macro$
+
+.macro FPO_with_obj_fDiv_495e0304_macro
+.loc ../contracts/libraries/FloatingPointOperations.tsol, 30
+OVER
+FIRST
+OVER
+SECOND
+MUL
+PUSH S2
+SECOND
+ROT
+FIRST
+MUL
+PAIR
+.loc ../contracts/libraries/FloatingPointOperations.tsol, 0
+
+.globl	FPO_no_obj_fDiv_495e0304
+.type	FPO_no_obj_fDiv_495e0304, @function
+CALL $FPO_no_obj_fDiv_495e0304_macro$
+
+.macro FPO_no_obj_fDiv_495e0304_macro
+.loc ../contracts/libraries/FloatingPointOperations.tsol, 30
+OVER
+FIRST
+OVER
+SECOND
+MUL
+ROT
+SECOND
+ROT
+FIRST
+MUL
+PAIR
+.loc ../contracts/libraries/FloatingPointOperations.tsol, 0
+
+.globl	FPO_with_obj_fAdd_038f6352
+.type	FPO_with_obj_fAdd_038f6352, @function
+CALL $FPO_with_obj_fAdd_038f6352_macro$
+
+.macro FPO_with_obj_fAdd_038f6352_macro
+.loc ../contracts/libraries/FloatingPointOperations.tsol, 34
+OVER
+FIRST
+OVER
+SECOND
+MUL
+OVER
+FIRST
+PUSH S3
+SECOND
+MUL
+ADD
+PUSH S2
+SECOND
+ROT
+SECOND
+MUL
+PAIR
+.loc ../contracts/libraries/FloatingPointOperations.tsol, 0
+
+.globl	FPO_no_obj_fAdd_038f6352
+.type	FPO_no_obj_fAdd_038f6352, @function
+CALL $FPO_no_obj_fAdd_038f6352_macro$
+
+.macro FPO_no_obj_fAdd_038f6352_macro
+.loc ../contracts/libraries/FloatingPointOperations.tsol, 34
+OVER
+FIRST
+OVER
+SECOND
+MUL
+OVER
+FIRST
+PUSH S3
+SECOND
+MUL
+ADD
+ROT
+SECOND
+ROT
+SECOND
+MUL
+PAIR
+.loc ../contracts/libraries/FloatingPointOperations.tsol, 0
+
+.globl	FPO_with_obj_toNum_c455ee7d
+.type	FPO_with_obj_toNum_c455ee7d, @function
+CALL $FPO_with_obj_toNum_c455ee7d_macro$
+
+.macro FPO_with_obj_toNum_c455ee7d_macro
+.loc ../contracts/libraries/FloatingPointOperations.tsol, 50
+DUP
+FIRST
+OVER
+SECOND
+DIV
+.loc ../contracts/libraries/FloatingPointOperations.tsol, 0
+
+.globl	FPO_no_obj_toNum_c455ee7d
+.type	FPO_no_obj_toNum_c455ee7d, @function
+CALL $FPO_no_obj_toNum_c455ee7d_macro$
+
+.macro FPO_no_obj_toNum_c455ee7d_macro
+.loc ../contracts/libraries/FloatingPointOperations.tsol, 50
+DUP
+FIRST
+SWAP
+SECOND
+DIV
+.loc ../contracts/libraries/FloatingPointOperations.tsol, 0
+
+.globl	FPO_with_obj_eq_02d73490
+.type	FPO_with_obj_eq_02d73490, @function
+CALL $FPO_with_obj_eq_02d73490_macro$
+
+.macro FPO_with_obj_eq_02d73490_macro
+.loc ../contracts/libraries/FloatingPointOperations.tsol, 54
+OVER
+FIRST
+OVER
+FIRST
+EQUAL
+PUSH S2
+SECOND
+ROT
+SECOND
+EQUAL
+AND
+.loc ../contracts/libraries/FloatingPointOperations.tsol, 0
+
+.globl	FPO_no_obj_eq_02d73490
+.type	FPO_no_obj_eq_02d73490, @function
+CALL $FPO_no_obj_eq_02d73490_macro$
+
+.macro FPO_no_obj_eq_02d73490_macro
+.loc ../contracts/libraries/FloatingPointOperations.tsol, 54
+OVER
+FIRST
+OVER
+FIRST
+EQUAL
+ROT
+SECOND
+ROT
+SECOND
+EQUAL
+AND
+.loc ../contracts/libraries/FloatingPointOperations.tsol, 0
+
+.globl	FPO_with_obj_simplify_60070065
+.type	FPO_with_obj_simplify_60070065, @function
+CALL $FPO_with_obj_simplify_60070065_macro$
+
+.macro FPO_with_obj_simplify_60070065_macro
+.loc ../contracts/libraries/FloatingPointOperations.tsol, 71
+DUP
+FIRST
+OVER
+SECOND
+DIV
+PUSHINT 100000000000
+GREATER
+PUSHCONT {
+	.loc ../contracts/libraries/FloatingPointOperations.tsol, 72
+	DUP
+	FIRST
+	OVER
+	SECOND
+	DIV
+	PUSHINT 1
+	PAIR
+	.loc ../contracts/libraries/FloatingPointOperations.tsol, 0
+}
+PUSHCONT {
+	.loc ../contracts/libraries/FloatingPointOperations.tsol, 76
+	DUP
+	FIRST
+	PUSHPOW2 224
+	GEQ
+	OVER
+	SECOND
+	PUSHPOW2 224
+	GEQ
+	AND
+	PUSHCONT {
+		.loc ../contracts/libraries/FloatingPointOperations.tsol, 77
+		DUP
+		FIRST
+		PUSHPOW2 160
+		DIV
+		OVER
+		SECOND
+		PUSHPOW2 160
+		DIV
+		PAIR
+		.loc ../contracts/libraries/FloatingPointOperations.tsol, 0
+	}
+	IFJMP
+	.loc ../contracts/libraries/FloatingPointOperations.tsol, 80
+	DUP
+	FIRST
+	PUSHPOW2 192
+	GEQ
+	OVER
+	SECOND
+	PUSHPOW2 192
+	GEQ
+	AND
+	PUSHCONT {
+		.loc ../contracts/libraries/FloatingPointOperations.tsol, 81
+		DUP
+		FIRST
+		PUSHPOW2 128
+		DIV
+		OVER
+		SECOND
+		PUSHPOW2 128
+		DIV
+		PAIR
+		.loc ../contracts/libraries/FloatingPointOperations.tsol, 0
+	}
+	IFJMP
+	.loc ../contracts/libraries/FloatingPointOperations.tsol, 84
+	DUP
+	FIRST
+	PUSHPOW2 160
+	GEQ
+	OVER
+	SECOND
+	PUSHPOW2 160
+	GEQ
+	AND
+	PUSHCONT {
+		.loc ../contracts/libraries/FloatingPointOperations.tsol, 85
+		DUP
+		FIRST
+		PUSHPOW2 96
+		DIV
+		OVER
+		SECOND
+		PUSHPOW2 96
+		DIV
+		PAIR
+		.loc ../contracts/libraries/FloatingPointOperations.tsol, 0
+	}
+	IFJMP
+	.loc ../contracts/libraries/FloatingPointOperations.tsol, 88
+	DUP
+	FIRST
+	PUSHPOW2 128
+	GEQ
+	OVER
+	SECOND
+	PUSHPOW2 128
+	GEQ
+	AND
+	PUSHCONT {
+		.loc ../contracts/libraries/FloatingPointOperations.tsol, 89
+		DUP
+		FIRST
+		PUSHPOW2 64
+		DIV
+		OVER
+		SECOND
+		PUSHPOW2 64
+		DIV
+		PAIR
+		.loc ../contracts/libraries/FloatingPointOperations.tsol, 0
+	}
+	IFJMP
+	.loc ../contracts/libraries/FloatingPointOperations.tsol, 92
+	DUP
+	FIRST
+	PUSHPOW2 96
+	GEQ
+	OVER
+	SECOND
+	PUSHPOW2 96
+	GEQ
+	AND
+	PUSHCONT {
+		.loc ../contracts/libraries/FloatingPointOperations.tsol, 93
+		DUP
+		FIRST
+		PUSHPOW2 32
+		DIV
+		OVER
+		SECOND
+		PUSHPOW2 32
+		DIV
+		PAIR
+		.loc ../contracts/libraries/FloatingPointOperations.tsol, 0
+	}
+	IFJMP
+	.loc ../contracts/libraries/FloatingPointOperations.tsol, 96
+	DUP
+	.loc ../contracts/libraries/FloatingPointOperations.tsol, 0
+}
+IFELSE
+.loc ../contracts/libraries/FloatingPointOperations.tsol, 0
+
+.globl	FPO_no_obj_simplify_60070065
+.type	FPO_no_obj_simplify_60070065, @function
+CALL $FPO_no_obj_simplify_60070065_macro$
+
+.macro FPO_no_obj_simplify_60070065_macro
+.loc ../contracts/libraries/FloatingPointOperations.tsol, 71
+DUP
+FIRST
+OVER
+SECOND
+DIV
+PUSHINT 100000000000
+GREATER
+PUSHCONT {
+	.loc ../contracts/libraries/FloatingPointOperations.tsol, 72
+	DUP
+	FIRST
+	SWAP
+	SECOND
+	DIV
+	PUSHINT 1
+	PAIR
+	.loc ../contracts/libraries/FloatingPointOperations.tsol, 0
+}
+PUSHCONT {
+	.loc ../contracts/libraries/FloatingPointOperations.tsol, 76
+	DUP
+	FIRST
+	PUSHPOW2 224
+	GEQ
+	OVER
+	SECOND
+	PUSHPOW2 224
+	GEQ
+	AND
+	PUSHCONT {
+		.loc ../contracts/libraries/FloatingPointOperations.tsol, 77
+		DUP
+		FIRST
+		PUSHPOW2 160
+		DIV
+		SWAP
+		SECOND
+		PUSHPOW2 160
+		DIV
+		PAIR
+		.loc ../contracts/libraries/FloatingPointOperations.tsol, 0
+	}
+	IFJMP
+	.loc ../contracts/libraries/FloatingPointOperations.tsol, 80
+	DUP
+	FIRST
+	PUSHPOW2 192
+	GEQ
+	OVER
+	SECOND
+	PUSHPOW2 192
+	GEQ
+	AND
+	PUSHCONT {
+		.loc ../contracts/libraries/FloatingPointOperations.tsol, 81
+		DUP
+		FIRST
+		PUSHPOW2 128
+		DIV
+		SWAP
+		SECOND
+		PUSHPOW2 128
+		DIV
+		PAIR
+		.loc ../contracts/libraries/FloatingPointOperations.tsol, 0
+	}
+	IFJMP
+	.loc ../contracts/libraries/FloatingPointOperations.tsol, 84
+	DUP
+	FIRST
+	PUSHPOW2 160
+	GEQ
+	OVER
+	SECOND
+	PUSHPOW2 160
+	GEQ
+	AND
+	PUSHCONT {
+		.loc ../contracts/libraries/FloatingPointOperations.tsol, 85
+		DUP
+		FIRST
+		PUSHPOW2 96
+		DIV
+		SWAP
+		SECOND
+		PUSHPOW2 96
+		DIV
+		PAIR
+		.loc ../contracts/libraries/FloatingPointOperations.tsol, 0
+	}
+	IFJMP
+	.loc ../contracts/libraries/FloatingPointOperations.tsol, 88
+	DUP
+	FIRST
+	PUSHPOW2 128
+	GEQ
+	OVER
+	SECOND
+	PUSHPOW2 128
+	GEQ
+	AND
+	PUSHCONT {
+		.loc ../contracts/libraries/FloatingPointOperations.tsol, 89
+		DUP
+		FIRST
+		PUSHPOW2 64
+		DIV
+		SWAP
+		SECOND
+		PUSHPOW2 64
+		DIV
+		PAIR
+		.loc ../contracts/libraries/FloatingPointOperations.tsol, 0
+	}
+	IFJMP
+	.loc ../contracts/libraries/FloatingPointOperations.tsol, 92
+	DUP
+	FIRST
+	PUSHPOW2 96
+	GEQ
+	OVER
+	SECOND
+	PUSHPOW2 96
+	GEQ
+	AND
+	PUSHCONT {
+		.loc ../contracts/libraries/FloatingPointOperations.tsol, 93
+		DUP
+		FIRST
+		PUSHPOW2 32
+		DIV
+		SWAP
+		SECOND
+		PUSHPOW2 32
+		DIV
+		PAIR
+		.loc ../contracts/libraries/FloatingPointOperations.tsol, 0
+	}
+	IFJMP
+	.loc ../contracts/libraries/FloatingPointOperations.tsol, 0
+}
+IFELSE
+.loc ../contracts/libraries/FloatingPointOperations.tsol, 0
+
+.globl	UFO_with_obj_numFMul_c05e235c
+.type	UFO_with_obj_numFMul_c05e235c, @function
+CALL $UFO_with_obj_numFMul_c05e235c_macro$
+
+.macro UFO_with_obj_numFMul_c05e235c_macro
+.loc ../contracts/libraries/FloatingPointOperations.tsol, 107
+DUP2
+FIRST
+MUL
+SWAP
+SECOND
+PAIR
+.loc ../contracts/libraries/FloatingPointOperations.tsol, 0
+
+.globl	UFO_no_obj_numFMul_c05e235c
+.type	UFO_no_obj_numFMul_c05e235c, @function
+CALL $UFO_no_obj_numFMul_c05e235c_macro$
+
+.macro UFO_no_obj_numFMul_c05e235c_macro
+.loc ../contracts/libraries/FloatingPointOperations.tsol, 107
+TUCK
+FIRST
+MUL
+SWAP
+SECOND
+PAIR
+.loc ../contracts/libraries/FloatingPointOperations.tsol, 0
+
+.globl	UFO_with_obj_toF_cf286464
+.type	UFO_with_obj_toF_cf286464, @function
+CALL $UFO_with_obj_toF_cf286464_macro$
+
+.macro UFO_with_obj_toF_cf286464_macro
+.loc ../contracts/libraries/FloatingPointOperations.tsol, 123
+DUP
+PUSHINT 1
+PAIR
+.loc ../contracts/libraries/FloatingPointOperations.tsol, 0
+
+.globl	UFO_no_obj_toF_cf286464
+.type	UFO_no_obj_toF_cf286464, @function
+CALL $UFO_no_obj_toF_cf286464_macro$
+
+.macro UFO_no_obj_toF_cf286464_macro
+.loc ../contracts/libraries/FloatingPointOperations.tsol, 123
+PUSHINT 1
+PAIR
+.loc ../contracts/libraries/FloatingPointOperations.tsol, 0
+
+.macro public_function_selector
+DUP
+PUSHINT 1254603927
+LEQ
+IFJMPREF {
+	DUP
+	PUSHINT 427066043
+	LEQ
+	IFJMPREF {
+		DUP
+		PUSHINT 101185673
+		EQUAL
+		IFJMPREF {
+			CALL $getParamChangers$
+		}
+		DUP
+		PUSHINT 128849130
+		EQUAL
+		IFJMPREF {
+			CALL $sendActionId$
+		}
+		DUP
+		PUSHINT 233476201
+		EQUAL
+		IFJMPREF {
+			CALL $userLock$
+		}
+		DUP
+		PUSHINT 427066043
+		EQUAL
+		IFJMPREF {
+			CALL $resumeOperation$
+		}
+	}
+	DUP
+	PUSHINT 530560657
+	LEQ
+	IFJMPREF {
+		DUP
+		PUSHINT 448008745
+		EQUAL
+		IFJMPREF {
+			CALL $performAction$
+		}
+		DUP
+		PUSHINT 514135901
+		EQUAL
+		IFJMPREF {
+			CALL $getOwner$
+		}
+		DUP
+		PUSHINT 519962481
+		EQUAL
+		IFJMPREF {
+			CALL $ownerGeneralUnlock$
+		}
+		DUP
+		PUSHINT 530560657
+		EQUAL
+		IFJMPREF {
+			CALL $updateCache$
+		}
+	}
+	DUP
+	PUSHINT 905083454
+	LEQ
+	IFJMPREF {
+		DUP
+		PUSHINT 561722120
+		EQUAL
+		IFJMPREF {
+			CALL $changeOwner$
+		}
+		DUP
+		PUSHINT 775509774
+		EQUAL
+		IFJMPREF {
+			CALL $getGeneralLock$
+		}
+		DUP
+		PUSHINT 838213693
+		EQUAL
+		IFJMPREF {
+			CALL $setUpgrader$
+		}
+		DUP
+		PUSHINT 905083454
+		EQUAL
+		IFJMPREF {
+			CALL $borrowTokensFromMarket$
+		}
+	}
+	DUP
+	PUSHINT 1254603927
+	LEQ
+	IFJMPREF {
+		DUP
+		PUSHINT 947932843
+		EQUAL
+		IFJMPREF {
+			CALL $getUpgraders$
+		}
+		DUP
+		PUSHINT 989164779
+		EQUAL
+		IFJMPREF {
+			CALL $ownerUserUnlock$
+		}
+		DUP
+		PUSHINT 1196840156
+		EQUAL
+		IFJMPREF {
+			CALL $constructor$
+		}
+		DUP
+		PUSHINT 1254603927
+		EQUAL
+		IFJMPREF {
+			CALL $setMarketAddress$
+		}
+	}
+}
+DUP
+PUSHINT 2041997455
+LEQ
+IFJMPREF {
+	DUP
+	PUSHINT 1504905375
+	LEQ
+	IFJMPREF {
+		DUP
+		PUSHINT 1333100755
+		EQUAL
+		IFJMPREF {
+			CALL $getContractAddresses$
+		}
+		DUP
+		PUSHINT 1394033904
+		EQUAL
+		IFJMPREF {
+			CALL $upgradeContractCode$
+		}
+		DUP
+		PUSHINT 1413248996
+		EQUAL
+		IFJMPREF {
+			CALL $getModuleState$
+		}
+		DUP
+		PUSHINT 1504905375
+		EQUAL
+		IFJMPREF {
+			CALL $usersLock$
+		}
+	}
+	DUP
+	PUSHINT 2041997455
+	LEQ
+	IFJMPREF {
+		DUP
+		PUSHINT 1817192953
+		EQUAL
+		IFJMPREF {
+			CALL $unlock$
+		}
+		DUP
+		PUSHINT 1846468625
+		EQUAL
+		IFJMPREF {
+			CALL $contractCodeVersion$
+		}
+		DUP
+		PUSHINT 1992399946
+		EQUAL
+		IFJMPREF {
+			CALL $setParamChanger$
+		}
+		DUP
+		PUSHINT 2041997455
+		EQUAL
+		IFJMPREF {
+			CALL $setUserAccountManager$
+		}
+	}
+}
+
