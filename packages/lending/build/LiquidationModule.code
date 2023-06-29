@@ -4809,27 +4809,6 @@ CALLREF {
 BLKDROP2 5, 1
 .loc ../contracts/interfaces/IModule.tsol, 0
 
-.globl	UFO_with_obj_toF_cf286464
-.type	UFO_with_obj_toF_cf286464, @function
-CALL $UFO_with_obj_toF_cf286464_macro$
-
-.macro UFO_with_obj_toF_cf286464_macro
-.loc ../contracts/libraries/FloatingPointOperations.tsol, 123
-DUP
-PUSHINT 1
-PAIR
-.loc ../contracts/libraries/FloatingPointOperations.tsol, 0
-
-.globl	UFO_no_obj_toF_cf286464
-.type	UFO_no_obj_toF_cf286464, @function
-CALL $UFO_no_obj_toF_cf286464_macro$
-
-.macro UFO_no_obj_toF_cf286464_macro
-.loc ../contracts/libraries/FloatingPointOperations.tsol, 123
-PUSHINT 1
-PAIR
-.loc ../contracts/libraries/FloatingPointOperations.tsol, 0
-
 .globl	FPO_with_obj_fMul_f9a9c1bc
 .type	FPO_with_obj_fMul_f9a9c1bc, @function
 CALL $FPO_with_obj_fMul_f9a9c1bc_macro$
@@ -5406,6 +5385,27 @@ FIRST
 MUL
 SWAP
 SECOND
+PAIR
+.loc ../contracts/libraries/FloatingPointOperations.tsol, 0
+
+.globl	UFO_with_obj_toF_cf286464
+.type	UFO_with_obj_toF_cf286464, @function
+CALL $UFO_with_obj_toF_cf286464_macro$
+
+.macro UFO_with_obj_toF_cf286464_macro
+.loc ../contracts/libraries/FloatingPointOperations.tsol, 123
+DUP
+PUSHINT 1
+PAIR
+.loc ../contracts/libraries/FloatingPointOperations.tsol, 0
+
+.globl	UFO_no_obj_toF_cf286464
+.type	UFO_no_obj_toF_cf286464, @function
+CALL $UFO_no_obj_toF_cf286464_macro$
+
+.macro UFO_no_obj_toF_cf286464_macro
+.loc ../contracts/libraries/FloatingPointOperations.tsol, 123
+PUSHINT 1
 PAIR
 .loc ../contracts/libraries/FloatingPointOperations.tsol, 0
 

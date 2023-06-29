@@ -7,7 +7,7 @@ import "./interfaces/IOracleService.tsol";
 import "./interfaces/IOracleUpdatePrices.tsol";
 import "./interfaces/IOracleReturnPrices.tsol";
 import "./interfaces/IOracleManageTokens.tsol";
-import "./interfaces/IDexPair.tsol";
+import "./interfaces/IPair.tsol";
 import "./interfaces/IUpgradeableContract.tsol";
 
 import "./libraries/CostConstants.tsol";
@@ -131,7 +131,7 @@ contract Oracle is Roles, IOracleService, IOracleUpdatePrices, IOracleReturnPric
      */
     function internalUpdatePrice(address tokenRoot) override external onlyKnownTokenRoot(tokenRoot) {
         tvm.rawReserve(msg.value, 2);
-        IDexPair(prices[tokenRoot].swapPair).getBalances{
+        IPair(prices[tokenRoot].swapPair).getBalances{
             value: 0, 
             bounce: true, 
             flag: MsgFlag.REMAINING_GAS,
@@ -142,7 +142,7 @@ contract Oracle is Roles, IOracleService, IOracleUpdatePrices, IOracleReturnPric
     /**
      * @param updatedPrice Received price information
      */
-    function internalGetUpdatedPrice(IDexPairBalances updatedPrice) override external onlyTrustedSwapPair {
+    function internalGetUpdatedPrice(PairBalances updatedPrice) override external onlyTrustedSwapPair {
         tvm.rawReserve(msg.value, 2);
         address affectedToken = swapPairToTokenRoot[msg.sender];
         prices[affectedToken].tokens = prices[affectedToken].isLeft ? updatedPrice.left_balance : updatedPrice.right_balance;

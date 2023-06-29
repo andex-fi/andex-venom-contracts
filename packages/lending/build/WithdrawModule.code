@@ -4157,6 +4157,196 @@ CALLREF {
 BLKDROP2 5, 1
 .loc ../contracts/interfaces/IModule.tsol, 0
 
+.globl	FPO_with_obj_fMul_f9a9c1bc
+.type	FPO_with_obj_fMul_f9a9c1bc, @function
+CALL $FPO_with_obj_fMul_f9a9c1bc_macro$
+
+.macro FPO_with_obj_fMul_f9a9c1bc_macro
+.loc ../contracts/libraries/FloatingPointOperations.tsol, 18
+OVER
+FIRST
+OVER
+FIRST
+MUL
+PUSH S2
+SECOND
+ROT
+SECOND
+MUL
+PAIR
+.loc ../contracts/libraries/FloatingPointOperations.tsol, 0
+
+.globl	FPO_no_obj_fMul_f9a9c1bc
+.type	FPO_no_obj_fMul_f9a9c1bc, @function
+CALL $FPO_no_obj_fMul_f9a9c1bc_macro$
+
+.macro FPO_no_obj_fMul_f9a9c1bc_macro
+.loc ../contracts/libraries/FloatingPointOperations.tsol, 18
+OVER
+FIRST
+OVER
+FIRST
+MUL
+ROT
+SECOND
+ROT
+SECOND
+MUL
+PAIR
+.loc ../contracts/libraries/FloatingPointOperations.tsol, 0
+
+.globl	FPO_with_obj_fDiv_495e0304
+.type	FPO_with_obj_fDiv_495e0304, @function
+CALL $FPO_with_obj_fDiv_495e0304_macro$
+
+.macro FPO_with_obj_fDiv_495e0304_macro
+.loc ../contracts/libraries/FloatingPointOperations.tsol, 30
+OVER
+FIRST
+OVER
+SECOND
+MUL
+PUSH S2
+SECOND
+ROT
+FIRST
+MUL
+PAIR
+.loc ../contracts/libraries/FloatingPointOperations.tsol, 0
+
+.globl	FPO_no_obj_fDiv_495e0304
+.type	FPO_no_obj_fDiv_495e0304, @function
+CALL $FPO_no_obj_fDiv_495e0304_macro$
+
+.macro FPO_no_obj_fDiv_495e0304_macro
+.loc ../contracts/libraries/FloatingPointOperations.tsol, 30
+OVER
+FIRST
+OVER
+SECOND
+MUL
+ROT
+SECOND
+ROT
+FIRST
+MUL
+PAIR
+.loc ../contracts/libraries/FloatingPointOperations.tsol, 0
+
+.globl	FPO_with_obj_fAdd_038f6352
+.type	FPO_with_obj_fAdd_038f6352, @function
+CALL $FPO_with_obj_fAdd_038f6352_macro$
+
+.macro FPO_with_obj_fAdd_038f6352_macro
+.loc ../contracts/libraries/FloatingPointOperations.tsol, 34
+OVER
+FIRST
+OVER
+SECOND
+MUL
+OVER
+FIRST
+PUSH S3
+SECOND
+MUL
+ADD
+PUSH S2
+SECOND
+ROT
+SECOND
+MUL
+PAIR
+.loc ../contracts/libraries/FloatingPointOperations.tsol, 0
+
+.globl	FPO_no_obj_fAdd_038f6352
+.type	FPO_no_obj_fAdd_038f6352, @function
+CALL $FPO_no_obj_fAdd_038f6352_macro$
+
+.macro FPO_no_obj_fAdd_038f6352_macro
+.loc ../contracts/libraries/FloatingPointOperations.tsol, 34
+OVER
+FIRST
+OVER
+SECOND
+MUL
+OVER
+FIRST
+PUSH S3
+SECOND
+MUL
+ADD
+ROT
+SECOND
+ROT
+SECOND
+MUL
+PAIR
+.loc ../contracts/libraries/FloatingPointOperations.tsol, 0
+
+.globl	FPO_with_obj_toNum_c455ee7d
+.type	FPO_with_obj_toNum_c455ee7d, @function
+CALL $FPO_with_obj_toNum_c455ee7d_macro$
+
+.macro FPO_with_obj_toNum_c455ee7d_macro
+.loc ../contracts/libraries/FloatingPointOperations.tsol, 50
+DUP
+FIRST
+OVER
+SECOND
+DIV
+.loc ../contracts/libraries/FloatingPointOperations.tsol, 0
+
+.globl	FPO_no_obj_toNum_c455ee7d
+.type	FPO_no_obj_toNum_c455ee7d, @function
+CALL $FPO_no_obj_toNum_c455ee7d_macro$
+
+.macro FPO_no_obj_toNum_c455ee7d_macro
+.loc ../contracts/libraries/FloatingPointOperations.tsol, 50
+DUP
+FIRST
+SWAP
+SECOND
+DIV
+.loc ../contracts/libraries/FloatingPointOperations.tsol, 0
+
+.globl	FPO_with_obj_eq_02d73490
+.type	FPO_with_obj_eq_02d73490, @function
+CALL $FPO_with_obj_eq_02d73490_macro$
+
+.macro FPO_with_obj_eq_02d73490_macro
+.loc ../contracts/libraries/FloatingPointOperations.tsol, 54
+OVER
+FIRST
+OVER
+FIRST
+EQUAL
+PUSH S2
+SECOND
+ROT
+SECOND
+EQUAL
+AND
+.loc ../contracts/libraries/FloatingPointOperations.tsol, 0
+
+.globl	FPO_no_obj_eq_02d73490
+.type	FPO_no_obj_eq_02d73490, @function
+CALL $FPO_no_obj_eq_02d73490_macro$
+
+.macro FPO_no_obj_eq_02d73490_macro
+.loc ../contracts/libraries/FloatingPointOperations.tsol, 54
+OVER
+FIRST
+OVER
+FIRST
+EQUAL
+ROT
+SECOND
+ROT
+SECOND
+EQUAL
+AND
+.loc ../contracts/libraries/FloatingPointOperations.tsol, 0
+
 .globl	FPO_with_obj_simplify_60070065
 .type	FPO_with_obj_simplify_60070065, @function
 CALL $FPO_with_obj_simplify_60070065_macro$
@@ -4506,196 +4696,6 @@ CALL $UFO_no_obj_toF_cf286464_macro$
 .loc ../contracts/libraries/FloatingPointOperations.tsol, 123
 PUSHINT 1
 PAIR
-.loc ../contracts/libraries/FloatingPointOperations.tsol, 0
-
-.globl	FPO_with_obj_fMul_f9a9c1bc
-.type	FPO_with_obj_fMul_f9a9c1bc, @function
-CALL $FPO_with_obj_fMul_f9a9c1bc_macro$
-
-.macro FPO_with_obj_fMul_f9a9c1bc_macro
-.loc ../contracts/libraries/FloatingPointOperations.tsol, 18
-OVER
-FIRST
-OVER
-FIRST
-MUL
-PUSH S2
-SECOND
-ROT
-SECOND
-MUL
-PAIR
-.loc ../contracts/libraries/FloatingPointOperations.tsol, 0
-
-.globl	FPO_no_obj_fMul_f9a9c1bc
-.type	FPO_no_obj_fMul_f9a9c1bc, @function
-CALL $FPO_no_obj_fMul_f9a9c1bc_macro$
-
-.macro FPO_no_obj_fMul_f9a9c1bc_macro
-.loc ../contracts/libraries/FloatingPointOperations.tsol, 18
-OVER
-FIRST
-OVER
-FIRST
-MUL
-ROT
-SECOND
-ROT
-SECOND
-MUL
-PAIR
-.loc ../contracts/libraries/FloatingPointOperations.tsol, 0
-
-.globl	FPO_with_obj_fDiv_495e0304
-.type	FPO_with_obj_fDiv_495e0304, @function
-CALL $FPO_with_obj_fDiv_495e0304_macro$
-
-.macro FPO_with_obj_fDiv_495e0304_macro
-.loc ../contracts/libraries/FloatingPointOperations.tsol, 30
-OVER
-FIRST
-OVER
-SECOND
-MUL
-PUSH S2
-SECOND
-ROT
-FIRST
-MUL
-PAIR
-.loc ../contracts/libraries/FloatingPointOperations.tsol, 0
-
-.globl	FPO_no_obj_fDiv_495e0304
-.type	FPO_no_obj_fDiv_495e0304, @function
-CALL $FPO_no_obj_fDiv_495e0304_macro$
-
-.macro FPO_no_obj_fDiv_495e0304_macro
-.loc ../contracts/libraries/FloatingPointOperations.tsol, 30
-OVER
-FIRST
-OVER
-SECOND
-MUL
-ROT
-SECOND
-ROT
-FIRST
-MUL
-PAIR
-.loc ../contracts/libraries/FloatingPointOperations.tsol, 0
-
-.globl	FPO_with_obj_fAdd_038f6352
-.type	FPO_with_obj_fAdd_038f6352, @function
-CALL $FPO_with_obj_fAdd_038f6352_macro$
-
-.macro FPO_with_obj_fAdd_038f6352_macro
-.loc ../contracts/libraries/FloatingPointOperations.tsol, 34
-OVER
-FIRST
-OVER
-SECOND
-MUL
-OVER
-FIRST
-PUSH S3
-SECOND
-MUL
-ADD
-PUSH S2
-SECOND
-ROT
-SECOND
-MUL
-PAIR
-.loc ../contracts/libraries/FloatingPointOperations.tsol, 0
-
-.globl	FPO_no_obj_fAdd_038f6352
-.type	FPO_no_obj_fAdd_038f6352, @function
-CALL $FPO_no_obj_fAdd_038f6352_macro$
-
-.macro FPO_no_obj_fAdd_038f6352_macro
-.loc ../contracts/libraries/FloatingPointOperations.tsol, 34
-OVER
-FIRST
-OVER
-SECOND
-MUL
-OVER
-FIRST
-PUSH S3
-SECOND
-MUL
-ADD
-ROT
-SECOND
-ROT
-SECOND
-MUL
-PAIR
-.loc ../contracts/libraries/FloatingPointOperations.tsol, 0
-
-.globl	FPO_with_obj_toNum_c455ee7d
-.type	FPO_with_obj_toNum_c455ee7d, @function
-CALL $FPO_with_obj_toNum_c455ee7d_macro$
-
-.macro FPO_with_obj_toNum_c455ee7d_macro
-.loc ../contracts/libraries/FloatingPointOperations.tsol, 50
-DUP
-FIRST
-OVER
-SECOND
-DIV
-.loc ../contracts/libraries/FloatingPointOperations.tsol, 0
-
-.globl	FPO_no_obj_toNum_c455ee7d
-.type	FPO_no_obj_toNum_c455ee7d, @function
-CALL $FPO_no_obj_toNum_c455ee7d_macro$
-
-.macro FPO_no_obj_toNum_c455ee7d_macro
-.loc ../contracts/libraries/FloatingPointOperations.tsol, 50
-DUP
-FIRST
-SWAP
-SECOND
-DIV
-.loc ../contracts/libraries/FloatingPointOperations.tsol, 0
-
-.globl	FPO_with_obj_eq_02d73490
-.type	FPO_with_obj_eq_02d73490, @function
-CALL $FPO_with_obj_eq_02d73490_macro$
-
-.macro FPO_with_obj_eq_02d73490_macro
-.loc ../contracts/libraries/FloatingPointOperations.tsol, 54
-OVER
-FIRST
-OVER
-FIRST
-EQUAL
-PUSH S2
-SECOND
-ROT
-SECOND
-EQUAL
-AND
-.loc ../contracts/libraries/FloatingPointOperations.tsol, 0
-
-.globl	FPO_no_obj_eq_02d73490
-.type	FPO_no_obj_eq_02d73490, @function
-CALL $FPO_no_obj_eq_02d73490_macro$
-
-.macro FPO_no_obj_eq_02d73490_macro
-.loc ../contracts/libraries/FloatingPointOperations.tsol, 54
-OVER
-FIRST
-OVER
-FIRST
-EQUAL
-ROT
-SECOND
-ROT
-SECOND
-EQUAL
-AND
 .loc ../contracts/libraries/FloatingPointOperations.tsol, 0
 
 .macro public_function_selector

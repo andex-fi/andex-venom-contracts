@@ -3,7 +3,7 @@ pragma AbiHeader time;
 pragma AbiHeader expire;
 pragma AbiHeader pubkey;
 
-import "./IDexPair.tsol";
+import "./IPair.tsol";
 
 struct MarketPriceInfo {
     address swapPair;
@@ -16,5 +16,5 @@ interface IOracleUpdatePrices {
     function externalUpdatePrice(address tokenRoot, uint128 tokens, uint128 usd) external;
     function internalUpdatePrice(address tokenRoot) external;
 
-    function internalGetUpdatedPrice(IDexPairBalances updatedPrice) external;
+    function internalGetUpdatedPrice(PairBalances updatedPrice) external;
 }

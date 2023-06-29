@@ -4207,34 +4207,6 @@ PUSHCONT {
 IF
 THROW 0
 
-.globl	UFO_with_obj_numFMul_c05e235c
-.type	UFO_with_obj_numFMul_c05e235c, @function
-CALL $UFO_with_obj_numFMul_c05e235c_macro$
-
-.macro UFO_with_obj_numFMul_c05e235c_macro
-.loc ../contracts/libraries/FloatingPointOperations.tsol, 107
-DUP2
-FIRST
-MUL
-SWAP
-SECOND
-PAIR
-.loc ../contracts/libraries/FloatingPointOperations.tsol, 0
-
-.globl	UFO_no_obj_numFMul_c05e235c
-.type	UFO_no_obj_numFMul_c05e235c, @function
-CALL $UFO_no_obj_numFMul_c05e235c_macro$
-
-.macro UFO_no_obj_numFMul_c05e235c_macro
-.loc ../contracts/libraries/FloatingPointOperations.tsol, 107
-TUCK
-FIRST
-MUL
-SWAP
-SECOND
-PAIR
-.loc ../contracts/libraries/FloatingPointOperations.tsol, 0
-
 .globl	FPO_with_obj_fDiv_495e0304
 .type	FPO_with_obj_fDiv_495e0304, @function
 CALL $FPO_with_obj_fDiv_495e0304_macro$
@@ -4297,6 +4269,34 @@ FIRST
 SWAP
 SECOND
 DIV
+.loc ../contracts/libraries/FloatingPointOperations.tsol, 0
+
+.globl	UFO_with_obj_numFMul_c05e235c
+.type	UFO_with_obj_numFMul_c05e235c, @function
+CALL $UFO_with_obj_numFMul_c05e235c_macro$
+
+.macro UFO_with_obj_numFMul_c05e235c_macro
+.loc ../contracts/libraries/FloatingPointOperations.tsol, 107
+DUP2
+FIRST
+MUL
+SWAP
+SECOND
+PAIR
+.loc ../contracts/libraries/FloatingPointOperations.tsol, 0
+
+.globl	UFO_no_obj_numFMul_c05e235c
+.type	UFO_no_obj_numFMul_c05e235c, @function
+CALL $UFO_no_obj_numFMul_c05e235c_macro$
+
+.macro UFO_no_obj_numFMul_c05e235c_macro
+.loc ../contracts/libraries/FloatingPointOperations.tsol, 107
+TUCK
+FIRST
+MUL
+SWAP
+SECOND
+PAIR
 .loc ../contracts/libraries/FloatingPointOperations.tsol, 0
 
 .macro public_function_selector

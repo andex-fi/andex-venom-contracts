@@ -1,0 +1,11 @@
+pragma ever-solidity >=0.62.0;
+
+struct PairBalances {
+    uint128 lp_supply;
+    uint128 left_balance;
+    uint128 right_balance;
+}
+
+interface IPair {
+    function getBalances() external view responsible returns (PairBalances);
+}

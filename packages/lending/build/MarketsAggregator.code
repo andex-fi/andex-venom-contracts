@@ -5976,629 +5976,6 @@ PUSHCONT {
 IF
 THROW 0
 
-.globl	FPO_with_obj_fMul_f9a9c1bc
-.type	FPO_with_obj_fMul_f9a9c1bc, @function
-CALL $FPO_with_obj_fMul_f9a9c1bc_macro$
-
-.macro FPO_with_obj_fMul_f9a9c1bc_macro
-.loc ../contracts/libraries/FloatingPointOperations.tsol, 18
-OVER
-FIRST
-OVER
-FIRST
-MUL
-PUSH S2
-SECOND
-ROT
-SECOND
-MUL
-PAIR
-.loc ../contracts/libraries/FloatingPointOperations.tsol, 0
-
-.globl	FPO_no_obj_fMul_f9a9c1bc
-.type	FPO_no_obj_fMul_f9a9c1bc, @function
-CALL $FPO_no_obj_fMul_f9a9c1bc_macro$
-
-.macro FPO_no_obj_fMul_f9a9c1bc_macro
-.loc ../contracts/libraries/FloatingPointOperations.tsol, 18
-OVER
-FIRST
-OVER
-FIRST
-MUL
-ROT
-SECOND
-ROT
-SECOND
-MUL
-PAIR
-.loc ../contracts/libraries/FloatingPointOperations.tsol, 0
-
-.globl	FPO_with_obj_fNumMul_e3dcb3ec
-.type	FPO_with_obj_fNumMul_e3dcb3ec, @function
-CALL $FPO_with_obj_fNumMul_e3dcb3ec_macro$
-
-.macro FPO_with_obj_fNumMul_e3dcb3ec_macro
-.loc ../contracts/libraries/FloatingPointOperations.tsol, 22
-OVER
-FIRST
-MUL
-OVER
-SECOND
-PAIR
-.loc ../contracts/libraries/FloatingPointOperations.tsol, 0
-
-.globl	FPO_no_obj_fNumMul_e3dcb3ec
-.type	FPO_no_obj_fNumMul_e3dcb3ec, @function
-CALL $FPO_no_obj_fNumMul_e3dcb3ec_macro$
-
-.macro FPO_no_obj_fNumMul_e3dcb3ec_macro
-.loc ../contracts/libraries/FloatingPointOperations.tsol, 22
-OVER
-FIRST
-MUL
-SWAP
-SECOND
-PAIR
-.loc ../contracts/libraries/FloatingPointOperations.tsol, 0
-
-.globl	FPO_with_obj_fDiv_495e0304
-.type	FPO_with_obj_fDiv_495e0304, @function
-CALL $FPO_with_obj_fDiv_495e0304_macro$
-
-.macro FPO_with_obj_fDiv_495e0304_macro
-.loc ../contracts/libraries/FloatingPointOperations.tsol, 30
-OVER
-FIRST
-OVER
-SECOND
-MUL
-PUSH S2
-SECOND
-ROT
-FIRST
-MUL
-PAIR
-.loc ../contracts/libraries/FloatingPointOperations.tsol, 0
-
-.globl	FPO_no_obj_fDiv_495e0304
-.type	FPO_no_obj_fDiv_495e0304, @function
-CALL $FPO_no_obj_fDiv_495e0304_macro$
-
-.macro FPO_no_obj_fDiv_495e0304_macro
-.loc ../contracts/libraries/FloatingPointOperations.tsol, 30
-OVER
-FIRST
-OVER
-SECOND
-MUL
-ROT
-SECOND
-ROT
-FIRST
-MUL
-PAIR
-.loc ../contracts/libraries/FloatingPointOperations.tsol, 0
-
-.globl	FPO_with_obj_fNumAdd_6f061948
-.type	FPO_with_obj_fNumAdd_6f061948, @function
-CALL $FPO_with_obj_fNumAdd_6f061948_macro$
-
-.macro FPO_with_obj_fNumAdd_6f061948_macro
-.loc ../contracts/libraries/FloatingPointOperations.tsol, 38
-OVER
-FIRST
-XCPU S1, S2
-SECOND
-MUL
-ADD
-OVER
-SECOND
-PAIR
-.loc ../contracts/libraries/FloatingPointOperations.tsol, 0
-
-.globl	FPO_no_obj_fNumAdd_6f061948
-.type	FPO_no_obj_fNumAdd_6f061948, @function
-CALL $FPO_no_obj_fNumAdd_6f061948_macro$
-
-.macro FPO_no_obj_fNumAdd_6f061948_macro
-.loc ../contracts/libraries/FloatingPointOperations.tsol, 38
-OVER
-FIRST
-XCPU S1, S2
-SECOND
-MUL
-ADD
-SWAP
-SECOND
-PAIR
-.loc ../contracts/libraries/FloatingPointOperations.tsol, 0
-
-.globl	FPO_with_obj_toNum_c455ee7d
-.type	FPO_with_obj_toNum_c455ee7d, @function
-CALL $FPO_with_obj_toNum_c455ee7d_macro$
-
-.macro FPO_with_obj_toNum_c455ee7d_macro
-.loc ../contracts/libraries/FloatingPointOperations.tsol, 50
-DUP
-FIRST
-OVER
-SECOND
-DIV
-.loc ../contracts/libraries/FloatingPointOperations.tsol, 0
-
-.globl	FPO_no_obj_toNum_c455ee7d
-.type	FPO_no_obj_toNum_c455ee7d, @function
-CALL $FPO_no_obj_toNum_c455ee7d_macro$
-
-.macro FPO_no_obj_toNum_c455ee7d_macro
-.loc ../contracts/libraries/FloatingPointOperations.tsol, 50
-DUP
-FIRST
-SWAP
-SECOND
-DIV
-.loc ../contracts/libraries/FloatingPointOperations.tsol, 0
-
-.globl	FPO_with_obj_simplify_60070065
-.type	FPO_with_obj_simplify_60070065, @function
-CALL $FPO_with_obj_simplify_60070065_macro$
-
-.macro FPO_with_obj_simplify_60070065_macro
-.loc ../contracts/libraries/FloatingPointOperations.tsol, 71
-DUP
-FIRST
-OVER
-SECOND
-DIV
-PUSHINT 100000000000
-GREATER
-PUSHCONT {
-	.loc ../contracts/libraries/FloatingPointOperations.tsol, 72
-	DUP
-	FIRST
-	OVER
-	SECOND
-	DIV
-	PUSHINT 1
-	PAIR
-	.loc ../contracts/libraries/FloatingPointOperations.tsol, 0
-}
-PUSHCONT {
-	.loc ../contracts/libraries/FloatingPointOperations.tsol, 76
-	DUP
-	FIRST
-	PUSHPOW2 224
-	GEQ
-	OVER
-	SECOND
-	PUSHPOW2 224
-	GEQ
-	AND
-	PUSHCONT {
-		.loc ../contracts/libraries/FloatingPointOperations.tsol, 77
-		DUP
-		FIRST
-		PUSHPOW2 160
-		DIV
-		OVER
-		SECOND
-		PUSHPOW2 160
-		DIV
-		PAIR
-		.loc ../contracts/libraries/FloatingPointOperations.tsol, 0
-	}
-	IFJMP
-	.loc ../contracts/libraries/FloatingPointOperations.tsol, 80
-	DUP
-	FIRST
-	PUSHPOW2 192
-	GEQ
-	OVER
-	SECOND
-	PUSHPOW2 192
-	GEQ
-	AND
-	PUSHCONT {
-		.loc ../contracts/libraries/FloatingPointOperations.tsol, 81
-		DUP
-		FIRST
-		PUSHPOW2 128
-		DIV
-		OVER
-		SECOND
-		PUSHPOW2 128
-		DIV
-		PAIR
-		.loc ../contracts/libraries/FloatingPointOperations.tsol, 0
-	}
-	IFJMP
-	.loc ../contracts/libraries/FloatingPointOperations.tsol, 84
-	DUP
-	FIRST
-	PUSHPOW2 160
-	GEQ
-	OVER
-	SECOND
-	PUSHPOW2 160
-	GEQ
-	AND
-	PUSHCONT {
-		.loc ../contracts/libraries/FloatingPointOperations.tsol, 85
-		DUP
-		FIRST
-		PUSHPOW2 96
-		DIV
-		OVER
-		SECOND
-		PUSHPOW2 96
-		DIV
-		PAIR
-		.loc ../contracts/libraries/FloatingPointOperations.tsol, 0
-	}
-	IFJMP
-	.loc ../contracts/libraries/FloatingPointOperations.tsol, 88
-	DUP
-	FIRST
-	PUSHPOW2 128
-	GEQ
-	OVER
-	SECOND
-	PUSHPOW2 128
-	GEQ
-	AND
-	PUSHCONT {
-		.loc ../contracts/libraries/FloatingPointOperations.tsol, 89
-		DUP
-		FIRST
-		PUSHPOW2 64
-		DIV
-		OVER
-		SECOND
-		PUSHPOW2 64
-		DIV
-		PAIR
-		.loc ../contracts/libraries/FloatingPointOperations.tsol, 0
-	}
-	IFJMP
-	.loc ../contracts/libraries/FloatingPointOperations.tsol, 92
-	DUP
-	FIRST
-	PUSHPOW2 96
-	GEQ
-	OVER
-	SECOND
-	PUSHPOW2 96
-	GEQ
-	AND
-	PUSHCONT {
-		.loc ../contracts/libraries/FloatingPointOperations.tsol, 93
-		DUP
-		FIRST
-		PUSHPOW2 32
-		DIV
-		OVER
-		SECOND
-		PUSHPOW2 32
-		DIV
-		PAIR
-		.loc ../contracts/libraries/FloatingPointOperations.tsol, 0
-	}
-	IFJMP
-	.loc ../contracts/libraries/FloatingPointOperations.tsol, 96
-	DUP
-	.loc ../contracts/libraries/FloatingPointOperations.tsol, 0
-}
-IFELSE
-.loc ../contracts/libraries/FloatingPointOperations.tsol, 0
-
-.globl	FPO_no_obj_simplify_60070065
-.type	FPO_no_obj_simplify_60070065, @function
-CALL $FPO_no_obj_simplify_60070065_macro$
-
-.macro FPO_no_obj_simplify_60070065_macro
-.loc ../contracts/libraries/FloatingPointOperations.tsol, 71
-DUP
-FIRST
-OVER
-SECOND
-DIV
-PUSHINT 100000000000
-GREATER
-PUSHCONT {
-	.loc ../contracts/libraries/FloatingPointOperations.tsol, 72
-	DUP
-	FIRST
-	SWAP
-	SECOND
-	DIV
-	PUSHINT 1
-	PAIR
-	.loc ../contracts/libraries/FloatingPointOperations.tsol, 0
-}
-PUSHCONT {
-	.loc ../contracts/libraries/FloatingPointOperations.tsol, 76
-	DUP
-	FIRST
-	PUSHPOW2 224
-	GEQ
-	OVER
-	SECOND
-	PUSHPOW2 224
-	GEQ
-	AND
-	PUSHCONT {
-		.loc ../contracts/libraries/FloatingPointOperations.tsol, 77
-		DUP
-		FIRST
-		PUSHPOW2 160
-		DIV
-		SWAP
-		SECOND
-		PUSHPOW2 160
-		DIV
-		PAIR
-		.loc ../contracts/libraries/FloatingPointOperations.tsol, 0
-	}
-	IFJMP
-	.loc ../contracts/libraries/FloatingPointOperations.tsol, 80
-	DUP
-	FIRST
-	PUSHPOW2 192
-	GEQ
-	OVER
-	SECOND
-	PUSHPOW2 192
-	GEQ
-	AND
-	PUSHCONT {
-		.loc ../contracts/libraries/FloatingPointOperations.tsol, 81
-		DUP
-		FIRST
-		PUSHPOW2 128
-		DIV
-		SWAP
-		SECOND
-		PUSHPOW2 128
-		DIV
-		PAIR
-		.loc ../contracts/libraries/FloatingPointOperations.tsol, 0
-	}
-	IFJMP
-	.loc ../contracts/libraries/FloatingPointOperations.tsol, 84
-	DUP
-	FIRST
-	PUSHPOW2 160
-	GEQ
-	OVER
-	SECOND
-	PUSHPOW2 160
-	GEQ
-	AND
-	PUSHCONT {
-		.loc ../contracts/libraries/FloatingPointOperations.tsol, 85
-		DUP
-		FIRST
-		PUSHPOW2 96
-		DIV
-		SWAP
-		SECOND
-		PUSHPOW2 96
-		DIV
-		PAIR
-		.loc ../contracts/libraries/FloatingPointOperations.tsol, 0
-	}
-	IFJMP
-	.loc ../contracts/libraries/FloatingPointOperations.tsol, 88
-	DUP
-	FIRST
-	PUSHPOW2 128
-	GEQ
-	OVER
-	SECOND
-	PUSHPOW2 128
-	GEQ
-	AND
-	PUSHCONT {
-		.loc ../contracts/libraries/FloatingPointOperations.tsol, 89
-		DUP
-		FIRST
-		PUSHPOW2 64
-		DIV
-		SWAP
-		SECOND
-		PUSHPOW2 64
-		DIV
-		PAIR
-		.loc ../contracts/libraries/FloatingPointOperations.tsol, 0
-	}
-	IFJMP
-	.loc ../contracts/libraries/FloatingPointOperations.tsol, 92
-	DUP
-	FIRST
-	PUSHPOW2 96
-	GEQ
-	OVER
-	SECOND
-	PUSHPOW2 96
-	GEQ
-	AND
-	PUSHCONT {
-		.loc ../contracts/libraries/FloatingPointOperations.tsol, 93
-		DUP
-		FIRST
-		PUSHPOW2 32
-		DIV
-		SWAP
-		SECOND
-		PUSHPOW2 32
-		DIV
-		PAIR
-		.loc ../contracts/libraries/FloatingPointOperations.tsol, 0
-	}
-	IFJMP
-	.loc ../contracts/libraries/FloatingPointOperations.tsol, 0
-}
-IFELSE
-.loc ../contracts/libraries/FloatingPointOperations.tsol, 0
-
-.globl	UFO_with_obj_numFMul_c05e235c
-.type	UFO_with_obj_numFMul_c05e235c, @function
-CALL $UFO_with_obj_numFMul_c05e235c_macro$
-
-.macro UFO_with_obj_numFMul_c05e235c_macro
-.loc ../contracts/libraries/FloatingPointOperations.tsol, 107
-DUP2
-FIRST
-MUL
-SWAP
-SECOND
-PAIR
-.loc ../contracts/libraries/FloatingPointOperations.tsol, 0
-
-.globl	UFO_no_obj_numFMul_c05e235c
-.type	UFO_no_obj_numFMul_c05e235c, @function
-CALL $UFO_no_obj_numFMul_c05e235c_macro$
-
-.macro UFO_no_obj_numFMul_c05e235c_macro
-.loc ../contracts/libraries/FloatingPointOperations.tsol, 107
-TUCK
-FIRST
-MUL
-SWAP
-SECOND
-PAIR
-.loc ../contracts/libraries/FloatingPointOperations.tsol, 0
-
-.globl	MarketOperations_with_obj_calculateBorrowInterestRate_f4a20007
-.type	MarketOperations_with_obj_calculateBorrowInterestRate_f4a20007, @function
-CALL $MarketOperations_with_obj_calculateBorrowInterestRate_f4a20007_macro$
-
-.macro MarketOperations_with_obj_calculateBorrowInterestRate_f4a20007_macro
-.loc ../contracts/libraries/MarketOperations.tsol, 16
-OVER
-SWAP2
-ADD
-PAIR
-.loc ../contracts/libraries/MarketOperations.tsol, 18
-SWAP
-CALLREF {
-	CALL $FPO_with_obj_fMul_f9a9c1bc_macro$
-}
-NIP
-.loc ../contracts/libraries/MarketOperations.tsol, 19
-OVER
-CALLREF {
-	CALL $FPO_with_obj_fAdd_038f6352_macro$
-}
-NIP
-.loc ../contracts/libraries/MarketOperations.tsol, 0
-
-.globl	MarketOperations_no_obj_calculateBorrowInterestRate_f4a20007
-.type	MarketOperations_no_obj_calculateBorrowInterestRate_f4a20007, @function
-CALL $MarketOperations_no_obj_calculateBorrowInterestRate_f4a20007_macro$
-
-.macro MarketOperations_no_obj_calculateBorrowInterestRate_f4a20007_macro
-.loc ../contracts/libraries/MarketOperations.tsol, 16
-OVER
-SWAP2
-ADD
-PAIR
-.loc ../contracts/libraries/MarketOperations.tsol, 18
-SWAP
-CALLREF {
-	CALL $FPO_with_obj_fMul_f9a9c1bc_macro$
-}
-NIP
-.loc ../contracts/libraries/MarketOperations.tsol, 19
-SWAP
-CALLREF {
-	CALL $FPO_with_obj_fAdd_038f6352_macro$
-}
-NIP
-.loc ../contracts/libraries/MarketOperations.tsol, 0
-
-.globl	FPO_with_obj_fAdd_038f6352
-.type	FPO_with_obj_fAdd_038f6352, @function
-CALL $FPO_with_obj_fAdd_038f6352_macro$
-
-.macro FPO_with_obj_fAdd_038f6352_macro
-.loc ../contracts/libraries/FloatingPointOperations.tsol, 34
-OVER
-FIRST
-OVER
-SECOND
-MUL
-OVER
-FIRST
-PUSH S3
-SECOND
-MUL
-ADD
-PUSH S2
-SECOND
-ROT
-SECOND
-MUL
-PAIR
-.loc ../contracts/libraries/FloatingPointOperations.tsol, 0
-
-.globl	FPO_no_obj_fAdd_038f6352
-.type	FPO_no_obj_fAdd_038f6352, @function
-CALL $FPO_no_obj_fAdd_038f6352_macro$
-
-.macro FPO_no_obj_fAdd_038f6352_macro
-.loc ../contracts/libraries/FloatingPointOperations.tsol, 34
-OVER
-FIRST
-OVER
-SECOND
-MUL
-OVER
-FIRST
-PUSH S3
-SECOND
-MUL
-ADD
-ROT
-SECOND
-ROT
-SECOND
-MUL
-PAIR
-.loc ../contracts/libraries/FloatingPointOperations.tsol, 0
-
-.globl	MarketOperations_with_obj_calculateExchangeRate_2bc4e3e7
-.type	MarketOperations_with_obj_calculateExchangeRate_2bc4e3e7, @function
-CALL $MarketOperations_with_obj_calculateExchangeRate_2bc4e3e7_macro$
-
-.macro MarketOperations_with_obj_calculateExchangeRate_2bc4e3e7_macro
-.loc ../contracts/libraries/MarketOperations.tsol, 25
-PUSH S3
-ROLL 3
-ADD
-ROT
-SUB
-UFITS 256
-SWAP
-PAIR
-.loc ../contracts/libraries/MarketOperations.tsol, 0
-
-.globl	MarketOperations_no_obj_calculateExchangeRate_2bc4e3e7
-.type	MarketOperations_no_obj_calculateExchangeRate_2bc4e3e7, @function
-CALL $MarketOperations_no_obj_calculateExchangeRate_2bc4e3e7_macro$
-
-.macro MarketOperations_no_obj_calculateExchangeRate_2bc4e3e7_macro
-.loc ../contracts/libraries/MarketOperations.tsol, 25
-SWAP2
-ADD
-ROT
-SUB
-UFITS 256
-SWAP
-PAIR
-.loc ../contracts/libraries/MarketOperations.tsol, 0
-
 .globl	Utilities_with_obj_calculateSupplyBorrow_887fc295
 .type	Utilities_with_obj_calculateSupplyBorrow_887fc295, @function
 CALL $Utilities_with_obj_calculateSupplyBorrow_887fc295_macro$
@@ -8318,6 +7695,220 @@ CALLREF {
 BLKDROP2 5, 1
 .loc ../contracts/interfaces/IModule.tsol, 0
 
+.globl	FPO_with_obj_fMul_f9a9c1bc
+.type	FPO_with_obj_fMul_f9a9c1bc, @function
+CALL $FPO_with_obj_fMul_f9a9c1bc_macro$
+
+.macro FPO_with_obj_fMul_f9a9c1bc_macro
+.loc ../contracts/libraries/FloatingPointOperations.tsol, 18
+OVER
+FIRST
+OVER
+FIRST
+MUL
+PUSH S2
+SECOND
+ROT
+SECOND
+MUL
+PAIR
+.loc ../contracts/libraries/FloatingPointOperations.tsol, 0
+
+.globl	FPO_no_obj_fMul_f9a9c1bc
+.type	FPO_no_obj_fMul_f9a9c1bc, @function
+CALL $FPO_no_obj_fMul_f9a9c1bc_macro$
+
+.macro FPO_no_obj_fMul_f9a9c1bc_macro
+.loc ../contracts/libraries/FloatingPointOperations.tsol, 18
+OVER
+FIRST
+OVER
+FIRST
+MUL
+ROT
+SECOND
+ROT
+SECOND
+MUL
+PAIR
+.loc ../contracts/libraries/FloatingPointOperations.tsol, 0
+
+.globl	FPO_with_obj_fNumMul_e3dcb3ec
+.type	FPO_with_obj_fNumMul_e3dcb3ec, @function
+CALL $FPO_with_obj_fNumMul_e3dcb3ec_macro$
+
+.macro FPO_with_obj_fNumMul_e3dcb3ec_macro
+.loc ../contracts/libraries/FloatingPointOperations.tsol, 22
+OVER
+FIRST
+MUL
+OVER
+SECOND
+PAIR
+.loc ../contracts/libraries/FloatingPointOperations.tsol, 0
+
+.globl	FPO_no_obj_fNumMul_e3dcb3ec
+.type	FPO_no_obj_fNumMul_e3dcb3ec, @function
+CALL $FPO_no_obj_fNumMul_e3dcb3ec_macro$
+
+.macro FPO_no_obj_fNumMul_e3dcb3ec_macro
+.loc ../contracts/libraries/FloatingPointOperations.tsol, 22
+OVER
+FIRST
+MUL
+SWAP
+SECOND
+PAIR
+.loc ../contracts/libraries/FloatingPointOperations.tsol, 0
+
+.globl	FPO_with_obj_fDiv_495e0304
+.type	FPO_with_obj_fDiv_495e0304, @function
+CALL $FPO_with_obj_fDiv_495e0304_macro$
+
+.macro FPO_with_obj_fDiv_495e0304_macro
+.loc ../contracts/libraries/FloatingPointOperations.tsol, 30
+OVER
+FIRST
+OVER
+SECOND
+MUL
+PUSH S2
+SECOND
+ROT
+FIRST
+MUL
+PAIR
+.loc ../contracts/libraries/FloatingPointOperations.tsol, 0
+
+.globl	FPO_no_obj_fDiv_495e0304
+.type	FPO_no_obj_fDiv_495e0304, @function
+CALL $FPO_no_obj_fDiv_495e0304_macro$
+
+.macro FPO_no_obj_fDiv_495e0304_macro
+.loc ../contracts/libraries/FloatingPointOperations.tsol, 30
+OVER
+FIRST
+OVER
+SECOND
+MUL
+ROT
+SECOND
+ROT
+FIRST
+MUL
+PAIR
+.loc ../contracts/libraries/FloatingPointOperations.tsol, 0
+
+.globl	FPO_with_obj_fAdd_038f6352
+.type	FPO_with_obj_fAdd_038f6352, @function
+CALL $FPO_with_obj_fAdd_038f6352_macro$
+
+.macro FPO_with_obj_fAdd_038f6352_macro
+.loc ../contracts/libraries/FloatingPointOperations.tsol, 34
+OVER
+FIRST
+OVER
+SECOND
+MUL
+OVER
+FIRST
+PUSH S3
+SECOND
+MUL
+ADD
+PUSH S2
+SECOND
+ROT
+SECOND
+MUL
+PAIR
+.loc ../contracts/libraries/FloatingPointOperations.tsol, 0
+
+.globl	FPO_no_obj_fAdd_038f6352
+.type	FPO_no_obj_fAdd_038f6352, @function
+CALL $FPO_no_obj_fAdd_038f6352_macro$
+
+.macro FPO_no_obj_fAdd_038f6352_macro
+.loc ../contracts/libraries/FloatingPointOperations.tsol, 34
+OVER
+FIRST
+OVER
+SECOND
+MUL
+OVER
+FIRST
+PUSH S3
+SECOND
+MUL
+ADD
+ROT
+SECOND
+ROT
+SECOND
+MUL
+PAIR
+.loc ../contracts/libraries/FloatingPointOperations.tsol, 0
+
+.globl	FPO_with_obj_fNumAdd_6f061948
+.type	FPO_with_obj_fNumAdd_6f061948, @function
+CALL $FPO_with_obj_fNumAdd_6f061948_macro$
+
+.macro FPO_with_obj_fNumAdd_6f061948_macro
+.loc ../contracts/libraries/FloatingPointOperations.tsol, 38
+OVER
+FIRST
+XCPU S1, S2
+SECOND
+MUL
+ADD
+OVER
+SECOND
+PAIR
+.loc ../contracts/libraries/FloatingPointOperations.tsol, 0
+
+.globl	FPO_no_obj_fNumAdd_6f061948
+.type	FPO_no_obj_fNumAdd_6f061948, @function
+CALL $FPO_no_obj_fNumAdd_6f061948_macro$
+
+.macro FPO_no_obj_fNumAdd_6f061948_macro
+.loc ../contracts/libraries/FloatingPointOperations.tsol, 38
+OVER
+FIRST
+XCPU S1, S2
+SECOND
+MUL
+ADD
+SWAP
+SECOND
+PAIR
+.loc ../contracts/libraries/FloatingPointOperations.tsol, 0
+
+.globl	FPO_with_obj_toNum_c455ee7d
+.type	FPO_with_obj_toNum_c455ee7d, @function
+CALL $FPO_with_obj_toNum_c455ee7d_macro$
+
+.macro FPO_with_obj_toNum_c455ee7d_macro
+.loc ../contracts/libraries/FloatingPointOperations.tsol, 50
+DUP
+FIRST
+OVER
+SECOND
+DIV
+.loc ../contracts/libraries/FloatingPointOperations.tsol, 0
+
+.globl	FPO_no_obj_toNum_c455ee7d
+.type	FPO_no_obj_toNum_c455ee7d, @function
+CALL $FPO_no_obj_toNum_c455ee7d_macro$
+
+.macro FPO_no_obj_toNum_c455ee7d_macro
+.loc ../contracts/libraries/FloatingPointOperations.tsol, 50
+DUP
+FIRST
+SWAP
+SECOND
+DIV
+.loc ../contracts/libraries/FloatingPointOperations.tsol, 0
+
 .globl	FPO_with_obj_eq_02d73490
 .type	FPO_with_obj_eq_02d73490, @function
 CALL $FPO_with_obj_eq_02d73490_macro$
@@ -8356,6 +7947,336 @@ EQUAL
 AND
 .loc ../contracts/libraries/FloatingPointOperations.tsol, 0
 
+.globl	FPO_with_obj_simplify_60070065
+.type	FPO_with_obj_simplify_60070065, @function
+CALL $FPO_with_obj_simplify_60070065_macro$
+
+.macro FPO_with_obj_simplify_60070065_macro
+.loc ../contracts/libraries/FloatingPointOperations.tsol, 71
+DUP
+FIRST
+OVER
+SECOND
+DIV
+PUSHINT 100000000000
+GREATER
+PUSHCONT {
+	.loc ../contracts/libraries/FloatingPointOperations.tsol, 72
+	DUP
+	FIRST
+	OVER
+	SECOND
+	DIV
+	PUSHINT 1
+	PAIR
+	.loc ../contracts/libraries/FloatingPointOperations.tsol, 0
+}
+PUSHCONT {
+	.loc ../contracts/libraries/FloatingPointOperations.tsol, 76
+	DUP
+	FIRST
+	PUSHPOW2 224
+	GEQ
+	OVER
+	SECOND
+	PUSHPOW2 224
+	GEQ
+	AND
+	PUSHCONT {
+		.loc ../contracts/libraries/FloatingPointOperations.tsol, 77
+		DUP
+		FIRST
+		PUSHPOW2 160
+		DIV
+		OVER
+		SECOND
+		PUSHPOW2 160
+		DIV
+		PAIR
+		.loc ../contracts/libraries/FloatingPointOperations.tsol, 0
+	}
+	IFJMP
+	.loc ../contracts/libraries/FloatingPointOperations.tsol, 80
+	DUP
+	FIRST
+	PUSHPOW2 192
+	GEQ
+	OVER
+	SECOND
+	PUSHPOW2 192
+	GEQ
+	AND
+	PUSHCONT {
+		.loc ../contracts/libraries/FloatingPointOperations.tsol, 81
+		DUP
+		FIRST
+		PUSHPOW2 128
+		DIV
+		OVER
+		SECOND
+		PUSHPOW2 128
+		DIV
+		PAIR
+		.loc ../contracts/libraries/FloatingPointOperations.tsol, 0
+	}
+	IFJMP
+	.loc ../contracts/libraries/FloatingPointOperations.tsol, 84
+	DUP
+	FIRST
+	PUSHPOW2 160
+	GEQ
+	OVER
+	SECOND
+	PUSHPOW2 160
+	GEQ
+	AND
+	PUSHCONT {
+		.loc ../contracts/libraries/FloatingPointOperations.tsol, 85
+		DUP
+		FIRST
+		PUSHPOW2 96
+		DIV
+		OVER
+		SECOND
+		PUSHPOW2 96
+		DIV
+		PAIR
+		.loc ../contracts/libraries/FloatingPointOperations.tsol, 0
+	}
+	IFJMP
+	.loc ../contracts/libraries/FloatingPointOperations.tsol, 88
+	DUP
+	FIRST
+	PUSHPOW2 128
+	GEQ
+	OVER
+	SECOND
+	PUSHPOW2 128
+	GEQ
+	AND
+	PUSHCONT {
+		.loc ../contracts/libraries/FloatingPointOperations.tsol, 89
+		DUP
+		FIRST
+		PUSHPOW2 64
+		DIV
+		OVER
+		SECOND
+		PUSHPOW2 64
+		DIV
+		PAIR
+		.loc ../contracts/libraries/FloatingPointOperations.tsol, 0
+	}
+	IFJMP
+	.loc ../contracts/libraries/FloatingPointOperations.tsol, 92
+	DUP
+	FIRST
+	PUSHPOW2 96
+	GEQ
+	OVER
+	SECOND
+	PUSHPOW2 96
+	GEQ
+	AND
+	PUSHCONT {
+		.loc ../contracts/libraries/FloatingPointOperations.tsol, 93
+		DUP
+		FIRST
+		PUSHPOW2 32
+		DIV
+		OVER
+		SECOND
+		PUSHPOW2 32
+		DIV
+		PAIR
+		.loc ../contracts/libraries/FloatingPointOperations.tsol, 0
+	}
+	IFJMP
+	.loc ../contracts/libraries/FloatingPointOperations.tsol, 96
+	DUP
+	.loc ../contracts/libraries/FloatingPointOperations.tsol, 0
+}
+IFELSE
+.loc ../contracts/libraries/FloatingPointOperations.tsol, 0
+
+.globl	FPO_no_obj_simplify_60070065
+.type	FPO_no_obj_simplify_60070065, @function
+CALL $FPO_no_obj_simplify_60070065_macro$
+
+.macro FPO_no_obj_simplify_60070065_macro
+.loc ../contracts/libraries/FloatingPointOperations.tsol, 71
+DUP
+FIRST
+OVER
+SECOND
+DIV
+PUSHINT 100000000000
+GREATER
+PUSHCONT {
+	.loc ../contracts/libraries/FloatingPointOperations.tsol, 72
+	DUP
+	FIRST
+	SWAP
+	SECOND
+	DIV
+	PUSHINT 1
+	PAIR
+	.loc ../contracts/libraries/FloatingPointOperations.tsol, 0
+}
+PUSHCONT {
+	.loc ../contracts/libraries/FloatingPointOperations.tsol, 76
+	DUP
+	FIRST
+	PUSHPOW2 224
+	GEQ
+	OVER
+	SECOND
+	PUSHPOW2 224
+	GEQ
+	AND
+	PUSHCONT {
+		.loc ../contracts/libraries/FloatingPointOperations.tsol, 77
+		DUP
+		FIRST
+		PUSHPOW2 160
+		DIV
+		SWAP
+		SECOND
+		PUSHPOW2 160
+		DIV
+		PAIR
+		.loc ../contracts/libraries/FloatingPointOperations.tsol, 0
+	}
+	IFJMP
+	.loc ../contracts/libraries/FloatingPointOperations.tsol, 80
+	DUP
+	FIRST
+	PUSHPOW2 192
+	GEQ
+	OVER
+	SECOND
+	PUSHPOW2 192
+	GEQ
+	AND
+	PUSHCONT {
+		.loc ../contracts/libraries/FloatingPointOperations.tsol, 81
+		DUP
+		FIRST
+		PUSHPOW2 128
+		DIV
+		SWAP
+		SECOND
+		PUSHPOW2 128
+		DIV
+		PAIR
+		.loc ../contracts/libraries/FloatingPointOperations.tsol, 0
+	}
+	IFJMP
+	.loc ../contracts/libraries/FloatingPointOperations.tsol, 84
+	DUP
+	FIRST
+	PUSHPOW2 160
+	GEQ
+	OVER
+	SECOND
+	PUSHPOW2 160
+	GEQ
+	AND
+	PUSHCONT {
+		.loc ../contracts/libraries/FloatingPointOperations.tsol, 85
+		DUP
+		FIRST
+		PUSHPOW2 96
+		DIV
+		SWAP
+		SECOND
+		PUSHPOW2 96
+		DIV
+		PAIR
+		.loc ../contracts/libraries/FloatingPointOperations.tsol, 0
+	}
+	IFJMP
+	.loc ../contracts/libraries/FloatingPointOperations.tsol, 88
+	DUP
+	FIRST
+	PUSHPOW2 128
+	GEQ
+	OVER
+	SECOND
+	PUSHPOW2 128
+	GEQ
+	AND
+	PUSHCONT {
+		.loc ../contracts/libraries/FloatingPointOperations.tsol, 89
+		DUP
+		FIRST
+		PUSHPOW2 64
+		DIV
+		SWAP
+		SECOND
+		PUSHPOW2 64
+		DIV
+		PAIR
+		.loc ../contracts/libraries/FloatingPointOperations.tsol, 0
+	}
+	IFJMP
+	.loc ../contracts/libraries/FloatingPointOperations.tsol, 92
+	DUP
+	FIRST
+	PUSHPOW2 96
+	GEQ
+	OVER
+	SECOND
+	PUSHPOW2 96
+	GEQ
+	AND
+	PUSHCONT {
+		.loc ../contracts/libraries/FloatingPointOperations.tsol, 93
+		DUP
+		FIRST
+		PUSHPOW2 32
+		DIV
+		SWAP
+		SECOND
+		PUSHPOW2 32
+		DIV
+		PAIR
+		.loc ../contracts/libraries/FloatingPointOperations.tsol, 0
+	}
+	IFJMP
+	.loc ../contracts/libraries/FloatingPointOperations.tsol, 0
+}
+IFELSE
+.loc ../contracts/libraries/FloatingPointOperations.tsol, 0
+
+.globl	UFO_with_obj_numFMul_c05e235c
+.type	UFO_with_obj_numFMul_c05e235c, @function
+CALL $UFO_with_obj_numFMul_c05e235c_macro$
+
+.macro UFO_with_obj_numFMul_c05e235c_macro
+.loc ../contracts/libraries/FloatingPointOperations.tsol, 107
+DUP2
+FIRST
+MUL
+SWAP
+SECOND
+PAIR
+.loc ../contracts/libraries/FloatingPointOperations.tsol, 0
+
+.globl	UFO_no_obj_numFMul_c05e235c
+.type	UFO_no_obj_numFMul_c05e235c, @function
+CALL $UFO_no_obj_numFMul_c05e235c_macro$
+
+.macro UFO_no_obj_numFMul_c05e235c_macro
+.loc ../contracts/libraries/FloatingPointOperations.tsol, 107
+TUCK
+FIRST
+MUL
+SWAP
+SECOND
+PAIR
+.loc ../contracts/libraries/FloatingPointOperations.tsol, 0
+
 .globl	UFO_with_obj_toF_cf286464
 .type	UFO_with_obj_toF_cf286464, @function
 CALL $UFO_with_obj_toF_cf286464_macro$
@@ -8376,6 +8297,85 @@ CALL $UFO_no_obj_toF_cf286464_macro$
 PUSHINT 1
 PAIR
 .loc ../contracts/libraries/FloatingPointOperations.tsol, 0
+
+.globl	MarketOperations_with_obj_calculateBorrowInterestRate_f4a20007
+.type	MarketOperations_with_obj_calculateBorrowInterestRate_f4a20007, @function
+CALL $MarketOperations_with_obj_calculateBorrowInterestRate_f4a20007_macro$
+
+.macro MarketOperations_with_obj_calculateBorrowInterestRate_f4a20007_macro
+.loc ../contracts/libraries/MarketOperations.tsol, 16
+OVER
+SWAP2
+ADD
+PAIR
+.loc ../contracts/libraries/MarketOperations.tsol, 18
+SWAP
+CALLREF {
+	CALL $FPO_with_obj_fMul_f9a9c1bc_macro$
+}
+NIP
+.loc ../contracts/libraries/MarketOperations.tsol, 19
+OVER
+CALLREF {
+	CALL $FPO_with_obj_fAdd_038f6352_macro$
+}
+NIP
+.loc ../contracts/libraries/MarketOperations.tsol, 0
+
+.globl	MarketOperations_no_obj_calculateBorrowInterestRate_f4a20007
+.type	MarketOperations_no_obj_calculateBorrowInterestRate_f4a20007, @function
+CALL $MarketOperations_no_obj_calculateBorrowInterestRate_f4a20007_macro$
+
+.macro MarketOperations_no_obj_calculateBorrowInterestRate_f4a20007_macro
+.loc ../contracts/libraries/MarketOperations.tsol, 16
+OVER
+SWAP2
+ADD
+PAIR
+.loc ../contracts/libraries/MarketOperations.tsol, 18
+SWAP
+CALLREF {
+	CALL $FPO_with_obj_fMul_f9a9c1bc_macro$
+}
+NIP
+.loc ../contracts/libraries/MarketOperations.tsol, 19
+SWAP
+CALLREF {
+	CALL $FPO_with_obj_fAdd_038f6352_macro$
+}
+NIP
+.loc ../contracts/libraries/MarketOperations.tsol, 0
+
+.globl	MarketOperations_with_obj_calculateExchangeRate_2bc4e3e7
+.type	MarketOperations_with_obj_calculateExchangeRate_2bc4e3e7, @function
+CALL $MarketOperations_with_obj_calculateExchangeRate_2bc4e3e7_macro$
+
+.macro MarketOperations_with_obj_calculateExchangeRate_2bc4e3e7_macro
+.loc ../contracts/libraries/MarketOperations.tsol, 25
+PUSH S3
+ROLL 3
+ADD
+ROT
+SUB
+UFITS 256
+SWAP
+PAIR
+.loc ../contracts/libraries/MarketOperations.tsol, 0
+
+.globl	MarketOperations_no_obj_calculateExchangeRate_2bc4e3e7
+.type	MarketOperations_no_obj_calculateExchangeRate_2bc4e3e7, @function
+CALL $MarketOperations_no_obj_calculateExchangeRate_2bc4e3e7_macro$
+
+.macro MarketOperations_no_obj_calculateExchangeRate_2bc4e3e7_macro
+.loc ../contracts/libraries/MarketOperations.tsol, 25
+SWAP2
+ADD
+ROT
+SUB
+UFITS 256
+SWAP
+PAIR
+.loc ../contracts/libraries/MarketOperations.tsol, 0
 
 .macro public_function_selector
 DUP

@@ -619,7 +619,7 @@ SWAP
 ENDS
 .loc ../contracts/Oracle.tsol, 0
 CALLREF {
-	CALL $internalGetUpdatedPrice_089d1ee1_internal_macro$
+	CALL $internalGetUpdatedPrice_8796319e_internal_macro$
 }
 DROP
 CALLREF {
@@ -627,7 +627,7 @@ CALLREF {
 }
 THROW 0
 
-.macro internalGetUpdatedPrice_089d1ee1_internal_macro
+.macro internalGetUpdatedPrice_8796319e_internal_macro
 .loc ../contracts/Oracle.tsol, 198
 GETGLOB 9
 GETGLOB 15
