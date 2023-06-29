@@ -23,6 +23,7 @@
   "dependencies": {
     "@broxus/contracts": "^1.1.1",
     "@broxus/tip3": "^1.0.2",
+    "@eversdk/core": "^1.43.3",
     "prompts": "^2.4.2"
   }
 }

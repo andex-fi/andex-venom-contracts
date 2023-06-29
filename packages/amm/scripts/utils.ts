@@ -1,6 +1,7 @@
 import fs from "fs";
 import BigNumber from "bignumber.js";
-import { Dimension, Address } from "locklift";
+import { Dimension, Address, WalletTypes } from "locklift";
+import { FactorySource } from "../build/factorySource";
 
 export const TOKEN_CONTRACTS_PATH = "node_modules/tip3/build";
 export const EMPTY_TVM_CELL = "te6ccgEBAQEAAgAAAA==";
@@ -101,7 +102,7 @@ for (let i = 0; i < 20; i++) {
   };
 }
 
-export class Migration {
+export class Migration<T extends FactorySource> {
   log_path: string;
   migration_log: Record<string, any>;
   balance_history: any[];
@@ -145,6 +146,35 @@ export class Migration {
     }
     return contract;
   }
+
+  public loadAccount = async (name: string, account: string) => {
+    this._loadMigrationLog();
+
+    if (this.migration_log[name] !== undefined) {
+      return locklift.factory.accounts.addExistingAccount({
+        address: new Address(this.migration_log[name]),
+        type: WalletTypes.EverWallet,
+      });
+    } else {
+      throw new Error(`Contract ${name} not found in the migration`);
+    }
+  };
+
+  public loadContract = <ContractName extends keyof T>(
+    contract: ContractName,
+    name: string,
+  ) => {
+    this._loadMigrationLog();
+
+    if (this.migration_log[name] !== undefined) {
+      return locklift.factory.getDeployedContract(
+        contract as keyof FactorySource,
+        new Address(this.migration_log[name]),
+      );
+    } else {
+      throw new Error(`Contract ${name} not found in the migration`);
+    }
+  };
 
   getAddressesByName(name: any) {
     const r = [];

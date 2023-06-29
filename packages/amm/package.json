@@ -33,7 +33,7 @@
     "everscale-standalone-client": "^2.1.18",
     "locklift": "^2.5.5",
     "mocha": "10.2.0",
-    "mocha-logger": "1.0.7",
+    "mocha-logger": "1.0.8",
     "prettier": "^2.8.8",
     "tip3": "1.0.3",
     "ts-mocha": "^10.0.0",
@@ -41,6 +41,7 @@
   },
   "dependencies": {
     "@broxus/tip3": "^1.0.2",
+    "@eversdk/core": "^1.43.3",
     "bignumber.js": "^9.1.1",
     "locklift-verifier": "^1.0.4"
   }
