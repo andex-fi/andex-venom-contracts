@@ -14,22 +14,115 @@ ENDS
 THROW 100
 .loc ../contracts/Pair.sol, 0
 
+.macro setPoints
+DROP
+GETGLOB 6
+THROWIFNOT 76
+GETGLOB 2
+ISNULL
+IFREF {
+	CALL $c4_to_c7$
+}
+.loc ../contracts/tests/TestOraclePair.sol, 10
+LDU 32
+GETGLOB 4
+ROT
+SETINDEXQ 5
+SETGLOB 4
+LDREF
+LDU 16
+ENDS
+.loc ../contracts/tests/TestOraclePair.sol, 0
+CALLREF {
+	CALL $setPoints_923e3a77_internal_macro$
+}
+OVER
+PUSHCONT {
+	PUSH S3
+	CTOS
+	LDU 2
+	LDMSGADDR
+	DROP
+	NIP
+	NEWC
+	STSLICECONST xc
+	STSLICE
+	PUSHINT 2917243547
+	STUR 130
+	STI 1
+	ENDC
+	PUSHINT 0
+}
+PUSHCONT {
+	GETGLOB 4
+	DUP
+	INDEX 3
+	OVER
+	THIRD
+	GETGLOB 9
+	ROLL 3
+	SECOND
+	NEWC
+	STSLICECONST x2_
+	STI 1
+	STSLICECONST x1_
+	STSLICE
+	SWAP
+	STGRAMS
+	STDICT
+	PUSHINT 106
+	STZEROES
+	GETGLOB 4
+	INDEX 5
+	STUR 32
+	STI 1
+	ENDC
+	GETGLOB 4
+	INDEX 4
+}
+IFELSE
+SENDRAWMSG
+DROP
+CALLREF {
+	CALL $c7_to_c4$
+}
+THROW 0
+
+.macro setPoints_923e3a77_internal_macro
+.loc ../contracts/tests/TestOraclePair.sol, 14
+PUSHINT 1000000000
+PUSHINT 0
+RAWRESERVE
+.loc ../contracts/tests/TestOraclePair.sol, 17
+DUP
+GETGLOB 13
+INDEX 3
+LEQ
+THROWIFNOT 1234
+.loc ../contracts/tests/TestOraclePair.sol, 20
+SETGLOB 12
+.loc ../contracts/tests/TestOraclePair.sol, 21
+CTOS
+PLDDICT
+SETGLOB 11
+.loc ../contracts/tests/TestOraclePair.sol, 29
+GETGLOB 4
+PUSHINT 0
+SETINDEXQ 2
+FALSE
+SETINDEXQ 1
+PUSHPOW2 7
+SETINDEXQ 4
+SETGLOB 4
+TRUE
+.loc ../contracts/tests/TestOraclePair.sol, 0
+
 .macro buildExchangePayload
 DROP
 GETGLOB 6
 THROWIFNOT 76
 .loc ../contracts/Pair.sol, 45
-OVER
-PUSHCONT {
-	LDU 64
-	LDREF
-	ENDS
-	CTOS
-}
-PUSHCONT {
-	LDU 64
-}
-IFELSE
+LDU 64
 LDU 128
 LDU 128
 ENDS
@@ -79,11 +172,11 @@ THROWIFNOT 76
 OVER
 PUSHCONT {
 	LDU 64
+	LDU 128
+	LDU 128
 	LDREF
 	ENDS
 	CTOS
-	LDU 128
-	LDU 128
 	LDMSGADDR
 	LDREF
 	ENDS
@@ -178,17 +271,7 @@ DROP
 GETGLOB 6
 THROWIFNOT 76
 .loc ../contracts/Pair.sol, 78
-OVER
-PUSHCONT {
-	LDU 64
-	LDREF
-	ENDS
-	CTOS
-}
-PUSHCONT {
-	LDU 64
-}
-IFELSE
+LDU 64
 LDU 128
 ENDS
 .loc ../contracts/Pair.sol, 0
@@ -237,11 +320,11 @@ THROWIFNOT 76
 OVER
 PUSHCONT {
 	LDU 64
+	LDU 128
+	LDU 128
 	LDREF
 	ENDS
 	CTOS
-	LDU 128
-	LDU 128
 	LDMSGADDR
 	LDREF
 	ENDS
@@ -331,17 +414,7 @@ DROP
 GETGLOB 6
 THROWIFNOT 76
 .loc ../contracts/Pair.sol, 108
-OVER
-PUSHCONT {
-	LDU 64
-	LDREF
-	ENDS
-	CTOS
-}
-PUSHCONT {
-	LDU 64
-}
-IFELSE
+LDU 64
 LDU 128
 ENDS
 .loc ../contracts/Pair.sol, 0
@@ -390,11 +463,11 @@ THROWIFNOT 76
 OVER
 PUSHCONT {
 	LDU 64
+	LDU 128
+	LDU 128
 	LDREF
 	ENDS
 	CTOS
-	LDU 128
-	LDU 128
 	LDU 128
 	LDMSGADDR
 	LDREF
@@ -508,17 +581,7 @@ DROP
 GETGLOB 6
 THROWIFNOT 76
 .loc ../contracts/Pair.sol, 139
-OVER
-PUSHCONT {
-	LDU 64
-	LDREF
-	ENDS
-	CTOS
-}
-PUSHCONT {
-	LDU 64
-}
-IFELSE
+LDU 64
 LDU 128
 LDU 128
 LDU 32
@@ -578,11 +641,11 @@ IFREF {
 OVER
 PUSHCONT {
 	LDU 64
+	LDU 128
+	LDU 128
 	LDREF
 	ENDS
 	CTOS
-	LDU 128
-	LDU 128
 	LDMSGADDR
 	LDU 32
 	LDDICT
@@ -771,13 +834,6 @@ GETGLOB 4
 ROT
 SETINDEXQ 5
 SETGLOB 4
-OVER
-PUSHCONT {
-	LDREF
-	ENDS
-	CTOS
-}
-IF
 LDU 128
 LDU 128
 LDI 1
@@ -991,6 +1047,7 @@ PUSHCONT {
 	ROTREV
 	PAIR
 	SWAP
+	LDU 128
 	LDREF
 	ENDS
 	CTOS
@@ -1002,9 +1059,9 @@ PUSHCONT {
 	ROTREV
 	PAIR
 	SWAP
+	LDU 128
 }
 IFELSE
-LDU 128
 LDMSGADDR
 ROTREV
 PAIR
@@ -2748,13 +2805,6 @@ GETGLOB 4
 ROT
 SETINDEXQ 5
 SETGLOB 4
-OVER
-PUSHCONT {
-	LDREF
-	ENDS
-	CTOS
-}
-IF
 LDU 128
 ENDS
 .loc ../contracts/Pair.sol, 0
@@ -2876,15 +2926,16 @@ IFREF {
 OVER
 PUSHCONT {
 	LDU 64
+	LDU 128
 	LDREF
 	ENDS
 	CTOS
 }
 PUSHCONT {
 	LDU 64
+	LDU 128
 }
 IFELSE
-LDU 128
 LDMSGADDR
 ROTREV
 PAIR
@@ -3436,12 +3487,15 @@ SETINDEXQ 5
 SETGLOB 4
 OVER
 PUSHCONT {
+	LDU 128
 	LDREF
 	ENDS
 	CTOS
 }
-IF
-LDU 128
+PUSHCONT {
+	LDU 128
+}
+IFELSE
 LDMSGADDR
 ENDS
 .loc ../contracts/Pair.sol, 0
@@ -3642,12 +3696,15 @@ SETINDEXQ 5
 SETGLOB 4
 OVER
 PUSHCONT {
+	LDU 128
 	LDREF
 	ENDS
 	CTOS
 }
-IF
-LDU 128
+PUSHCONT {
+	LDU 128
+}
+IFELSE
 LDMSGADDR
 ENDS
 .loc ../contracts/Pair.sol, 0
@@ -3829,15 +3886,16 @@ IFREF {
 OVER
 PUSHCONT {
 	LDU 64
+	LDU 128
 	LDREF
 	ENDS
 	CTOS
 }
 PUSHCONT {
 	LDU 64
+	LDU 128
 }
 IFELSE
-LDU 128
 LDMSGADDR
 ROTREV
 PAIR
@@ -4620,6 +4678,12 @@ PUSHCONT {
 	LDU 64
 	LDU 32
 	LDU 8
+	LDU 32
+	LDDICT
+	ROTREV
+	PAIR
+	SWAP
+	LDU 8
 	LDREF
 	ENDS
 	CTOS
@@ -4628,14 +4692,14 @@ PUSHCONT {
 	LDU 64
 	LDU 32
 	LDU 8
+	LDU 32
+	LDDICT
+	ROTREV
+	PAIR
+	SWAP
+	LDU 8
 }
 IFELSE
-LDU 32
-LDDICT
-ROTREV
-PAIR
-SWAP
-LDU 8
 LDMSGADDR
 LDU 128
 LDREF
@@ -5622,7 +5686,7 @@ PUSHCONT {
 	.loc ../contracts/Pair.sol, 1198
 	PUSHINT 2
 	PUSHREF
-	.compute $new_array_line_1197_column_30_ast_id_2982$
+	.compute $new_array_line_1197_column_30_ast_id_3037$
 	PAIR
 	POP S4
 	.loc ../contracts/Pair.sol, 0
@@ -8498,18 +8562,24 @@ IFREF {
 .loc ../contracts/abstract/PairBase.sol, 236
 OVER
 PUSHCONT {
+	LDU 128
+	LDU 128
+	LDU 128
+	LDREF
+	ENDS
+	CTOS
+	LDU 128
+}
+PUSHCONT {
+	LDU 128
+	LDU 128
+	LDU 128
+	LDU 128
 	LDREF
 	ENDS
 	CTOS
 }
-IF
-LDU 128
-LDU 128
-LDU 128
-LDU 128
-LDREF
-ENDS
-CTOS
+IFELSE
 LDMSGADDR
 LDDICT
 LDDICT
@@ -11093,7 +11163,7 @@ PUSHCONT {
 			.loc ../contracts/abstract/PairBase.sol, 662
 			PUSHINT 2
 			PUSHREF
-			.compute $new_array_line_661_column_56_ast_id_6132$
+			.compute $new_array_line_661_column_56_ast_id_6187$
 			PAIR
 			.loc ../contracts/abstract/PairBase.sol, 664
 			TRUE
@@ -11674,7 +11744,7 @@ PUSHCONT {
 				.loc ../contracts/abstract/PairBase.sol, 706
 				PUSHINT 2
 				PUSHREF
-				.compute $new_array_line_705_column_56_ast_id_6307$
+				.compute $new_array_line_705_column_56_ast_id_6362$
 				PAIR
 				.loc ../contracts/abstract/PairBase.sol, 708
 				TRUE
@@ -12398,20 +12468,26 @@ IFREF {
 OVER
 PUSHCONT {
 	LDU 8
+	LDU 128
+	LDU 128
+	LDU 16
+	ROLLREV 4
+	TUPLE 4
+	SWAP
 	LDREF
 	ENDS
 	CTOS
 }
 PUSHCONT {
 	LDU 8
+	LDU 128
+	LDU 128
+	LDU 16
+	ROLLREV 4
+	TUPLE 4
+	SWAP
 }
 IFELSE
-LDU 128
-LDU 128
-LDU 16
-ROLLREV 4
-TUPLE 4
-SWAP
 LDMSGADDR
 ENDS
 .loc ../contracts/abstract/TWAPOracle.sol, 0
@@ -13130,12 +13206,15 @@ SETINDEXQ 5
 SETGLOB 4
 OVER
 PUSHCONT {
+	LDU 128
 	LDREF
 	ENDS
 	CTOS
 }
-IF
-LDU 128
+PUSHCONT {
+	LDU 128
+}
+IFELSE
 LDMSGADDR
 LDU 32
 LDU 32
@@ -14625,36 +14704,15 @@ PUSHCONT {
 	LDSLICEX ; signatureSlice msgSlice
 	DUP
 	HASHSU ; signatureSlice msgSlice hashMsgSlice
-	SWAP
-	LDU 1 ; signatureSlice hashMsgSlice hasPubkey msgSlice
-	SWAP
-	PUSHCONT {
-		LDU 256 ; signatureSlice hashMsgSlice pubkey msgSlice
-		XCHG S3
-		SWAP
-	}
-	PUSHCONT {
-		XCHG S2
-		GETGLOB 2
-	}
-	IFELSE
+	ROT
+	GETGLOB 2
 	CHKSIGNU ; msgSlice isSigned
 	THROWIFNOT 40
 }
-PUSHCONT {
-	LDU 1 ; hasPubkey msgSlice
-	SWAP
-	THROWIF 58
-}
-IFELSE
+IF
 LDU 64 ; timestamp msgSlice
 SWAP
 CALL $replay_protection_macro$
-LDU 32 ; expireAt msgSlice
-SWAP
-NOW ; msgSlice expireAt now
-GREATER ; msgSlice expireAt>now
-THROWIFNOT 57
 LDU 32 ; funcId body
 SWAP
 CALLREF {
@@ -19291,7 +19349,7 @@ MULDIV
 UFITS 128
 .loc ../contracts/libraries/FixedPoint128.sol, 0
 
-.macro new_array_line_1197_column_30_ast_id_2982
+.macro new_array_line_1197_column_30_ast_id_3037
 PUSHINT 0
 NEWC
 STU 128
@@ -19309,7 +19367,7 @@ PUSHCONT {
 REPEAT
 BLKDROP2 2, 1
 
-.macro new_array_line_661_column_56_ast_id_6132
+.macro new_array_line_661_column_56_ast_id_6187
 PUSHREF
 .compute $default_tuple_builder_t_address_t_address_t_uint128_t_uint8_t_uint128_t_uint256_t_uint256_t_bool_t_bool$
 PUSHINT 0
@@ -19326,7 +19384,7 @@ PUSHCONT {
 REPEAT
 BLKDROP2 2, 1
 
-.macro new_array_line_705_column_56_ast_id_6307
+.macro new_array_line_705_column_56_ast_id_6362
 PUSHREF
 .compute $default_tuple_builder_t_address_t_address_t_uint128_t_uint8_t_uint128_t_uint256_t_uint256_t_bool_t_bool$
 PUSHINT 0
@@ -19496,7 +19554,7 @@ IFJMPREF {
 	}
 }
 DUP
-PUSHINT 1398557629
+PUSHINT 1367902022
 LEQ
 IFJMPREF {
 	DUP
@@ -19529,7 +19587,7 @@ IFJMPREF {
 		}
 	}
 	DUP
-	PUSHINT 877978437
+	PUSHINT 782424727
 	LEQ
 	IFJMPREF {
 		DUP
@@ -19537,6 +19595,12 @@ IFJMPREF {
 		EQUAL
 		IFJMPREF {
 			CALL $getVersion$
+		}
+		DUP
+		PUSHINT 769759899
+		EQUAL
+		IFJMPREF {
+			CALL $setPoints$
 		}
 		DUP
 		PUSHINT 778946784
@@ -19550,17 +19614,17 @@ IFJMPREF {
 		IFJMPREF {
 			CALL $expectedSpendAmount$
 		}
+	}
+	DUP
+	PUSHINT 1125423194
+	LEQ
+	IFJMPREF {
 		DUP
 		PUSHINT 877978437
 		EQUAL
 		IFJMPREF {
 			CALL $crossPoolExchange$
 		}
-	}
-	DUP
-	PUSHINT 1131941419
-	LEQ
-	IFJMPREF {
 		DUP
 		PUSHINT 1025233701
 		EQUAL
@@ -19579,17 +19643,17 @@ IFJMPREF {
 		IFJMPREF {
 			CALL $liquidityTokenRootDeployed$
 		}
+	}
+	DUP
+	PUSHINT 1367902022
+	LEQ
+	IFJMPREF {
 		DUP
 		PUSHINT 1131941419
 		EQUAL
 		IFJMPREF {
 			CALL $getObservation$
 		}
-	}
-	DUP
-	PUSHINT 1398557629
-	LEQ
-	IFJMPREF {
 		DUP
 		PUSHINT 1236465367
 		EQUAL
@@ -19608,12 +19672,6 @@ IFJMPREF {
 		IFJMPREF {
 			CALL $liquidityTokenRootNotDeployed$
 		}
-		DUP
-		PUSHINT 1398557629
-		EQUAL
-		IFJMPREF {
-			CALL $depositLiquidity$
-		}
 	}
 }
 DUP
@@ -19621,9 +19679,15 @@ PUSHINT 2009935976
 LEQ
 IFJMPREF {
 	DUP
-	PUSHINT 1592781804
+	PUSHINT 1495092832
 	LEQ
 	IFJMPREF {
+		DUP
+		PUSHINT 1398557629
+		EQUAL
+		IFJMPREF {
+			CALL $depositLiquidity$
+		}
 		DUP
 		PUSHINT 1439800549
 		EQUAL
@@ -19642,17 +19706,17 @@ IFJMPREF {
 		IFJMPREF {
 			CALL $checkPair$
 		}
+	}
+	DUP
+	PUSHINT 1756716863
+	LEQ
+	IFJMPREF {
 		DUP
 		PUSHINT 1592781804
 		EQUAL
 		IFJMPREF {
 			CALL $buildWithdrawLiquidityPayloadV2$
 		}
-	}
-	DUP
-	PUSHINT 1844892595
-	LEQ
-	IFJMPREF {
 		DUP
 		PUSHINT 1602680363
 		EQUAL
@@ -19671,17 +19735,17 @@ IFJMPREF {
 		IFJMPREF {
 			CALL $constructor$
 		}
+	}
+	DUP
+	PUSHINT 1950458398
+	LEQ
+	IFJMPREF {
 		DUP
 		PUSHINT 1844892595
 		EQUAL
 		IFJMPREF {
 			CALL $getTokenWallets$
 		}
-	}
-	DUP
-	PUSHINT 1953731410
-	LEQ
-	IFJMPREF {
 		DUP
 		PUSHINT 1846549773
 		EQUAL
@@ -19700,18 +19764,23 @@ IFJMPREF {
 		IFJMPREF {
 			CALL $getRoot$
 		}
+	}
+	DUP
+	PUSHINT 2009935976
+	LEQ
+	IFJMPREF {
 		DUP
 		PUSHINT 1953731410
 		EQUAL
 		IFJMPREF {
 			CALL $buildCrossPairExchangePayloadV2$
 		}
-	}
-	DUP
-	PUSHINT 2009935976
-	EQUAL
-	IFJMPREF {
-		CALL $withdrawBeneficiaryFee$
+		DUP
+		PUSHINT 2009935976
+		EQUAL
+		IFJMPREF {
+			CALL $withdrawBeneficiaryFee$
+		}
 	}
 }
 
