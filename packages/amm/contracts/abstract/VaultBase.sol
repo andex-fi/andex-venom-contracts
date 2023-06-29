@@ -233,6 +233,7 @@ abstract contract VaultBase is
         address remainingGasTo,
         TvmCell payload
     ) override external {
+        senderWallet;
         require(tokenRoot == configuration.root, ErrorCodes.WRONG_ROOT);
         require(msg.sender == token_wallet, ErrorCodes.WRONG_TOKEN_WALLET);
 

@@ -47,6 +47,13 @@
     locklift "^2.4.6"
     mocha-logger "^1.0.7"
 
+"@broxus/tip3@^1.0.2":
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/@broxus/tip3/-/tip3-1.0.2.tgz#66f3276d6e9aa03ebbe039456340a7b86c247a7c"
+  integrity sha512-y47Rmo7R5jpPjZyVFZ4by1FBMJxR7fkY+78u1mrfGF+3lvhmaV4EFDAHkOlD9uyA9yM+L2czxcv3tU3IW59CPA==
+  dependencies:
+    "@broxus/contracts" "^1.1.1"
+
 "@eslint/eslintrc@^1.3.0":
   version "1.4.1"
   resolved "https://registry.yarnpkg.com/@eslint/eslintrc/-/eslintrc-1.4.1.tgz#af58772019a2d271b7e2d4c23ff4ddcba3ccfb3e"

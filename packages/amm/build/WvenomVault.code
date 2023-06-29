@@ -645,23 +645,25 @@ THROW 0
 
 .macro onAcceptTokensTransfer_e63f2284_internal_macro
 .loc ../contracts/abstract/VaultBase.sol, 236
-ROLL 5
+BLKDROP2 1, 2
+.loc ../contracts/abstract/VaultBase.sol, 237
+ROLL 4
 GETGLOB 12
 SECOND
 SDEQ
 THROWIFNOT 102
-.loc ../contracts/abstract/VaultBase.sol, 237
+.loc ../contracts/abstract/VaultBase.sol, 238
 GETGLOB 9
 GETGLOB 13
 SDEQ
 THROWIFNOT 105
-.loc ../contracts/abstract/VaultBase.sol, 239
-PUSH S4
+.loc ../contracts/abstract/VaultBase.sol, 240
+PUSH S3
 NEGATE
 CALLREF {
 	CALL $updateTotalWrapped_81959021_internal_macro$
 }
-.loc ../contracts/abstract/VaultBase.sol, 241
+.loc ../contracts/abstract/VaultBase.sol, 242
 GETGLOB 14
 GETGLOB 12
 INDEX 4
@@ -669,10 +671,8 @@ ADD
 UFITS 128
 PUSHINT 2
 RAWRESERVE
-.loc ../contracts/abstract/VaultBase.sol, 244
-ROLL 3
-ROT
-ROLL 4
+.loc ../contracts/abstract/VaultBase.sol, 245
+XCHG S3
 GETGLOB 13
 NEWC
 STSLICECONST x62_
@@ -694,7 +694,6 @@ ENDC
 PUSHPOW2 7
 SENDRAWMSG
 .loc ../contracts/abstract/VaultBase.sol, 0
-DROP
 
 .globl	setOwnership_a7016023_internal
 .type	setOwnership_a7016023_internal, @function

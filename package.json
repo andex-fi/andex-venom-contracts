@@ -19,6 +19,7 @@
   "homepage": "https://github.com/andex-fi/andex-venom-contracts#readme",
   "dependencies": {
     "@broxus/contracts": "^1.1.1",
-    "@broxus/tip3": "^1.0.2"
+    "@broxus/tip3": "^1.0.2",
+    "tip3": "^1.0.3"
   }
 }
