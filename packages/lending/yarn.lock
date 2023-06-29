@@ -26,6 +26,11 @@
   dependencies:
     "@broxus/contracts" "^1.1.1"
 
+"@eversdk/core@^1.43.3":
+  version "1.43.3"
+  resolved "https://registry.yarnpkg.com/@eversdk/core/-/core-1.43.3.tgz#2e28fbb280830a68e0ce89588c1dc8b85914f9d6"
+  integrity sha512-iv+aJfO39DwOoTgSL3T3nuWKR6ngdlqHQrR7OG5haM7ym7txWjMGLHQMzocj200DP8DJnEVlViJX63067X+P2A==
+
 "@hapi/hoek@^9.0.0":
   version "9.3.0"
   resolved "https://registry.yarnpkg.com/@hapi/hoek/-/hoek-9.3.0.tgz#8368869dcb735be2e7f5cb7647de78e167a251fb"
