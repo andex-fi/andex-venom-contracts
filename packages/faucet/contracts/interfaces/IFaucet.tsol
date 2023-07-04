@@ -19,6 +19,13 @@ interface IFaucet {
     event UserDataCodeUpdated(uint32 prev_version, uint32 new_version);
     event FaucetUpdated(uint32 prev_version, uint32 new_version);
 
+    function finishWithdraw(
+        address user,
+        uint128 withdrawAmount,
+        address send_gas_to,
+        uint32 nonce
+    ) external;
+
     function forceUpgradeUserData(
         address user, 
         address send_gas_to
