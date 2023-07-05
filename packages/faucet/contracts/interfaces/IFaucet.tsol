@@ -4,7 +4,6 @@ pragma AbiHeader expire;
 interface IFaucet {
 
     struct Details {
-        uint32 lastClaimTime;
         address claimTokenRoot;
         address claimTokenWallet;
         uint128 claimTokenBalance;
