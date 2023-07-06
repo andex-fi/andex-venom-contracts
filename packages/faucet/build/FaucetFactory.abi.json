@@ -1,0 +1,92 @@
+{
+	"ABI version": 2,
+	"version": "2.2",
+	"header": ["time", "expire"],
+	"functions": [
+		{
+			"name": "constructor",
+			"inputs": [
+				{"name":"_owner","type":"address"}
+			],
+			"outputs": [
+			]
+		},
+		{
+			"name": "transferOwnership",
+			"inputs": [
+				{"name":"new_owner","type":"address"},
+				{"name":"send_gas_to","type":"address"}
+			],
+			"outputs": [
+			]
+		},
+		{
+			"name": "deployFaucet",
+			"inputs": [
+				{"name":"faucet_owner","type":"address"},
+				{"name":"claimTokenRoot","type":"address"},
+				{"name":"supply","type":"uint256"},
+				{"name":"rate","type":"uint128"},
+				{"name":"sendRemainingGasTo","type":"address"}
+			],
+			"outputs": [
+			]
+		},
+		{
+			"name": "faucet_count",
+			"inputs": [
+			],
+			"outputs": [
+				{"name":"faucet_count","type":"uint64"}
+			]
+		},
+		{
+			"name": "owner",
+			"inputs": [
+			],
+			"outputs": [
+				{"name":"owner","type":"address"}
+			]
+		},
+		{
+			"name": "FaucetCode",
+			"inputs": [
+			],
+			"outputs": [
+				{"name":"FaucetCode","type":"cell"}
+			]
+		}
+	],
+	"data": [
+		{"key":1,"name":"FaucetCode","type":"cell"}
+	],
+	"events": [
+		{
+			"name": "NewFaucet",
+			"inputs": [
+				{"name":"faucet","type":"address"},
+				{"name":"faucet_owner","type":"address"},
+				{"name":"tokenRoot","type":"address"}
+			],
+			"outputs": [
+			]
+		},
+		{
+			"name": "NewOwner",
+			"inputs": [
+				{"name":"prev_owner","type":"address"},
+				{"name":"new_owner","type":"address"}
+			],
+			"outputs": [
+			]
+		}
+	],
+	"fields": [
+		{"name":"_pubkey","type":"uint256"},
+		{"name":"_timestamp","type":"uint64"},
+		{"name":"_constructorFlag","type":"bool"},
+		{"name":"faucet_count","type":"uint64"},
+		{"name":"owner","type":"address"},
+		{"name":"FaucetCode","type":"cell"}
+	]
+}

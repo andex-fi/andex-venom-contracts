@@ -1,0 +1,80 @@
+pragma ever-solidity >= 0.62.0;
+pragma AbiHeader expire;
+
+import './Faucet.tsol';
+import "@broxus/contracts/contracts/libraries/MsgFlag.tsol";
+
+contract FaucetFactory {
+    event NewFaucet(
+        address faucet,
+        address faucet_owner,
+        address tokenRoot
+    );
+
+    event NewOwner(address prev_owner, address new_owner);
+
+    uint64 public faucet_count = 0;
+    address public owner;
+
+    // uint128 public static nonce;
+    TvmCell public static FaucetCode;
+
+    uint8 constant WRONG_PUBKEY = 101;
+    uint8 constant NOT_OWNER = 102;
+    uint8 constant LOW_MSG_VALUE = 104;
+
+    uint128 constant FAUCET_POOL_DEPLOY_VALUE = 5 ever;
+    uint128 constant CONTRACT_MIN_BALANCE = 1 ever;
+
+    constructor(address _owner) public {
+        require (tvm.pubkey() == msg.pubkey(), WRONG_PUBKEY);
+        tvm.accept();
+
+        owner = _owner;
+    }
+
+    function _reserve() internal pure returns (uint128) {
+        return math.max(address(this).balance - msg.value, CONTRACT_MIN_BALANCE);
+    }
+
+    function transferOwnership(address new_owner, address send_gas_to) external {
+        require (msg.sender == owner, NOT_OWNER);
+        tvm.rawReserve(_reserve(), 0);
+
+        emit NewOwner(owner, new_owner);
+        owner = new_owner;
+        send_gas_to.transfer({ value: 0, bounce: false, flag: MsgFlag.ALL_NOT_RESERVED });
+    }
+
+    function deployFaucet(
+        address faucet_owner,
+        address claimTokenRoot,
+        uint256 supply,
+        uint128 rate,
+        address sendRemainingGasTo
+    ) external {
+        tvm.rawReserve(_reserve(), 0);
+        require (msg.value >= FAUCET_POOL_DEPLOY_VALUE, LOW_MSG_VALUE);
+
+        TvmCell stateInit = tvm.buildStateInit({
+            contr: Faucet,
+            varInit: {
+                _nonce: faucet_count,
+                _owner: faucet_owner,
+                _factory: address(this)
+            },
+            pubkey: tvm.pubkey(),
+            code: FaucetCode
+        });
+        faucet_count += 1;
+
+        address faucet = new Faucet{
+            stateInit: stateInit,
+            value: 0,
+            wid: address(this).wid,
+            flag: MsgFlag.ALL_NOT_RESERVED
+        }( claimTokenRoot, supply, rate, sendRemainingGasTo);
+
+        emit NewFaucet(faucet, faucet_owner, claimTokenRoot);
+    }
+}

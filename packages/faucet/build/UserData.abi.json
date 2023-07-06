@@ -9,59 +9,19 @@
 			],
 			"outputs": [
 			]
-		},
-		{
-			"name": "getDetails",
-			"inputs": [
-				{"name":"answerId","type":"uint32"}
-			],
-			"outputs": [
-				{"components":[{"name":"faucet","type":"address"},{"name":"user","type":"address"},{"name":"current_version","type":"uint32"},{"name":"lastClaimTime","type":"uint32"}],"name":"value0","type":"tuple"}
-			]
-		},
-		{
-			"name": "processClaim",
-			"inputs": [
-				{"name":"send_gas_to","type":"address"},
-				{"name":"nonce","type":"uint32"},
-				{"name":"code_version","type":"uint32"}
-			],
-			"outputs": [
-			]
-		},
-		{
-			"name": "upgrade",
-			"inputs": [
-				{"name":"new_code","type":"cell"},
-				{"name":"new_version","type":"uint32"},
-				{"name":"send_gas_to","type":"address"}
-			],
-			"outputs": [
-			]
 		}
 	],
 	"data": [
 	],
 	"events": [
-		{
-			"name": "UserDataUpdated",
-			"inputs": [
-				{"name":"prev_version","type":"uint32"},
-				{"name":"new_version","type":"uint32"}
-			],
-			"outputs": [
-			]
-		}
 	],
 	"fields": [
 		{"name":"_pubkey","type":"uint256"},
 		{"name":"_timestamp","type":"uint64"},
 		{"name":"_constructorFlag","type":"bool"},
-		{"name":"current_version","type":"uint32"},
 		{"name":"platform_code","type":"cell"},
+		{"name":"lastClaimTime","type":"uint32"},
 		{"name":"faucet","type":"address"},
-		{"name":"user","type":"address"},
-		{"name":"claimAmount","type":"uint128"},
-		{"name":"lastClaimTime","type":"map(address,uint32)"}
+		{"name":"user","type":"address"}
 	]
 }
