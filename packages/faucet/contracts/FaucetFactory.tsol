@@ -1,14 +1,17 @@
 pragma ever-solidity >= 0.62.0;
 pragma AbiHeader expire;
 
+import './interfaces/IFaucetFactory.tsol';
 import './Faucet.tsol';
 import "@broxus/contracts/contracts/libraries/MsgFlag.tsol";
 
-contract FaucetFactory {
+contract FaucetFactory is IFaucetFactory {
     event NewFaucet(
         address faucet,
         address faucet_owner,
-        address tokenRoot
+        address tokenRoot,
+        uint256 supply,
+        uint128 rate
     );
 
     event NewOwner(address prev_owner, address new_owner);
@@ -16,11 +19,12 @@ contract FaucetFactory {
     uint64 public faucet_count = 0;
     address public owner;
 
-    // uint128 public static nonce;
+    uint128 public static nonce;
     TvmCell public static FaucetCode;
 
     uint8 constant WRONG_PUBKEY = 101;
     uint8 constant NOT_OWNER = 102;
+    uint8 constant NOT_FAUCET = 103;
     uint8 constant LOW_MSG_VALUE = 104;
 
     uint128 constant FAUCET_POOL_DEPLOY_VALUE = 5 ever;
@@ -52,7 +56,7 @@ contract FaucetFactory {
         uint256 supply,
         uint128 rate,
         address sendRemainingGasTo
-    ) external {
+    ) external returns (address) {
         tvm.rawReserve(_reserve(), 0);
         require (msg.value >= FAUCET_POOL_DEPLOY_VALUE, LOW_MSG_VALUE);
 
@@ -75,6 +79,30 @@ contract FaucetFactory {
             flag: MsgFlag.ALL_NOT_RESERVED
         }( claimTokenRoot, supply, rate, sendRemainingGasTo);
 
-        emit NewFaucet(faucet, faucet_owner, claimTokenRoot);
+        return (faucet);
+    }
+
+    function onFaucetDeploy(
+        address faucet_owner,
+        address claimTokenRoot,
+        uint256 supply,
+        uint128 rate
+    ) external override {
+        TvmCell stateInit = tvm.buildStateInit({
+            contr: Faucet,
+            varInit: {
+                _nonce: faucet_count,
+                _owner: faucet_owner,
+                _factory: address(this)
+            },
+            pubkey: tvm.pubkey(),
+            code: FaucetCode
+        });
+        address faucet_address = address(tvm.hash(stateInit));
+        require (msg.sender == faucet_address, NOT_FAUCET);
+
+        tvm.rawReserve(_reserve(), 0);
+
+        emit NewFaucet(faucet_address, faucet_owner, claimTokenRoot, supply, rate);
     }
 }

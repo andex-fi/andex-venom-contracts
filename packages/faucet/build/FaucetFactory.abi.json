@@ -30,6 +30,18 @@
 				{"name":"sendRemainingGasTo","type":"address"}
 			],
 			"outputs": [
+				{"name":"value0","type":"address"}
+			]
+		},
+		{
+			"name": "onFaucetDeploy",
+			"inputs": [
+				{"name":"faucet_owner","type":"address"},
+				{"name":"claimTokenRoot","type":"address"},
+				{"name":"supply","type":"uint256"},
+				{"name":"rate","type":"uint128"}
+			],
+			"outputs": [
 			]
 		},
 		{
@@ -49,6 +61,14 @@
 			]
 		},
 		{
+			"name": "nonce",
+			"inputs": [
+			],
+			"outputs": [
+				{"name":"nonce","type":"uint128"}
+			]
+		},
+		{
 			"name": "FaucetCode",
 			"inputs": [
 			],
@@ -58,7 +78,8 @@
 		}
 	],
 	"data": [
-		{"key":1,"name":"FaucetCode","type":"cell"}
+		{"key":1,"name":"nonce","type":"uint128"},
+		{"key":2,"name":"FaucetCode","type":"cell"}
 	],
 	"events": [
 		{
@@ -66,7 +87,9 @@
 			"inputs": [
 				{"name":"faucet","type":"address"},
 				{"name":"faucet_owner","type":"address"},
-				{"name":"tokenRoot","type":"address"}
+				{"name":"tokenRoot","type":"address"},
+				{"name":"supply","type":"uint256"},
+				{"name":"rate","type":"uint128"}
 			],
 			"outputs": [
 			]
@@ -87,6 +110,7 @@
 		{"name":"_constructorFlag","type":"bool"},
 		{"name":"faucet_count","type":"uint64"},
 		{"name":"owner","type":"address"},
+		{"name":"nonce","type":"uint128"},
 		{"name":"FaucetCode","type":"cell"}
 	]
 }

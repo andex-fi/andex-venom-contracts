@@ -24,25 +24,25 @@ ENDS
 CTOS
 LDMSGADDR
 ENDS
-.loc ../contracts/Faucet.tsol, 26
+.loc ../contracts/Faucet.tsol, 29
 ACCEPT
-.loc ../contracts/Faucet.tsol, 27
+.loc ../contracts/Faucet.tsol, 30
 PUSHINT 1000000000
 PUSHINT 0
 RAWRESERVE
-.loc ../contracts/Faucet.tsol, 28
+.loc ../contracts/Faucet.tsol, 31
 PUSH S3
 SETGLOB 13
-.loc ../contracts/Faucet.tsol, 29
-SWAP
+.loc ../contracts/Faucet.tsol, 32
+OVER
 SETGLOB 16
-.loc ../contracts/Faucet.tsol, 30
-SWAP
-SETGLOB 15
 .loc ../contracts/Faucet.tsol, 33
+PUSH S2
+SETGLOB 15
+.loc ../contracts/Faucet.tsol, 36
 PUSHINT 100000000
 MYADDR
-ROLL 3
+PUSH S5
 NEWC
 STSLICECONST x62_
 STSLICE
@@ -58,7 +58,7 @@ STBREFR
 ENDC
 PUSHINT 1
 SENDRAWMSG
-.loc ../contracts/Faucet.tsol, 42
+.loc ../contracts/Faucet.tsol, 45
 NEWC
 STSLICECONST x42_
 STSLICE
@@ -66,6 +66,29 @@ PUSHINT 111
 STZEROES
 ENDC
 PUSHPOW2 7
+SENDRAWMSG
+.loc ../contracts/Faucet.tsol, 47
+XCHG S2
+GETGLOB 11
+GETGLOB 12
+NEWC
+STSLICECONST x62_
+STSLICE
+PUSHINT 2803819077499249229031122585109857988247553
+STUR 143
+ROLLREV 4
+NEWC
+STSLICECONST x545a725b
+STSLICE
+ROLLREV 3
+NEWC
+STSLICE
+STU 256
+STU 128
+STBREFR
+STBREFR
+ENDC
+PUSHINT 0
 SENDRAWMSG
 .loc ../contracts/Faucet.tsol, 0
 CALLREF {
@@ -82,7 +105,7 @@ ISNULL
 IFREF {
 	CALL $c4_to_c7$
 }
-.loc ../contracts/Faucet.tsol, 45
+.loc ../contracts/Faucet.tsol, 52
 OVER
 PUSHCONT {
 	LDREF
@@ -103,7 +126,7 @@ CALLREF {
 THROW 0
 
 .macro onTokenWallet_e6d1bd58_internal_macro
-.loc ../contracts/Faucet.tsol, 46
+.loc ../contracts/Faucet.tsol, 53
 GETGLOB 9
 PARSEMSGADDR
 INDEX 3
@@ -114,13 +137,13 @@ GETGLOB 13
 SDEQ
 AND
 THROWIFNOT 101
-.loc ../contracts/Faucet.tsol, 51
+.loc ../contracts/Faucet.tsol, 58
 PUSHINT 1000000000
 PUSHINT 0
 RAWRESERVE
-.loc ../contracts/Faucet.tsol, 52
+.loc ../contracts/Faucet.tsol, 59
 SETGLOB 14
-.loc ../contracts/Faucet.tsol, 53
+.loc ../contracts/Faucet.tsol, 60
 GETGLOB 11
 NEWC
 STSLICECONST x42_
@@ -141,7 +164,7 @@ ISNULL
 IFREF {
 	CALL $c4_to_c7$
 }
-.loc ../contracts/Faucet.tsol, 56
+.loc ../contracts/Faucet.tsol, 63
 OVER
 PUSHCONT {
 	LDREF
@@ -161,11 +184,11 @@ IFREF {
 THROW 0
 
 .macro claimTokens_7bd58856_internal_macro
-.loc ../contracts/Faucet.tsol, 57
+.loc ../contracts/Faucet.tsol, 64
 PUSHINT 1000000000
 PUSHINT 0
 RAWRESERVE
-.loc ../contracts/Faucet.tsol, 59
+.loc ../contracts/Faucet.tsol, 66
 DUP
 DEPTH
 ADDCONST -2
@@ -175,7 +198,7 @@ ADD
 UFITS 128
 GREATER
 PUSHCONT {
-	.loc ../contracts/Faucet.tsol, 60
+	.loc ../contracts/Faucet.tsol, 67
 	GETGLOB 9
 	NEWC
 	STSLICECONST x42_
@@ -187,17 +210,17 @@ PUSHCONT {
 	SENDRAWMSG
 }
 PUSHCONT {
-	.loc ../contracts/Faucet.tsol, 62
+	.loc ../contracts/Faucet.tsol, 69
 	GETGLOB 16
 	OVER
 	MUL
 	UFITS 128
-	.loc ../contracts/Faucet.tsol, 63
+	.loc ../contracts/Faucet.tsol, 70
 	DUP
 	GETGLOB 15
 	GREATER
 	PUSHCONT {
-		.loc ../contracts/Faucet.tsol, 64
+		.loc ../contracts/Faucet.tsol, 71
 		GETGLOB 9
 		NEWC
 		STSLICECONST x42_
@@ -206,10 +229,10 @@ PUSHCONT {
 		STZEROES
 	}
 	PUSHCONT {
-		.loc ../contracts/Faucet.tsol, 66
+		.loc ../contracts/Faucet.tsol, 73
 		PUSHREF {
 		}
-		.loc ../contracts/Faucet.tsol, 68
+		.loc ../contracts/Faucet.tsol, 75
 		FALSE
 		GETGLOB 9
 		PUSHINT 100000000

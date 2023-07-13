@@ -6,6 +6,7 @@ import "@broxus/tip3/contracts/interfaces/IAcceptTokensTransferCallback.tsol";
 import "@broxus/tip3/contracts/interfaces/ITokenRoot.tsol";
 import "@broxus/tip3/contracts/interfaces/ITokenWallet.tsol";
 
+import "./interfaces/IFaucetFactory.tsol";
 
 contract Faucet {
     uint64  static _nonce; // some random value to affect on contract address
@@ -16,6 +17,8 @@ contract Faucet {
     address public _claimTokenWallet; // TIP3 wallet for Faucet for sending purchased tokens
     uint256 public _supply; // How much tokens will be distributed (with decimals)
     uint128 public _rate; // How much tokens user  will receive for 1 nanovenom (1*10^9)
+
+    uint128 constant FACTORY_DEPLOY_CALLBACK_VALUE = 0.1 ever;
 
     constructor(
         address claimTokenRoot,
@@ -40,6 +43,10 @@ contract Faucet {
         );
         // sending remaining gas after setups
         sendRemainingGasTo.transfer({ value: 0, flag: 128, bounce: false });
+
+        IFaucetFactory(_factory).onFaucetDeploy{
+            value: FACTORY_DEPLOY_CALLBACK_VALUE
+        }(_owner, claimTokenRoot, supply, rate);
     }
 
     function onTokenWallet(address value) external {

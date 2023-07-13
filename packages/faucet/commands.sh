@@ -1,0 +1,1 @@
+locklift run -n main -s scripts/1-deploy-factory.ts  --config locklift.config.ts --network venom_testnet

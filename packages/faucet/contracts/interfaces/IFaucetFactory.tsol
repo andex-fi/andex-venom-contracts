@@ -1,0 +1,12 @@
+pragma ever-solidity >= 0.62.0;
+pragma AbiHeader expire;
+
+interface IFaucetFactory {
+
+    function onFaucetDeploy(
+        address faucet_owner,
+        address claimTokenRoot,
+        uint256 supply,
+        uint128 rate
+    ) external;
+}
